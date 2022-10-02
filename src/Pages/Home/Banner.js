@@ -6,7 +6,9 @@ import bg from "../../assets/images/bg.png";
 const Banner = () => {
   return (
     <div style={{
-      background: `url(${bg})`
+      background: `url(${bg})`,
+      backgroundPosition: "center",
+      backgroundSize: "cover"
     }} className="hero min-h-screen">
       <div className="hero-content flex-col lg:flex-row-reverse gap-x-12">
         <img
