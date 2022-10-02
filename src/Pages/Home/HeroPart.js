@@ -4,12 +4,12 @@ import Button from "../Shared/Button";
 
 const HeroPart = () => {
   return (
-    <div>
+    <div className="my-20 ">
       <div className="hero min-h-screen">
         <div className="hero-content flex-col lg:flex-row gap-12">
           <img
             src={treatment}
-            className="max-w-sm rounded-lg shadow-2xl" alt=""
+            className="w-96 rounded-lg shadow-2xl" alt=""
           />
           <div>
             <h1 className="text-5xl font-bold">Exceptional  Dental <br/> Care, on Your Terms</h1>
