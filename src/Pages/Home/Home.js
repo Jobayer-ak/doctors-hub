@@ -4,6 +4,7 @@ import HeroPart from "./HeroPart";
 import Info from "./Info";
 import MakeAppointment from "./MakeAppointment";
 import Services from "./Services";
+import StayConnected from "./StayConnected";
 import Testimonials from "./Testimonials";
 
 const Home = () => {
@@ -15,6 +16,7 @@ const Home = () => {
       <HeroPart />
       <MakeAppointment />
       <Testimonials />
+      <StayConnected/>
     </div>
   );
 };
