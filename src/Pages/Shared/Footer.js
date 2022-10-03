@@ -10,7 +10,7 @@ const Footer = () => {
         backgroundPosition: "center"
       }}
       className="p-10 mt-12">
-      <div className="footer">
+      <div className="footer container mx-auto flex justify-between items-center">
         <div>
           <span className="footer-title">Services</span>
           <a className="link link-hover">Branding</a>

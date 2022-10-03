@@ -16,7 +16,7 @@ const StayConnected = () => {
         background: `url(${appoinment})`,
         backgroundSize: "cover",
       }}
-      className="text-center mt-12 p-12"
+      className="text-center mt-12 p-10"
     >
       <h2 className="text-primary text-2xl">Contact Us</h2>
       <h2 className="text-4xl text-white font-bold my-5">
