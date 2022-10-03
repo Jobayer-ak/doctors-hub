@@ -14,7 +14,7 @@ const Banner = () => {
         <img
           src={Chair}
           className="lg:max-w-lg sm:max-w-sm rounded-lg shadow-2xl"
-          alt=""
+          alt="Dantist Chair"
         />
         <div>
           <h1 className="text-5xl font-bold">Your New Smiles Starts Here</h1>
