@@ -13,7 +13,6 @@ const BookingModal = ({ date, treatment, setTreatment }) => {
 
   return (
     <div>
-      {/* <!-- Put this part before </body> tag --> */}
       <input type="checkbox" id="booking-modal" className="modal-toggle" />
       <div className="modal modal-bottom sm:modal-middle">
         <div className="modal-box">
@@ -25,7 +24,7 @@ const BookingModal = ({ date, treatment, setTreatment }) => {
           </label>
           <h3 className="font-bold text-lg text-secondary">
             Booking for {name}!
-          </h3>
+          </h3> 
 
           {/* Form */}
           <form
@@ -51,18 +50,22 @@ const BookingModal = ({ date, treatment, setTreatment }) => {
               name="name"
               placeholder="Name"
               className="input border-solid border-1 border-green-200 w-full max-w-xs"
+              required
             />
             <input
               type="email"
               name="email"
               placeholder="Email"
               className="input border-solid border-1 border-green-200 w-full max-w-xs"
+              required
+
             />
             <input
               type="text"
               name="phone"
               placeholder="Phone Number"
               className="input border-solid border-1 border-green-200 w-full max-w-xs"
+              required
             />
             <input
               type="submit"

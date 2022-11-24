@@ -1,5 +1,5 @@
 import axios from "axios";
-import { format} from "date-fns";
+import { format } from "date-fns";
 import React, { useEffect, useState } from "react";
 import BookingModal from "./BookingModal";
 import Service from "./Service";
@@ -9,13 +9,10 @@ const AvailableAppointments = ({ date }) => {
   const [treatment, setTreatment] = useState(null);
 
   useEffect(() => {
-    // fetch("services.json")
-    //   .then((res) => res.json())
-    //   .then((data) => setServices(data));
-    axios.get("http://localhost:5000/api/v1/slots").then(res=> setServices(res.data.data))
+    axios
+      .get("http://localhost:5000/api/v1/slots")
+      .then((res) => setServices(res.data.data));
   }, []);
-
-  console.log(services);
 
   return (
     <div>
