@@ -9,6 +9,7 @@ const AvailableAppointments = ({ date }) => {
   const [treatment, setTreatment] = useState(null);
 
   useEffect(() => {
+    // fetching slots from db
     axios
       .get("http://localhost:5000/api/v1/slots")
       .then((res) => setServices(res.data.data));
