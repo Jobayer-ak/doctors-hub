@@ -20,7 +20,7 @@ const Login = () => {
           <form onSubmit={handleSubmit(onSubmit)}>
             <div className="form-control w-full max-w-xs">
               <label className="label">
-                <span className="label-text">Email</span>
+                <span className="text-[#3A4256]">Email</span>
               </label>
               <input
                 type="email"
@@ -31,17 +31,18 @@ const Login = () => {
                     value: true,
                     message: "Email is required!",
                   },
+
                   pattern: /[a-z0-9]+@[a-z]+\.[a-z]{2,3}/,
                   message: "Provide a valid email!",
                 })}
               />
               <label className="label">
-                {errors.emial?.type === "required" && (
+                {errors.email?.type === "required" && (
                   <span className="label-text-alt text-red-500">
                     {errors.email.message}
                   </span>
                 )}
-                {errors.emial?.type === "pattern" && (
+                {errors.email?.type === "pattern" && (
                   <span className="label-text-alt text-red-500">
                     {errors.email.message}
                   </span>
@@ -51,7 +52,7 @@ const Login = () => {
 
             <div className="form-control w-full max-w-xs">
               <label className="label">
-                <span className="label-text">Password</span>
+                <span className="text-[#3A4256]">Password</span>
               </label>
               <input
                 type="password"
@@ -79,9 +80,27 @@ const Login = () => {
               </label>
             </div>
 
-            <input className="btn w-full max-w=xs" type="submit" />
+            <input
+              className="btn w-full max-w=xs text-white"
+              type="submit"
+              value="Login"
+            />
           </form>
-          <div className="divider">OR</div>
+          {/* <div className="divider">OR</div> */}
+
+          <div class="flex items-center py-4">
+            {/* <!-- The left line --> */}
+            <div class="flex-grow h-px bg-gray-300"></div>
+
+            {/* <!-- Your text here --> */}
+            <span class="flex-shrink text-xl text-gray-500 px-4">
+              OR
+            </span>
+
+            {/* <!-- The right line --> */}
+            <div class="flex-grow h-px bg-gray-300"></div>
+          </div>
+
           <button className="btn btn-outline">Continue With Google</button>
         </div>
       </div>
