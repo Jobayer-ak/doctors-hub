@@ -1,5 +1,6 @@
 import React from "react";
 import { useForm } from "react-hook-form";
+import { Link } from "react-router-dom";
 
 const Login = () => {
   const {
@@ -86,18 +87,19 @@ const Login = () => {
               value="Login"
             />
           </form>
-          {/* <div className="divider">OR</div> */}
+          <div className="p-1">
+            <p>
+              Don't have an account?{" "}
+              <Link to="/register" className="text-sky-500">Create new account</Link>
+            </p>
+          </div>
+          {/* Divider */}
 
-          <div class="flex items-center py-4">
-            {/* <!-- The left line --> */}
+          <div class="flex items-center px-1 py-4">
             <div class="flex-grow h-px bg-gray-300"></div>
 
-            {/* <!-- Your text here --> */}
-            <span class="flex-shrink text-xl text-gray-500 px-4">
-              OR
-            </span>
+            <span class="flex-shrink text-xl text-gray-500 px-4">OR</span>
 
-            {/* <!-- The right line --> */}
             <div class="flex-grow h-px bg-gray-300"></div>
           </div>
 
