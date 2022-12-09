@@ -95,12 +95,12 @@ const Login = () => {
           </div>
           {/* Divider */}
 
-          <div class="flex items-center px-1 py-4">
-            <div class="flex-grow h-px bg-gray-300"></div>
+          <div className="flex items-center px-1 py-4">
+            <div className="flex-grow h-px bg-gray-300"></div>
 
-            <span class="flex-shrink text-xl text-gray-500 px-4">OR</span>
+            <span className="flex-shrink text-xl text-gray-500 px-4">OR</span>
 
-            <div class="flex-grow h-px bg-gray-300"></div>
+            <div className="flex-grow h-px bg-gray-300"></div>
           </div>
 
           <button className="btn btn-outline">Continue With Google</button>

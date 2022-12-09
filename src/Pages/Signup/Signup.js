@@ -1,6 +1,7 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
+import axios from "axios";
 
 const Signup = () => {
   const {
@@ -10,7 +11,8 @@ const Signup = () => {
   } = useForm();
 
   const onSubmit = (data) => {
-    console.log(data);
+    console.log(data.name);
+    const response = axios.post("/signup", data);
   };
   return (
     <div className="flex h-screen justify-center items-center">
