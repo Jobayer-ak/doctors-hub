@@ -7,12 +7,22 @@ const Signup = () => {
   const {
     register,
     formState: { errors },
+    reset,
     handleSubmit,
   } = useForm();
 
   const onSubmit = (data) => {
     console.log(data.name);
-    const response = axios.post("/signup", data);
+    axios
+      .post("http://localhost:5000/api/v1/signup", data)
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+
+    reset();
   };
   return (
     <div className="flex h-screen justify-center items-center">
