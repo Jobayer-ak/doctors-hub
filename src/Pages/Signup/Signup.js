@@ -1,6 +1,6 @@
 import React from "react";
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 
 const Signup = () => {
@@ -10,19 +10,22 @@ const Signup = () => {
     reset,
     handleSubmit,
   } = useForm();
+  const navigate = useNavigate();
+  
 
   const onSubmit = (data) => {
     console.log(data.name);
-    axios
-      .post("http://localhost:5000/api/v1/signup", data)
-      .then((res) => {
-        console.log(res);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    axios.post("http://localhost:5000/api/v1/signup", data)
+    .then( (res)=> {
+      console.log(res);
+    })
+    .catch((error)=> {
+      console.log(error);
+    });
 
+    navigate("/appointment");
     reset();
+  
   };
   return (
     <div className="flex h-screen justify-center items-center">
