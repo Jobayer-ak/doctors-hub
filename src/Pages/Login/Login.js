@@ -1,6 +1,7 @@
+import axios from "axios";
 import React from "react";
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Login = () => {
   const {
@@ -9,8 +10,19 @@ const Login = () => {
     handleSubmit,
   } = useForm();
 
+  const navigate = useNavigate();
+
   const onSubmit = (data) => {
-    console.log(data);
+    axios
+      .post("http://localhost:5000/api/v1/login", data)
+      .then((res) => {
+        window.localStorage.setItem("token", res.data.data.token);
+        // console.log(localStorage.getItem("token"));
+        navigate("/appointment");
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
   };
 
   return (
@@ -90,7 +102,9 @@ const Login = () => {
           <div className="p-1">
             <p>
               Don't have an account?{" "}
-              <Link to="/register" className="text-sky-500">Create new account</Link>
+              <Link to="/register" className="text-sky-500">
+                Create new account
+              </Link>
             </p>
           </div>
           {/* Divider */}

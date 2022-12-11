@@ -1,7 +1,26 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 
 const Navbar = () => {
+  const [token, setToken] = useState("");
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const userToken = localStorage.getItem("token");
+    if (userToken) {
+      setToken(userToken);
+      console.log(userToken);
+    }
+  }, [token]);
+
+  const logout = () => {
+    window.localStorage.removeItem("token");
+    navigate("/login");
+    setToken("");
+    console.log("Token: ", token);
+    // window.location.reload();
+  };
+
   const menuItems = (
     <>
       <li>
@@ -20,10 +39,18 @@ const Navbar = () => {
         <Link to="/about">About</Link>
       </li>
       <li>
-        <Link to="/login">Login</Link>
+        {token ? (
+          <button className="btn btn-ghost" onClick={logout}>
+            Logout
+          </button>
+        ) : (
+          <Link to="/login">Login</Link>
+        )}
       </li>
     </>
   );
+
+  console.log("first");
   return (
     <div className="navbar bg-base-100 text-black container mx-auto">
       <div className="navbar-start">
@@ -51,12 +78,13 @@ const Navbar = () => {
             {menuItems}
           </ul>
         </div>
-        <Link className="btn btn-ghost normal-case text-xl">Doctors Appointment</Link>
+        <Link className="btn btn-ghost normal-case text-xl">
+          Doctors Appointment
+        </Link>
       </div>
       <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal p-0">{menuItems}</ul>
       </div>
-      
     </div>
   );
 };
