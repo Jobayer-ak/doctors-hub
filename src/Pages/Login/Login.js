@@ -16,8 +16,8 @@ const Login = () => {
     axios
       .post("http://localhost:5000/api/v1/login", data)
       .then((res) => {
-        window.localStorage.setItem("token", res.data.data.token);
-        // console.log(localStorage.getItem("token"));
+        localStorage.setItem("token", JSON.stringify(res.data.data.token));
+
         navigate("/appointment");
       })
       .catch((err) => {

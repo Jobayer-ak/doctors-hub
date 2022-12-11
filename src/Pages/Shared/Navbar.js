@@ -2,23 +2,23 @@ import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 const Navbar = () => {
-  const [token, setToken] = useState("");
+  const [token, setToken] = useState(null);
   const navigate = useNavigate();
 
+  const userToken = JSON.parse(localStorage.getItem("token"));
+
   useEffect(() => {
-    const userToken = localStorage.getItem("token");
     if (userToken) {
       setToken(userToken);
       console.log(userToken);
     }
-  }, [token]);
+  }, [userToken, token]);
 
   const logout = () => {
-    window.localStorage.removeItem("token");
+    localStorage.removeItem("token");
     navigate("/login");
-    setToken("");
+    setToken(null);
     console.log("Token: ", token);
-    // window.location.reload();
   };
 
   const menuItems = (
