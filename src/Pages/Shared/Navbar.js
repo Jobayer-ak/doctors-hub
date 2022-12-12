@@ -5,17 +5,18 @@ const Navbar = () => {
   const [token, setToken] = useState(null);
   const navigate = useNavigate();
 
-  const userToken = JSON.parse(localStorage.getItem("token"));
+  const user = JSON.parse(localStorage.getItem("token"));
 
   useEffect(() => {
-    if (userToken) {
-      setToken(userToken);
-      console.log(userToken);
+    if (user) {
+      setToken(user);
+      // console.log(user);
     }
-  }, [userToken, token]);
+  }, [user, token]);
 
   const logout = () => {
     localStorage.removeItem("token");
+    localStorage.removeItem("userData");
     navigate("/login");
     setToken(null);
     console.log("Token: ", token);
@@ -50,7 +51,6 @@ const Navbar = () => {
     </>
   );
 
-  console.log("first");
   return (
     <div className="navbar bg-base-100 text-black container mx-auto">
       <div className="navbar-start">

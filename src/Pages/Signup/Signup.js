@@ -14,7 +14,7 @@ const Signup = () => {
   
 
   const onSubmit = (data) => {
-    console.log(data.name);
+   
     axios.post("http://localhost:5000/api/v1/signup", data)
     .then( (res)=> {
       console.log(res);
@@ -23,7 +23,7 @@ const Signup = () => {
       console.log(error);
     });
 
-    navigate("/appointment");
+    navigate("/login");
     reset();
   
   };

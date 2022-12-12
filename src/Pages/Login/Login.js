@@ -1,24 +1,27 @@
 import axios from "axios";
 import React from "react";
 import { useForm } from "react-hook-form";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
-const Login = () => {
+const Login = (props) => {
+  const navigate = useNavigate();
+  const location = useLocation();
   const {
     register,
     formState: { errors },
     handleSubmit,
   } = useForm();
 
-  const navigate = useNavigate();
+  let from = location.state?.from?.pathname || "/";
 
   const onSubmit = (data) => {
     axios
       .post("http://localhost:5000/api/v1/login", data)
       .then((res) => {
         localStorage.setItem("token", JSON.stringify(res.data.data.token));
-
-        navigate("/appointment");
+        localStorage.setItem("userData", JSON.stringify(res.data.data.user));
+        // localStorage.setItem("userData", res.data.data);
+        navigate(from, { replace: true });
       })
       .catch((err) => {
         console.log(err.message);

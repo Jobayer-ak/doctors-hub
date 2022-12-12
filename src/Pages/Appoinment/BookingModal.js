@@ -10,7 +10,8 @@ const BookingModal = ({ date, treatment, setTreatment }) => {
     console.log(_id, name, slot);
     setTreatment(null);
   };
-
+  const info = JSON.parse(localStorage.getItem("userData"));
+  // console.log(info)
   return (
     <div>
       <input type="checkbox" id="booking-modal" className="modal-toggle" />
@@ -24,7 +25,7 @@ const BookingModal = ({ date, treatment, setTreatment }) => {
           </label>
           <h3 className="font-bold text-lg text-secondary">
             Booking for {name}!
-          </h3> 
+          </h3>
 
           {/* Form */}
           <form
@@ -48,22 +49,23 @@ const BookingModal = ({ date, treatment, setTreatment }) => {
             <input
               type="text"
               name="name"
-              placeholder="Name"
+              value={info.name}
               className="input border-solid border-1 border-green-200 w-full max-w-xs"
               required
+              readOnly
             />
             <input
               type="email"
               name="email"
-              placeholder="Email"
+              value={info.email}
               className="input border-solid border-1 border-green-200 w-full max-w-xs"
               required
-
+              readOnly
             />
             <input
               type="text"
               name="phone"
-              placeholder="Phone Number"
+              placeholder="Your Mobile Number"
               className="input border-solid border-1 border-green-200 w-full max-w-xs"
               required
             />
