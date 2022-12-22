@@ -18,9 +18,10 @@ const Login = (props) => {
     axios
       .post("http://localhost:5000/api/v1/login", data)
       .then((res) => {
-        localStorage.setItem("token", JSON.stringify(res.data.data.token));
-        localStorage.setItem("userData", JSON.stringify(res.data.data.user));
+        // localStorage.setItem("token", JSON.stringify(res.data.data.token));
+        // localStorage.setItem("userData", JSON.stringify(res.data.data.user));
         // localStorage.setItem("userData", res.data.data);
+        console.log(res.data.data.token)
         navigate(from, { replace: true });
       })
       .catch((err) => {
