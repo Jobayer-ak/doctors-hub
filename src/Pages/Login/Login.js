@@ -1,11 +1,14 @@
 import axios from "axios";
 import React from "react";
+import { useCookies } from "react-cookie";
 import { useForm } from "react-hook-form";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 
 const Login = (props) => {
+  const [cookies, setCookies] = useCookies("");
   const navigate = useNavigate();
   const location = useLocation();
+
   const {
     register,
     formState: { errors },
@@ -18,10 +21,10 @@ const Login = (props) => {
     axios
       .post("http://localhost:5000/api/v1/login", data)
       .then((res) => {
-        // localStorage.setItem("token", JSON.stringify(res.data.data.token));
-        // localStorage.setItem("userData", JSON.stringify(res.data.data.user));
-        // localStorage.setItem("userData", res.data.data);
-        console.log(res.data.data.token)
+        setCookies("cook", res.data.token, {
+          path: "/",
+        });
+        console.log(cookies)
         navigate(from, { replace: true });
       })
       .catch((err) => {
