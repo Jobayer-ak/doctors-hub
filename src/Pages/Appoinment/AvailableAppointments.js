@@ -3,6 +3,7 @@ import { format } from "date-fns";
 import React, { useEffect, useState } from "react";
 import BookingModal from "./BookingModal";
 import Service from "./Service";
+import { publicFetch } from "../../utils/fetch";
 
 const AvailableAppointments = ({ date }) => {
   const [services, setServices] = useState([]);
@@ -11,8 +12,17 @@ const AvailableAppointments = ({ date }) => {
   useEffect(() => {
     // fetching slots from db
     axios
-      .get("http://localhost:5000/api/v1/slots")
-      .then((res) => setServices(res.data.data));
+      .get("http://localhost:5000/api/v1/slots", {
+        headers: { "Content-Type": "application/json" },
+        withCredentials: true,
+      })
+      .then((res) => {
+        setServices(res.data.data);
+        console.log(res.data.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }, []);
 
   return (

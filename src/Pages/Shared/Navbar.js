@@ -1,25 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 const Navbar = () => {
-  const [token, setToken] = useState(null);
   const navigate = useNavigate();
 
-  const user = JSON.parse(localStorage.getItem("token"));
-
-  useEffect(() => {
-    if (user) {
-      setToken(user);
-      // console.log(user);
-    }
-  }, [user, token]);
-
   const logout = () => {
-    localStorage.removeItem("token");
-    localStorage.removeItem("userData");
     navigate("/login");
-    setToken(null);
-    console.log("Token: ", token);
   };
 
   const menuItems = (
@@ -40,7 +26,7 @@ const Navbar = () => {
         <Link to="/about">About</Link>
       </li>
       <li>
-        {token ? (
+        {true ? (
           <button className="btn btn-ghost" onClick={logout}>
             Logout
           </button>

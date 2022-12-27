@@ -5,8 +5,9 @@ import { useCookies } from "react-cookie";
 
 const Appointment = () => {
   const [date, setDate] = useState(new Date());
-  const [cookies, setCookies] = useCookies();
+  const [cookies] = useCookies();
   console.log(cookies);
+
   return (
     <div>
       <AppointmentBanner date={date} setDate={setDate} />

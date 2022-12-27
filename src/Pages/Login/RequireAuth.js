@@ -1,19 +1,15 @@
-import React from 'react';
-import { useCookies } from 'react-cookie';
-import { Navigate, useLocation } from 'react-router-dom';
+import React from "react";
+
+import { Navigate, useLocation } from "react-router-dom";
 
 const RequireAuth = ({ children }) => {
-    const [cookies] = useCookies();
-    const location = useLocation();
+  const location = useLocation();
 
-    const user = cookies;
-    console.log(cookies)
+  if (!true) {
+    return <Navigate to="/login" state={{ from: location }} replace />;
+  }
 
-    if (!user) {
-        return <Navigate to="/login" state={{from: location}} replace />
-    }
-
-    return children;
+  return children;
 };
 
 export default RequireAuth;

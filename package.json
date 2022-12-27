@@ -9,6 +9,7 @@
     "axios": "^1.2.1",
     "daisyui": "^2.31.0",
     "date-fns": "^2.29.3",
+    "js-cookie": "^3.0.1",
     "nodemailer": "^6.8.0",
     "react": "^18.2.0",
     "react-cookie": "^4.1.1",
@@ -47,5 +48,6 @@
     "autoprefixer": "^10.4.12",
     "postcss": "^8.4.17",
     "tailwindcss": "^3.1.8"
-  }
+  },
+  "proxy": "http://localhost:5000"
 }

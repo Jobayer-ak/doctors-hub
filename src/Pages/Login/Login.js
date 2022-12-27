@@ -1,11 +1,11 @@
-import axios from "axios";
 import React from "react";
-import { useCookies } from "react-cookie";
+
 import { useForm } from "react-hook-form";
 import { Link, useLocation, useNavigate } from "react-router-dom";
+import { publicFetch } from "../../utils/fetch";
+import axios from "axios";
 
 const Login = (props) => {
-  const [cookies, setCookies] = useCookies("");
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -19,18 +19,36 @@ const Login = (props) => {
 
   const onSubmit = (data) => {
     axios
-      .post("http://localhost:5000/api/v1/login", data)
+      .post("http://localhost:5000/api/v1/login", data, {
+        headers: { "Content-Type": "application/json" },
+        withCredentials: true,
+        path: "/",
+      })
       .then((res) => {
-        setCookies("cook", res.data.token, {
-          path: "/",
-        });
-        console.log(cookies)
+        console.log(res.data);
+
         navigate(from, { replace: true });
       })
       .catch((err) => {
         console.log(err.message);
       });
   };
+
+  // const onSubmit = (data) => {
+  //   axios
+  //     .post("http://localhost:5000/api/v1/login", data, {
+  //       headers: { "Content-Type": "application/json" },
+  //       withCredentials: true,
+  //     })
+  //     .then((res) => {
+  //       console.log(res.data.token);
+  //       setCookies("cook", res.data.token)
+  //       navigate(from, { replace: true });
+  //     })
+  //     .catch((err) => {
+  //       console.log(err.message);
+  //     });
+  // };
 
   return (
     <div className="flex h-screen justify-center items-center">
