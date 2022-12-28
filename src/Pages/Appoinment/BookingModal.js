@@ -1,8 +1,14 @@
 import { format } from "date-fns";
-import React from "react";
+import React, { useContext, useEffect } from "react";
+import AuthContext from "../../context/AuthProvider";
 
 const BookingModal = ({ date, treatment, setTreatment }) => {
   const { _id, name, slots } = treatment;
+  const { user } = useContext(AuthContext);
+
+  // useEffect(() => {
+  //   // console.log(user.uEmail)
+  // }, [user]);
 
   const handleBooking = (e) => {
     e.preventDefault();
@@ -10,7 +16,7 @@ const BookingModal = ({ date, treatment, setTreatment }) => {
     console.log(_id, name, slot);
     setTreatment(null);
   };
-  const info = JSON.parse(localStorage.getItem("userData"));
+
   // console.log(info)
   return (
     <div>
@@ -49,7 +55,7 @@ const BookingModal = ({ date, treatment, setTreatment }) => {
             <input
               type="text"
               name="name"
-              value={info.name}
+              value={user.uName}
               className="input border-solid border-1 border-green-200 w-full max-w-xs"
               required
               readOnly
@@ -57,7 +63,7 @@ const BookingModal = ({ date, treatment, setTreatment }) => {
             <input
               type="email"
               name="email"
-              value={info.email}
+              value={user.uEmail}
               className="input border-solid border-1 border-green-200 w-full max-w-xs"
               required
               readOnly

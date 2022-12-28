@@ -1,13 +1,14 @@
-import React from "react";
+import React, { useContext } from "react";
 
 import { useForm } from "react-hook-form";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { publicFetch } from "../../utils/fetch";
 import axios from "axios";
+import { AuthContext } from "../../context/AuthProvider";
 
 const Login = (props) => {
   const navigate = useNavigate();
   const location = useLocation();
+  // const { user } = useContext(AuthContext);
 
   const {
     register,
@@ -25,8 +26,21 @@ const Login = (props) => {
         path: "/",
       })
       .then((res) => {
-        console.log(res.data);
+        const { name, email, role } = res.data.others;
+        localStorage.setItem("userRole", role);
+        localStorage.setItem("userName", name);
+        localStorage.setItem("userEmail", email);
+        // const uRole = role;
+        // const uName = name;
+        // const uEmail = email;
+        // user:{
+        //   (uRole = role), (uName = name), (uEmail = email);
+        // }
+        // user.uName = name;
+        // user.uRole = role;
+        // user.uEmail = email;
 
+        // console.log(user);
         navigate(from, { replace: true });
       })
       .catch((err) => {

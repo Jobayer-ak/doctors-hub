@@ -1,13 +1,18 @@
 import axios from "axios";
 import { format } from "date-fns";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import BookingModal from "./BookingModal";
 import Service from "./Service";
-import { publicFetch } from "../../utils/fetch";
+import { AuthContext } from "../../context/AuthProvider";
 
 const AvailableAppointments = ({ date }) => {
   const [services, setServices] = useState([]);
   const [treatment, setTreatment] = useState(null);
+  const { user } = useContext(AuthContext);
+
+  useEffect(() => {
+    console.log(user.uEmail);
+  }, [user]);
 
   useEffect(() => {
     // fetching slots from db

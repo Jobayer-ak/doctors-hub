@@ -1,10 +1,17 @@
-import React from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import AuthContext from "../../context/AuthProvider";
 
 const Navbar = () => {
   const navigate = useNavigate();
+  // const { user } = useContext(AuthContext);
+
+  const userEmail = localStorage.getItem("userEmail");
 
   const logout = () => {
+    localStorage.removeItem("userEmail");
+    localStorage.removeItem("userName");
+    localStorage.removeItem("userRole");
     navigate("/login");
   };
 
@@ -26,7 +33,7 @@ const Navbar = () => {
         <Link to="/about">About</Link>
       </li>
       <li>
-        {true ? (
+        {userEmail ? (
           <button className="btn btn-ghost" onClick={logout}>
             Logout
           </button>
