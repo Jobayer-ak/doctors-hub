@@ -1,10 +1,9 @@
-import React, { useContext, useEffect, useState } from "react";
+import axios from "axios";
+import React from "react";
 import { Link, useNavigate } from "react-router-dom";
-import AuthContext from "../../context/AuthProvider";
 
 const Navbar = () => {
   const navigate = useNavigate();
-  // const { user } = useContext(AuthContext);
 
   const userEmail = localStorage.getItem("userEmail");
 
@@ -12,7 +11,23 @@ const Navbar = () => {
     localStorage.removeItem("userEmail");
     localStorage.removeItem("userName");
     localStorage.removeItem("userRole");
+
     navigate("/login");
+
+    console.log(userEmail);
+    if (window.location.pathname === "/login") {
+      console.log(555);
+      axios
+        .get("http://localhost:5000/api/v1/logout", {
+          headers: { "Content-Type": "application/json" },
+          withCredentials: true,
+          path: "/",
+        })
+        .then((res) => {
+          console.log("response: ", res);
+        })
+        .catch((err) => console.log(err.message));
+    }
   };
 
   const menuItems = (

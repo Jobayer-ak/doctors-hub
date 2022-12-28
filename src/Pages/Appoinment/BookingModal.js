@@ -6,9 +6,9 @@ const BookingModal = ({ date, treatment, setTreatment }) => {
   const { _id, name, slots } = treatment;
   const { user } = useContext(AuthContext);
 
-  // useEffect(() => {
-  //   // console.log(user.uEmail)
-  // }, [user]);
+  useEffect(() => {
+    // console.log(user.uEmail)
+  }, [user]);
 
   const handleBooking = (e) => {
     e.preventDefault();
