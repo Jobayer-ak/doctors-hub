@@ -10,6 +10,7 @@ import Footer from "./Pages/Shared/Footer";
 import Navbar from "./Pages/Shared/Navbar";
 import { useEffect, useState } from "react";
 import { AuthContext, AuthProvider } from "./context/AuthProvider";
+import RequireAuth from "./Pages/Login/RequireAuth";
 
 function App() {
   const [user, setUser] = useState({ uName: "", uRole: "", uEmail: "" });
@@ -29,7 +30,15 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
 
-          <Route path="/appointment" element={<Appointment />} />
+          <Route
+            path="/appointment"
+            element={
+              <RequireAuth>
+                <Appointment />
+              </RequireAuth>
+            }
+          />
+
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Signup />} />
         </Routes>

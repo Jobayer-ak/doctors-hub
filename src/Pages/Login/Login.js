@@ -1,14 +1,11 @@
-import React, { useContext } from "react";
-
 import { useForm } from "react-hook-form";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
-import { AuthContext } from "../../context/AuthProvider";
 
 const Login = (props) => {
   const navigate = useNavigate();
   const location = useLocation();
-  // const { user } = useContext(AuthContext);
+  let loginError = null;
 
   const {
     register,
@@ -30,21 +27,12 @@ const Login = (props) => {
         localStorage.setItem("userRole", role);
         localStorage.setItem("userName", name);
         localStorage.setItem("userEmail", email);
-        // const uRole = role;
-        // const uName = name;
-        // const uEmail = email;
-        // user:{
-        //   (uRole = role), (uName = name), (uEmail = email);
-        // }
-        // user.uName = name;
-        // user.uRole = role;
-        // user.uEmail = email;
 
-        // console.log(user);
         navigate(from, { replace: true });
       })
       .catch((err) => {
-        console.log(err.message);
+        loginError = err;
+        console.log(err.res.data.message);
       });
   };
 
@@ -137,6 +125,8 @@ const Login = (props) => {
               type="submit"
               value="Login"
             />
+
+            {loginError ? <p className="text-red-500">{loginError}</p> : ""}
           </form>
           <div className="p-1">
             <p>

@@ -5,6 +5,7 @@ import AuthContext from "../../context/AuthProvider";
 const BookingModal = ({ date, treatment, setTreatment }) => {
   const { _id, name, slots } = treatment;
   const { user } = useContext(AuthContext);
+  const formatedDate = format(date, "PP");
 
   useEffect(() => {
     // console.log(user.uEmail)
@@ -13,6 +14,12 @@ const BookingModal = ({ date, treatment, setTreatment }) => {
   const handleBooking = (e) => {
     e.preventDefault();
     const slot = e.target.slot.value;
+    const booking = {
+      treatmentId: _id,
+      treatment: name,
+      date: formatedDate,
+      slot,
+    };
     console.log(_id, name, slot);
     setTreatment(null);
   };
