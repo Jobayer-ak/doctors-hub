@@ -8,23 +8,22 @@ import Login from "./Pages/Login/Login";
 import Signup from "./Pages/Signup/Signup";
 import Footer from "./Pages/Shared/Footer";
 import Navbar from "./Pages/Shared/Navbar";
-import { useEffect, useState } from "react";
-import { AuthContext, AuthProvider } from "./context/AuthProvider";
 import RequireAuth from "./Pages/Login/RequireAuth";
+import {AuthProvider} from "./context/AuthProvider"
 
 function App() {
-  const [user, setUser] = useState({ uName: "", uRole: "", uEmail: "" });
+  // const [user, setUser] = useState({ uName: "", uRole: "", uEmail: "" });
 
-  useEffect(() => {
-    const name = localStorage.getItem("userName");
-    const role = localStorage.getItem("userRole");
-    const email = localStorage.getItem("userEmail");
-    setUser({ uName: name, uRole: role, uEmail: email });
-  }, [setUser]);
+  // useEffect(() => {
+  //   const name = localStorage.getItem("userName");
+  //   const role = localStorage.getItem("userRole");
+  //   const email = localStorage.getItem("userEmail");
+  //   setUser({ uName: name, uRole: role, uEmail: email });
+  // }, [setUser]);
 
   return (
     <div className="max-w-7xl mx-auto">
-      <AuthContext.Provider value={{ user }}>
+      <AuthProvider>
         <Navbar />
         <Routes>
           <Route path="/" element={<Home />} />
@@ -44,7 +43,7 @@ function App() {
         </Routes>
 
         <Footer />
-      </AuthContext.Provider>
+      </AuthProvider>
     </div>
   );
 }

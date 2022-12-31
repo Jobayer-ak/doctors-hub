@@ -27,7 +27,7 @@ const Login = (props) => {
         localStorage.setItem("userRole", role);
         localStorage.setItem("userName", name);
         localStorage.setItem("userEmail", email);
-
+        // setUser({name, email});
         navigate(from, { replace: true });
       })
       .catch((err) => {

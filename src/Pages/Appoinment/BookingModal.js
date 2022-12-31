@@ -7,10 +7,6 @@ const BookingModal = ({ date, treatment, setTreatment }) => {
   const { user } = useContext(AuthContext);
   const formatedDate = format(date, "PP");
 
-  useEffect(() => {
-    // console.log(user.uEmail)
-  }, [user]);
-
   const handleBooking = (e) => {
     e.preventDefault();
     const slot = e.target.slot.value;
@@ -19,8 +15,11 @@ const BookingModal = ({ date, treatment, setTreatment }) => {
       treatment: name,
       date: formatedDate,
       slot,
+      patient: user.userEmail,
+      patientName: user.userName,
+      phone: e.target.phone.value,
     };
-    console.log(_id, name, slot);
+    console.log(booking);
     setTreatment(null);
   };
 
@@ -62,7 +61,7 @@ const BookingModal = ({ date, treatment, setTreatment }) => {
             <input
               type="text"
               name="name"
-              value={user.uName}
+              value={user.userName}
               className="input border-solid border-1 border-green-200 w-full max-w-xs"
               required
               readOnly
@@ -70,7 +69,7 @@ const BookingModal = ({ date, treatment, setTreatment }) => {
             <input
               type="email"
               name="email"
-              value={user.uEmail}
+              value={user.userEmail}
               className="input border-solid border-1 border-green-200 w-full max-w-xs"
               required
               readOnly

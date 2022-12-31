@@ -3,16 +3,19 @@ import { format } from "date-fns";
 import React, { useContext, useEffect, useState } from "react";
 import BookingModal from "./BookingModal";
 import Service from "./Service";
-import { AuthContext } from "../../context/AuthProvider";
+import AuthContext from "../../context/AuthProvider";
 
 const AvailableAppointments = ({ date }) => {
   const [services, setServices] = useState([]);
   const [treatment, setTreatment] = useState(null);
   const { user } = useContext(AuthContext);
 
-  useEffect(() => {
-    console.log(user.uEmail);
-  }, [user]);
+  // useEffect(() => {
+  //   setUser({id: 1})
+  //   // console.log(user.id);
+  //   // console.log(user.uEmail);
+  // }, [user]);
+  // console.log(user);
 
   useEffect(() => {
     // fetching slots from db
@@ -24,11 +27,12 @@ const AvailableAppointments = ({ date }) => {
       .then((res) => {
         setServices(res.data.data);
         console.log(res.data.data);
+        console.log(user);
       })
       .catch((error) => {
         console.log(error);
       });
-  }, []);
+  }, [user]);
 
   return (
     <div>
