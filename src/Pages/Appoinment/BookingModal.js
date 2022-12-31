@@ -1,6 +1,7 @@
 import { format } from "date-fns";
-import React, { useContext, useEffect } from "react";
+import React, { useContext } from "react";
 import AuthContext from "../../context/AuthProvider";
+import axios from "axios";
 
 const BookingModal = ({ date, treatment, setTreatment }) => {
   const { _id, name, slots } = treatment;
@@ -9,17 +10,34 @@ const BookingModal = ({ date, treatment, setTreatment }) => {
 
   const handleBooking = (e) => {
     e.preventDefault();
-    const slot = e.target.slot.value;
+    // const slot = e.target.slot.value;
     const booking = {
+      treatmentName: name,
       treatmentId: _id,
-      treatment: name,
-      date: formatedDate,
-      slot,
-      patient: user.userEmail,
       patientName: user.userName,
-      phone: e.target.phone.value,
+      patientEmail: user.userEmail,
+      contactNumber: e.target.phone.value,
+      slot:e.target.slot.value,
+      date: formatedDate,
     };
-    console.log(booking);
+    // console.log(booking);
+    axios
+      .post("http://localhost:5000/api/v1/booking", booking, {
+        headers: { "Content-Type": "application/json" },
+        withCredentials: true,
+        path: "/",
+      })
+      .then((res) => {
+        console.log(res.data);
+        // console.log(user);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+
+    // console.log(bookTreatment);
+
+    // console.log(booking);
     setTreatment(null);
   };
 
