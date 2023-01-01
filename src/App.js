@@ -1,6 +1,8 @@
 // import logo from './logo.svg';
 import { Route, Routes } from "react-router-dom";
 import "./App.css";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import About from "./Pages/About/About";
 import Appointment from "./Pages/Appoinment/Appointment";
 import Home from "./Pages/Home/Home";
@@ -9,18 +11,9 @@ import Signup from "./Pages/Signup/Signup";
 import Footer from "./Pages/Shared/Footer";
 import Navbar from "./Pages/Shared/Navbar";
 import RequireAuth from "./Pages/Login/RequireAuth";
-import {AuthProvider} from "./context/AuthProvider"
+import { AuthProvider } from "./context/AuthProvider";
 
 function App() {
-  // const [user, setUser] = useState({ uName: "", uRole: "", uEmail: "" });
-
-  // useEffect(() => {
-  //   const name = localStorage.getItem("userName");
-  //   const role = localStorage.getItem("userRole");
-  //   const email = localStorage.getItem("userEmail");
-  //   setUser({ uName: name, uRole: role, uEmail: email });
-  // }, [setUser]);
-
   return (
     <div className="max-w-7xl mx-auto">
       <AuthProvider>
@@ -43,6 +36,7 @@ function App() {
         </Routes>
 
         <Footer />
+        <ToastContainer />
       </AuthProvider>
     </div>
   );

@@ -2,6 +2,7 @@ import { format } from "date-fns";
 import React, { useContext } from "react";
 import AuthContext from "../../context/AuthProvider";
 import axios from "axios";
+import { toast } from "react-toastify";
 
 const BookingModal = ({ date, treatment, setTreatment }) => {
   const { _id, name, slots } = treatment;
@@ -10,14 +11,14 @@ const BookingModal = ({ date, treatment, setTreatment }) => {
 
   const handleBooking = (e) => {
     e.preventDefault();
-    // const slot = e.target.slot.value;
+
     const booking = {
       treatmentName: name,
       treatmentId: _id,
       patientName: user.userName,
       patientEmail: user.userEmail,
       contactNumber: e.target.phone.value,
-      slot:e.target.slot.value,
+      slot: e.target.slot.value,
       date: formatedDate,
     };
     // console.log(booking);
@@ -28,6 +29,7 @@ const BookingModal = ({ date, treatment, setTreatment }) => {
         path: "/",
       })
       .then((res) => {
+        toast("Your Appointment is Successful!!");
         console.log(res.data);
         // console.log(user);
       })
