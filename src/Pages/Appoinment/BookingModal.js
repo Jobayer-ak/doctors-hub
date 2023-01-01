@@ -29,17 +29,23 @@ const BookingModal = ({ date, treatment, setTreatment }) => {
         path: "/",
       })
       .then((res) => {
-        toast("Your Appointment is Successful!!");
-        console.log(res.data);
+        if (res.data.success) {
+          toast(res.data.message + " at " + formatedDate);
+        }
+        if (res.data.success === false) {
+          toast.error(res.data.message + " at " + formatedDate);
+        }
+
+        // console.log(res.status);
+        // console.log(res.data.message);
         // console.log(user);
       })
       .catch((error) => {
-        console.log(error);
+        console.log(error.message);
+
+        // toast(error.response);
       });
 
-    // console.log(bookTreatment);
-
-    // console.log(booking);
     setTreatment(null);
   };
 
