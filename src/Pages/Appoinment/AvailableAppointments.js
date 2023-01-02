@@ -1,32 +1,33 @@
+import React, { useState } from "react";
 import axios from "axios";
 import { format } from "date-fns";
-import React, { useContext, useEffect, useState } from "react";
+
 import BookingModal from "./BookingModal";
 import Service from "./Service";
-import AuthContext from "../../context/AuthProvider";
+
+import { useQuery } from "react-query";
 
 const AvailableAppointments = ({ date }) => {
-  const [services, setServices] = useState([]);
+  // const [services, setServices] = useState([]);
   const [treatment, setTreatment] = useState(null);
-  const { user } = useContext(AuthContext);
+  // const { user } = useContext(AuthContext);
   const formatedDate = format(date, "PP");
 
-  useEffect(() => {
-    // fetching slots from db
-    axios
-      .get(`http://localhost:5000/api/v1/slots?date=${formatedDate}`, {
+  const { data: services, isLoading } = useQuery("services", async () => {
+    const res = await axios.get(
+      `http://localhost:5000/api/v1/slots?date=${formatedDate}`,
+      {
         headers: { "Content-Type": "application/json" },
         withCredentials: true,
-      })
-      .then((res) => {
-        setServices(res.data.data);
-        console.log(res.data.data);
-        console.log(user);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }, []);
+      }
+    );
+    const result = res.data;
+    return result;
+  });
+
+  if (isLoading) {
+    return <h1>Loading.....</h1>;
+  }
 
   return (
     <div>
@@ -34,7 +35,7 @@ const AvailableAppointments = ({ date }) => {
         Available Appointments on {format(date, "PP")}
       </h4>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-        {services.map((service) => (
+        {services?.map((service) => (
           <Service
             key={service._id}
             service={service}
