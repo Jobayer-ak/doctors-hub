@@ -16,7 +16,6 @@ const Navbar = () => {
 
     console.log(userEmail);
     if (window.location.pathname === "/login") {
-      console.log(555);
       axios
         .get("http://localhost:5000/api/v1/logout", {
           headers: { "Content-Type": "application/json" },
@@ -24,7 +23,7 @@ const Navbar = () => {
           path: "/",
         })
         .then((res) => {
-          console.log("response: ", res);
+          // console.log("response: ", res);
         })
         .catch((err) => console.log(err.message));
     }

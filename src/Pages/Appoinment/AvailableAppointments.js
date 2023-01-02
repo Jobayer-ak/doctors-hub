@@ -9,18 +9,12 @@ const AvailableAppointments = ({ date }) => {
   const [services, setServices] = useState([]);
   const [treatment, setTreatment] = useState(null);
   const { user } = useContext(AuthContext);
-
-  // useEffect(() => {
-  //   setUser({id: 1})
-  //   // console.log(user.id);
-  //   // console.log(user.uEmail);
-  // }, [user]);
-  // console.log(user);
+  const formatedDate = format(date, "PP");
 
   useEffect(() => {
     // fetching slots from db
     axios
-      .get("http://localhost:5000/api/v1/slots", {
+      .get(`http://localhost:5000/api/v1/slots?date=${formatedDate}`, {
         headers: { "Content-Type": "application/json" },
         withCredentials: true,
       })
@@ -32,7 +26,7 @@ const AvailableAppointments = ({ date }) => {
       .catch((error) => {
         console.log(error);
       });
-  }, [user]);
+  }, []);
 
   return (
     <div>

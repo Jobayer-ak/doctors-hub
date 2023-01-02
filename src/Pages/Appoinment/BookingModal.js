@@ -29,21 +29,17 @@ const BookingModal = ({ date, treatment, setTreatment }) => {
         path: "/",
       })
       .then((res) => {
+        console.log(date);
+        console.log(formatedDate);
         if (res.data.success) {
-          toast(res.data.message + " at " + formatedDate);
+          toast(res.data.message + " on " + formatedDate);
         }
         if (res.data.success === false) {
-          toast.error(res.data.message + " at " + formatedDate);
+          toast.error(res.data.message + " on " + formatedDate);
         }
-
-        // console.log(res.status);
-        // console.log(res.data.message);
-        // console.log(user);
       })
       .catch((error) => {
-        console.log(error.message);
-
-        // toast(error.response);
+        console.log(error);
       });
 
     setTreatment(null);
