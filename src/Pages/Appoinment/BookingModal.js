@@ -4,7 +4,7 @@ import AuthContext from "../../context/AuthProvider";
 import axios from "axios";
 import { toast } from "react-toastify";
 
-const BookingModal = ({ date, treatment, setTreatment }) => {
+const BookingModal = ({ date, treatment, setTreatment, refetch }) => {
   const { _id, name, slots } = treatment;
   const { user } = useContext(AuthContext);
   const formatedDate = format(date, "PP");
@@ -37,15 +37,15 @@ const BookingModal = ({ date, treatment, setTreatment }) => {
         if (res.data.success === false) {
           toast.error(res.data.message + " on " + formatedDate);
         }
+        refetch();
+        setTreatment(null);
       })
       .catch((error) => {
         console.log(error);
       });
-
-    setTreatment(null);
   };
 
-  // console.log(info)
+  
   return (
     <div>
       <input type="checkbox" id="booking-modal" className="modal-toggle" />

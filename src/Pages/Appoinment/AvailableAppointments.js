@@ -8,22 +8,24 @@ import Service from "./Service";
 import { useQuery } from "react-query";
 
 const AvailableAppointments = ({ date }) => {
-  // const [services, setServices] = useState([]);
   const [treatment, setTreatment] = useState(null);
-  // const { user } = useContext(AuthContext);
+
   const formatedDate = format(date, "PP");
 
-  const { data: services, isLoading } = useQuery("services", async () => {
-    const res = await axios.get(
-      `http://localhost:5000/api/v1/slots?date=${formatedDate}`,
-      {
-        headers: { "Content-Type": "application/json" },
-        withCredentials: true,
-      }
-    );
-    const result = res.data;
-    return result;
-  });
+  const { data: services, isLoading, refetch } = useQuery(
+    ["available", formatedDate],
+    async () => {
+      const res = await axios.get(
+        `http://localhost:5000/api/v1/slots?date=${formatedDate}`,
+        {
+          headers: { "Content-Type": "application/json" },
+          withCredentials: true,
+        }
+      );
+      const result = res.data;
+      return result;
+    }
+  );
 
   if (isLoading) {
     return <h1>Loading.....</h1>;
@@ -48,6 +50,7 @@ const AvailableAppointments = ({ date }) => {
           date={date}
           treatment={treatment}
           setTreatment={setTreatment}
+          refetch={refetch}
         />
       )}
     </div>
