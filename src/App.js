@@ -12,6 +12,9 @@ import Footer from "./Pages/Shared/Footer";
 import Navbar from "./Pages/Shared/Navbar";
 import RequireAuth from "./Pages/Login/RequireAuth";
 import { AuthProvider } from "./context/AuthProvider";
+import Dashboard from "./Pages/Dashboard/Dashboard";
+import MyAppointments from "./Pages/Dashboard/MyAppointments";
+import MyReview from "./Pages/Dashboard/MyReview";
 
 function App() {
   return (
@@ -21,7 +24,6 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
-
           <Route
             path="/appointment"
             element={
@@ -30,6 +32,17 @@ function App() {
               </RequireAuth>
             }
           />
+          <Route
+            path="/dashboard"
+            element={
+              <RequireAuth>
+                <Dashboard />
+              </RequireAuth>
+            }
+          >
+            <Route index element={<MyAppointments></MyAppointments>}></Route>
+            <Route path="review" element={<MyReview></MyReview>}></Route>
+          </Route>
 
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Signup />} />
