@@ -7,7 +7,7 @@
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "axios": "^1.2.1",
-    "daisyui": "^2.31.0",
+    "daisyui": "^2.46.1",
     "date-fns": "^2.29.3",
     "js-cookie": "^3.0.1",
     "nodemailer": "^6.8.0",
