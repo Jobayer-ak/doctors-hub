@@ -9,22 +9,18 @@ const Dashboard = () => {
         <h2 className="text-3xl font-bold text-purple-500">Dashboard</h2>
 
         <Outlet></Outlet>
-
-        {/* <label
-          htmlFor="my-drawer-2"
-          className="btn btn-primary drawer-button lg:hidden"
-        >
-          Open drawer
-        </label> */}
       </div>
       <div className="drawer-side">
         <label htmlFor="my-drawer-2" className="drawer-overlay"></label>
         <ul className="menu p-4 w-80 bg-base-100 text-base-content">
           <li>
-            <Link to="/dashboard"> Sidebar Item 1</Link>
+            <Link to="/dashboard">My Appointments</Link>
           </li>
           <li>
-            <Link to="/dashboard/review"> Sidebar Item 2</Link>
+            <Link to="/dashboard/review">My Reviews</Link>
+          </li>
+          <li>
+            <Link to="/dashboard/history">My History</Link>
           </li>
         </ul>
       </div>

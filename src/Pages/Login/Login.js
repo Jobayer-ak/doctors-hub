@@ -18,9 +18,7 @@ const Login = (props) => {
   const onSubmit = (data) => {
     axios
       .post("http://localhost:5000/api/v1/login", data, {
-        headers: { "Content-Type": "application/json" },
         withCredentials: true,
-        path: "/",
       })
       .then((res) => {
         const { name, email, role } = res.data.others;
@@ -32,7 +30,7 @@ const Login = (props) => {
       })
       .catch((err) => {
         loginError = err;
-        console.log(err.res.data.message);
+        console.log(err);
       });
   };
 
@@ -136,17 +134,6 @@ const Login = (props) => {
               </Link>
             </p>
           </div>
-          {/* Divider */}
-
-          <div className="flex items-center px-1 py-4">
-            <div className="flex-grow h-px bg-gray-300"></div>
-
-            <span className="flex-shrink text-xl text-gray-500 px-4">OR</span>
-
-            <div className="flex-grow h-px bg-gray-300"></div>
-          </div>
-
-          <button className="btn btn-outline">Continue With Google</button>
         </div>
       </div>
     </div>

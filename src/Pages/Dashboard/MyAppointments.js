@@ -1,19 +1,35 @@
 import axios from "axios";
 import React, { useContext, useEffect, useState } from "react";
 import AuthContext from "../../context/AuthProvider";
+import { useNavigate } from "react-router-dom";
 
 const MyAppointments = () => {
   const [appointments, setAppointments] = useState([]);
   const { user } = useContext(AuthContext);
+  const navigate = useNavigate();
 
   useEffect(() => {
     axios
-      .get(`http://localhost:5000/api/v1/booking?patient=${user.userEmail}`)
-      .then((res) => setAppointments(res.data))
+      .get(`http://localhost:5000/api/v1/bookings?patient=${user.userEmail}`, {
+        withCredentials: true,
+      })
+      .then((res) => {
+        console.log(res.data.status);
+
+        setAppointments(res.data);
+      })
       .catch((err) => {
-        console.log(err);
+        // console.log(err);
+        console.log(err.response.status);
+        if (err.response.status === 403 || err.response.status === 401) {
+          localStorage.removeItem("userEmail");
+          localStorage.removeItem("userName");
+          localStorage.removeItem("userRole");
+
+          navigate("/login");
+        }
       });
-  }, [user]);
+  }, [user, navigate]);
 
   return (
     <div>
@@ -30,9 +46,9 @@ const MyAppointments = () => {
             </tr>
           </thead>
           <tbody>
-            {appointments.map((a) => (
+            {appointments.map((a, index) => (
               <tr>
-                <th>1</th>
+                <th>{index + 1}</th>
                 <td>{a.patientName}</td>
                 <td>{a.date}</td>
                 <td>{a.slot}</td>
