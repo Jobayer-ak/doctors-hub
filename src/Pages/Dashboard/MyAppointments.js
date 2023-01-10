@@ -19,8 +19,6 @@ const MyAppointments = () => {
         setAppointments(res.data);
       })
       .catch((err) => {
-        // console.log(err);
-        console.log(err.response.status);
         if (err.response.status === 403 || err.response.status === 401) {
           localStorage.removeItem("userEmail");
           localStorage.removeItem("userName");
@@ -33,7 +31,6 @@ const MyAppointments = () => {
 
   return (
     <div>
-      {/* <h1>My Appointments {appointments.length}</h1> */}
       <div className="overflow-x-auto">
         <table className="table w-full">
           <thead>
