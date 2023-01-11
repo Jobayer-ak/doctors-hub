@@ -14,8 +14,6 @@ const MyAppointments = () => {
         withCredentials: true,
       })
       .then((res) => {
-        console.log(res.data.status);
-
         setAppointments(res.data);
       })
       .catch((err) => {

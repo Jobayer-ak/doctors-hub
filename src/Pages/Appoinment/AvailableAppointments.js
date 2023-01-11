@@ -6,29 +6,30 @@ import BookingModal from "./BookingModal";
 import Service from "./Service";
 
 import { useQuery } from "react-query";
+import Loading from "../Shared/Loading";
 
 const AvailableAppointments = ({ date }) => {
   const [treatment, setTreatment] = useState(null);
 
   const formatedDate = format(date, "PP");
 
-  const { data: services, isLoading, refetch } = useQuery(
-    ["available", formatedDate],
-    async () => {
-      const res = await axios.get(
-        `http://localhost:5000/api/v1/slots?date=${formatedDate}`,
-        {
-          headers: { "Content-Type": "application/json" },
-          withCredentials: true,
-        }
-      );
-      const result = res.data;
-      return result;
-    }
-  );
+  const {
+    data: services,
+    isLoading,
+    refetch,
+  } = useQuery(["available", formatedDate], async () => {
+    const res = await axios.get(
+      `http://localhost:5000/api/v1/slots?date=${formatedDate}`,
+      {
+        withCredentials: true,
+      }
+    );
+    const result = res.data;
+    return result;
+  });
 
   if (isLoading) {
-    return <h1>Loading.....</h1>;
+    return <Loading/>;
   }
 
   return (
