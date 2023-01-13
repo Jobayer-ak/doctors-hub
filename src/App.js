@@ -3,27 +3,18 @@ import { Route, Routes } from "react-router-dom";
 import "./App.css";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import About from "./Pages/About/About";
-import Appointment from "./Pages/Appoinment/Appointment";
-import Home from "./Pages/Home/Home";
-import Login from "./Pages/Login/Login";
-import Signup from "./Pages/Signup/Signup";
-import Footer from "./Pages/Shared/Footer";
-import Navbar from "./Pages/Shared/navbar/";
-import RequireAuth from "./Pages/Login/RequireAuth";
+
 import { AuthProvider } from "./context/AuthProvider";
-import Dashboard from "./Pages/Dashboard/Dashboard";
-import MyAppointments from "./Pages/Dashboard/MyAppointments";
-import MyReview from "./Pages/Dashboard/MyReview";
-import MyHistory from "./Pages/Dashboard/MyHistory";
-import AllUsers from "./Pages/Dashboard/AllUsers";
+import Navbar from "./components/common/navbar/Navbar";
+import Home from "./components/home/Home"
 
 function App() {
   return (
-    <div className="max-w-7xl mx-auto">
+    <div className="App flex">
       <AuthProvider>
-        {/* <Navbar /> */}
         <Navbar />
+        <Home/>
+        {/* <Navbar /> */}
         {/* <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />

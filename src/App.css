@@ -1,5 +1,8 @@
-/* .App {
-  text-align: center;
+.App {
+  height: 100vh;
+  width: 100%;
+  background: #0a062c;
+  overflow: auto;
 }
 
 .App-logo {
@@ -35,4 +38,4 @@
   to {
     transform: rotate(360deg);
   }
-} */
+}

@@ -1,5 +1,5 @@
 import React from "react";
-import "./navbar.css";
+import "./navbar.css"
 import brandLogo from "../../../assets/icons/brand-logo.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
