@@ -1,0 +1,20 @@
+#login {
+  padding-left: 40px;
+  padding-right: 50px;
+}
+
+.image-part , img{
+    height: 60vh;
+}
+
+.form-part {
+  width: 600px;
+  height: 100vh;
+  margin-left: 50px;
+  padding: 50px 20px 10px 20px;
+  background: #23075e;
+}
+
+form{
+    background: #23075e;
+}

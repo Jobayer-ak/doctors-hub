@@ -1,5 +1,5 @@
 import React from "react";
-import "./navbar.css"
+import "./navbar.css";
 import brandLogo from "../../../assets/icons/brand-logo.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -13,13 +13,16 @@ import {
   faTableColumns,
   faUsers,
 } from "@fortawesome/free-solid-svg-icons";
+import { Link } from "react-router-dom";
 
 const Navbar = () => {
   const menu = (
     <ul className="menuItems">
       <li>
-        <FontAwesomeIcon icon={faHome} className="mr-3.5" />
-        Home
+        <Link to="/">
+          <FontAwesomeIcon icon={faHome} className="mr-3.5" />
+          Home
+        </Link>
       </li>
       <li className="mt-2.5">
         <FontAwesomeIcon icon={faBriefcaseMedical} className="mr-3.5" />
@@ -68,12 +71,16 @@ const Navbar = () => {
 
       <div className="user-status">
         <li>
-          <FontAwesomeIcon icon={faGear} className="mr-3.5" />
-          Setting
+          <Link to="/setting">
+            <FontAwesomeIcon icon={faGear} className="mr-3.5" />
+            Setting
+          </Link>
         </li>
         <li className="my-2.5">
-          <FontAwesomeIcon icon={faRightFromBracket} className="mr-3.5" />
-          Login
+          <Link to="/login">
+            <FontAwesomeIcon icon={faRightFromBracket} className="mr-3.5" />
+            Login
+          </Link>
         </li>
       </div>
     </div>

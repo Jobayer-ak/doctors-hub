@@ -6,14 +6,21 @@ import "react-toastify/dist/ReactToastify.css";
 
 import { AuthProvider } from "./context/AuthProvider";
 import Navbar from "./components/common/navbar/Navbar";
-import Home from "./components/home/Home"
+import Home from "./components/home/Home";
+import Login from "./components/Login/Login";
+import Register from "./components/Register/Register";
 
 function App() {
   return (
     <div className="App flex">
       <AuthProvider>
         <Navbar />
-        <Home/>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/registration" element={<Register />} />
+          <Route path="/login" element={<Login />} />
+        </Routes>
+
         {/* <Navbar /> */}
         {/* <Routes>
           <Route path="/" element={<Home />} />
