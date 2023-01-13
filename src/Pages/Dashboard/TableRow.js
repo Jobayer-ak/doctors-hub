@@ -8,10 +8,10 @@ const TableRow = ({ user, index }) => {
       <td>{email}</td>
       <td>{name}</td>
       <td>
-        <button className="btn btn-xs">Make Admin</button>
+        <button className="btn btn-secondary btn-xs">Make Admin</button>
       </td>
       <td>
-        <button className="btn btn-xs">X</button>
+        <button className="btn bg-red-500 btn-xs">X</button>
       </td>
     </tr>
   );
