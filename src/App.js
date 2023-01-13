@@ -9,7 +9,7 @@ import Home from "./Pages/Home/Home";
 import Login from "./Pages/Login/Login";
 import Signup from "./Pages/Signup/Signup";
 import Footer from "./Pages/Shared/Footer";
-import Navbar from "./Pages/Shared/Navbar";
+import Navbar from "./Pages/Shared/navbar/";
 import RequireAuth from "./Pages/Login/RequireAuth";
 import { AuthProvider } from "./context/AuthProvider";
 import Dashboard from "./Pages/Dashboard/Dashboard";
@@ -22,8 +22,9 @@ function App() {
   return (
     <div className="max-w-7xl mx-auto">
       <AuthProvider>
+        {/* <Navbar /> */}
         <Navbar />
-        <Routes>
+        {/* <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
           <Route
@@ -52,7 +53,7 @@ function App() {
           <Route path="/register" element={<Signup />} />
         </Routes>
 
-        <Footer />
+        <Footer /> */}
         <ToastContainer />
       </AuthProvider>
     </div>
