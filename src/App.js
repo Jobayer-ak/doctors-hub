@@ -12,13 +12,14 @@ import Register from "./components/Register/Register";
 
 function App() {
   return (
-    <div className="App flex">
+    <div className="App flex relative">
       <AuthProvider>
         <Navbar />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/registration" element={<Register />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<Register />} />
         </Routes>
 
         {/* <Navbar /> */}

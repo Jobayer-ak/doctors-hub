@@ -5,7 +5,7 @@ import { faSearch } from "@fortawesome/free-solid-svg-icons";
 
 const Searchbar = () => {
   return (
-    <div id="searchbar" className="flex justify-between items-center">
+    <div id="searchbar" className="lg:flex md:flex sm:flex-none justify-between items-center">
       <div className="search flex justify-between items-center">
         <h2 className="text-xl font-bold">Home</h2>
         <div className="searchBox">

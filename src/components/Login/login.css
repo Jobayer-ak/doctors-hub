@@ -1,20 +1,27 @@
 #login {
+  width: 100%;
   padding-left: 40px;
-  padding-right: 50px;
+  /* padding-right: 50px; */
 }
 
-.image-part , img{
-    height: 60vh;
+.image-part,
+img {
+  width: 90%;
+  height: 80vh;
 }
 
 .form-part {
-  width: 600px;
+  /* width: ; */
   height: 100vh;
-  margin-left: 50px;
-  padding: 50px 20px 10px 20px;
+  /* /* margin-left: 50px; */
+  padding: 50px 20px 10px 20px; 
   background: #23075e;
 }
 
-form{
-    background: #23075e;
+form {
+  background: #23075e;
+}
+
+.icon{
+  color: #23075e;
 }
