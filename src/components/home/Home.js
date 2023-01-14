@@ -7,7 +7,7 @@ import Slider from "./carousel/Slider";
 
 const Home = () => {
   return (
-    <div id="home">
+    <div id="home" className="">
       <Searchbar />
           <Banner />
           <Hero />

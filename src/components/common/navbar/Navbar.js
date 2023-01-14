@@ -78,7 +78,7 @@ const Navbar = () => {
     "mt-2 hover:border-l-2 hover:border-solid hover:border-solid hover:bg-[#722ed180]";
 
   const menu = (
-    <ul>
+    <>
       <li className={liClass}>
         <Link to="/">
           <FontAwesomeIcon icon={faHome} className={padding} />
@@ -112,7 +112,7 @@ const Navbar = () => {
         Contact
       </li>
 
-      <hr className="border-solid border-2 border-[#722ED1] mt-7 mb-4 mr-3" />
+      <hr className="border-solid border-2 border-[#722ED1] mt-7 md:ml-3 mb-4 mr-3" />
 
       <li className={liClass}>
         <Link to="/setting">
@@ -127,13 +127,13 @@ const Navbar = () => {
           Login
         </Link>
       </li>
-    </ul>
+    </>
   );
 
   return (
-    <div id="navbar" className="relative md:w-[200px] mt-0">
+    <div className="md:w-[200px] mt-0 text-white bg-[#23075e] md:h-screen sticky top-0">
       {/* logo part */}
-      <div className="flex md:mb-9 mb-4 ml-[30px] mt-0 pt-6">
+      <div className="flex md:mb-9 relative mb-4 ml-[30px] mt-0 pt-6">
         <img className="logo left-4 top-10" src={brandLogo} alt="Brand Logo" />
         <span className="font-bold pl-2">
           <span className="text-[#D3ADF8]">DOCTOR'S</span> <br /> HUB
@@ -147,67 +147,23 @@ const Navbar = () => {
         onClick={() => setOpen(!open)}
       >
         {open ? (
-          <FontAwesomeIcon icon={faBars} size="lg" />
-        ) : (
           <FontAwesomeIcon icon={faXmark} size="lg" />
+        ) : (
+          <FontAwesomeIcon icon={faBars} size="lg" />
         )}
       </div>
 
-      <hr className="border-solid border-2 border-[#722ED1] mb-5 mr-3" />
+      <hr className="border-solid border-2 border-[#722ED1] mt-7 md:ml-3 mb-4 md:mr-3" />
 
       {/* menu items */}
-      {menu}
-      {/* <ul>
-        {items.map((item, index) => {
-          
-          return (
-            <li
-              key={index}
-              className="mt-2 hover:border-l-2 hover:border-solid hover:border-solid hover:bg-[#722ed180]"
-            >
-              <Link to={item.link}>
-                {item.icon}
-                {item.name}
-              </Link>
-            </li>
-          );
-        })}
-      </ul> */}
-      {/* <div>{menu}</div> */}
+      <ul
+        className={`md:static bg-[#23075e] h-screen absolute transition-all duration-500 ease-in md:z-auto z-10 ${
+          open ? "top-[104px] w-full" : "left-[-490px]"
+        }`}
+      >
+        {menu};
+      </ul>
     </div>
-
-    // <div id="navbar" className="relative w-[290px]">
-    //   <div className="brand">
-    //     <div className="flex mb-9">
-    //       <img className="logo" src={brandLogo} alt="Brand Logo" />
-    //       <span className="font-bold pl-2">
-    //         <span className="text-[#D3ADF8]">DOCTOR'S</span> <br /> HUB
-    //       </span>
-    //     </div>
-    //   </div>
-    //   <div className="">
-    //     <hr className="border-solid border-2 border-[#722ED1] mb-5 mr-3" />
-
-    //     <div>{menu}</div>
-
-    //     <hr className="border-solid border-2 border-[#722ED1] mt-7 mb-4 mr-3" />
-
-    //     <div className="user-status">
-    //       <li>
-    //         <Link to="/setting">
-    //           <FontAwesomeIcon icon={faGear} className="mr-3.5" />
-    //           Setting
-    //         </Link>
-    //       </li>
-    //       <li className={liClass}>
-    //         <Link to="/login">
-    //           <FontAwesomeIcon icon={faRightFromBracket} className="mr-3.5" />
-    //           Login
-    //         </Link>
-    //       </li>
-    //     </div>
-    //   </div>
-    // </div>
   );
 };
 
