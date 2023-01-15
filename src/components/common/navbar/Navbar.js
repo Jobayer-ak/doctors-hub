@@ -75,7 +75,7 @@ const Navbar = () => {
   // ];
 
   const liClass =
-    "mt-2 hover:border-l-2 hover:border-solid hover:border-solid hover:bg-[#722ed180]";
+    "mt-2 hover:border-l-2 py-1.5 pr-2 pl-7 hover:border-solid hover:border-solid hover:bg-[#722ed180] transition duration-300 ease-in-out";
 
   const menu = (
     <>
@@ -112,7 +112,7 @@ const Navbar = () => {
         Contact
       </li>
 
-      <hr className="border-solid border-2 border-[#722ED1] mt-7 md:ml-3 mb-4 mr-3" />
+      <hr className="border-solid border-2 border-[#722ED1] mt-2 md:mt-7 md:ml-3 md:mb-4 md:mr-3" />
 
       <li className={liClass}>
         <Link to="/setting">
@@ -131,10 +131,15 @@ const Navbar = () => {
   );
 
   return (
-    <div className="md:w-[200px] mt-0 text-white bg-[#23075e] md:h-screen sticky top-0">
+    <div className="md:w-[200px] mt-0 text-white bg-[#23075e] md:h-screen sticky top-0 z-50">
       {/* logo part */}
-      <div className="flex md:mb-9 relative mb-4 ml-[30px] mt-0 pt-6">
-        <img className="logo left-4 top-10" src={brandLogo} alt="Brand Logo" />
+
+      <div className="flex bg-[#0a062c] md:bg-inherit pb-6 md:pb-0 pl-5 md:pl-0 md:mb-4 md:ml-[30px] mt-0 pt-6 z-50 relative">
+        <img
+          className="left-4 top-10 w-[44px] h-[44px]"
+          src={brandLogo}
+          alt="Brand Logo"
+        />
         <span className="font-bold pl-2">
           <span className="text-[#D3ADF8]">DOCTOR'S</span> <br /> HUB
         </span>
@@ -143,7 +148,7 @@ const Navbar = () => {
       {/* open close button for responsive */}
 
       <div
-        className="text-3xl absolute right-6 top-8 cursor-pointer md:hidden"
+        className="text-3xl z-50 absolute right-6 top-8 cursor-pointer md:hidden"
         onClick={() => setOpen(!open)}
       >
         {open ? (
@@ -153,15 +158,15 @@ const Navbar = () => {
         )}
       </div>
 
-      <hr className="border-solid border-2 border-[#722ED1] mt-7 md:ml-3 mb-4 md:mr-3" />
+      <hr className="border-solid border-2 border-[#722ED1] mt-0 md:mt-7 md:ml-3 mb-4 md:mr-3" z-60/>
 
       {/* menu items */}
       <ul
-        className={`md:static bg-[#23075e] h-screen absolute transition-all duration-500 ease-in md:z-auto z-10 ${
-          open ? "top-[104px] w-full" : "left-[-490px]"
+        className={`md:static bg-[#23075e] h-screen absolute transition-all duration-1000 ease-in-out z-10 ${
+          open ? "top-[100px] w-full" : "top-[-1000px] left-[-1000px]"
         }`}
       >
-        {menu};
+        {menu}
       </ul>
     </div>
   );
