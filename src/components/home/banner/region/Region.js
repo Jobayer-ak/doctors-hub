@@ -1,9 +1,8 @@
 import React from "react";
-import "./region.css";
 
 const Region = ({ region }) => {
   return (
-    <div id="region">
+    <div id="region" className="text-center bg-[#722ed180] p-2.5 w-[220px] h-[55px] mb-4 md:mb-0 ml-6 md:ml-0 rounded-md hover:bg-[#0a062c] transition duration-300 ease-in">
       <h2 className="text-2xl">{region}</h2>
     </div>
   );
