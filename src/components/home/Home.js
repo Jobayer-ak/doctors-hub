@@ -10,7 +10,7 @@ const Home = () => {
     <div id="home" className="md:h-screen md:w-full mx-4 lg:mx-10 bg-[#0a062c] text-white">
       <Searchbar />
       <Banner />
-      {/* <Hero /> */}
+      <Hero />
       {/* <Slider /> */}
       <div></div>
       <div></div>
@@ -18,4 +18,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default Home; 

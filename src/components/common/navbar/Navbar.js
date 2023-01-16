@@ -130,7 +130,7 @@ const Navbar = () => {
   );
 
   return (
-    <div className="md:w-[250px] mt-0 text-white bg-[#23075e] md:h-screen sticky top-0 z-50">
+    <div className="w-full md:w-[250px] mt-0 text-white bg-[#23075e] md:h-screen sticky top-0 z-50">
       {/* logo part */}
 
       <div className="flex bg-[#0a062c] md:bg-inherit pb-6 md:pb-0 pl-5 md:pl-0 md:mb-4 md:ml-[30px] mt-0 pt-6 z-50 relative">

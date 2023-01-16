@@ -1,7 +1,3 @@
-#hero{
-    margin-right: 50px;
-    margin-top: 20px;
-}
 
 .calender{
     background: #23075E;
@@ -10,8 +6,8 @@
     width: 48%;
 }
 .heroImg{
-    width: 500px;
-    height: 320px;
-    background: #23075E;
-    border-radius: 5px;
-}
+    /* width: 480px;
+    height: 320px; */
+    /* background: #23075E; */
+    /* border-radius: 5px; */
+} 

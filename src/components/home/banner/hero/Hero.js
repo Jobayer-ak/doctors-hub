@@ -7,14 +7,16 @@ import heroImage from "../../../../assets/icons/routine-health-checkup.png";
 const Hero = () => {
   const [value, setValue] = useState(new Date());
   return (
-    <div id="hero" className="flex justify-between items-center">
-      <div className="calender">
+    <div className="lg:flex lg:justify-between items-center mt-6">
+      <div className="mb-5 md:mb-0 w-full md:w-[520px]">
         <Calendar />
       </div>
 
-      <div className="hero-img">
-        <img src={heroImage} alt="" className="heroImg" />
-      </div>
+      <img
+        src={heroImage}
+        alt=""
+        className="w-full md:w-full lg:w-[480px] h-[320px] md:h-[420px] lg:h-[320px] bg-[#23075E] rounded-md md:mt-5"
+      />
     </div>
   );
 };
