@@ -1,5 +1,4 @@
 import React from "react";
-// import "./home.css";
 import Searchbar from "../common/searchbar/Searchbar";
 import Banner from "./banner/Banner";
 import Hero from "./banner/hero/Hero";
