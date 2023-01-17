@@ -3,8 +3,11 @@ import React from "react";
 import loginImage from "../../assets/images/loginImage .png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEnvelope } from "@fortawesome/free-regular-svg-icons";
-import { faUser } from "@fortawesome/free-regular-svg-icons";
-import { faLock } from "@fortawesome/free-solid-svg-icons";
+import {
+  faCircleUser,
+  faLock,
+  faUserPlus,
+} from "@fortawesome/free-solid-svg-icons";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 
@@ -25,20 +28,37 @@ const Signup = () => {
         <img src={loginImage} alt="" className="px-4 h-[500px] " />
       </div>
 
-      <div className="grow w-[350px] md:bg-[#23075e] lg:border-l-0 md:border-l-4 border-solid border-[#722ED1] h-screen px-7 pt-12 pb-2.5 text-center">
-        <h2 className="text-white inline-block font-bold text-4xl">
-          <FontAwesomeIcon
-            icon={faUser}
-            size="2xl"
-            className="bg-[#722ed1] md:bg-[#722ed1] p-10 rounded-[50%]"
-          />
+      <div className="grow w-[350px] md:bg-[#23075e] lg:border-l-0 md:border-l-4 border-solid border-[#722ED1] h-screen px-7 pt-6 md:pt-12 pb-2.5 text-center">
+        <h2 className="text-[#722ed1] font-bold text-6xl">
+          <FontAwesomeIcon icon={faCircleUser} size="2xl" />
         </h2>
 
         <form
           className="mt-12 md:bg-[#23075e] text-center relative"
           onSubmit={handleSubmit(onSubmit)}
         >
-          <div className="mb-5">
+          <div className="">
+            <FontAwesomeIcon
+              className="p-2.5 absolute text-[#23075e]"
+              icon={faUserPlus}
+              size="xl"
+            />
+            <input
+              class="text-center p-2 w-full max-w-sm focus:bg-[#722ed1] border-none outline-0 rounded-sm"
+              type="email"
+              placeholder="Your Full Name"
+              {...register("email", {
+                required: {
+                  value: true,
+                  message: "Email is required!",
+                },
+
+                pattern: /[a-z0-9]+@[a-z]+\.[a-z]{2,3}/,
+                message: "Provide a valid email!",
+              })}
+            />
+          </div>
+          <div className="my-8">
             <FontAwesomeIcon
               className="p-2.5 absolute text-[#23075e]"
               icon={faEnvelope}
@@ -69,7 +89,26 @@ const Signup = () => {
             <input
               class="text-center p-2 w-full max-w-sm focus:bg-[#722ed1] border-none outline-0 rounded-sm"
               type="password"
-              placeholder="Enter Password"
+              placeholder="Password"
+              {...register("password", {
+                required: {
+                  value: true,
+                  message: "Password is required!",
+                },
+                minLength: { value: 6, message: "At least 6 characters!" },
+              })}
+            />
+          </div>
+          <div className="my-8">
+            <FontAwesomeIcon
+              className="text-[#23075e] p-2.5 absolute"
+              icon={faLock}
+              size="xl"
+            />
+            <input
+              class="text-center p-2 w-full max-w-sm focus:bg-[#722ed1] border-none outline-0 rounded-sm"
+              type="password"
+              placeholder="Confirm Password"
               {...register("password", {
                 required: {
                   value: true,
@@ -87,7 +126,7 @@ const Signup = () => {
         </form>
 
         <div className="my-4">
-          <button className="text-white font-bold mt-4 btn-sm bg-[#722ed1] rounded">
+          <button className="text-white font-bold mt-4 btn-sm bg-[#722ed1] rounded-sm">
             <Link to="/login">Already Have An Account?</Link>
           </button>
         </div>

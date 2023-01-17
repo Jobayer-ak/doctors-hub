@@ -3,8 +3,7 @@ import React from "react";
 import loginImage from "../../assets/images/loginImage .png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEnvelope } from "@fortawesome/free-regular-svg-icons";
-import { faUser } from "@fortawesome/free-regular-svg-icons";
-import { faLock } from "@fortawesome/free-solid-svg-icons";
+import { faCircleUser, faLock } from "@fortawesome/free-solid-svg-icons";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 
@@ -25,9 +24,9 @@ const Login = () => {
         <img src={loginImage} alt="" className="px-4 h-[500px] " />
       </div>
 
-      <div className="grow w-[350px] md:bg-[#23075e] lg:border-l-0 md:border-l-4 border-solid border-[#722ED1] h-screen px-7 pt-12 pb-2.5 text-center">
-        <h2 className="text-white inline-block font-bold text-4xl">
-          <FontAwesomeIcon icon={faUser} size="2xl" className="bg-[#722ed1] md:bg-[#722ed1] p-10 rounded-[50%]"/>
+      <div className="grow w-[350px] md:bg-[#23075e] lg:border-l-0 md:border-l-4 border-solid border-[#722ED1] h-screen px-7 pt-6 md:pt-12 pb-2.5 text-center">
+      <h2 className="text-[#722ed1] font-bold text-6xl">
+          <FontAwesomeIcon icon={faCircleUser} size="2xl" />
         </h2>
 
         <form
@@ -84,7 +83,7 @@ const Login = () => {
 
         <div className="my-4">
           <p className="text-white font-bold">Forget Password?</p>
-          <button className="text-white font-bold mt-4 btn-sm bg-[#722ed1] rounded">
+          <button className="text-white font-bold mt-4 btn-sm bg-[#722ed1] rounded-sm">
             <Link to="/signup">Create An Account?</Link>
           </button>
         </div>
