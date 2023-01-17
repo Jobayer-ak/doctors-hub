@@ -12,9 +12,10 @@ import Register from "./components/Register/Register";
 
 function App() {
   return (
-    <div className="App md:flex">
+    <div className="App md:flex overflow-auto ">
       <AuthProvider>
         <Navbar />
+
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/registration" element={<Register />} />

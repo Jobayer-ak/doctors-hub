@@ -1,8 +1,9 @@
 import React from "react";
-import "./login.css";
+// import "./login.css";
 import loginImage from "../../assets/images/loginImage .png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEnvelope } from "@fortawesome/free-regular-svg-icons";
+import { faUser } from "@fortawesome/free-regular-svg-icons";
 import { faLock } from "@fortawesome/free-solid-svg-icons";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
@@ -19,28 +20,28 @@ const Login = () => {
   };
 
   return (
-    <div id="login" className="flex flex-row items-center">
-      <div className="image-part basis-1/2">
-        <img src={loginImage} alt="" className="" />
+    <div className="flex justify-between items-center mt-0 lg:bg-[#722ed1] w-full">
+      <div className="lg:block hidden">
+        <img src={loginImage} alt="" className="px-4 h-[500px] " />
       </div>
 
-      <div className="form-part w-96 text-center basis-1/2">
-        <h2 className="text-white inline-block font-bold text-3xl mt-12">
-          Please Login
+      <div className="grow w-[350px] md:bg-[#23075e] lg:border-l-0 md:border-l-4 border-solid border-[#722ED1] h-screen px-7 pt-12 pb-2.5 text-center">
+        <h2 className="text-white inline-block font-bold text-4xl">
+          <FontAwesomeIcon icon={faUser} size="2xl" className="bg-[#722ed1] md:bg-[#722ed1] p-10 rounded-[50%]"/>
         </h2>
 
         <form
-          className="mt-12 px-2 text-center relative"
+          className="mt-12 md:bg-[#23075e] text-center relative"
           onSubmit={handleSubmit(onSubmit)}
         >
           <div className="mb-5">
             <FontAwesomeIcon
-              className="icon p-2.5 absolute"
+              className="p-2.5 absolute text-[#23075e]"
               icon={faEnvelope}
               size="xl"
             />
             <input
-              class="text-center p-2 w-full max-w-sm focus:bg-[#722ed1] border-none outline-0"
+              class="text-center p-2 w-full max-w-sm focus:bg-[#722ed1] border-none outline-0 rounded-sm"
               type="email"
               placeholder="Enter Email"
               {...register("email", {
@@ -57,12 +58,12 @@ const Login = () => {
 
           <div className="my-8">
             <FontAwesomeIcon
-              className="icon p-2.5 absolute"
+              className="text-[#23075e] p-2.5 absolute"
               icon={faLock}
               size="xl"
             />
             <input
-              class="text-center p-2 w-full max-w-sm focus:bg-[#722ed1] border-none outline-0"
+              class="text-center p-2 w-full max-w-sm focus:bg-[#722ed1] border-none outline-0 rounded-sm"
               type="password"
               placeholder="Enter Password"
               {...register("password", {
@@ -75,7 +76,7 @@ const Login = () => {
             />
           </div>
           <input
-            class="text-center text-white font-bold bg-[#722ed1] p-2 w-full max-w-sm cursor-pointer"
+            class="text-center text-white font-bold bg-[#722ed1] p-2 w-full max-w-sm cursor-pointer rounded-sm"
             type="submit"
             value="Login"
           />

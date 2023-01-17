@@ -7,7 +7,7 @@ import Slider from "./carousel/Slider";
 
 const Home = () => {
   return (
-    <div id="home" className="md:h-screen md:w-full mx-4 lg:mx-10 bg-[#0a062c] text-white">
+    <div className="md:h-screen md:w-full mx-4 lg:mx-10 bg-[#0a062c] text-white">
       <Searchbar />
       <Banner />
       <Hero />
@@ -19,3 +19,4 @@ const Home = () => {
 };
 
 export default Home; 
+ 
