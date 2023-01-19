@@ -20,8 +20,10 @@ const Login = () => {
 
   return (
     <div className="flex lg:justify-center lg:h-screen lg:items-center mt-0 lg:bg-[#722ed1] w-full">
+
+      {/* login image */}
       <div className="lg:block hidden">
-        <img src={loginImage} alt="" className="px-4 h-[500px] " />
+        <img src={loginImage} alt="" className="px-4 h-[500px]" />
       </div>
 
       <div className="grow w-[350px] md:bg-[#23075e] lg:border-l-0 md:border-l-4 h-screen border-solid border-[#722ED1] px-7 pt-6 md:pt-12 pb-2.5 text-center">

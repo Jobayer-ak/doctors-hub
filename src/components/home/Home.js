@@ -3,7 +3,7 @@ import Searchbar from "../common/searchbar/Searchbar";
 import Banner from "./banner/Banner";
 import Hero from "./banner/hero/Hero";
 // import Footer from "../common/Footer/Footer";
-// import Slider from "./carousel/Slider";
+import Slider from "./carousel/Slider";
 
 
 const Home = () => {
@@ -12,7 +12,7 @@ const Home = () => {
       <Searchbar />
       <Banner />
       <Hero />
-      {/* <Slider /> */}
+      <Slider />
       {/* <Footer/> */}
       {/* <div></div>
       <div></div> */}

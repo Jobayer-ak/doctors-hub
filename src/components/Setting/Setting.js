@@ -4,17 +4,14 @@ import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEnvelope } from "@fortawesome/free-regular-svg-icons";
 import {
-  faAddressBook,
   faCircleUser,
-  faLocation,
-  faLock,
   faPhone,
   faUserPlus,
   faVenus,
   faMapMarkerAlt,
 } from "@fortawesome/free-solid-svg-icons";
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 
 const Setting = () => {
   const {
@@ -28,7 +25,7 @@ const Setting = () => {
   };
 
   return (
-    <div className="w-full h-screen lg:h-auto my-0 bg-[#23075e] lg:border-l-4 md:border-l-4 border-solid border-[#722ED1] z-10">
+    <div className="w-full h-screen lg:h-auto my-0 bg-[#23075e] lg:border-l-4 md:border-l-4 border-solid border-[#722ED1] z-10 lg:pb-5">
       <div className="px-7 pt-6 md:pt-12 pb-2.5 text-center">
         <h2 className="text-[#722ed1] font-bold text-6xl">
           <FontAwesomeIcon icon={faCircleUser} size="2xl" />
