@@ -1,8 +1,12 @@
 .App {
   background: #0a062c;
-  /* margin: 0 auto; */
+  /* background-color: red; */
+  height: auto;
+  /* margin: 0px 0px;
+  padding: 0px 0px; */
+  box-sizing: border-box;
 }
-
+/* 
 .App-logo {
   height: 40vmin;
   pointer-events: none;
@@ -36,4 +40,4 @@
   to {
     transform: rotate(360deg);
   }
-} 
+}  */

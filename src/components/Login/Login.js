@@ -3,41 +3,42 @@ import React from "react";
 import loginImage from "../../assets/images/loginImage .png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEnvelope } from "@fortawesome/free-regular-svg-icons";
-import { faCircleUser, faLock } from "@fortawesome/free-solid-svg-icons";
+import { faCircleUser, faLock} from "@fortawesome/free-solid-svg-icons";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 
 const Login = () => {
   const {
     register,
-    formState: { errors },
+    // formState: { errors },
     handleSubmit,
   } = useForm();
 
   const onSubmit = (data) => {
     console.log(data);
-  };
+  }; 
 
   return (
-    <div className="flex justify-between items-center mt-0 lg:bg-[#722ed1] w-full">
+    <div className="flex lg:justify-center lg:h-screen lg:items-center mt-0 lg:bg-[#722ed1] w-full">
       <div className="lg:block hidden">
         <img src={loginImage} alt="" className="px-4 h-[500px] " />
       </div>
 
-      <div className="grow w-[350px] md:bg-[#23075e] lg:border-l-0 md:border-l-4 border-solid border-[#722ED1] h-screen px-7 pt-6 md:pt-12 pb-2.5 text-center">
-      <h2 className="text-[#722ed1] font-bold text-6xl">
+      <div className="grow w-[350px] md:bg-[#23075e] lg:border-l-0 md:border-l-4 h-screen border-solid border-[#722ED1] px-7 pt-6 md:pt-12 pb-2.5 text-center">
+        <h2 className="text-[#722ed1] font-bold text-6xl">
           <FontAwesomeIcon icon={faCircleUser} size="2xl" />
         </h2>
 
         <form
-          className="mt-12 md:bg-[#23075e] text-center relative"
+          className="mt-12 md:bg-[#23075e] w-full text-center relative"
           onSubmit={handleSubmit(onSubmit)}
         >
-          <div className="mb-5">
+          
+          <div className="my-8">
             <FontAwesomeIcon
               className="p-2.5 absolute text-[#23075e]"
               icon={faEnvelope}
-              size="xl"
+              size="lg"
             />
             <input
               class="text-center p-2 w-full max-w-sm focus:bg-[#722ed1] border-none outline-0 rounded-sm"
@@ -59,7 +60,7 @@ const Login = () => {
             <FontAwesomeIcon
               className="text-[#23075e] p-2.5 absolute"
               icon={faLock}
-              size="xl"
+              size="lg"
             />
             <input
               class="text-center p-2 w-full max-w-sm focus:bg-[#722ed1] border-none outline-0 rounded-sm"
@@ -74,15 +75,15 @@ const Login = () => {
               })}
             />
           </div>
+          
           <input
             class="text-center text-white font-bold bg-[#722ed1] p-2 w-full max-w-sm cursor-pointer rounded-sm"
             type="submit"
-            value="Login"
+            value="Sign In"
           />
         </form>
 
         <div className="my-4">
-          <p className="text-white font-bold">Forget Password?</p>
           <button className="text-white font-bold mt-4 btn-sm bg-[#722ed1] rounded-sm">
             <Link to="/signup">Create An Account?</Link>
           </button>

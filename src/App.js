@@ -9,17 +9,19 @@ import Navbar from "./components/common/navbar/Navbar";
 import Home from "./components/home/Home";
 import Login from "./components/Login/Login";
 import Signup from "./components/Signup/Signup";
+import Setting from "./components/Setting/Setting";
 
 function App() {
   return (
-    <div className="App md:flex overflow-auto ">
+    <div className="App md:flex">
       <AuthProvider>
         <Navbar />
 
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/setting" element={<Setting />} />
         </Routes>
 
         <ToastContainer />

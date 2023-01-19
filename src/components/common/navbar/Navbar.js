@@ -130,43 +130,49 @@ const Navbar = () => {
   );
 
   return (
-    <div className="md:w-[250px] md:h-screen mt-0 text-white bg-[#23075e] z-50 md:sticky top-0">
+    <div className="md:w-[250px] lg:h-screen text-white bg-[#23075e] z-50 sticky top-0">
       {/* logo part */}
 
-      <div className="flex bg-[#0a062c] md:bg-inherit pb-6 md:pb-0 pl-5 md:pl-0 md:mb-4 md:ml-[30px] mt-0 pt-6 z-50 relative">
-        <img
-          className="left-4 top-10 w-[44px] h-[44px]"
-          src={brandLogo}
-          alt="Brand Logo"
+      <div className="sticky top-0">
+        <div className="flex bg-[#0a062c] md:bg-inherit pb-6 md:pb-0 pl-5 md:pl-0 md:mb-4 md:ml-[30px] mt-0 pt-6 z-50 relative">
+          <img
+            className="left-4 top-10 w-[44px] h-[44px]"
+            src={brandLogo}
+            alt="Brand Logo"
+          />
+          <span className="font-bold pl-2">
+            <span className="text-[#D3ADF8]">DOCTOR'S</span> <br /> HUB
+          </span>
+        </div>
+
+        {/* open close button for responsive */}
+
+        <div
+          className="text-3xl z-50 absolute right-6 top-8 cursor-pointer md:hidden"
+          onClick={() => setOpen(!open)}
+        >
+          {open ? (
+            <FontAwesomeIcon icon={faXmark} size="lg" />
+          ) : (
+            <FontAwesomeIcon icon={faBars} size="lg" />
+          )}
+        </div>
+
+        <hr
+          className="border-solid border-2 border-[#722ED1] mt-0 md:mt-7 md:ml-3 mb-4 md:mr-3"
+          z-60
         />
-        <span className="font-bold pl-2">
-          <span className="text-[#D3ADF8]">DOCTOR'S</span> <br /> HUB
-        </span>
+
+        {/* menu items */}
+        <ul
+          className={`md:static bg-[#23075e] pb-5 absolute transition-all duration-1000 ease-in-out z-100 ${
+            open ? "top-[100px] w-full" : "top-[-1000px] left-[-1000px]"
+            }`} 
+          onClick={()=> setOpen(!open)}
+        >
+          {menu}
+        </ul>
       </div>
-
-      {/* open close button for responsive */}
-
-      <div
-        className="text-3xl z-50 absolute right-6 top-8 cursor-pointer md:hidden"
-        onClick={() => setOpen(!open)}
-      >
-        {open ? (
-          <FontAwesomeIcon icon={faXmark} size="lg" />
-        ) : (
-          <FontAwesomeIcon icon={faBars} size="lg" />
-        )}
-      </div>
-
-      <hr className="border-solid border-2 border-[#722ED1] mt-0 md:mt-7 md:ml-3 mb-4 md:mr-3" z-60/>
-
-      {/* menu items */}
-      <ul
-        className={`md:static bg-[#23075e] h-screen absolute transition-all duration-1000 ease-in-out z-10 ${
-          open ? "top-[100px] w-full" : "top-[-1000px] left-[-1000px]"
-        }`}
-      >
-        {menu}
-      </ul>
     </div>
   );
 };

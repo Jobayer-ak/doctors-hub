@@ -8,7 +8,7 @@ const Hero = () => {
   return (
     <div className="lg:flex lg:justify-between items-center mt-6">
       <div className="mb-4 md:mb-0">
-        <Calendar />
+        <Calendar value={value} />
       </div>
 
       <img

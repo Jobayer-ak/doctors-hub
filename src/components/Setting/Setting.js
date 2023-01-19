@@ -1,17 +1,22 @@
 import React from "react";
 // import "./login.css";
-import loginImage from "../../assets/images/loginImage .png";
+// import loginImage from "../../assets/images/loginImage .png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEnvelope } from "@fortawesome/free-regular-svg-icons";
 import {
+  faAddressBook,
   faCircleUser,
+  faLocation,
   faLock,
+  faPhone,
   faUserPlus,
+  faVenus,
+  faMapMarkerAlt,
 } from "@fortawesome/free-solid-svg-icons";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 
-const Signup = () => {
+const Setting = () => {
   const {
     register,
     // formState: { errors },
@@ -23,12 +28,8 @@ const Signup = () => {
   };
 
   return (
-    <div className="flex mt-0 h-screen lg:h-auto lg:bg-[#722ed1] w-full">
-      <div className="lg:block hidden">
-        <img src={loginImage} alt="" className="px-4 h-[500px] " />
-      </div>
-
-      <div className="grow w-[350px] md:bg-[#23075e] lg:border-l-0 md:border-l-4 border-solid border-[#722ED1] px-7 pt-6 md:pt-12 pb-2.5 text-center">
+    <div className="w-full h-screen lg:h-auto my-0 bg-[#23075e] lg:border-l-4 md:border-l-4 border-solid border-[#722ED1] z-10">
+      <div className="px-7 pt-6 md:pt-12 pb-2.5 text-center">
         <h2 className="text-[#722ed1] font-bold text-6xl">
           <FontAwesomeIcon icon={faCircleUser} size="2xl" />
         </h2>
@@ -82,57 +83,79 @@ const Signup = () => {
 
           <div className="my-8">
             <FontAwesomeIcon
-              className="text-[#23075e] p-2.5 absolute"
-              icon={faLock}
+              className="p-2.5 absolute text-[#23075e]"
+              icon={faPhone}
               size="lg"
             />
             <input
               class="text-center p-2 w-full max-w-sm focus:bg-[#722ed1] border-none outline-0 rounded-sm"
-              type="password"
-              placeholder="Password"
-              {...register("password", {
+              type="email"
+              placeholder="Your Mobile Number"
+              {...register("email", {
                 required: {
                   value: true,
-                  message: "Password is required!",
+                  message: "Email is required!",
                 },
-                minLength: { value: 6, message: "At least 6 characters!" },
+
+                pattern: /[a-z0-9]+@[a-z]+\.[a-z]{2,3}/,
+                message: "Provide a valid email!",
               })}
             />
           </div>
+
           <div className="my-8">
             <FontAwesomeIcon
-              className="text-[#23075e] p-2.5 absolute"
-              icon={faLock}
+              className="p-2.5 absolute text-[#23075e]"
+              icon={faMapMarkerAlt}
               size="lg"
             />
             <input
               class="text-center p-2 w-full max-w-sm focus:bg-[#722ed1] border-none outline-0 rounded-sm"
-              type="password"
-              placeholder="Confirm Password"
-              {...register("password", {
+              type="email"
+              placeholder="Your Address"
+              {...register("email", {
                 required: {
                   value: true,
-                  message: "Password is required!",
+                  message: "Email is required!",
                 },
-                minLength: { value: 6, message: "At least 6 characters!" },
+
+                pattern: /[a-z0-9]+@[a-z]+\.[a-z]{2,3}/,
+                message: "Provide a valid email!",
               })}
             />
           </div>
+
+          <div className="my-8">
+            <FontAwesomeIcon
+              className="p-2.5 absolute text-[#23075e]"
+              icon={faVenus}
+              size="lg"
+            />
+            <input
+              class="text-center p-2 w-full max-w-sm focus:bg-[#722ed1] border-none outline-0 rounded-sm"
+              type="email"
+              placeholder="Gender"
+              {...register("email", {
+                required: {
+                  value: true,
+                  message: "Email is required!",
+                },
+
+                pattern: /[a-z0-9]+@[a-z]+\.[a-z]{2,3}/,
+                message: "Provide a valid email!",
+              })}
+            />
+          </div>
+
           <input
             class="text-center text-white font-bold bg-[#722ed1] p-2 w-full max-w-sm cursor-pointer rounded-sm"
             type="submit"
-            value="Sign Up"
+            value="Update Profile"
           />
         </form>
-
-        <div className="my-4">
-          <button className="text-white font-bold mt-4 btn-sm bg-[#722ed1] rounded-sm">
-            <Link to="/login">Already Have An Account?</Link>
-          </button>
-        </div>
       </div>
     </div>
   );
 };
 
-export default Signup;
+export default Setting;
