@@ -1,9 +1,6 @@
-import React, { useEffect } from "react";
-// import Carousel from "react-multi-carousel";
-// import "react-multi-carousel/lib/styles.css";
-// import "./slider.css";
+import React from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Pagination, Navigation, Autoplay } from "swiper";
+import { Pagination, Autoplay } from "swiper";
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
@@ -12,7 +9,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faQuoteLeft, faQuoteRight } from "@fortawesome/free-solid-svg-icons";
 
 const Slider = () => {
-  const info = ["item1", "item2", "item3", "item4", "item5" , "item6", "item7"];
+  const info = ["item1", "item2", "item3", "item4", "item5", "item6", "item7"];
 
   return (
     <div className="lg:max-w-[750px] xl:max-w-[1200px]">
@@ -35,11 +32,18 @@ const Slider = () => {
                 <div className="card-body">
                   <div className="flex w-full overflow-hidden bg-slate-700">
                     <p className="italic text-xl">
-                      <FontAwesomeIcon icon={faQuoteLeft} size="sm" className="pr-2" />
+                      <FontAwesomeIcon
+                        icon={faQuoteLeft}
+                        size="sm"
+                        className="pr-2"
+                      />
                       {d}
-                      {/* fasdddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd */}
-                      
-                      <FontAwesomeIcon icon={faQuoteRight} size="sm" className="pl-2" />
+
+                      <FontAwesomeIcon
+                        icon={faQuoteRight}
+                        size="sm"
+                        className="pl-2"
+                      />
                     </p>
                   </div>
                 </div>

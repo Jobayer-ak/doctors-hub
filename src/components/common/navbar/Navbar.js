@@ -85,8 +85,10 @@ const Navbar = () => {
         </Link>
       </li>
       <li className={liClass}>
-        <FontAwesomeIcon icon={faBriefcaseMedical} className={padding} />
-        Specialties
+        <Link to="/specialties">
+          <FontAwesomeIcon icon={faBriefcaseMedical} className={padding} />
+          Specialties
+        </Link>
       </li>
       <li className={liClass}>
         <FontAwesomeIcon icon={faCalendarDays} className="mr-4" />
@@ -167,8 +169,8 @@ const Navbar = () => {
         <ul
           className={`md:static bg-[#23075e] pb-5 absolute transition-all duration-1000 ease-in-out z-100 ${
             open ? "top-[100px] w-full" : "top-[-1000px] left-[-1000px]"
-            }`} 
-          onClick={()=> setOpen(!open)}
+          }`}
+          onClick={() => setOpen(!open)}
         >
           {menu}
         </ul>
