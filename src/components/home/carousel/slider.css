@@ -1,6 +1,7 @@
 .swiper {
     width: 100%;
     height: 100%;
+    border-radius: 5px;
   }
   
   .swiper-slide {
@@ -22,7 +23,22 @@
     -webkit-align-items: center;
     align-items: center;
   }
+  .swiper-pagination-bullet {
+    margin-top: 50px;
+    width: 10px;
+    height: 10px;
+    text-align: center;
+    line-height: 20px;
+    font-size: 7px;
+    color: #000;
+    opacity: 1;
+    background: rgba(0, 0, 0, 0.2);
+  }
   
+  .swiper-pagination-bullet-active {
+    color: #fff;
+    background: #e1e4e7;
+  }
   .swiper-slide img {
     display: block;
     width: 100%;
