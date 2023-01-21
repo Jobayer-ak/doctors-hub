@@ -14,7 +14,7 @@ import {
   faUsers,
   faXmark,
 } from "@fortawesome/free-solid-svg-icons";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Navbar = () => {
   const [open, setOpen] = useState(false);
@@ -73,6 +73,17 @@ const Navbar = () => {
   //   },
   // ];
 
+  const navigate = useNavigate();
+
+  const userEmail = localStorage.getItem("userEmail");
+
+  const logout = () => {
+    localStorage.removeItem("userEmail");
+    localStorage.removeItem("userName");
+    localStorage.removeItem("userRole");
+    navigate("/login");
+  };
+
   const liClass =
     "mt-2 hover:border-l-2 py-1.5 pr-2 pl-7 hover:border-solid hover:border-solid hover:bg-[#722ed180] transition duration-300 ease-in-out";
 
@@ -99,8 +110,10 @@ const Navbar = () => {
         Add Doctor
       </li>
       <li className={liClass}>
-        <FontAwesomeIcon icon={faTableColumns} className={padding} />
-        Dashboard
+        <Link to="/dashboard">
+          <FontAwesomeIcon icon={faTableColumns} className={padding} />
+          Dashboard
+        </Link>
       </li>
 
       <li className={liClass}>
@@ -123,10 +136,17 @@ const Navbar = () => {
       </li>
 
       <li className={liClass}>
-        <Link to="/login">
-          <FontAwesomeIcon icon={faRightFromBracket} className={padding} />
-          Login
-        </Link>
+        {userEmail ? (
+          <Link to="/login" onClick={logout}>
+            <FontAwesomeIcon icon={faRightFromBracket} className={padding} />
+            Logout
+          </Link>
+        ) : (
+          <Link to="/login">
+            <FontAwesomeIcon icon={faRightFromBracket} className={padding} />
+            Login
+          </Link>
+        )}
       </li>
     </>
   );

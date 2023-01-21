@@ -11,6 +11,8 @@ import Login from "./components/Login/Login";
 import Signup from "./components/Signup/Signup";
 import Setting from "./components/Setting/Setting";
 import Specialties from "./components/Specialties/Specialties";
+import RequireAuth from "./components/Login/RequireAuth";
+import Dashboard from "./components/Dashboard/Dashboard";
 
 function App() {
   return (
@@ -23,7 +25,15 @@ function App() {
           <Route path="/specialties" element={<Specialties />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/setting" element={<Setting />} />
+          <Route path="/dashboard" element={<Dashboard />} />
+          <Route
+            path="/setting"
+            element={
+              <RequireAuth>
+                <Setting />
+              </RequireAuth>
+            }
+          />
         </Routes>
 
         <ToastContainer />

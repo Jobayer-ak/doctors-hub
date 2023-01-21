@@ -5,10 +5,11 @@ const Specialties = () => {
     "Medicine",
     "Cardiology",
     "Neuro Medicine",
-    "Anchology",
-      "Orthopedics",
-      "Gynaecology",
-        "Dentist"
+    "Orthopedics",
+    "Gynaecology",
+    "Dental",
+    "Plastic Surgery",
+    "Dermatology",
   ];
 
   return (
@@ -18,9 +19,9 @@ const Specialties = () => {
           Specialties
         </h1>
 
-        <div className="grid grid-cols-2 md:grid md:grid-cols-3 lg:grid lg:grid-cols-5 gap-2 my-3 px-4 w-full lg:max-w-[100%] text-center">
+        <div className="grid grid-cols-2 md:grid md:grid-cols-3 lg:grid lg:grid-cols-6 gap-2 my-3 px-4 w-full lg:max-w-[100%] text-center">
           {specialities.map((s) => (
-            <h3 className="font-bold text-white md:text-sm xl:text-lg bg-[#4a1a98] hover:bg-[#0a062c] transition-all ease-in-out px-2 py-2 mr-2 rounded-md">
+            <h3 className="font-bold text-white md:text-sm bg-[#4a1a98] hover:bg-[#0a062c] transition-all ease-in-out py-2 rounded-md">
               {s}
             </h3>
           ))}
