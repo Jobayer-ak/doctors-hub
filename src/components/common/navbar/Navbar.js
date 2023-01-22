@@ -4,7 +4,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faBars,
   faBriefcaseMedical,
-  faCalendarDays,
   faGear,
   faHome,
   faPhoneVolume,
@@ -101,20 +100,10 @@ const Navbar = () => {
           Specialties
         </Link>
       </li>
-      <li className={liClass}>
+      {/* <li className={liClass}>
         <FontAwesomeIcon icon={faCalendarDays} className="mr-4" />
         Appointments
-      </li>
-      <li className={liClass}>
-        <FontAwesomeIcon icon={faStethoscope} size="sm" className={padding} />
-        Add Doctor
-      </li>
-      <li className={liClass}>
-        <Link to="/dashboard">
-          <FontAwesomeIcon icon={faTableColumns} className={padding} />
-          Dashboard
-        </Link>
-      </li>
+      </li> */}
 
       <li className={liClass}>
         <FontAwesomeIcon icon={faUsers} size="sm" className={padding} />
@@ -128,6 +117,22 @@ const Navbar = () => {
 
       <hr className="border-solid border-2 border-[#722ED1] mt-2 md:mt-7 md:ml-3 md:mb-4 md:mr-3" />
 
+      {userEmail && (
+        <li className={liClass}>
+          <Link to="/dashboard">
+            <FontAwesomeIcon icon={faTableColumns} className={padding} />
+            Dashboard
+          </Link>
+        </li>
+      )}
+
+      <li className={liClass}>
+        <Link to="/addDoctor">
+          <FontAwesomeIcon icon={faStethoscope} size="sm" className={padding} />
+          Add Doctor
+        </Link>
+      </li>
+
       <li className={liClass}>
         <Link to="/setting">
           <FontAwesomeIcon icon={faGear} className={padding} />
@@ -135,19 +140,24 @@ const Navbar = () => {
         </Link>
       </li>
 
-      <li className={liClass}>
-        {userEmail ? (
+      {userEmail ? (
+        <li className={` bg-[#9258e5] border-l-0 ${liClass}`}>
           <Link to="/login" onClick={logout}>
-            <FontAwesomeIcon icon={faRightFromBracket} className={padding} />
+            <FontAwesomeIcon
+              icon={faRightFromBracket}
+              className={`${padding} rotate-180`}
+            />
             Logout
           </Link>
-        ) : (
+        </li>
+      ) : (
+        <li className={liClass}>
           <Link to="/login">
             <FontAwesomeIcon icon={faRightFromBracket} className={padding} />
             Login
           </Link>
-        )}
-      </li>
+        </li>
+      )}
     </>
   );
 

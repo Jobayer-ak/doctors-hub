@@ -24,7 +24,9 @@ const Login = () => {
   const onSubmit = (data) => {
     console.log(data);
     axios
-      .post("http://localhost:5000/api/v1/login", data)
+      .post("http://localhost:5000/api/v1/login", data, {
+        withCredentials: true,
+      })
       .then((res) => {
         const { name, email, role } = res.data.others;
         localStorage.setItem("userRole", role);
@@ -45,7 +47,7 @@ const Login = () => {
     <div className="flex lg:justify-center lg:h-screen lg:items-center mt-0 lg:bg-[#722ed1] w-full">
       {/* login image */}
       <div className="lg:block hidden">
-        <img src={loginImage} alt="" className="px-4 lg:mb-10 h-[500px]" />
+        <img src={loginImage} alt="" className="px-4 lg:mb-10 md:h-[500px]" />
       </div>
 
       <div className="grow w-[350px] md:bg-[#23075e] lg:border-l-0 md:border-l-4 h-screen border-solid border-[#722ED1] px-7 pt-6 md:pt-12 pb-2.5 text-center">
@@ -77,7 +79,9 @@ const Login = () => {
                 message: "Provide a valid email",
               })}
             />
-            {errors.email && <p className='text-white mt-2'>{errors.email?.message}</p>}
+            {errors.email && (
+              <p className="text-white mt-2">{errors.email?.message}</p>
+            )}
           </div>
 
           <div className="my-8">
@@ -98,7 +102,9 @@ const Login = () => {
                 },
               })}
             />
-            {errors.password && <p className='text-white mt-2'>{errors.password?.message}</p>}
+            {errors.password && (
+              <p className="text-white mt-2">{errors.password?.message}</p>
+            )}
           </div>
 
           <input

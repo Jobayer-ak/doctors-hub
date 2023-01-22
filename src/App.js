@@ -13,19 +13,27 @@ import Setting from "./components/Setting/Setting";
 import Specialties from "./components/Specialties/Specialties";
 import RequireAuth from "./components/Login/RequireAuth";
 import Dashboard from "./components/Dashboard/Dashboard";
+import AddDoctor from "./components/AddDoctor/AddDoctor";
 
 function App() {
   return (
-    <div className="App md:flex">
+    <div className="App md:flex h-screen">
       <AuthProvider>
         <Navbar />
 
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/specialties" element={<Specialties />} />
-          <Route path="/signup" element={<Signup />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/addDoctor" element={<AddDoctor />} />
+
+          <Route
+            path="/dashboard"
+            element={
+              <RequireAuth>
+                <Dashboard />
+              </RequireAuth>
+            }
+          />
           <Route
             path="/setting"
             element={
@@ -34,6 +42,8 @@ function App() {
               </RequireAuth>
             }
           />
+          <Route path="/signup" element={<Signup />} />
+          <Route path="/login" element={<Login />} />
         </Routes>
 
         <ToastContainer />
