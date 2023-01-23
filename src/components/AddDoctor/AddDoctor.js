@@ -10,6 +10,7 @@ import {
   faPhone,
   faUserDoctor,
   faUserPlus,
+  faBookSkull,
 } from "@fortawesome/free-solid-svg-icons";
 import { useForm } from "react-hook-form";
 import axios from "axios";
@@ -254,15 +255,15 @@ const AddDoctor = () => {
               <div className="mt-8 mb-0">
                 <FontAwesomeIcon
                   className="p-2.5 absolute text-[#23075e]"
-                  icon={faGraduationCap}
+                  icon={faBookSkull}
                   size="lg"
                 />
                 <input
                   class="text-center p-2 w-full md:w-96 lg:w-[350px] focus:bg-[#722ed1] border-none outline-0 rounded-sm"
                   type="text"
-                  placeholder="Studied from"
-                  {...register("studied_medical_college", {
-                    required: "Studied Medical College Name is required!",
+                  placeholder="Treatment Department"
+                  {...register("department", {
+                    required: "Department name is required!",
                     maxLength: {
                       value: 35,
                       message: "Too Large! Not more than 35 characters.",
@@ -289,7 +290,7 @@ const AddDoctor = () => {
                   {...register("higher_degree", {
                     required: "Higher Degree and University Name is required!",
                     maxLength: {
-                      value: 35,
+                      value: 60,
                       message: "Too Large! Not more than 35 characters.",
                     },
                   })}
