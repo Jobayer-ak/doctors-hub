@@ -1,26 +1,49 @@
-import React from "react";
+import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEnvelope, faHospital } from "@fortawesome/free-regular-svg-icons";
+import { faEnvelope } from "@fortawesome/free-regular-svg-icons";
 import {
+  faHospital,
   faBriefcaseMedical,
   faDroplet,
-  faHouseMedical,
+  faGraduationCap,
   faMapMarkerAlt,
   faPhone,
   faUserDoctor,
   faUserPlus,
 } from "@fortawesome/free-solid-svg-icons";
 import { useForm } from "react-hook-form";
+import axios from "axios";
 
 const AddDoctor = () => {
   const {
     register,
-    // formState: { errors },
+    formState: { errors },
+    reset,
     handleSubmit,
   } = useForm();
 
-  const onSubmit = (data) => {
-    console.log(data);
+  const [loginError, setLoginError] = useState("");
+
+  const onSubmit = async (data) => {
+    // console.log(data);
+
+    await axios
+      .post("http://localhost:5000/api/v1/admin/addDoctor", data, {
+        withCredentials: true,
+      })
+      .then((res) => {
+
+        // console.log(res)
+        if (res.data.status === 403) {
+          
+          setLoginError(res.data.message);
+        }
+        reset();
+      })
+      .catch((err) => {
+        console.log(err)
+        // setLoginError(err.response.data.message);
+      });
   };
 
   return (
@@ -35,7 +58,7 @@ const AddDoctor = () => {
           className="mt-8 md:bg-[#23075e] text-center relative"
           onSubmit={handleSubmit(onSubmit)}
         >
-          <div className="lg:flex justify-center gap-10 p-4">
+          <div className="lg:flex lg:justify-center gap-10 p-4">
             {/* First part */}
             <div>
               <div className="">
@@ -56,6 +79,9 @@ const AddDoctor = () => {
                     },
                   })}
                 />
+                {errors.email && (
+                  <p className="text-white mt-2">{errors.name?.message}</p>
+                )}
               </div>
 
               <div className="my-8">
@@ -78,9 +104,12 @@ const AddDoctor = () => {
                     message: "Provide a valid email!",
                   })}
                 />
+                {errors.email && (
+                  <p className="text-white mt-2">{errors.eamil?.message}</p>
+                )}
               </div>
 
-               <div className="my-8">
+              <div className="my-8">
                 <FontAwesomeIcon
                   className="p-2.5 absolute text-[#23075e]"
                   icon={faPhone}
@@ -90,14 +119,19 @@ const AddDoctor = () => {
                   class="text-center p-2 w-full md:w-96 lg:w-[350px] focus:bg-[#722ed1] border-none outline-0 rounded-sm"
                   type="text"
                   placeholder="Mobile Number"
-                  {...register("mobile", {
+                  {...register("contact_number", {
                     required: {
                       value: true,
                       message: "Mobile Number is required!",
                     },
                   })}
                 />
-              </div> 
+                {errors.email && (
+                  <p className="text-white mt-2">
+                    {errors.contact_number?.message}
+                  </p>
+                )}
+              </div>
 
               <div className="mb-8">
                 <FontAwesomeIcon
@@ -116,42 +150,50 @@ const AddDoctor = () => {
                     },
                   })}
                 />
+                {errors.email && (
+                  <p className="text-white mt-2">{errors.address?.message}</p>
+                )}
               </div>
 
-              <div className="text-white flex justify-center items-center gap-[60px] md:gap-[75px]">
-                <div>
-                  <h3 className="font-bold">Gender</h3>
-                </div>
+              <div>
+                <div className="text-white flex justify-center items-center gap-[50px] md:gap-[75px]">
+                  <div>
+                    <h3 className="font-bold">Gender</h3>
+                  </div>
 
-                <div className="flex items-center gap-3">
-                  <input
-                    type="radio"
-                    placeholder="Gender"
-                    value="Male"
-                    className=""
-                    {...register("gender", {
-                      required: {
-                        value: true,
-                        message: "Gender is required!",
-                      },
-                    })}
-                  />
-                  <p>Male</p>
-                </div>
+                  <div className="flex items-center gap-3">
+                    <input
+                      type="radio"
+                      placeholder="Gender"
+                      value="Male"
+                      className=""
+                      {...register("gender", {
+                        required: {
+                          value: true,
+                          message: "Gender is required!",
+                        },
+                      })}
+                    />
+                    <p>Male</p>
+                  </div>
 
-                <div className="flex items-center gap-3">
-                  <input
-                    type="radio"
-                    value="Female"
-                    {...register("gender", {
-                      required: {
-                        value: true,
-                        message: "Gender is required!",
-                      },
-                    })}
-                  />
-                  <p>Female</p>
+                  <div className="flex items-center gap-3">
+                    <input
+                      type="radio"
+                      value="Female"
+                      {...register("gender", {
+                        required: {
+                          value: true,
+                          message: "Gender is required!",
+                        },
+                      })}
+                    />
+                    <p>Female</p>
+                  </div>
                 </div>
+                {errors.email && (
+                  <p className="text-white mt-2">{errors.gender?.message}</p>
+                )}
               </div>
             </div>
 
@@ -169,7 +211,7 @@ const AddDoctor = () => {
                   class="text-center p-2 w-full md:w-96 lg:w-[350px] focus:bg-[#722ed1] border-none outline-0 rounded-sm"
                   type="text"
                   placeholder="Working Hospital Name"
-                  {...register("whospital", {
+                  {...register("working_hospital", {
                     required: "Hospital name is required!",
                     maxLength: {
                       value: 35,
@@ -177,6 +219,11 @@ const AddDoctor = () => {
                     },
                   })}
                 />
+                {errors.email && (
+                  <p className="text-white mt-2">
+                    {errors.working_hospital?.message}
+                  </p>
+                )}
               </div>
 
               <div className="">
@@ -188,28 +235,33 @@ const AddDoctor = () => {
                 <input
                   class="text-center p-2 w-full md:w-96 lg:w-[350px] focus:bg-[#722ed1] border-none outline-0 rounded-sm"
                   type="text"
-                  placeholder="Specialist of.e.g. -> medicine, dental..."
-                  {...register("specialist", {
-                    required: "Specialist is required!",
+                  placeholder="Treatment Field"
+                  {...register("treatment_area", {
+                    required: "Treatment Area name is required!",
                     maxLength: {
                       value: 35,
                       message: "Too Large! Not more than 35 characters.",
                     },
                   })}
                 />
+                {errors.email && (
+                  <p className="text-white mt-2">
+                    {errors.treatment_area?.message}
+                  </p>
+                )}
               </div>
 
               <div className="mt-8 mb-0">
                 <FontAwesomeIcon
                   className="p-2.5 absolute text-[#23075e]"
-                  icon={faHouseMedical}
+                  icon={faGraduationCap}
                   size="lg"
                 />
                 <input
                   class="text-center p-2 w-full md:w-96 lg:w-[350px] focus:bg-[#722ed1] border-none outline-0 rounded-sm"
                   type="text"
-                  placeholder="Studied from 'Medical College Name'"
-                  {...register("medicalCollege", {
+                  placeholder="Studied from"
+                  {...register("studied_medical_college", {
                     required: "Studied Medical College Name is required!",
                     maxLength: {
                       value: 35,
@@ -217,19 +269,24 @@ const AddDoctor = () => {
                     },
                   })}
                 />
+                {errors.email && (
+                  <p className="text-white mt-2">
+                    {errors.studied_medical_college?.message}
+                  </p>
+                )}
               </div>
 
               <div className="mt-8 mb-0">
                 <FontAwesomeIcon
                   className="p-2.5 absolute text-[#23075e]"
-                  icon={faHouseMedical}
+                  icon={faGraduationCap}
                   size="lg"
                 />
                 <input
                   class="text-center p-2 w-full md:w-96 lg:w-[350px] focus:bg-[#722ed1] border-none outline-0 rounded-sm"
                   type="text"
-                  placeholder="Higher Degree and University Name"
-                  {...register("blood_group", {
+                  placeholder="Higher Degree with info"
+                  {...register("higher_degree", {
                     required: "Higher Degree and University Name is required!",
                     maxLength: {
                       value: 35,
@@ -237,6 +294,9 @@ const AddDoctor = () => {
                     },
                   })}
                 />
+                <p className="text-white mt-2">
+                  {errors.higher_degree?.message}
+                </p>
               </div>
 
               <div className="mt-8 mb-0">
@@ -247,7 +307,7 @@ const AddDoctor = () => {
                 />
 
                 <select
-                  {...register("bloog_group", {
+                  {...register("blood_group", {
                     required: "Blood Group is required.",
                   })}
                   className="w-full md:w-96 lg:w-[350px] pl-10 text-center font-bold p-2 focus:bg-[#722ed1] border-none outline-0 rounded-sm"
@@ -261,13 +321,17 @@ const AddDoctor = () => {
                   <option value="O+">O+</option>
                   <option value="O-">O-</option>
                 </select>
-              </div> 
+                <p className="text-white mt-2">{errors.blood_group?.message}</p>
+              </div>
             </div>
 
             {/* second part end */}
           </div>
+
+          {loginError && <p className="text-white mt-2">{loginError}</p>}
+
           <input
-            class="my-8 text-center text-white font-bold bg-[#722ed1] p-2 w-[92%] w-full md:w-96 lg:w-[350px] cursor-pointer rounded-sm"
+            class="my-8 text-center text-white font-bold bg-[#722ed1] p-2 w-[92%] w-full md:w-96 lg:w-[350px] transition-all hover:bg-[#9258e5] cursor-pointer rounded-sm"
             type="submit"
             value="Add"
           />

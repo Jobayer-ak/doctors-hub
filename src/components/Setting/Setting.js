@@ -2,12 +2,11 @@ import React from "react";
 // import "./login.css";
 // import loginImage from "../../assets/images/loginImage .png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEnvelope } from "@fortawesome/free-regular-svg-icons";
+import { faEnvelope, faUser } from "@fortawesome/free-regular-svg-icons";
 import {
   faCircleUser,
   faPhone,
   faUserPlus,
-  faVenus,
   faMapMarkerAlt,
 } from "@fortawesome/free-solid-svg-icons";
 import { useForm } from "react-hook-form";
@@ -27,8 +26,9 @@ const Setting = () => {
   return (
     <div className="w-full h-screen lg:h-auto my-0 bg-[#23075e] lg:border-l-4 md:border-l-4 border-solid border-[#722ED1] z-10 lg:pb-5">
       <div className="px-7 pt-6 md:pt-12 pb-2.5 text-center">
-        <h2 className="text-[#722ed1] font-bold text-6xl">
-          <FontAwesomeIcon icon={faCircleUser} size="2xl" />
+        <h2 className="text-[#722ed1] font-bold text-3xl md:text-4xl bg-white inline-block py-3 px-6 rounded-full">
+          <span className="mr-4">Update Profile</span>
+          <FontAwesomeIcon icon={faCircleUser} size="xl" />
         </h2>
 
         <form
@@ -122,32 +122,46 @@ const Setting = () => {
             />
           </div>
 
-          <div className="my-8">
-            <FontAwesomeIcon
-              className="p-2.5 absolute text-[#23075e]"
-              icon={faVenus}
-              size="lg"
-            />
-            <input
-              class="text-center p-2 w-full max-w-sm focus:bg-[#722ed1] border-none outline-0 rounded-sm"
-              type="email"
-              placeholder="Gender"
-              {...register("email", {
-                required: {
-                  value: true,
-                  message: "Email is required!",
-                },
+          <div className="text-white mb-8 flex justify-center items-center gap-[50px] md:gap-[75px]">
+            <div>
+              <h3 className="font-bold">Gender</h3>
+            </div>
 
-                pattern: /[a-z0-9]+@[a-z]+\.[a-z]{2,3}/,
-                message: "Provide a valid email!",
-              })}
-            />
+            <div className="flex items-center gap-3">
+              <input
+                type="radio"
+                placeholder="Gender"
+                value="Male"
+                className=""
+                {...register("gender", {
+                  required: {
+                    value: true,
+                    message: "Gender is required!",
+                  },
+                })}
+              />
+              <p>Male</p>
+            </div>
+
+            <div className="flex items-center gap-3">
+              <input
+                type="radio"
+                value="Female"
+                {...register("gender", {
+                  required: {
+                    value: true,
+                    message: "Gender is required!",
+                  },
+                })}
+              />
+              <p>Female</p>
+            </div>
           </div>
 
           <input
-            class="text-center text-white font-bold bg-[#722ed1] p-2 w-full max-w-sm cursor-pointer rounded-sm"
+            class="text-center text-white font-bold bg-[#722ed1] hover:bg-[#9258e5] transition-all p-2 w-full max-w-sm cursor-pointer rounded-sm"
             type="submit"
-            value="Update Profile"
+            value="Save"
           />
         </form>
       </div>

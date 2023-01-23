@@ -100,10 +100,6 @@ const Navbar = () => {
           Specialties
         </Link>
       </li>
-      {/* <li className={liClass}>
-        <FontAwesomeIcon icon={faCalendarDays} className="mr-4" />
-        Appointments
-      </li> */}
 
       <li className={liClass}>
         <FontAwesomeIcon icon={faUsers} size="sm" className={padding} />
@@ -115,7 +111,7 @@ const Navbar = () => {
         Contact
       </li>
 
-      <hr className="border-solid border-2 border-[#722ED1] mt-2 md:mt-7 md:ml-3 md:mb-4 md:mr-3" />
+      <hr className="border-solid border-2 border-[#722ED1] mt-2 md:mt-4 md:ml-3 md:mb-4 md:mr-3" />
 
       {userEmail && (
         <li className={liClass}>
@@ -191,7 +187,7 @@ const Navbar = () => {
         </div>
 
         <hr
-          className="border-solid border-2 border-[#722ED1] mt-0 md:mt-7 md:ml-3 mb-4 md:mr-3"
+          className="border-solid border-2 border-[#722ED1] mt-0 md:mt-7 md:ml-3 md:mb-4 md:mr-3"
           z-60
         />
 
