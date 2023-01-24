@@ -1,0 +1,7 @@
+.rdp-day:hover{
+    color: black;
+}
+
+.rdp-day_selected{
+    background: #9258e5;
+}

@@ -5,7 +5,8 @@ import axios from "axios";
 
 const DoctorCards = () => {
   const [curDepartment, setCurDepartment] = useState("All");
-
+    const [active, setActive] = useState(true);
+    
   //   const specialities = [
   //     "Medicine",
   //     "Cardiology",

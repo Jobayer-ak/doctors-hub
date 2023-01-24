@@ -10,10 +10,10 @@ import Home from "./components/home/Home";
 import Login from "./components/Login/Login";
 import Signup from "./components/Signup/Signup";
 import Setting from "./components/Setting/Setting";
-import Specialties from "./components/Specialties/Specialties";
 import RequireAuth from "./components/Login/RequireAuth";
 import Dashboard from "./components/Dashboard/Dashboard";
 import AddDoctor from "./components/AddDoctor/AddDoctor";
+import Appointments from "./components/Appointment/Appointments";
 
 function App() {
   return (
@@ -23,7 +23,7 @@ function App() {
 
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/specialties" element={<Specialties />} />
+          <Route path="/specialties" element={<Appointments />} />
           <Route path="/addDoctor" element={<AddDoctor />} />
 
           <Route

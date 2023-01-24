@@ -97,7 +97,7 @@ const Navbar = () => {
       <li className={liClass}>
         <Link to="/specialties">
           <FontAwesomeIcon icon={faBriefcaseMedical} className={padding} />
-          Specialties
+          Appointments
         </Link>
       </li>
 
