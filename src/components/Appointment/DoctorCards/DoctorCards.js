@@ -1,16 +1,22 @@
-import React, {useState } from "react";
+import React, { useEffect, useState } from "react";
 import DoctorCard from "./DoctorCard";
 import { useQuery } from "react-query";
 import axios from "axios";
+import { format } from "date-fns";
 
-const DoctorCards = ({selectedCity}) => {
+const DoctorCards = ({ selectedCity, date }) => {
   const [curDepartment, setCurDepartment] = useState("All");
- 
+  const formatedDate = format(date, "PP");
 
-  const { data: doctors, isLoading} = useQuery(["doctor"], async () => {
-    const res = await axios.get("http://localhost:5000/api/v1/doctors", {
-      withCredentials: true,
-    });
+  console.log(selectedCity);
+
+  const { data: doctors, isLoading, refetch } = useQuery(["doctor"], async () => {
+    const res = await axios.get(
+      `http://localhost:5000/api/v1/doctors`,
+      {
+        withCredentials: true,
+      }
+    );
     const result = res.data;
     return result;
   });
@@ -19,12 +25,20 @@ const DoctorCards = ({selectedCity}) => {
     return <h2 className="text-xl font-bold text-white">Loading......</h2>;
   }
 
-  console.log(selectedCity)
 
   const doctorArray = ["All", ...new Set(doctors.map((doc) => doc.department))];
 
   const depDoctors = doctors.filter((doc) => doc.department === curDepartment);
+  
+  const branchDoc = depDoctors.filter(doc => doc.branch === selectedCity);
+  console.log(curDepartment)
 
+  const cityDoc = doctors.filter(doc => doc.branch === selectedCity);
+
+  console.log(cityDoc);
+  console.log(branchDoc);
+
+  
 
   return (
     <div className="">
@@ -41,13 +55,15 @@ const DoctorCards = ({selectedCity}) => {
         ))}
       </div>
 
+
       {/* doctor cards */}
       <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4 mx-4">
         {curDepartment === "All"
-          ? doctors?.map((doctor) => (
+          ? cityDoc?.map((doctor) => (
               <DoctorCard key={doctor._id} doctor={doctor} />
             ))
-          : depDoctors?.map((doctor) => (
+          : branchDoc?.map((doctor) => (
+            
               <DoctorCard key={doctor._id} doctor={doctor} />
             ))}
       </div>
