@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEnvelope } from "@fortawesome/free-regular-svg-icons";
+import { faEnvelope, faIdCard } from "@fortawesome/free-regular-svg-icons";
 import {
   faHospital,
   faBriefcaseMedical,
@@ -11,6 +11,7 @@ import {
   faUserDoctor,
   faUserPlus,
   faBookSkull,
+  faCodeBranch,
 } from "@fortawesome/free-solid-svg-icons";
 import { useForm } from "react-hook-form";
 import axios from "axios";
@@ -25,6 +26,7 @@ const AddDoctor = () => {
 
   const [loginError, setLoginError] = useState("");
 
+  
   const onSubmit = async (data) => {
     // console.log(data);
 
@@ -148,6 +150,28 @@ const AddDoctor = () => {
                     required: {
                       value: true,
                       message: "Address is required!",
+                    },
+                  })}
+                />
+                {errors.email && (
+                  <p className="text-white mt-2">{errors.address?.message}</p>
+                )}
+              </div>
+
+              <div className="mb-8">
+                <FontAwesomeIcon
+                  className="p-2.5 absolute text-[#23075e]"
+                  icon={faIdCard}
+                  size="lg"
+                />
+                <input
+                  class="text-center p-2 w-full md:w-96 lg:w-[350px] focus:bg-[#722ed1] border-none outline-0 rounded-sm"
+                  type="text"
+                  placeholder="NID number"
+                  {...register("nid", {
+                    required: {
+                      value: true,
+                      message: "NID number is required!",
                     },
                   })}
                 />
@@ -302,6 +326,35 @@ const AddDoctor = () => {
 
               <div className="mt-8 mb-0">
                 <FontAwesomeIcon
+                  className="p-2.5 absolute text-[#23075e]"
+                  icon={faCodeBranch}
+                  size="lg"
+                />
+                
+                <select
+                placeholder="Branch"
+                  {...register("branch", {
+                    required: "Doctor's Hub Branch Name Is Required!",
+                    maxLength: {
+                      value: 60,
+                      message: "Too Large! Not more than 35 characters.",
+                    },
+                  })}
+                  className="w-full md:w-96 lg:w-[350px] pl-10 text-center font-bold p-2 focus:bg-[#722ed1] border-none outline-0 rounded-sm"
+                >
+                  <option value="Mymensingh">Mymensingh</option>
+                  <option value="Dhaka">Dhaka</option>
+                  <option value="Chattogram">Chattogram</option>
+                  <option value="Barishal">Barishal</option>
+                  <option value="Khulna">Khulna</option>
+                  <option value="Sylhet">Sylhet</option>
+                  <option value="Rajshahi">Rajshahi</option>
+                  <option value="Bogra">Bogra</option>
+                </select>
+              </div>
+
+              <div className="mt-8 mb-0">
+                <FontAwesomeIcon
                   className="pt-2 pl-3.5 absolute text-red-700"
                   icon={faDroplet}
                   size="lg"
@@ -328,6 +381,7 @@ const AddDoctor = () => {
 
             {/* second part end */}
           </div>
+
 
           {loginError && <p className="text-white mt-2">{loginError}</p>}
 
