@@ -31,12 +31,11 @@ const DoctorCards = ({ selectedCity, date }) => {
   const depDoctors = doctors.filter((doc) => doc.department === curDepartment);
   
   const branchDoc = depDoctors.filter(doc => doc.branch === selectedCity);
-  console.log(curDepartment)
+ 
 
   const cityDoc = doctors.filter(doc => doc.branch === selectedCity);
 
-  console.log(cityDoc);
-  console.log(branchDoc);
+
 
   
 
@@ -60,11 +59,11 @@ const DoctorCards = ({ selectedCity, date }) => {
       <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4 mx-4">
         {curDepartment === "All"
           ? cityDoc?.map((doctor) => (
-              <DoctorCard key={doctor._id} doctor={doctor} />
+              <DoctorCard key={doctor._id} doctor={doctor} date={date} />
             ))
           : branchDoc?.map((doctor) => (
             
-              <DoctorCard key={doctor._id} doctor={doctor} />
+            <DoctorCard key={doctor._id} doctor={doctor} date={date}/>
             ))}
       </div>
     </div>
