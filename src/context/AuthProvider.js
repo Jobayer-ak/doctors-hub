@@ -10,7 +10,8 @@ export const AuthProvider = ({ children }) => {
   const userEmail = localStorage.getItem("userEmail");
   const userName = localStorage.getItem("userName");
   const userRole = localStorage.getItem("userRole");
-  const [user, setUser] = useState({ userEmail, userName, userRole });
+  const selectedCity = localStorage.getItem("city");
+  const [user, setUser] = useState({ userEmail, userName, userRole, selectedCity });
   return (
     <AuthContext.Provider value={{ user, setUser }}>
       {children}
