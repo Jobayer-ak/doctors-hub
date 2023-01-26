@@ -2,6 +2,8 @@ import React from "react";
 import Booking from "./Booking/Booking";
 
 const DoctorCard = ({ doctor, date }) => {
+  const { time_slots } = doctor;
+  console.log(time_slots.length);
   return (
     <div>
       {/* <h2 className="font-bold text-white text-xl"></h2> */}
@@ -14,14 +16,8 @@ const DoctorCard = ({ doctor, date }) => {
           <p className="italic">{doctor.treatment_area}</p>
 
           <p className="text-[14px]">{doctor.working_hospital}</p>
-
-          {/* <div className="flex justify-center mt-2">
-            <button className="bg-[#23075e] px-2 py-1 rounded-md hover:bg-[#9258e5] transition-all">
-              Book Appointment
-            </button>
-          </div> */}
         </div>
-        <Booking date={date} />
+        <Booking date={date} time_slots={time_slots} />
       </div>
     </div>
   );

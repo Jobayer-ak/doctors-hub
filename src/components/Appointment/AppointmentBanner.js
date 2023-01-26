@@ -9,6 +9,7 @@ import DoctorCards from "./DoctorCards/DoctorCards";
 const AppointmentBanner = () => {
   const [date, setDate] = useState(new Date());
   const [selectedCity, setSelectedCity] = useState("Dhaka");
+  const [active, setActive] = useState("Dhaka");
 
   const regions = [
     "Dhaka",
@@ -28,12 +29,17 @@ const AppointmentBanner = () => {
 
   // console.log(date);
 
+  const handleRegion = (region) => {
+    setSelectedCity(region);
+    setActive(region);
+  };
+
   return (
     <div className="pb-4">
       {/*  all city branches */}
       <div className="lg:grid grid-cols-2 gap-4 lg:gap-0 mb-4">
         <div className="text-white rounded-md mb-4 lg:mb-0">
-          <Calendar value={date} onChange={onDateChange}/>
+          <Calendar value={date} onChange={onDateChange} />
         </div>
 
         <div className="bg-[#23075e] px-4 py-3 text-center rounded-md relative">
@@ -41,8 +47,12 @@ const AppointmentBanner = () => {
           <div className="grid grid-cols-2 lg:grid-cols-3 gap-4">
             {regions.map((region) => (
               <button
-                className="text-white font-bold rounded-md px-2 py-2 bg-[#4a1a98] hover:bg-[#9258e5] transition-all"
-                onClick={() => setSelectedCity(region)}
+                className={
+                  active === region
+                    ? "text-white font-bold rounded-md px-2 py-2 bg-[#0a062c] transition-all"
+                    : "text-white font-bold rounded-md px-2 py-2 bg-[#4a1a98] hover:bg-[#0a062c] transition-all"
+                }
+                onClick={() => handleRegion(region)}
               >
                 {region}
               </button>
