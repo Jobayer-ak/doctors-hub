@@ -1,6 +1,5 @@
 import { format } from "date-fns";
 import React from "react";
-import { useForm } from "react-hook-form";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faCalendarDays,
@@ -8,57 +7,59 @@ import {
   faEnvelope,
 } from "@fortawesome/free-regular-svg-icons";
 import { faPhone, faUserPlus } from "@fortawesome/free-solid-svg-icons";
+import axios from "axios";
+import Swal from "sweetalert2";
+// import withReactContent from 'sweetalert2-react-content'
 
-const Booking = ({ date, time_slots }) => {
-  //   const { _id, name, slots } = treatment;
-  //   const { user } = useContext(AuthContext);
+// const MySwal = withReactContent(Swal);
+
+const Booking = ({ date, doctor }) => {
+  const { _id, name, treatment_area, working_hospital, time_slots } = doctor;
   const formatedDate = format(date, "PP");
 
-  const {
-    register,
-    formState: { errors },
-    handleSubmit,
-  } = useForm();
+  const handleSubmit = (e) => {
+    e.preventDefault();
 
-  const onSubmit = (data) => {
-    console.log(data);
+    const booking = {
+      doctor_name: name,
+      doctor_id: _id,
+      patient_name: e.target.patient_name.value,
+      patient_email: e.target.patient_email.value,
+      patient_contact_number: e.target.patient_contact_number.value,
+      slot: e.target.slot.value,
+      gender: e.target.gender.value,
+      date: formatedDate,
+    };
+    console.log(11, booking);
+    axios
+      .post("http://localhost:5000/api/v1/booking", booking, {
+        headers: { "Content-Type": "application/json" },
+        withCredentials: true,
+        path: "/",
+      })
+      .then((res) => {
+        if (res.data.success === true) {
+          Swal.fire(
+            'Booking Sucessful!',
+            'You clicked the button!',
+            'success'
+          )
+        }
+
+        // console.log(formatedDate);
+        // if (res.data.success) {
+        //   toast(res.data.message + " on " + formatedDate);
+        // }
+        // if (res.data.success === false) {
+        //   toast.error(res.data.message + " on " + formatedDate);
+        // }
+        // refetch();
+        // setTreatment(null);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
-
-  //   const handleBooking = (e) => {
-  //     e.preventDefault();
-
-  // const booking = {
-  //   treatmentName: name,
-  //   treatmentId: _id,
-  //   patientName: user.userName,
-  //   patientEmail: user.userEmail,
-  //   contactNumber: e.target.phone.value,
-  //   slot: e.target.slot.value,
-  //   date: formatedDate,
-  // };
-  // console.log(booking);
-  // axios
-  //   .post("http://localhost:5000/api/v1/booking", booking, {
-  //     headers: { "Content-Type": "application/json" },
-  //     withCredentials: true,
-  //     path: "/",
-  //   })
-  //   .then((res) => {
-  //     console.log(date);
-  //     console.log(formatedDate);
-  //     if (res.data.success) {
-  //       toast(res.data.message + " on " + formatedDate);
-  //     }
-  //     if (res.data.success === false) {
-  //       toast.error(res.data.message + " on " + formatedDate);
-  //     }
-  //     refetch();
-  //     setTreatment(null);
-  //   })
-  //   .catch((error) => {
-  //     console.log(error);
-  //   });
-  //   };
 
   return (
     <div className="text-center">
@@ -84,14 +85,7 @@ const Booking = ({ date, time_slots }) => {
 
           {/* booking form  */}
           <div className="px-7 pb-2.5 text-center">
-            {/* <h2 className="text-[#722ed1] font-bold text-2xl bg-white inline-block py-3 px-6 rounded-full">
-              Make Your Appointment
-            </h2> */}
-
-            <form
-              className="mt-8 text-center relative"
-              onSubmit={handleSubmit(onSubmit)}
-            >
+            <form className="mt-8 text-center relative" onSubmit={handleSubmit}>
               <div className="">
                 <FontAwesomeIcon
                   className="p-2.5 absolute text-[#23075e]"
@@ -103,12 +97,7 @@ const Booking = ({ date, time_slots }) => {
                   type="text"
                   value={formatedDate}
                   readOnly
-                  {...register("date", {
-                    required: {
-                      value: true,
-                      message: "Date is required!",
-                    },
-                  })}
+                  required
                 />
               </div>
 
@@ -120,18 +109,14 @@ const Booking = ({ date, time_slots }) => {
                 />
 
                 <select
-                  {...register("slot", {
-                    required: "Slot is required",
-                  })}
+                  name="slot"
+                  required
                   className="w-full md:w-96 lg:w-[350px] pl-10 text-center font-bold p-2 focus:bg-[#722ed1] border-none outline-0 rounded-sm"
                 >
                   {time_slots?.map((slot) => (
                     <option value={slot}>{slot}</option>
                   ))}
                 </select>
-                {errors.email && (
-                  <p className="text-white mt-2">{errors.slot?.message}</p>
-                )}
               </div>
 
               <div className="">
@@ -140,20 +125,14 @@ const Booking = ({ date, time_slots }) => {
                   icon={faUserPlus}
                   size="lg"
                 />
+
                 <input
-                  class="text-center p-2 w-full max-w-sm focus:bg-[#722ed1] border-none outline-0 rounded-sm"
                   type="text"
+                  name="patient_name"
                   placeholder="Your Full Name"
-                  {...register("name", {
-                    required: {
-                      value: true,
-                      message: "Name is required!",
-                    },
-                  })}
+                  required
+                  class="text-center p-2 w-full max-w-sm focus:bg-[#722ed1] border-none outline-0 rounded-sm"
                 />
-                {errors.email && (
-                  <p className="text-white mt-2">{errors.name?.message}</p>
-                )}
               </div>
               <div className="my-6">
                 <FontAwesomeIcon
@@ -162,22 +141,12 @@ const Booking = ({ date, time_slots }) => {
                   size="lg"
                 />
                 <input
-                  class="text-center p-2 w-full max-w-sm focus:bg-[#722ed1] border-none outline-0 rounded-sm"
                   type="email"
+                  name="patient_email"
                   placeholder="Enter Email"
-                  {...register("email", {
-                    required: {
-                      value: true,
-                      message: "Email is required!",
-                    },
-
-                    pattern: /[a-z0-9]+@[a-z]+\.[a-z]{2,3}/,
-                    message: "Provide a valid email!",
-                  })}
+                  required
+                  class="text-center p-2 w-full max-w-sm focus:bg-[#722ed1] border-none outline-0 rounded-sm"
                 />
-                {errors.email && (
-                  <p className="text-white mt-2">{errors.email?.message}</p>
-                )}
               </div>
 
               <div className="my-6">
@@ -187,61 +156,29 @@ const Booking = ({ date, time_slots }) => {
                   size="lg"
                 />
                 <input
-                  class="text-center p-2 w-full max-w-sm focus:bg-[#722ed1] border-none outline-0 rounded-sm"
                   type="text"
+                  name="patient_contact_number"
                   placeholder="Your Mobile Number"
-                  {...register("contact_number", {
-                    required: {
-                      value: true,
-                      message: "Mobile number is required!",
-                    },
-                  })}
+                  required
+                  class="text-center p-2 w-full max-w-sm focus:bg-[#722ed1] border-none outline-0 rounded-sm"
                 />
-                {errors.email && (
-                  <p className="text-white mt-2">
-                    {errors.contact_number?.message}
-                  </p>
-                )}
               </div>
               <div>
-                <div className="text-white mb-8 flex justify-center items-center gap-[50px] md:gap-[75px]">
+                <div className="text-white mb-6 flex justify-center items-center gap-[50px] md:gap-[75px]">
                   <div>
                     <h3 className="font-bold">Gender</h3>
                   </div>
 
                   <div className="flex items-center gap-3">
-                    <input
-                      type="radio"
-                      placeholder="Gender"
-                      value="Male"
-                      className=""
-                      {...register("gender", {
-                        required: {
-                          value: true,
-                          message: "Gender is required!",
-                        },
-                      })}
-                    />
+                    <input type="radio" name="gender" value="Male" required />
                     <p>Male</p>
                   </div>
 
                   <div className="flex items-center gap-3">
-                    <input
-                      type="radio"
-                      value="Female"
-                      {...register("gender", {
-                        required: {
-                          value: true,
-                          message: "Gender is required!",
-                        },
-                      })}
-                    />
+                    <input type="radio" name="gender" value="Female" required />
                     <p>Female</p>
                   </div>
                 </div>
-                {/* {errors.email && (
-                  <p className="text-white mt-2 mb-0">{errors.gender?.message}</p>
-                )} */}
               </div>
 
               <input

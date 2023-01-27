@@ -9,7 +9,7 @@ const DoctorCards = ({ selectedCity, date }) => {
   const formatedDate = format(date, "PP");
   const [active, setActive] = useState("All");
 
-  console.log(selectedCity);
+  // console.log(selectedCity);
 
   const {
     data: doctors,
@@ -26,6 +26,7 @@ const DoctorCards = ({ selectedCity, date }) => {
   if (isLoading) {
     return <h2 className="text-xl font-bold text-white">Loading......</h2>;
   }
+
 
   const doctorArray = ["All", ...new Set(doctors.map((doc) => doc.department))];
 

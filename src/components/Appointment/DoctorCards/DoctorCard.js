@@ -3,7 +3,8 @@ import Booking from "./Booking/Booking";
 
 const DoctorCard = ({ doctor, date }) => {
   const { time_slots } = doctor;
-  console.log(time_slots.length);
+  // console.log(doctor);
+
   return (
     <div>
       {/* <h2 className="font-bold text-white text-xl"></h2> */}
@@ -17,7 +18,7 @@ const DoctorCard = ({ doctor, date }) => {
 
           <p className="text-[14px]">{doctor.working_hospital}</p>
         </div>
-        <Booking date={date} time_slots={time_slots} />
+        <Booking date={date} doctor={doctor} />
       </div>
     </div>
   );
