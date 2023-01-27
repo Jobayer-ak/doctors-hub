@@ -30,7 +30,7 @@ const Booking = ({ date, doctor }) => {
       gender: e.target.gender.value,
       date: formatedDate,
     };
-    console.log(11, booking);
+    // console.log(11, booking);
     axios
       .post("http://localhost:5000/api/v1/booking", booking, {
         headers: { "Content-Type": "application/json" },
@@ -39,11 +39,19 @@ const Booking = ({ date, doctor }) => {
       })
       .then((res) => {
         if (res.data.success === true) {
-          Swal.fire(
-            'Booking Sucessful!',
-            'You clicked the button!',
-            'success'
-          )
+          Swal.fire({
+            icon: "success",
+            title: "Success",
+            text: `${res.data.message} at ${booking.slot} on ${formatedDate} `,
+          });
+        }
+
+        if (res.data.success === false) {
+          Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: `${res.data.message} at ${booking.slot} on ${formatedDate}`,
+          });
         }
 
         // console.log(formatedDate);

@@ -14,6 +14,7 @@ import RequireAuth from "./components/Login/RequireAuth";
 import Dashboard from "./components/Dashboard/Dashboard";
 import AddDoctor from "./components/AddDoctor/AddDoctor";
 import Appointments from "./components/Appointment/Appointments";
+import RequireAdmin from "./components/Login/RequireAdmin";
 
 function App() {
   return (
@@ -24,7 +25,14 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/specialties" element={<Appointments />} />
-          <Route path="/addDoctor" element={<AddDoctor />} />
+          <Route
+            path="/addDoctor"
+            element={
+              <RequireAdmin>
+                <AddDoctor />
+              </RequireAdmin>
+            }
+          />
 
           <Route
             path="/dashboard"

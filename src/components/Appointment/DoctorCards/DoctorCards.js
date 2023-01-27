@@ -10,7 +10,7 @@ const DoctorCards = ({ selectedCity, date }) => {
   const [active, setActive] = useState("All");
 
   // console.log(selectedCity);
-
+ 
   const {
     data: doctors,
     isLoading,

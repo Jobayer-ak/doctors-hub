@@ -22,7 +22,6 @@ const Login = () => {
   } = useForm();
 
   const onSubmit = (data) => {
-    console.log(data);
     axios
       .post("http://localhost:5000/api/v1/login", data, {
         withCredentials: true,

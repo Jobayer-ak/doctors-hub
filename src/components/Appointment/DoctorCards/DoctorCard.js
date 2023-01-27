@@ -6,7 +6,7 @@ const DoctorCard = ({ doctor, date }) => {
   // console.log(doctor);
 
   return (
-    <div>
+    <div> 
       {/* <h2 className="font-bold text-white text-xl"></h2> */}
 
       <div className="rounded-md w-full h-[190px] md:w-[100%] bg-[#4a1a98] shadow-xl">

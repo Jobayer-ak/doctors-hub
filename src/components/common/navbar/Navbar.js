@@ -75,6 +75,7 @@ const Navbar = () => {
   const navigate = useNavigate();
 
   const userEmail = localStorage.getItem("userEmail");
+  const role = localStorage.getItem("userRole");
 
   const logout = () => {
     localStorage.removeItem("userEmail");
@@ -122,12 +123,18 @@ const Navbar = () => {
         </li>
       )}
 
-      <li className={liClass}>
-        <Link to="/addDoctor">
-          <FontAwesomeIcon icon={faStethoscope} size="sm" className={padding} />
-          Add Doctor
-        </Link>
-      </li>
+      {userEmail && role === "admin" && (
+        <li className={liClass}>
+          <Link to="/addDoctor">
+            <FontAwesomeIcon
+              icon={faStethoscope}
+              size="sm"
+              className={padding}
+            />
+            Add Doctor
+          </Link>
+        </li>
+      )}
 
       <li className={liClass}>
         <Link to="/setting">
