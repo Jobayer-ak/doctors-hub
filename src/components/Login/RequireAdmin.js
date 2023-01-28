@@ -7,14 +7,22 @@ const RequireAdmin = ({ children }) => {
   const { user } = useContext(AuthContext);
 
   const email = user.userEmail;
-  const [admin, isLoading] = useAdmin(email);
+  const { admin, isLoading } = useAdmin(email);
   const location = useLocation();
 
+  console.log(user);
+  console.log(admin);
+
   if (isLoading) {
+    console.log(isLoading)
+    console.log(admin)
     return <h2 className="text-white">Loading...</h2>;
   }
 
-  if (!user || !admin) {
+  if (!email || !admin) {
+    console.log("scope user: ", user);
+    console.log("admin: ", admin);
+
     localStorage.removeItem("userEmail");
     localStorage.removeItem("userName");
     localStorage.removeItem("userRole");

@@ -1,12 +1,37 @@
 import React from "react";
-import Booking from "./Booking/Booking";
+// import Booking from "./Booking/Booking";
+// import { format } from "date-fns";
+// import { useQuery } from "react-query";
+// import axios from "axios";
 
-const DoctorCard = ({ doctor, date }) => {
-  const { time_slots } = doctor;
-  // console.log(doctor);
+const DoctorCard = ({ doctor, setTreatment }) => {
+  // const formatedDate = format(date, "PP");
+
+  // console.log(doctor)
+
+  // const {
+  //   data,
+  //   isLoading,
+  //   refetch,
+  // } = useQuery(["available", formatedDate], async () => {
+  //   const res = await axios.get(
+  //     `http://localhost:5000/api/v1/doctors/slots?date=${formatedDate}`,
+  //     {
+  //       withCredentials: true,
+  //     }
+  //   );
+  //   const result = res.data;
+  //   return result;
+  // });
+
+  // if (isLoading) {
+  //   return <h2 className="text-white font-bold text-xl">Loading....</h2>;
+  // }
+
+  // console.log(data);
 
   return (
-    <div> 
+    <div>
       {/* <h2 className="font-bold text-white text-xl"></h2> */}
 
       <div className="rounded-md w-full h-[190px] md:w-[100%] bg-[#4a1a98] shadow-xl">
@@ -17,8 +42,18 @@ const DoctorCard = ({ doctor, date }) => {
           <p className="italic">{doctor.treatment_area}</p>
 
           <p className="text-[14px]">{doctor.working_hospital}</p>
+
+          <div className="card-actions justify-center">
+            <label
+              htmlFor="my-modal-3"
+              className="text-white cursor-pointer bg-[#381f6e] px-2 py-2 rounded-md mt-2 inline-block"
+              onClick={()=> setTreatment(doctor)}
+            >
+              Booking Appointment
+            </label>
+          </div>
         </div>
-        <Booking date={date} doctor={doctor} />
+        {/* <Booking date={date} doctor={doctor} /> */}
       </div>
     </div>
   );

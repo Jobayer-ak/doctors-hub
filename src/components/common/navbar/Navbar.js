@@ -14,6 +14,7 @@ import {
   faXmark,
 } from "@fortawesome/free-solid-svg-icons";
 import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const Navbar = () => {
   const [open, setOpen] = useState(false);
@@ -77,10 +78,16 @@ const Navbar = () => {
   const userEmail = localStorage.getItem("userEmail");
   const role = localStorage.getItem("userRole");
 
-  const logout = () => {
+  const logout = async () => {
+    await axios
+      .get("http://localhost:5000/api/v1/logout", {withCredentials: true})
+      .then((res) => console.log(res.data))
+      .then((err) => console.log(err));
+
     localStorage.removeItem("userEmail");
     localStorage.removeItem("userName");
     localStorage.removeItem("userRole");
+
     navigate("/login");
   };
 
@@ -96,7 +103,7 @@ const Navbar = () => {
         </Link>
       </li>
       <li className={liClass}>
-        <Link to="/specialties">
+        <Link to="/appointments">
           <FontAwesomeIcon icon={faBriefcaseMedical} className={padding} />
           Appointments
         </Link>

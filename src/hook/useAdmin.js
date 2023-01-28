@@ -1,10 +1,12 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
-import { useQuery } from "react-query";
+import { useInfiniteQuery, useQuery } from "react-query";
 
 const useAdmin = (email) => {
   const [admin, setAdmin] = useState("");
   const [isLoading, setIsLoading] = useState(true);
+
+  console.log(email)
 
   useEffect(() => {
     if (email) {
@@ -13,6 +15,7 @@ const useAdmin = (email) => {
           withCredentials: true,
         })
         .then((res) => {
+          console.log(res.data)
           setAdmin(res.data.role);
           setIsLoading(false);
         })
@@ -29,15 +32,14 @@ const useAdmin = (email) => {
   //   return result;
   // });
 
-  // if (isLoading) {
-  //   return <h2 className="text-white font-bold">Loading....</h2>;
-  // }
-  // setAdmin(data.role);
+  if (isLoading) {
+    return <h2 className="text-white font-bold">Loading....</h2>;
+  }
 
   // console.log(data.role);
   // console.log(admin);
 
-  return [admin, isLoading];
+  return { admin, isLoading };
 };
 
 export default useAdmin;
