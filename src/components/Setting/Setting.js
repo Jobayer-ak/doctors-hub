@@ -2,7 +2,7 @@ import React from "react";
 // import "./login.css";
 // import loginImage from "../../assets/images/loginImage .png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEnvelope, faUser } from "@fortawesome/free-regular-svg-icons";
+import { faEnvelope } from "@fortawesome/free-regular-svg-icons";
 import {
   faCircleUser,
   faPhone,
@@ -42,7 +42,7 @@ const Setting = () => {
               size="lg"
             />
             <input
-              class="text-center p-2 w-full max-w-sm focus:bg-[#722ed1] border-none outline-0 rounded-sm"
+              className="text-center p-2 w-full max-w-sm focus:bg-[#722ed1] border-none outline-0 rounded-sm"
               type="email"
               placeholder="Your Full Name"
               {...register("email", {
@@ -63,7 +63,7 @@ const Setting = () => {
               size="lg"
             />
             <input
-              class="text-center p-2 w-full max-w-sm focus:bg-[#722ed1] border-none outline-0 rounded-sm"
+              className="text-center p-2 w-full max-w-sm focus:bg-[#722ed1] border-none outline-0 rounded-sm"
               type="email"
               placeholder="Enter Email"
               {...register("email", {
@@ -85,7 +85,7 @@ const Setting = () => {
               size="lg"
             />
             <input
-              class="text-center p-2 w-full max-w-sm focus:bg-[#722ed1] border-none outline-0 rounded-sm"
+              className="text-center p-2 w-full max-w-sm focus:bg-[#722ed1] border-none outline-0 rounded-sm"
               type="email"
               placeholder="Your Mobile Number"
               {...register("email", {
@@ -107,7 +107,7 @@ const Setting = () => {
               size="lg"
             />
             <input
-              class="text-center p-2 w-full max-w-sm focus:bg-[#722ed1] border-none outline-0 rounded-sm"
+              className="text-center p-2 w-full max-w-sm focus:bg-[#722ed1] border-none outline-0 rounded-sm"
               type="email"
               placeholder="Your Address"
               {...register("email", {
@@ -159,7 +159,7 @@ const Setting = () => {
           </div>
 
           <input
-            class="text-center text-white font-bold bg-[#722ed1] hover:bg-[#9258e5] transition-all p-2 w-full max-w-sm cursor-pointer rounded-sm"
+            className="text-center text-white font-bold bg-[#722ed1] hover:bg-[#9258e5] transition-all p-2 w-full max-w-sm cursor-pointer rounded-sm"
             type="submit"
             value="Save"
           />

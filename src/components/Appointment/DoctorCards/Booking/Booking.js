@@ -16,7 +16,8 @@ const Booking = ({ date, treatment, setTreatment, refetch }) => {
   const formatedDate = format(date, "PP");
   const navigate = useNavigate();
 
-  console.log(55, treatment);
+  console.log("date: ", formatedDate);
+  console.log("doctor: ", treatment);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -55,8 +56,8 @@ const Booking = ({ date, treatment, setTreatment, refetch }) => {
           });
         }
 
-        // refetch();
-        // setTreatment(null);
+        refetch();
+        setTreatment(null);
       })
       .catch((error) => {
         console.log(error);
@@ -98,7 +99,7 @@ const Booking = ({ date, treatment, setTreatment, refetch }) => {
                     size="lg"
                   />
                   <input
-                    class="text-center p-2 w-full max-w-sm focus:bg-[#722ed1] border-none outline-0 rounded-sm"
+                    className="text-center p-2 w-full max-w-sm focus:bg-[#722ed1] border-none outline-0 rounded-sm"
                     type="text"
                     value={formatedDate}
                     readOnly
@@ -136,7 +137,7 @@ const Booking = ({ date, treatment, setTreatment, refetch }) => {
                     name="patient_name"
                     placeholder="Your Full Name"
                     required
-                    class="text-center p-2 w-full max-w-sm focus:bg-[#722ed1] border-none outline-0 rounded-sm"
+                    className="text-center p-2 w-full max-w-sm focus:bg-[#722ed1] border-none outline-0 rounded-sm"
                   />
                 </div>
                 <div className="my-6">
@@ -150,7 +151,7 @@ const Booking = ({ date, treatment, setTreatment, refetch }) => {
                     name="patient_email"
                     placeholder="Enter Email"
                     required
-                    class="text-center p-2 w-full max-w-sm focus:bg-[#722ed1] border-none outline-0 rounded-sm"
+                    className="text-center p-2 w-full max-w-sm focus:bg-[#722ed1] border-none outline-0 rounded-sm"
                   />
                 </div>
 
@@ -165,7 +166,7 @@ const Booking = ({ date, treatment, setTreatment, refetch }) => {
                     name="patient_contact_number"
                     placeholder="Your Mobile Number"
                     required
-                    class="text-center p-2 w-full max-w-sm focus:bg-[#722ed1] border-none outline-0 rounded-sm"
+                    className="text-center p-2 w-full max-w-sm focus:bg-[#722ed1] border-none outline-0 rounded-sm"
                   />
                 </div>
                 <div>
@@ -192,7 +193,7 @@ const Booking = ({ date, treatment, setTreatment, refetch }) => {
                 </div>
 
                 <input
-                  class="text-center text-white font-bold bg-[#722ed1] hover:bg-[#9258e5] transition-all p-2 w-full max-w-sm cursor-pointer rounded-sm"
+                  className="text-center text-white font-bold bg-[#722ed1] hover:bg-[#9258e5] transition-all p-2 w-full max-w-sm cursor-pointer rounded-sm"
                   type="submit"
                   value="Submit"
                 />

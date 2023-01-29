@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import DoctorCard from "./DoctorCard";
 import { useQuery } from "react-query";
 import axios from "axios";
@@ -11,13 +11,11 @@ const DoctorCards = ({ selectedCity, date }) => {
   const [active, setActive] = useState("All");
   const [treatment, setTreatment] = useState(null);
 
-  console.log(treatment);
-
   const {
     data: doctors,
     isLoading,
     refetch,
-  } = useQuery(["doctor"], async () => {
+  } = useQuery(["doctor",formatedDate], async () => {
     const res = await axios.get(
       `http://localhost:5000/api/v1/doctors/slots?date=${formatedDate}`,
       {
@@ -32,7 +30,6 @@ const DoctorCards = ({ selectedCity, date }) => {
     return <h2 className="text-xl font-bold text-white">Loading......</h2>;
   }
 
-  console.log(treatment);
 
   const doctorArray = ["All", ...new Set(doctors.map((doc) => doc.department))];
 

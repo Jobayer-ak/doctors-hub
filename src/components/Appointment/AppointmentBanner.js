@@ -24,10 +24,7 @@ const AppointmentBanner = () => {
 
   const onDateChange = (newDate) => {
     setDate(newDate);
-    // console.log(newDate);
   };
- 
-  // console.log(date);
 
   const handleRegion = (region) => {
     setSelectedCity(region);

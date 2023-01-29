@@ -71,7 +71,7 @@ const AddDoctor = () => {
                   size="lg"
                 />
                 <input
-                  class="text-center p-2 w-full md:w-96 lg:w-[350px] focus:bg-[#722ed1] border-none outline-0 rounded-sm"
+                  className="text-center p-2 w-full md:w-96 lg:w-[350px] focus:bg-[#722ed1] border-none outline-0 rounded-sm"
                   type="text"
                   placeholder="Doctor's Full Name"
                   {...register("name", {
@@ -94,7 +94,7 @@ const AddDoctor = () => {
                   size="lg"
                 />
                 <input
-                  class="text-center p-2 w-full md:w-96 lg:w-[350px] focus:bg-[#722ed1] border-none outline-0 rounded-sm"
+                  className="text-center p-2 w-full md:w-96 lg:w-[350px] focus:bg-[#722ed1] border-none outline-0 rounded-sm"
                   type="email"
                   placeholder="Enter Email"
                   {...register("email", {
@@ -119,7 +119,7 @@ const AddDoctor = () => {
                   size="lg"
                 />
                 <input
-                  class="text-center p-2 w-full md:w-96 lg:w-[350px] focus:bg-[#722ed1] border-none outline-0 rounded-sm"
+                  className="text-center p-2 w-full md:w-96 lg:w-[350px] focus:bg-[#722ed1] border-none outline-0 rounded-sm"
                   type="text"
                   placeholder="Mobile Number"
                   {...register("contact_number", {
@@ -143,7 +143,7 @@ const AddDoctor = () => {
                   size="lg"
                 />
                 <input
-                  class="text-center p-2 w-full md:w-96 lg:w-[350px] focus:bg-[#722ed1] border-none outline-0 rounded-sm"
+                  className="text-center p-2 w-full md:w-96 lg:w-[350px] focus:bg-[#722ed1] border-none outline-0 rounded-sm"
                   type="text"
                   placeholder="Address"
                   {...register("address", {
@@ -165,7 +165,7 @@ const AddDoctor = () => {
                   size="lg"
                 />
                 <input
-                  class="text-center p-2 w-full md:w-96 lg:w-[350px] focus:bg-[#722ed1] border-none outline-0 rounded-sm"
+                  className="text-center p-2 w-full md:w-96 lg:w-[350px] focus:bg-[#722ed1] border-none outline-0 rounded-sm"
                   type="text"
                   placeholder="NID number"
                   {...register("nid", {
@@ -233,7 +233,7 @@ const AddDoctor = () => {
                   size="lg"
                 />
                 <input
-                  class="text-center p-2 w-full md:w-96 lg:w-[350px] focus:bg-[#722ed1] border-none outline-0 rounded-sm"
+                  className="text-center p-2 w-full md:w-96 lg:w-[350px] focus:bg-[#722ed1] border-none outline-0 rounded-sm"
                   type="text"
                   placeholder="Working Hospital Name"
                   {...register("working_hospital", {
@@ -258,7 +258,7 @@ const AddDoctor = () => {
                   size="lg"
                 />
                 <input
-                  class="text-center p-2 w-full md:w-96 lg:w-[350px] focus:bg-[#722ed1] border-none outline-0 rounded-sm"
+                  className="text-center p-2 w-full md:w-96 lg:w-[350px] focus:bg-[#722ed1] border-none outline-0 rounded-sm"
                   type="text"
                   placeholder="Treatment Field"
                   {...register("treatment_area", {
@@ -283,7 +283,7 @@ const AddDoctor = () => {
                   size="lg"
                 />
                 <input
-                  class="text-center p-2 w-full md:w-96 lg:w-[350px] focus:bg-[#722ed1] border-none outline-0 rounded-sm"
+                  className="text-center p-2 w-full md:w-96 lg:w-[350px] focus:bg-[#722ed1] border-none outline-0 rounded-sm"
                   type="text"
                   placeholder="Treatment Department"
                   {...register("department", {
@@ -308,7 +308,7 @@ const AddDoctor = () => {
                   size="lg"
                 />
                 <input
-                  class="text-center p-2 w-full md:w-96 lg:w-[350px] focus:bg-[#722ed1] border-none outline-0 rounded-sm"
+                  className="text-center p-2 w-full md:w-96 lg:w-[350px] focus:bg-[#722ed1] border-none outline-0 rounded-sm"
                   type="text"
                   placeholder="Higher Degree with info"
                   {...register("higher_degree", {
@@ -386,7 +386,7 @@ const AddDoctor = () => {
           {loginError && <p className="text-white mt-2">{loginError}</p>}
 
           <input
-            class="my-8 text-center text-white font-bold bg-[#722ed1] p-2 w-[92%] w-full md:w-96 lg:w-[350px] transition-all hover:bg-[#9258e5] cursor-pointer rounded-sm"
+            className="my-8 text-center text-white font-bold bg-[#722ed1] p-2 w-[92%] w-full md:w-96 lg:w-[350px] transition-all hover:bg-[#9258e5] cursor-pointer rounded-sm"
             type="submit"
             value="Add"
           />

@@ -44,7 +44,7 @@ const Signup = () => {
               size="lg"
             />
             <input
-              class="text-center p-2 w-full max-w-sm focus:bg-[#722ed1] border-none outline-0 rounded-sm"
+              className="text-center p-2 w-full max-w-sm focus:bg-[#722ed1] border-none outline-0 rounded-sm"
               type="email"
               placeholder="Your Full Name"
               {...register("email", {
@@ -65,7 +65,7 @@ const Signup = () => {
               size="lg"
             />
             <input
-              class="text-center p-2 w-full max-w-sm focus:bg-[#722ed1] border-none outline-0 rounded-sm"
+              className="text-center p-2 w-full max-w-sm focus:bg-[#722ed1] border-none outline-0 rounded-sm"
               type="email"
               placeholder="Enter Email"
               {...register("email", {
@@ -87,7 +87,7 @@ const Signup = () => {
               size="lg"
             />
             <input
-              class="text-center p-2 w-full max-w-sm focus:bg-[#722ed1] border-none outline-0 rounded-sm"
+              className="text-center p-2 w-full max-w-sm focus:bg-[#722ed1] border-none outline-0 rounded-sm"
               type="password"
               placeholder="Password"
               {...register("password", {
@@ -106,7 +106,7 @@ const Signup = () => {
               size="lg"
             />
             <input
-              class="text-center p-2 w-full max-w-sm focus:bg-[#722ed1] border-none outline-0 rounded-sm"
+              className="text-center p-2 w-full max-w-sm focus:bg-[#722ed1] border-none outline-0 rounded-sm"
               type="password"
               placeholder="Confirm Password"
               {...register("password", {
@@ -119,7 +119,7 @@ const Signup = () => {
             />
           </div>
           <input
-            class="text-center text-white font-bold bg-[#722ed1] p-2 w-full max-w-sm cursor-pointer rounded-sm"
+            className="text-center text-white font-bold bg-[#722ed1] p-2 w-full max-w-sm cursor-pointer rounded-sm"
             type="submit"
             value="Sign Up"
           />

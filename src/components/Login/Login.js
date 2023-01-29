@@ -65,7 +65,7 @@ const Login = () => {
               size="lg"
             />
             <input
-              class="text-center p-2 w-full max-w-sm focus:bg-[#722ed1] border-none outline-0 rounded-sm"
+              className="text-center p-2 w-full max-w-sm focus:bg-[#722ed1] border-none outline-0 rounded-sm"
               type="email"
               placeholder="Enter Email"
               {...register("email", {
@@ -90,7 +90,7 @@ const Login = () => {
               size="lg"
             />
             <input
-              class="text-center p-2 w-full max-w-sm focus:bg-[#722ed1] border-none outline-0 rounded-sm"
+              className="text-center p-2 w-full max-w-sm focus:bg-[#722ed1] border-none outline-0 rounded-sm"
               type="password"
               placeholder="Enter Password"
               {...register("password", {
@@ -107,7 +107,7 @@ const Login = () => {
           </div>
 
           <input
-            class="text-center text-white font-bold bg-[#722ed1] p-2 w-full max-w-sm cursor-pointer rounded-sm"
+            className="text-center text-white font-bold bg-[#722ed1] p-2 w-full max-w-sm cursor-pointer rounded-sm"
             type="submit"
             value="Login"
           />
