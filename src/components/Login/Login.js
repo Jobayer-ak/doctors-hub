@@ -25,6 +25,7 @@ const Login = () => {
     axios
       .post("http://localhost:5000/api/v1/login", data, {
         withCredentials: true,
+        
       })
       .then((res) => {
         const { name, email, role } = res.data.others;

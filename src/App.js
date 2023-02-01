@@ -18,7 +18,7 @@ import RequireAdmin from "./components/Login/RequireAdmin";
 
 function App() {
   return (
-    <div className="App md:flex h-screen">
+    <div className="App lg:flex h-screen">
       <AuthProvider>
         <Navbar />
 

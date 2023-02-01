@@ -26,28 +26,29 @@ const AddDoctor = () => {
 
   const [loginError, setLoginError] = useState("");
 
-  
   const onSubmit = async (data) => {
-    // console.log(data);
+    console.log(data);
 
     await axios
       .post("http://localhost:5000/api/v1/admin/addDoctor", data, {
         withCredentials: true,
       })
       .then((res) => {
-
         // console.log(res)
         if (res.data.status === 403) {
-          
           setLoginError(res.data.message);
         }
         reset();
       })
       .catch((err) => {
-        console.log(err)
+        console.log(err);
         // setLoginError(err.response.data.message);
       });
   };
+
+  const handleCheckbox = () => {
+    
+  }
 
   return (
     <div className="w-full md:h-screen lg:h-auto bg-[#23075e] lg:border-l-4 md:border-l-4 border-solid border-[#722ED1] z-10 lg:pb-5">
@@ -330,9 +331,9 @@ const AddDoctor = () => {
                   icon={faCodeBranch}
                   size="lg"
                 />
-                
+
                 <select
-                placeholder="Branch"
+                  placeholder="Branch"
                   {...register("branch", {
                     required: "Doctor's Hub Branch Name Is Required!",
                     maxLength: {
@@ -377,11 +378,47 @@ const AddDoctor = () => {
                 </select>
                 <p className="text-white mt-2">{errors.blood_group?.message}</p>
               </div>
+
+              <div className="mt-8 lg:mt-0 mb-8">
+                {/* <FontAwesomeIcon
+                  className="p-2.5 absolute text-[#23075e]"
+                  icon={faHospital}
+                  size="lg"
+                /> */}
+                <input
+                  id="slot1"
+                  onClick={handleCheckbox}
+                  className="text-center p-2 w-full md:w-96 lg:w-[350px] focus:bg-[#722ed1] border-none outline-0 rounded-sm"
+                  type="checkbox"
+                  value="hello"
+                  {...register("slot", {
+                    required: "Slot is required!",
+                  })}
+                />
+                <lebel htmlFor="slot1" className="text-white">
+                  Time1
+                </lebel>
+                <input
+                  id="slot2"
+                  onClick={handleCheckbox}
+                  className="text-center p-2 w-full md:w-96 lg:w-[350px] focus:bg-[#722ed1] border-none outline-0 rounded-sm"
+                  type="checkbox"
+                  value="hello"
+                  {...register("slot", {
+                    required: "Slot is required!",
+                  })}
+                />
+                <lebel htmlFor="slot2" className="text-white">
+                  Time2
+                </lebel>
+                {errors.slot && (
+                  <p className="text-white mt-2">{errors.slot?.message}</p>
+                )}
+              </div>
             </div>
 
             {/* second part end */}
           </div>
-
 
           {loginError && <p className="text-white mt-2">{loginError}</p>}
 

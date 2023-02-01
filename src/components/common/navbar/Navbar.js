@@ -172,7 +172,7 @@ const Navbar = () => {
   );
 
   return (
-    <div className="md:w-[250px] lg:h-screen text-white bg-[#23075e] z-50 sticky top-0">
+    <div className="md:w-full lg:w-[250px] md:h-auto text-white bg-[#23075e] z-50 sticky top-0">
       {/* logo part */}
 
       <div className="sticky top-0">
@@ -190,7 +190,7 @@ const Navbar = () => {
         {/* open close button for responsive */}
 
         <div
-          className="text-3xl z-50 absolute right-6 top-8 cursor-pointer md:hidden"
+          className="text-3xl z-50 absolute right-6 top-8 cursor-pointer lg:hidden"
           onClick={() => setOpen(!open)}
         >
           {open ? (
@@ -201,13 +201,13 @@ const Navbar = () => {
         </div>
 
         <hr
-          className="border-solid border-2 border-[#722ED1] mt-0 md:mt-7 md:ml-3 md:mb-4 md:mr-3"
-          z-60
+          className="border-solid border-2 border-[#722ED1] mt-0 md:mt-7 lg:ml-3 md:mb-4 lg:mr-3"
+          z-100
         />
 
         {/* menu items */}
         <ul
-          className={`md:static bg-[#23075e] pb-5 absolute transition-all duration-1000 ease-in-out z-100 ${
+          className={`lg:static bg-[#23075e] pb-5 absolute transition-all duration-1000 ease-in-out z-100 ${
             open ? "top-[100px] w-full" : "top-[-1000px] left-[-1000px]"
           }`}
           onClick={() => setOpen(!open)}

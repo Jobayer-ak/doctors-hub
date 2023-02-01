@@ -5,19 +5,20 @@ import axios from "axios";
 import { format } from "date-fns";
 import Booking from "./Booking/Booking";
 
-const DoctorCards = ({ selectedCity, date }) => {
+const DoctorCards = ({ selectedCity, mili_date}) => {
   const [curDepartment, setCurDepartment] = useState("All");
-  const formatedDate = format(date, "PP");
+  // const formatedDate = format(date, "PP");
   const [active, setActive] = useState("All");
   const [treatment, setTreatment] = useState(null);
 
+  console.log(mili_date);
   const {
     data: doctors,
     isLoading,
     refetch,
-  } = useQuery(["doctor",formatedDate], async () => {
+  } = useQuery(["doctor",mili_date], async () => {
     const res = await axios.get(
-      `http://localhost:5000/api/v1/doctors/slots?date=${formatedDate}`,
+      `http://localhost:5000/api/v1/doctors/slots?date=${mili_date}`,
       {
         withCredentials: true,
       }
@@ -70,17 +71,17 @@ const DoctorCards = ({ selectedCity, date }) => {
               <DoctorCard
                 key={doctor._id}
                 doctor={doctor}
-                date={date}
+                mili_date={mili_date}
                 setTreatment={setTreatment}
               />
             ))
           : branchDoc?.map((doctor) => (
-              <DoctorCard key={doctor._id} doctor={doctor} date={date} />
+              <DoctorCard key={doctor._id} doctor={doctor} mili_date={mili_date} />
             ))}
       </div>
       {treatment && (
         <Booking
-          date={date}
+          mili_date={mili_date}
           treatment={treatment}
           setTreatment={setTreatment}
           refetch={refetch}

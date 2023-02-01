@@ -53,7 +53,7 @@ const DoctorCard = ({ doctor, setTreatment }) => {
             </label>
           </div>
         </div>
-        {/* <Booking date={date} doctor={doctor} /> */}
+        
       </div>
     </div>
   );

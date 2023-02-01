@@ -13,13 +13,13 @@ const Dashboard = () => {
   ];
 
   return (
-    <div className="mx-4 lg:mx-10 mt-4 bg-[#23075e] w-full py-4 rounded-md">
+    <div className="mx-4 lg:mx-10 mt-4 bg-[#23075e] md:w-full h-screen py-4 rounded-md">
       <h2 className="font-bold text-3xl text-white text-center">
         Welcome To Dashboard
       </h2>
 
       {/* dashboard buttons for normal user */}
-      <div className="text-white px-4 my-5 flex justify-around space-x-12">
+      <div className="text-white w-full px-4 my-5 grid lg:grid-cols-3 gap-3 lg:gap-12">
         {dashboardBtn.map((b) => (
           <button
             className={
@@ -35,7 +35,7 @@ const Dashboard = () => {
       </div>
 
       {/* button details */}
-      <div>{active === "Appointments History" && <AppointmentHistory />}
+      <div className="max-h-screen">{active === "Appointments History" && <AppointmentHistory />}
         {active === "My Reviews" && <MyReviews />}
         {active === "Pending Appointments" && <PendingAppointments/>}
       </div>

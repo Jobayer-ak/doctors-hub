@@ -11,13 +11,13 @@ import axios from "axios";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
 
-const Booking = ({ date, treatment, setTreatment, refetch }) => {
+const Booking = ({ mili_date, treatment, setTreatment, refetch }) => {
   const { _id, name, slot } = treatment;
-  const formatedDate = format(date, "PP");
+  const dt = new Date(mili_date);
+  const formatedDate = format(dt, "PP");
   const navigate = useNavigate();
 
-  console.log("date: ", formatedDate);
-  console.log("doctor: ", treatment);
+  console.log(formatedDate);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -30,9 +30,9 @@ const Booking = ({ date, treatment, setTreatment, refetch }) => {
       patient_contact_number: e.target.patient_contact_number.value,
       slot: e.target.slot.value,
       gender: e.target.gender.value,
-      date: formatedDate,
+      date: mili_date,
     };
-    // console.log(11, booking);
+
     axios
       .post("http://localhost:5000/api/v1/booking", booking, {
         headers: { "Content-Type": "application/json" },
@@ -44,7 +44,7 @@ const Booking = ({ date, treatment, setTreatment, refetch }) => {
           Swal.fire({
             icon: "success",
             title: "Success",
-            text: `${res.data.message} at ${booking.slot} on ${formatedDate} `,
+            text: `${res.data.message} at ${booking.slot} on ${mili_date} `,
           });
         }
 
@@ -52,7 +52,7 @@ const Booking = ({ date, treatment, setTreatment, refetch }) => {
           Swal.fire({
             icon: "error",
             title: "Oops...",
-            text: `${res.data.message} at ${booking.slot} on ${formatedDate}`,
+            text: `${res.data.message} at ${booking.slot} on ${mili_date}`,
           });
         }
 

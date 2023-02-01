@@ -1,17 +1,20 @@
-import React, { useContext } from "react";
+import React, { useContext} from "react";
 import AuthContext from "../../context/AuthProvider";
+// import { useQuery } from "react-query";
+// import axios from "axios";
+// import "./table.css";
+
 import { useQuery } from "react-query";
 import axios from "axios";
+import { format } from "date-fns";
 
 const MyHistory = () => {
   const { user } = useContext(AuthContext);
-  console.log(user);
+  const date = new Date();
+  const formatedDate = format(date, "PP");
+  
 
-  const {
-    data,
-    isLoading,
-    refetch,
-  } = useQuery(["booking", user], async () => {
+  const { data, isLoading, refetch } = useQuery(["booking", user], async () => {
     const res = await axios.get(
       `http://localhost:5000/api/v1/bookings?patient=${user.userEmail}`,
       {
@@ -26,43 +29,35 @@ const MyHistory = () => {
     return <h2 className="text-xl font-bold text-white">Loading......</h2>;
   }
 
-  console.log(data);
-
   return (
     <div className="px-4">
-      {/* table */}
-      <div>
-        <div className="overflow-x-auto">
-          <table className="table w-full">
-            {/* head */}
-            <thead>
-              <tr>
-                <th>Sr.</th>
-                <th>Doctor</th>
-                <th>Date</th>
-                <th>Time</th>
-                <th>Specialist</th>
-              </tr>
-            </thead>
-            <tbody>
-              {data.map((a, index) => (
-                <tr>
-                  <th>{index + 1}</th>
-                  <td>{ a.doctor_name}</td>
-                  <td>{a.date}</td>
+      <div className="overflow-x-auto">
+        <table className="table w-full md:min-w-[60%] lg:w-full">
+          <thead>
+            <tr>
+              <th>Sr.</th>
+              <th>Doctor</th>
+              <th>Date</th>
+              <th>Time</th>
+              <th>Specialist</th>
+            </tr>
+          </thead>
+          <tbody>
+            {data.map((a, index) => (
+              <tr className="relative">
+                <th className="sticky left-0">{index + 1}</th>
+                <td>{a.doctor_name}</td>
+                <td>{format(new Date(parseInt(a.date)), "PP")}</td>
                 <td>{a.slot}</td>
                 <td>{a.gender}</td>
               </tr>
-              ))
-
-              }
-              
-            </tbody>
-          </table>
-        </div>
+            ))}
+          </tbody>
+        </table>
       </div>
     </div>
   );
 };
+// responsive table with jsx 
 
 export default MyHistory;
