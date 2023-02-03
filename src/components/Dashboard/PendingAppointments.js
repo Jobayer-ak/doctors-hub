@@ -3,6 +3,7 @@ import React, { useContext } from "react";
 import { useQuery } from "react-query";
 import AuthContext from "../../context/AuthProvider";
 import { format } from "date-fns";
+import moment from "moment";
 
 const PendingAppointments = () => {
   const { user } = useContext(AuthContext);
@@ -41,14 +42,13 @@ const PendingAppointments = () => {
             </tr>
           </thead>
           <tbody>
-            {data.map((a, index) => (
+            {data?.map((a, index) => (
               <tr className="relative">
                 <th className="sticky left-0">{index + 1}</th>
                 <td>{a.doctor_name}</td>
-                {/* <td>{format(new Date(a.date), "PP")}</td> */}
-                <td>{format(new Date(parseInt(a.date)), "PP")}</td>
-                <td>{a.gender}</td>
+                <td>{format(new Date(a.date), "PP")}</td>
                 <td>{a.slot}</td>
+                <td>{a.speciality}</td>
               </tr>
             ))}
           </tbody>

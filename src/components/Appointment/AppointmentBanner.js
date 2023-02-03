@@ -11,8 +11,6 @@ const AppointmentBanner = () => {
   const [selectedCity, setSelectedCity] = useState("Dhaka");
   const [active, setActive] = useState("Dhaka");
 
-  const mili_date = date.getTime();
-
   const regions = [
     "Dhaka",
     "Mymensingh",
@@ -77,7 +75,7 @@ const AppointmentBanner = () => {
         </div>
         {/* Doctor Cards */}
         <div>
-          <DoctorCards mili_date={mili_date} selectedCity={selectedCity} />
+          <DoctorCards date={date} selectedCity={selectedCity} />
         </div>
       </div>
     </div>

@@ -39,7 +39,7 @@ const DoctorCard = ({ doctor, setTreatment }) => {
           <h3 className="text-xl">{doctor.name}</h3>
           <p className="italic">{doctor.higher_degree}</p>
           <hr className="border-solid border-1 border-[#722ED1] my-2 " />
-          <p className="italic">{doctor.treatment_area}</p>
+          <p className="italic">{doctor.speciality}</p>
 
           <p className="text-[14px]">{doctor.working_hospital}</p>
 

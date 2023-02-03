@@ -11,13 +11,15 @@ import axios from "axios";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
 
-const Booking = ({ mili_date, treatment, setTreatment, refetch }) => {
-  const { _id, name, slot } = treatment;
-  const dt = new Date(mili_date);
-  const formatedDate = format(dt, "PP");
+const Booking = ({ date, treatment, setTreatment, refetch }) => {
+  const formatedDate = format(date, "PP");
+  const { _id, name, slot, speciality } = treatment;
   const navigate = useNavigate();
 
-  console.log(formatedDate);
+
+  console.log(typeof formatedDate, formatedDate);
+
+  console.log(date);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -25,26 +27,25 @@ const Booking = ({ mili_date, treatment, setTreatment, refetch }) => {
     const booking = {
       doctor_name: name,
       doctor_id: _id,
+      gender: e.target.gender.value,
       patient_name: e.target.patient_name.value,
       patient_email: e.target.patient_email.value,
       patient_contact_number: e.target.patient_contact_number.value,
       slot: e.target.slot.value,
-      gender: e.target.gender.value,
-      date: mili_date,
+      speciality: speciality,
+      date: formatedDate,
     };
 
     axios
       .post("http://localhost:5000/api/v1/booking", booking, {
-        headers: { "Content-Type": "application/json" },
         withCredentials: true,
-        path: "/",
       })
       .then((res) => {
         if (res.data.success === true) {
           Swal.fire({
             icon: "success",
             title: "Success",
-            text: `${res.data.message} at ${booking.slot} on ${mili_date} `,
+            text: `${res.data.message} at ${booking.slot} on ${date} `,
           });
         }
 
@@ -52,7 +53,7 @@ const Booking = ({ mili_date, treatment, setTreatment, refetch }) => {
           Swal.fire({
             icon: "error",
             title: "Oops...",
-            text: `${res.data.message} at ${booking.slot} on ${mili_date}`,
+            text: `${res.data.message} at ${booking.slot} on ${date}`,
           });
         }
 

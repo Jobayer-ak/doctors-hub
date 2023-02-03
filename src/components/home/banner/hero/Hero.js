@@ -3,12 +3,15 @@ import { Calendar } from "react-calendar";
 import "./calender.css";
 import heroImage from "../../../../assets/icons/routine-health-checkup.png";
 
+
 const Hero = () => {
   const [value, setValue] = useState(new Date());
+ 
+
   return (
     <div className="lg:flex lg:justify-between items-center mt-6">
       <div className="mb-4 md:mb-0">
-        <Calendar value={value} />
+        <Calendar value={value}/>
       </div>
 
       <img

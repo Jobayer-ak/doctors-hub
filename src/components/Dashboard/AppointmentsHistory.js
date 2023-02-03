@@ -1,18 +1,11 @@
-import React, { useContext} from "react";
+import React, { useContext } from "react";
 import AuthContext from "../../context/AuthProvider";
-// import { useQuery } from "react-query";
-// import axios from "axios";
-// import "./table.css";
-
 import { useQuery } from "react-query";
 import axios from "axios";
 import { format } from "date-fns";
 
 const MyHistory = () => {
   const { user } = useContext(AuthContext);
-  const date = new Date();
-  const formatedDate = format(date, "PP");
-  
 
   const { data, isLoading, refetch } = useQuery(["booking", user], async () => {
     const res = await axios.get(
@@ -43,13 +36,13 @@ const MyHistory = () => {
             </tr>
           </thead>
           <tbody>
-            {data.map((a, index) => (
+            {data?.map((a, index) => (
               <tr className="relative">
                 <th className="sticky left-0">{index + 1}</th>
                 <td>{a.doctor_name}</td>
-                <td>{format(new Date(parseInt(a.date)), "PP")}</td>
+                <td>{format(new Date(a.date), "PP")}</td>
                 <td>{a.slot}</td>
-                <td>{a.gender}</td>
+                <td>{a.speciality}</td>
               </tr>
             ))}
           </tbody>
@@ -58,6 +51,6 @@ const MyHistory = () => {
     </div>
   );
 };
-// responsive table with jsx 
+// responsive table with jsx
 
 export default MyHistory;

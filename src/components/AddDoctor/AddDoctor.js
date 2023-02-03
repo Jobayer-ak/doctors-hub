@@ -262,7 +262,7 @@ const AddDoctor = () => {
                   className="text-center p-2 w-full md:w-96 lg:w-[350px] focus:bg-[#722ed1] border-none outline-0 rounded-sm"
                   type="text"
                   placeholder="Treatment Field"
-                  {...register("treatment_area", {
+                  {...register("speciality", {
                     required: "Treatment Area name is required!",
                     maxLength: {
                       value: 35,
@@ -272,7 +272,7 @@ const AddDoctor = () => {
                 />
                 {errors.email && (
                   <p className="text-white mt-2">
-                    {errors.treatment_area?.message}
+                    {errors.speciality?.message}
                   </p>
                 )}
               </div>
@@ -390,26 +390,26 @@ const AddDoctor = () => {
                   onClick={handleCheckbox}
                   className="text-center p-2 w-full md:w-96 lg:w-[350px] focus:bg-[#722ed1] border-none outline-0 rounded-sm"
                   type="checkbox"
-                  value="hello"
+                  value={6.00-6.30}
                   {...register("slot", {
                     required: "Slot is required!",
                   })}
                 />
                 <lebel htmlFor="slot1" className="text-white">
-                  Time1
+                  6.00pm-6.30pm
                 </lebel>
                 <input
                   id="slot2"
                   onClick={handleCheckbox}
                   className="text-center p-2 w-full md:w-96 lg:w-[350px] focus:bg-[#722ed1] border-none outline-0 rounded-sm"
                   type="checkbox"
-                  value="hello"
+                  value= {7.00-7.30}
                   {...register("slot", {
                     required: "Slot is required!",
                   })}
                 />
                 <lebel htmlFor="slot2" className="text-white">
-                  Time2
+                  7.00pm-7.30pm
                 </lebel>
                 {errors.slot && (
                   <p className="text-white mt-2">{errors.slot?.message}</p>
