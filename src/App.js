@@ -14,7 +14,7 @@ import RequireAuth from "./components/Login/RequireAuth";
 import Dashboard from "./components/Dashboard/Dashboard";
 import AddDoctor from "./components/AddDoctor/AddDoctor";
 import Appointments from "./components/Appointment/Appointments";
-import RequireAdmin from "./components/Login/RequireAdmin";
+
 
 function App() {
   return (

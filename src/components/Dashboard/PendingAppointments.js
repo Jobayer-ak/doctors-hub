@@ -3,7 +3,7 @@ import React, { useContext } from "react";
 import { useQuery } from "react-query";
 import AuthContext from "../../context/AuthProvider";
 import { format } from "date-fns";
-import moment from "moment";
+
 
 const PendingAppointments = () => {
   const { user } = useContext(AuthContext);

@@ -1,10 +1,14 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import AppointmentHistory from "./AppointmentsHistory";
 import MyReviews from "./MyReviews";
 import PendingAppointments from "./PendingAppointments";
+import AuthContext from "../../context/AuthProvider";
+import useAdmin from "../../hook/useAdmin";
 
 const Dashboard = () => {
   const [active, setActive] = useState("Pending Appointments");
+  const { user } = useContext(AuthContext);
+  const { admin } = useAdmin(user.userEmail);
 
   const dashboardBtn = [
     "Pending Appointments",
@@ -12,8 +16,10 @@ const Dashboard = () => {
     "My Reviews",
   ];
 
+
+  console.log(admin);
   return (
-    <div className="mx-4 lg:mx-10 mt-4 bg-[#23075e] md:w-full h-screen py-4 rounded-md">
+    <div className="mx-4 md:mx-10 mt-4 bg-[#23075e] lg:w-full h-screen py-4 rounded-md">
       <h2 className="font-bold text-3xl text-white text-center">
         Welcome To Dashboard
       </h2>

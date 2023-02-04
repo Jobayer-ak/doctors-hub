@@ -4,7 +4,7 @@ import { faSearch } from "@fortawesome/free-solid-svg-icons";
 
 const Searchbar = () => {
   return (
-    <div className="lg:flex gap-12 justify-between items-center mt-7 mb-9">
+    <div className="lg:flex lg:gap-12 lg:justify-between lg:items-center mt-7 mb-9 md:w-[100%] lg:w-full">
       <div className="search flex justify-between items-center bg-[#4b1b97] w-full rounded-md py-2.5 px-2.5">
         <h2 className="text-xl font-bold">Home</h2>
 

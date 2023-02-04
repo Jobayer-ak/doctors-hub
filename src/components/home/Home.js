@@ -8,7 +8,7 @@ import Slider from "./carousel/Slider";
 
 const Home = () => {
   return (
-    <div className="md:w-[70%] lg:w-[80%] mx-4 lg:mx-10 bg-[#0a062c] text-white">
+    <div className="md:w-[95%] lg:w-[80%] mx-4 lg:mx-10 bg-[#0a062c] text-white">
       <Searchbar />
       <Banner />
       <Hero />

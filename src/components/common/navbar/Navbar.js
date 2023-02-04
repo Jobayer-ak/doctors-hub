@@ -119,7 +119,7 @@ const Navbar = () => {
         Contact
       </li>
 
-      <hr className="border-solid border-2 border-[#722ED1] mt-2 md:mt-4 md:ml-3 md:mb-4 md:mr-3" />
+      <hr className="border-solid border-2 border-[#722ED1] mt-2 md:mt-4 lg:ml-3 lg:mb-4 lg:mr-3" />
 
       {userEmail && (
         <li className={liClass}>
@@ -201,13 +201,12 @@ const Navbar = () => {
         </div>
 
         <hr
-          className="border-solid border-2 border-[#722ED1] mt-0 md:mt-7 lg:ml-3 md:mb-4 lg:mr-3"
-          z-100
+          className="border-solid border-2 border-[#722ED1] mt-0 md:mt-7 lg:ml-3 lg:mb-4 lg:mr-3"
         />
 
         {/* menu items */}
         <ul
-          className={`lg:static bg-[#23075e] pb-5 absolute transition-all duration-1000 ease-in-out z-100 ${
+          className={`lg:static bg-[#23075e] pb-5 md:mt-1 lg:mt-0 absolute transition-all duration-1000 ease-in-out z-100 ${
             open ? "top-[100px] w-full" : "top-[-1000px] left-[-1000px]"
           }`}
           onClick={() => setOpen(!open)}

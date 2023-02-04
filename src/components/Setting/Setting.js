@@ -24,8 +24,8 @@ const Setting = () => {
   };
 
   return (
-    <div className="w-full h-screen lg:h-auto my-0 bg-[#23075e] lg:border-l-4 md:border-l-4 border-solid border-[#722ED1] z-10 lg:pb-5">
-      <div className="px-7 pt-6 md:pt-12 pb-2.5 text-center">
+    <div className="w-full min-h-screen lg:h-auto my-0 bg-[#23075e] lg:border-l-4 lg:border-l-4 border-solid border-[#722ED1] z-10 lg:pb-5 pt-6">
+      <div className="px-7 md:pt-12 pb-2.5 text-center">
         <h2 className="text-[#722ed1] font-bold text-3xl md:text-4xl bg-white inline-block py-3 px-6 rounded-full">
           <span className="mr-4">Update Profile</span>
           <FontAwesomeIcon icon={faCircleUser} size="xl" />

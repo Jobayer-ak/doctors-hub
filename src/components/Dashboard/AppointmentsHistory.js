@@ -22,6 +22,7 @@ const MyHistory = () => {
     return <h2 className="text-xl font-bold text-white">Loading......</h2>;
   }
 
+
   return (
     <div className="px-4">
       <div className="overflow-x-auto">
