@@ -42,7 +42,6 @@ const Booking = ({ date, treatment, setTreatment, refetch }) => {
         withCredentials: true,
       })
       .then((res) => {
-        console.log("addd: ",res.status);
         if (res.data.success === true) {
           Swal.fire({
             icon: "success",
@@ -72,6 +71,8 @@ const Booking = ({ date, treatment, setTreatment, refetch }) => {
             title: "Oops...",
             text: "You are not permitted to book appointment!",
           });
+
+          navigate("/");
         }
 
         if (error.response.status === 401) {

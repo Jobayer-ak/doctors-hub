@@ -1,20 +1,12 @@
-import React, { useContext, useState } from "react";
-import AppointmentHistory from "./AppointmentsHistory";
-import MyReviews from "./MyReviews";
-import PendingAppointments from "./PendingAppointments";
+import React, { useContext } from "react";
 import AuthContext from "../../context/AuthProvider";
 import useAdmin from "../../hook/useAdmin";
+import ForUser from "./ForUser";
+import Admin from "./admin/Admin";
 
 const Dashboard = () => {
-  const [active, setActive] = useState("Pending Appointments");
   const { user } = useContext(AuthContext);
   const { admin } = useAdmin(user.userEmail);
-
-  const dashboardBtn = [
-    "Pending Appointments",
-    "Appointments History",
-    "My Reviews",
-  ];
 
   console.log(admin);
   return (
@@ -24,27 +16,8 @@ const Dashboard = () => {
       </h2>
 
       {/* dashboard buttons for normal user */}
-      <div className="text-white w-full px-4 my-5 grid lg:grid-cols-3 gap-3 lg:gap-12">
-        {dashboardBtn.map((b) => (
-          <button
-            className={
-              active === b
-                ? "bg-[#0a062c] w-full py-2 text-xl rounded-md"
-                : "bg-[#4a1a98] hover:bg-[#0a062c] transition-all w-full py-2 text-xl rounded-md "
-            }
-            onClick={() => setActive(b)}
-          >
-            {b}
-          </button>
-        ))}
-      </div>
 
-      {/* button details */}
-      <div className="max-h-screen lg:h-auto">
-        {active === "Appointments History" && <AppointmentHistory />}
-        {active === "My Reviews" && <MyReviews />}
-        {active === "Pending Appointments" && <PendingAppointments />}
-      </div>
+      {user.userRole === "admin" ? <Admin/> : <ForUser />}
     </div>
   );
 };
