@@ -1,5 +1,5 @@
 import { format } from "date-fns";
-import React from "react";
+import React, { useContext } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faCalendarDays,
@@ -10,12 +10,13 @@ import { faPhone, faUserPlus } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
+import AuthContext from "../../../../context/AuthProvider";
 
 const Booking = ({ date, treatment, setTreatment, refetch }) => {
   const formatedDate = format(date, "PP");
   const { _id, name, slot, speciality } = treatment;
   const navigate = useNavigate();
-
+  const { user } = useContext(AuthContext);
 
   console.log(typeof formatedDate, formatedDate);
 
@@ -41,6 +42,7 @@ const Booking = ({ date, treatment, setTreatment, refetch }) => {
         withCredentials: true,
       })
       .then((res) => {
+        console.log("addd: ",res.status);
         if (res.data.success === true) {
           Swal.fire({
             icon: "success",
@@ -61,7 +63,17 @@ const Booking = ({ date, treatment, setTreatment, refetch }) => {
         setTreatment(null);
       })
       .catch((error) => {
-        console.log(error);
+        
+        if (error.response.status === 403) {
+          
+          
+          Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: "You are not permitted to book appointment!",
+          });
+        }
+
         if (error.response.status === 401) {
           Swal.fire({
             icon: "error",
@@ -126,6 +138,22 @@ const Booking = ({ date, treatment, setTreatment, refetch }) => {
                   </select>
                 </div>
 
+                <div className="my-6">
+                  <FontAwesomeIcon
+                    className="p-2.5 absolute text-[#23075e]"
+                    icon={faEnvelope}
+                    size="lg"
+                  />
+                  <input
+                    type="email"
+                    name="patient_email"
+                    value={user.userEmail}
+                    required
+                    readOnly
+                    className="text-center p-2 w-full max-w-sm focus:bg-[#722ed1] border-none outline-0 rounded-sm"
+                  />
+                </div>
+
                 <div className="">
                   <FontAwesomeIcon
                     className="p-2.5 absolute text-[#23075e]"
@@ -137,20 +165,6 @@ const Booking = ({ date, treatment, setTreatment, refetch }) => {
                     type="text"
                     name="patient_name"
                     placeholder="Your Full Name"
-                    required
-                    className="text-center p-2 w-full max-w-sm focus:bg-[#722ed1] border-none outline-0 rounded-sm"
-                  />
-                </div>
-                <div className="my-6">
-                  <FontAwesomeIcon
-                    className="p-2.5 absolute text-[#23075e]"
-                    icon={faEnvelope}
-                    size="lg"
-                  />
-                  <input
-                    type="email"
-                    name="patient_email"
-                    placeholder="Enter Email"
                     required
                     className="text-center p-2 w-full max-w-sm focus:bg-[#722ed1] border-none outline-0 rounded-sm"
                   />

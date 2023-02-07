@@ -16,7 +16,6 @@ const Dashboard = () => {
     "My Reviews",
   ];
 
-
   console.log(admin);
   return (
     <div className="mx-4 md:mx-10 mt-4 bg-[#23075e] lg:w-full h-screen py-4 rounded-md">
@@ -41,9 +40,10 @@ const Dashboard = () => {
       </div>
 
       {/* button details */}
-      <div className="max-h-screen">{active === "Appointments History" && <AppointmentHistory />}
+      <div className="max-h-screen lg:h-auto">
+        {active === "Appointments History" && <AppointmentHistory />}
         {active === "My Reviews" && <MyReviews />}
-        {active === "Pending Appointments" && <PendingAppointments/>}
+        {active === "Pending Appointments" && <PendingAppointments />}
       </div>
     </div>
   );
