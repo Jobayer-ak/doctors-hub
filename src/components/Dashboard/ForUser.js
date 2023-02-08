@@ -5,7 +5,7 @@ import PendingAppointments from "./PendingAppointments";
 import AppointmentHistory from "./AppointmentsHistory";
 
 const ForUser = () => {
-  const [active, setActive] = useState("MyHistory");
+  const [active, setActive] = useState("Pending Appointments");
 
   const dashboardBtn = [
     "Pending Appointments",
@@ -35,9 +35,9 @@ const ForUser = () => {
 
       {/* button details */}
       <div className="max-h-screen lg:h-auto">
+        {active === "Pending Appointments" && <PendingAppointments />}
         {active === "Appointments History" && <AppointmentHistory />}
         {active === "My Reviews" && <MyReviews />}
-        {active === "Pending Appointments" && <PendingAppointments />}
       </div>
     </>
   );

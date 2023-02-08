@@ -25,7 +25,7 @@ const PendingAppointments = () => {
     return <h2 className="text-xl font-bold text-white">Loading......</h2>;
   }
 
-  console.log(data);
+  console.log(data.length);
 
   return (
     <>
