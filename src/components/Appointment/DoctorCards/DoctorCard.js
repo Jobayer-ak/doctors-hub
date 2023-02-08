@@ -1,8 +1,5 @@
 import React from "react";
-// import Booking from "./Booking/Booking";
-// import { format } from "date-fns";
-// import { useQuery } from "react-query";
-// import axios from "axios";
+
 
 const DoctorCard = ({ doctor, setTreatment }) => {
   // const formatedDate = format(date, "PP");

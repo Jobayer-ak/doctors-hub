@@ -1,14 +1,22 @@
-import React, { useContext } from "react";
-import AuthContext from "../../context/AuthProvider";
-import useAdmin from "../../hook/useAdmin";
+import React, { useEffect, useState } from "react";
+
 import ForUser from "./ForUser";
 import Admin from "./admin/Admin";
 
 const Dashboard = () => {
-  const { user } = useContext(AuthContext);
-  const { admin } = useAdmin(user.userEmail);
+  const [role, setRole] = useState("");
+  const [loading, setLoading] = useState(true);
 
-  console.log(admin);
+  useEffect(() => {
+    const userRole = localStorage.getItem("userRole");
+    setRole(userRole);
+    setLoading(false);
+  }, []);
+
+  if (loading) {
+    return <h2 className="text-white text-xl">Loading...</h2>;
+  }
+
   return (
     <div className="mx-4 md:mx-10 mt-4 bg-[#23075e] lg:w-full h-screen py-4 rounded-md">
       <h2 className="font-bold text-3xl text-white text-center">
@@ -17,9 +25,10 @@ const Dashboard = () => {
 
       {/* dashboard buttons for normal user */}
 
-      {user.userRole === "admin" ? <Admin/> : <ForUser />}
+      {role === "admin" ? <Admin /> : <ForUser />}
     </div>
   );
 };
 
 export default Dashboard;
+

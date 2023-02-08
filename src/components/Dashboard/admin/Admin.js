@@ -1,14 +1,22 @@
-import React, { useState } from "react";
+import React, {useState } from "react";
 import AllUsers from "./AllUsers";
 import AllDoctors from "./AllDoctors";
 import AllReviews from "./AllReviews";
 import AllAppointments from "./AllAppointments";
 
+
 const Admin = () => {
   const [active, setActive] = useState("All Appointments");
 
-    const dashboardBtn = [ "All Appointments", "All Users", "All Doctors", "All Reviews"];
-    
+  const dashboardBtn = [
+    "All Appointments",
+    "All Users",
+    "All Doctors",
+    "All Reviews",
+  ];
+
+
+
   return (
     <div>
       <div className=" mt-4 bg-[#23075e] py-4 rounded-md">
