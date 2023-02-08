@@ -43,56 +43,88 @@ const MyHistory = () => {
             withCredentials: true,
           })
           .then((res) => {
-            if (res.data.success === true) {
+            if (res.status === 200) {
               console.log(book_id);
-              Swal.fire("Deleted!", "Your file has been deleted.", "success");
+              Swal.fire(
+                `${res.data.message}`,
+                "Your file has been deleted.",
+                "success"
+              );
               refetch();
             }
+
+            if (res.status === 403) {
+              return Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: "Something went wrong!!!",
+              });
+            }
           })
-          .catch((err) => console.log(err));
+          .catch((err) => {
+            if (err.response.status) {
+              return Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: "Something went wrong!",
+              });
+            }
+          });
       }
     });
   };
 
   return (
-    <div className="px-4">
-      <div className="overflow-x-auto">
-        <table className="table w-full md:min-w-[60%] lg:w-full">
-          <thead>
-            <tr className="text-center">
-              <th>Sr.</th>
-              <th>Doctor</th>
-              <th>Date</th>
-              <th>Time</th>
-              <th>Specialist</th>
-              <th>Remove</th>
-            </tr>
-          </thead>
-          <tbody>
-            {data?.map((a, index) => (
-              <tr className="relative text-center">
-                <th className="sticky left-0">{index + 1}</th>
-                <td>{a.doctor_name}</td>
-                <td>{format(new Date(a.date), "PP")}</td>
-                <td>{a.slot}</td>
-                <td>{a.speciality}</td>
-                <td
-                  className="cursor-pointer"
-                  onClick={() => handleDelete(a._id)}
-                >
-                  {
-                    <FontAwesomeIcon
-                      icon={faTrashCan}
-                      className="bg-red-700 px-2 py-2 rounded-md text-white"
-                    />
-                  }
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-    </div>
+    <>
+      {data.length !== 0 ? (
+        <div className="px-4">
+          <div className="overflow-x-auto">
+            <table className="table w-full md:min-w-[60%] lg:w-full">
+              <thead>
+                <tr className="text-center">
+                  <th>Sr.</th>
+                  <th>Doctor</th>
+                  <th>Date</th>
+                  <th>Time</th>
+                  <th>Specialist</th>
+                  <th>Remove</th>
+                </tr>
+              </thead>
+              <tbody>
+                {data?.map((a, index) => (
+                  <tr className="relative text-center">
+                    <th className="sticky left-0">{index + 1}</th>
+                    <td>{a.doctor_name}</td>
+                    <td>{format(new Date(a.date), "PP")}</td>
+                    <td>{a.slot}</td>
+                    <td>{a.speciality}</td>
+                    <td
+                      className="cursor-pointer"
+                      onClick={() => handleDelete(a._id)}
+                    >
+                      {
+                        <FontAwesomeIcon
+                          icon={faTrashCan}
+                          className="bg-red-700 px-2 py-2 rounded-md text-white"
+                        />
+                      }
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+            // how to delete in mongoose
+          </div>
+        </div>
+      ) : (
+        <div className="text-center ">
+          <h2 className="text-white text-xl mt-12">
+            No Appointments Left. <br />{" "}
+            <span className="text-2xl"> Please Book Appointment!</span>
+          </h2>
+        </div>
+      )}
+    </>
   );
 };
 // responsive table with jsx
