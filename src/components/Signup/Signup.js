@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 // import "./login.css";
 import loginImage from "../../assets/images/loginImage .png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -6,20 +6,40 @@ import { faEnvelope } from "@fortawesome/free-regular-svg-icons";
 import {
   faCircleUser,
   faLock,
+  faPhone,
   faUserPlus,
 } from "@fortawesome/free-solid-svg-icons";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
+import axios from "axios";
 
 const Signup = () => {
   const {
     register,
-    // formState: { errors },
+    formState: { errors },
     handleSubmit,
+    reset,
   } = useForm();
 
-  const onSubmit = (data) => {
+  const [signupError, setSignUpError] = useState("");
+
+  const onSubmit = async (data) => {
     console.log(data);
+    await axios
+      .post("http://localhost:5000/api/v1/signup", data, {
+        withCredentials: true,
+      })
+      .then((res) => {
+        // console.log(res)
+        if (res.data.status === 403) {
+          setSignUpError(res.data.message);
+        }
+        reset();
+      })
+      .catch((err) => {
+        console.log(err);
+        // setLoginError(err.response.data.message);
+      });
   };
 
   return (
@@ -37,6 +57,7 @@ const Signup = () => {
           className="mt-12 md:bg-[#23075e] text-center relative"
           onSubmit={handleSubmit(onSubmit)}
         >
+          {/* name field */}
           <div className="">
             <FontAwesomeIcon
               className="p-2.5 absolute text-[#23075e]"
@@ -45,19 +66,21 @@ const Signup = () => {
             />
             <input
               className="text-center p-2 w-full max-w-sm focus:bg-[#722ed1] border-none outline-0 rounded-sm"
-              type="email"
+              type="name"
               placeholder="Your Full Name"
-              {...register("email", {
+              {...register("name", {
                 required: {
                   value: true,
-                  message: "Email is required!",
+                  message: "Name is required!",
                 },
-
-                pattern: /[a-z0-9]+@[a-z]+\.[a-z]{2,3}/,
-                message: "Provide a valid email!",
               })}
             />
+            {errors.name && (
+              <p className="text-white mt-2">{errors.name?.message}</p>
+            )}
           </div>
+
+          {/* emial field */}
           <div className="my-8">
             <FontAwesomeIcon
               className="p-2.5 absolute text-[#23075e]"
@@ -78,8 +101,12 @@ const Signup = () => {
                 message: "Provide a valid email!",
               })}
             />
+            {errors.email && (
+              <p className="text-white mt-2">{errors.email?.message}</p>
+            )}
           </div>
 
+          {/* password field */}
           <div className="my-8">
             <FontAwesomeIcon
               className="text-[#23075e] p-2.5 absolute"
@@ -98,7 +125,12 @@ const Signup = () => {
                 minLength: { value: 6, message: "At least 6 characters!" },
               })}
             />
+            {errors.password && (
+              <p className="text-white mt-2">{errors.password?.message}</p>
+            )}
           </div>
+
+          {/* confirm password field */}
           <div className="my-8">
             <FontAwesomeIcon
               className="text-[#23075e] p-2.5 absolute"
@@ -109,15 +141,87 @@ const Signup = () => {
               className="text-center p-2 w-full max-w-sm focus:bg-[#722ed1] border-none outline-0 rounded-sm"
               type="password"
               placeholder="Confirm Password"
-              {...register("password", {
+              {...register("confirmPassword", {
                 required: {
                   value: true,
-                  message: "Password is required!",
+                  message: "Confirm Password is required!",
                 },
                 minLength: { value: 6, message: "At least 6 characters!" },
               })}
             />
+
+            {errors.confirmPassword && (
+              <p className="text-white mt-2">{errors.confirmPassword?.message}</p>
+            )}
           </div>
+
+          {/* mobile number field */}
+          <div className="my-8">
+            <FontAwesomeIcon
+              className="p-2.5 absolute text-[#23075e]"
+              icon={faPhone}
+              size="lg"
+            />
+            <input
+              className="text-center p-2 w-full max-w-sm focus:bg-[#722ed1] border-none outline-0 rounded-sm"
+              type="text"
+              placeholder="Mobile Number"
+              {...register("mobile", {
+                required: {
+                  value: true,
+                  message: "Mobile Number is required!",
+                },
+              })}
+            />
+            {errors.mobile && (
+              <p className="text-white mt-2">{errors.mobile?.message}</p>
+            )}
+          </div>
+
+          {/* gender field  */}
+          <div className="my-8">
+            <div className="text-white flex justify-center items-center gap-[50px] md:gap-[88px]">
+              <div>
+                <h3 className="font-bold">Gender</h3>
+              </div>
+
+              <div className="flex items-center gap-3">
+                <input
+                  type="radio"
+                  placeholder="Gender"
+                  value="Male"
+                  className=""
+                  {...register("gender", {
+                    required: {
+                      value: true,
+                      message: "Gender is required!",
+                    },
+                  })}
+                />
+                <p>Male</p>
+              </div>
+
+              <div className="flex items-center gap-3">
+                <input
+                  type="radio"
+                  value="Female"
+                  {...register("gender", {
+                    required: {
+                      value: true,
+                      message: "Gender is required!",
+                    },
+                  })}
+                />
+                <p>Female</p>
+              </div>
+            </div>
+            {errors.gender && (
+              <p className="text-white mt-2">{errors.gender?.message}</p>
+            )}
+          </div>
+
+          {signupError && <p className="text-white mt-2">{signupError}</p>}
+
           <input
             className="text-center text-white font-bold bg-[#722ed1] p-2 w-full max-w-sm cursor-pointer rounded-sm"
             type="submit"

@@ -46,10 +46,6 @@ const AddDoctor = () => {
       });
   };
 
-  const handleCheckbox = () => {
-    
-  }
-
   return (
     <div className="w-full md:h-screen lg:h-auto bg-[#23075e] lg:border-l-4 md:border-l-4 border-solid border-[#722ED1] z-10 lg:pb-5">
       <div className="pt-3 md:pt-6 pb-2.5 text-center mx-4 lg:mx-6">
@@ -176,8 +172,8 @@ const AddDoctor = () => {
                     },
                   })}
                 />
-                {errors.email && (
-                  <p className="text-white mt-2">{errors.address?.message}</p>
+                {errors.nid && (
+                  <p className="text-white mt-2">{errors.nid?.message}</p>
                 )}
               </div>
 
@@ -270,7 +266,7 @@ const AddDoctor = () => {
                     },
                   })}
                 />
-                {errors.email && (
+                {errors.speciality && (
                   <p className="text-white mt-2">
                     {errors.speciality?.message}
                   </p>
@@ -380,17 +376,11 @@ const AddDoctor = () => {
               </div>
 
               <div className="mt-8 lg:mt-0 mb-8">
-                {/* <FontAwesomeIcon
-                  className="p-2.5 absolute text-[#23075e]"
-                  icon={faHospital}
-                  size="lg"
-                /> */}
                 <input
                   id="slot1"
-                  onClick={handleCheckbox}
                   className="text-center p-2 w-full md:w-96 lg:w-[350px] focus:bg-[#722ed1] border-none outline-0 rounded-sm"
                   type="checkbox"
-                  value={6.00-6.30}
+                  value={6.0 - 6.3}
                   {...register("slot", {
                     required: "Slot is required!",
                   })}
@@ -400,10 +390,9 @@ const AddDoctor = () => {
                 </lebel>
                 <input
                   id="slot2"
-                  onClick={handleCheckbox}
                   className="text-center p-2 w-full md:w-96 lg:w-[350px] focus:bg-[#722ed1] border-none outline-0 rounded-sm"
                   type="checkbox"
-                  value= {7.00-7.30}
+                  value={7.0 - 7.3}
                   {...register("slot", {
                     required: "Slot is required!",
                   })}
