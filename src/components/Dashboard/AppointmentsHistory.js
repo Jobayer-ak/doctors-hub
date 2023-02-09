@@ -47,7 +47,7 @@ const MyHistory = () => {
               console.log(book_id);
               Swal.fire(
                 `${res.data.message}`,
-                "Your file has been deleted.",
+                "Booking has been deleted.",
                 "success"
               );
               refetch();
@@ -74,6 +74,7 @@ const MyHistory = () => {
     });
   };
 
+  console.log(data);
   return (
     <>
       {data.length !== 0 ? (
@@ -113,7 +114,6 @@ const MyHistory = () => {
                 ))}
               </tbody>
             </table>
-            // how to delete in mongoose
           </div>
         </div>
       ) : (
