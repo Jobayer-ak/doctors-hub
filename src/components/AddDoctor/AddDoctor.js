@@ -257,9 +257,9 @@ const AddDoctor = () => {
                 <input
                   className="text-center p-2 w-full md:w-96 lg:w-[350px] focus:bg-[#722ed1] border-none outline-0 rounded-sm"
                   type="text"
-                  placeholder="Treatment Field"
+                  placeholder="docinfo Field"
                   {...register("speciality", {
-                    required: "Treatment Area name is required!",
+                    required: "docinfo Area name is required!",
                     maxLength: {
                       value: 35,
                       message: "Too Large! Not more than 35 characters.",
@@ -282,7 +282,7 @@ const AddDoctor = () => {
                 <input
                   className="text-center p-2 w-full md:w-96 lg:w-[350px] focus:bg-[#722ed1] border-none outline-0 rounded-sm"
                   type="text"
-                  placeholder="Treatment Department"
+                  placeholder="docinfo Department"
                   {...register("department", {
                     required: "Department name is required!",
                     maxLength: {

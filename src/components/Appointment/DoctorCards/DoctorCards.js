@@ -9,7 +9,7 @@ const DoctorCards = ({ selectedCity, date}) => {
   const [curDepartment, setCurDepartment] = useState("All");
   const formatedDate = format(date, "PP");
   const [active, setActive] = useState("All");
-  const [treatment, setTreatment] = useState(null);
+  const [docinfo, setDocinfo] = useState(null);
 
   console.log( date);
   const {
@@ -72,18 +72,18 @@ const DoctorCards = ({ selectedCity, date}) => {
                 key={doctor._id}
                 doctor={doctor}
                 date={date}
-                setTreatment={setTreatment}
+                setDocinfo={setDocinfo}
               />
             ))
           : branchDoc?.map((doctor) => (
               <DoctorCard key={doctor._id} doctor={doctor} />
             ))}
       </div>
-      {treatment && (
+      {docinfo && (
         <Booking
           date={date}
-          treatment={treatment}
-          setTreatment={setTreatment}
+          docinfo={docinfo}
+          setDocinfo={setDocinfo}
           refetch={refetch}
         />
       )}

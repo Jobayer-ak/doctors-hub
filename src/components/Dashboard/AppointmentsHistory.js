@@ -76,11 +76,11 @@ const MyHistory = () => {
 
   console.log(data);
   return (
-    <>
+    <div>
       {data.length !== 0 ? (
         <div className="px-4">
-          <div className="overflow-x-auto">
-            <table className="table w-full md:min-w-[60%] lg:w-full">
+          <div className="overflow-x-auto overflow-y-auto z-40">
+            <table className="table w-full min-h-screen md:min-w-[60%] lg:w-full z-10">
               <thead>
                 <tr className="text-center">
                   <th>Sr.</th>
@@ -124,7 +124,7 @@ const MyHistory = () => {
           </h2>
         </div>
       )}
-    </>
+    </div>
   );
 };
 // responsive table with jsx

@@ -15,9 +15,9 @@ const ForUser = () => {
 
   return (
     <>
-      <div className=" mt-4 bg-[#23075e] py-4 rounded-md">
+      <div className=" mt-4 bg-[#23075e] py-4 rounded-md sticky top-[0px] z-50">
         {/* dashboard buttons */}
-        <div className="text-white px-4 my-5 flex justify-around gap-12">
+        <div className="text-white px-4 my-5 flex justify-around gap-12 ">
           {dashboardBtn.map((b) => (
             <button
               className={

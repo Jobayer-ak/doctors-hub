@@ -12,15 +12,15 @@ import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
 import AuthContext from "../../../../context/AuthProvider";
 
-const Booking = ({ date, treatment, setTreatment, refetch }) => {
+const Booking = ({ date, docinfo, setDocinfo, refetch }) => {
   const formatedDate = format(date, "PP");
-  const { _id, name, slot, speciality } = treatment;
+  const { _id, name, slot, speciality } = docinfo;
   const navigate = useNavigate();
   const { user } = useContext(AuthContext);
 
-  console.log(typeof formatedDate, formatedDate);
+  // console.log(typeof formatedDate, formatedDate);
 
-  console.log(date);
+ 
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -35,6 +35,7 @@ const Booking = ({ date, treatment, setTreatment, refetch }) => {
       slot: e.target.slot.value,
       speciality: speciality,
       date: formatedDate,
+      branch: docinfo.branch,
     };
 
     axios
@@ -59,13 +60,10 @@ const Booking = ({ date, treatment, setTreatment, refetch }) => {
         }
 
         refetch();
-        setTreatment(null);
+        setDocinfo(null);
       })
       .catch((error) => {
-        
         if (error.response.status === 403) {
-          
-          
           Swal.fire({
             icon: "error",
             title: "Oops...",

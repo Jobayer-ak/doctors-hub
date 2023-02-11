@@ -18,7 +18,7 @@ import Appointments from "./components/Appointment/Appointments";
 
 function App() {
   return (
-    <div className="App lg:flex h-screen">
+    <div className="App lg:flex min-h-screen">
       <AuthProvider>
         <Navbar />
 

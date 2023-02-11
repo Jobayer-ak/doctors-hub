@@ -1,7 +1,7 @@
 import React from "react";
 
 
-const DoctorCard = ({ doctor, setTreatment }) => {
+const DoctorCard = ({ doctor, setDocinfo }) => {
   // const formatedDate = format(date, "PP");
 
   // console.log(doctor)
@@ -44,7 +44,7 @@ const DoctorCard = ({ doctor, setTreatment }) => {
             <label
               htmlFor="my-modal-3"
               className="text-white cursor-pointer bg-[#381f6e] px-2 py-2 rounded-md mt-2 inline-block"
-              onClick={()=> setTreatment(doctor)}
+              onClick={()=> setDocinfo(doctor)}
             >
               Booking Appointment
             </label>
