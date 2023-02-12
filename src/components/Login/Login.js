@@ -25,7 +25,6 @@ const Login = () => {
     axios
       .post("http://localhost:5000/api/v1/login", data, {
         withCredentials: true,
-        
       })
       .then((res) => {
         const { name, email, role } = res.data.others;
@@ -33,6 +32,10 @@ const Login = () => {
         localStorage.setItem("userName", name);
         localStorage.setItem("userEmail", email);
         // setUser({name, email});
+        console.log(res.data.others);
+        if (res.data.others.status === "inactive") {
+          console.log(res.data.others);
+        }
         navigate(from, { replace: true });
         reset();
       })
@@ -56,7 +59,7 @@ const Login = () => {
         </h2>
 
         <form
-          className="mt-12 md:bg-[#23075e] w-full text-center relative"
+          className="mt-12 md:bg-[#23075e] w-full text-center relative mb-4"
           onSubmit={handleSubmit(onSubmit)}
         >
           <div className="my-8">
@@ -114,6 +117,8 @@ const Login = () => {
           />
           {loginError && <p className="text-white mt-2">{loginError}</p>}
         </form>
+
+        <Link to="/forget-password" className="text-blue-500 pointer">Forget Password</Link>
 
         <div className="my-4">
           <button className="text-white font-bold mt-4 btn-sm bg-[#722ed1] rounded-sm">
