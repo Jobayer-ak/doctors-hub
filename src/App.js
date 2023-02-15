@@ -16,6 +16,7 @@ import AddDoctor from "./components/AddDoctor/AddDoctor";
 import Appointments from "./components/Appointment/Appointments";
 import NotFound from "./components/NotFound/NotFound";
 import ForgetPassword from "./components/EmailConfirm/ForgetPassword";
+import SetPassword from "./components/EmailConfirm/SetPassword";
 
 function App() {
   return (
@@ -47,6 +48,7 @@ function App() {
           <Route path="/signup" element={<Signup />} />
           <Route path="/login" element={<Login />} />
           <Route path="/forget-password" element={<ForgetPassword />} />
+          <Route path="/user/set-new-password" element={<SetPassword />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
 

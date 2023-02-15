@@ -40,10 +40,17 @@ const Login = () => {
         reset();
       })
       .catch((err) => {
-        console.log(err.response.data.message);
-        setLoginError(err.response.data.message);
+        console.log(err.response);
+        if (err.response.status === 401) {
+          setLoginError(err.response.data.message);
+        }
+        if (err.response.status === 403) {
+          setLoginError(err.response.data.error);
+        }
+        if (err.response.status === 404) {
+          setLoginError(err.response.data.error);
+        }
       });
-    // console.log(result.data.others.email);
   };
 
   return (
@@ -118,7 +125,9 @@ const Login = () => {
           {loginError && <p className="text-white mt-2">{loginError}</p>}
         </form>
 
-        <Link to="/forget-password" className="text-blue-500 pointer">Forget Password</Link>
+        <Link to="/forget-password" className="text-blue-500 pointer">
+          Forget Password
+        </Link>
 
         <div className="my-4">
           <button className="text-white font-bold mt-4 btn-sm bg-[#722ed1] rounded-sm">

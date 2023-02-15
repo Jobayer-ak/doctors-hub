@@ -1,10 +1,12 @@
 import axios from "axios";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 
 const ForgetPassword = () => {
   const [loginError, setLoginError] = useState("");
+  const navigate = useNavigate();
   const {
     register,
     formState: { errors },
@@ -21,11 +23,14 @@ const ForgetPassword = () => {
       })
       .then((res) => {
         if (res.status === 200) {
+          reset();
+          navigate("/login");
           return Swal.fire("Success!", res.data.message, "success");
         }
       })
       .catch((err) => {
         if (err.response.status === 403) {
+          reset();
           return Swal.fire({
             icon: "error",
             title: "Oops...",
@@ -34,6 +39,7 @@ const ForgetPassword = () => {
         }
 
         if (err.response.status === 404) {
+          reset();
           return Swal.fire({
             icon: "error",
             title: "Oops...",

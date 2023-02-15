@@ -118,11 +118,14 @@ const Signup = () => {
               type="password"
               placeholder="Password"
               {...register("password", {
-                required: {
-                  value: true,
-                  message: "Password is required!",
-                },
+                required: "Password is required",
+
                 minLength: { value: 6, message: "At least 6 characters!" },
+                pattern: {
+                  value: /(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9])/,
+                  message:
+                    "Password must have uppercase, number and special characters",
+                },
               })}
             />
             {errors.password && (
@@ -142,16 +145,21 @@ const Signup = () => {
               type="password"
               placeholder="Confirm Password"
               {...register("confirmPassword", {
-                required: {
-                  value: true,
-                  message: "Confirm Password is required!",
-                },
+                required: "Password is required",
+
                 minLength: { value: 6, message: "At least 6 characters!" },
+                pattern: {
+                  value: /(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9])/,
+                  message:
+                    "Confirm password must have uppercase, number and special characters",
+                },
               })}
             />
 
             {errors.confirmPassword && (
-              <p className="text-white mt-2">{errors.confirmPassword?.message}</p>
+              <p className="text-white mt-2">
+                {errors.confirmPassword?.message}
+              </p>
             )}
           </div>
 
