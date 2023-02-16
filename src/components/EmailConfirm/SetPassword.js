@@ -1,13 +1,12 @@
 import axios from "axios";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate} from "react-router-dom";
 import Swal from "sweetalert2";
 
 const SetPassword = () => {
   const [loginError, setLoginError] = useState("");
   const navigate = useNavigate();
-  let { token } = useParams();
   const {
     register,
     formState: { errors },
@@ -55,22 +54,13 @@ const SetPassword = () => {
           console.log(err);
 
           if (err.response.status === 401) {
-            Swal.fire({
-              icon: "error",
-              title: "Oops...",
-              text: err.response.data.error,
-            });
+            setLoginError(err.response.data.error);
           }
 
           if (err.response.status === 403) {
-            Swal.fire({
-              icon: "error",
-              title: "Oops...",
-              text: err.response.data.error,
-            });
+            setLoginError(err.response.data.error);
           }
         });
-      // const newPassword =
     } else {
       console.log("didn't match password");
     }

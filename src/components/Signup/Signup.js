@@ -97,8 +97,10 @@ const Signup = () => {
                   message: "Email is required!",
                 },
 
-                pattern: /[a-z0-9]+@[a-z]+\.[a-z]{2,3}/,
-                message: "Provide a valid email!",
+                pattern: {
+                  value: /[a-z0-9]+@[a-z]+\.[a-z]{2,3}/,
+                  message: "Provide a valid email!",
+                },
               })}
             />
             {errors.email && (

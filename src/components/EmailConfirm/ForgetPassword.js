@@ -31,20 +31,12 @@ const ForgetPassword = () => {
       .catch((err) => {
         if (err.response.status === 403) {
           reset();
-          return Swal.fire({
-            icon: "error",
-            title: "Oops...",
-            text: err.response.data.message,
-          });
+          return setLoginError(err.response.data.message);
         }
 
         if (err.response.status === 404) {
           reset();
-          return Swal.fire({
-            icon: "error",
-            title: "Oops...",
-            text: err.response.data.message,
-          });
+          return setLoginError(err.response.data.message);
         }
       });
   };
