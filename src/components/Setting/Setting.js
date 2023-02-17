@@ -1,10 +1,8 @@
-import React, { useContext, useEffect, useRef, useState } from "react";
-// import "./login.css";
-// import loginImage from "../../assets/images/loginImage .png";
+import React, { useContext, useReducer, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEnvelope } from "@fortawesome/free-regular-svg-icons";
 import {
-  faCircleUser,
+  faLocationPinLock,
   faPhone,
   faUserPlus,
 } from "@fortawesome/free-solid-svg-icons";
@@ -13,7 +11,7 @@ import axios from "axios";
 import AuthContext from "../../context/AuthProvider";
 import { useQuery } from "react-query";
 import { format } from "date-fns";
-// import { Link } from "react-router-dom";
+import Swal from "sweetalert2";
 
 const Setting = () => {
   const {
@@ -23,15 +21,8 @@ const Setting = () => {
     reset,
   } = useForm();
   const { user } = useContext(AuthContext);
- 
 
-  const initialInputValues = {
-    name: "",
-    email: "",
-    mobile: "",
-  };
-
-  const [values, setValues] = useState(initialInputValues);
+  const [updateError, setUpdateError] = useState("");
 
   const { data, isLoading, refetch } = useQuery(
     ["info", user.userEmail],
@@ -51,13 +42,104 @@ const Setting = () => {
     return <h2 className="text-xl font-black">Loading...</h2>;
   }
 
-  
-  const { email, gender, mobile, name } = data.user;
+  const { email, gender, mobile, name, address, imageURL } = data.user;
   const createdDate = new Date(data.user.createdAt);
 
-  const onSubmit = (data) => {
+  const imgStorageKey = "23d6548fb8456e2bee8c9306819c612c";
+
+  const onSubmit = async (data) => {
+    const updateData = {
+      name: data.name,
+      email: email,
+      address: data.address,
+      mobile: data.mobile,
+      gender: data.gender,
+      imageURL: "",
+    };
+
     console.log(data);
+
+    const image = data.uploadFile[0];
+    console.log(image);
+    const formData = new FormData();
+    formData.append("image", image);
+
+    console.log("formdata: ", formData);
+
+    const imgbbUrl = `https://api.imgbb.com/1/upload?key=${imgStorageKey}`;
+
+    await axios
+      .post(imgbbUrl, formData)
+      .then((res) => {
+        console.log(res);
+        if (res.data.success) {
+          const imgurl = res.data.data.url_viewer;
+          // console.log(imgurl);
+
+          updateData.imageURL = imgurl;
+
+          console.log(updateData);
+
+          axios
+            .patch(
+              `http://localhost:5000/api/v1/update-profile/${email}`,
+              updateData,
+              {
+                withCredentials: true,
+              }
+            )
+            .then((res) => {
+              console.log(res.data);
+              if (res.status === 200) {
+                return Swal.fire({
+                  position: "top-end",
+                  icon: "success",
+                  title: res.data.message,
+                  showConfirmButton: false,
+                  timer: 1500,
+                });
+              }
+
+              if (res.status === 403) {
+                return Swal.fire({
+                  icon: "error",
+                  title: "Oops...",
+                  text: res.data.message,
+                });
+              }
+              if (res.status === 304) {
+                return Swal.fire({
+                  icon: "error",
+                  title: "Oops...",
+                  text: res.data.message,
+                });
+              }
+            })
+            .catch((err) => {
+              console.log(err.message)
+              if (err.response.status === 500) {
+                return Swal.fire({
+                  icon: "error",
+                  title: "Oops...",
+                  text: err.message,
+                });
+              }
+            });
+        }
+      })
+      .catch((err) => {
+        if (err) {
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Something went wrong with image!',
+            
+          })
+        }
+      });
   };
+
+  console.log(imageURL);
 
   return (
     <div className="w-full min-h-screen lg:h-auto my-0 bg-[#23075e] lg:border-l-4 lg:border-l-4 border-solid border-[#722ED1] z-10 lg:pb-5 pt-6 px-5 md:px-10">
@@ -65,7 +147,7 @@ const Setting = () => {
         <h2 className="text-white font-bold text-2xl text-center mb-6">
           My Account Information
         </h2>
-
+        <image src={imageURL} alt="userImage"/>
         <p className="text-white font-bold my-3">
           Name: <span className="ml-4 text-[#a8a29e]">{name}</span>
         </p>
@@ -78,7 +160,12 @@ const Setting = () => {
         <p className="text-white font-bold my-3">
           Gender: <span className="ml-4 text-[#a8a29e]">{gender}</span>
         </p>
-        <p className="text-white font-bold my-3">Address: </p>
+        <p className="text-white font-bold my-3">
+          Address: <span className="ml-4 text-[#a8a29e]">{address}</span>
+        </p>
+        <p className="text-white font-bold my-3">
+          Address: <span className="ml-4 text-[#a8a29e]">{imageURL}</span>
+        </p>
         <p className="text-white font-bold my-3">
           As user since:{" "}
           <span className="ml-4 text-[#a8a29e]">
@@ -87,11 +174,16 @@ const Setting = () => {
         </p>
 
         <div className="text-center my-6">
-          <label htmlFor="my-modal-3" className="btn bg-[#0a062c] rounded-md mr-5">
+          <label
+            htmlFor="my-modal-3"
+            className="btn bg-[#0a062c] rounded-md mr-5"
+          >
             update profile
           </label>
 
-          <button className="btn bg-[#0a062c] rounded-md">Delete Your Account</button>
+          <button className="btn bg-[#0a062c] rounded-md">
+            Delete My Account
+          </button>
         </div>
       </div>
 
@@ -109,7 +201,7 @@ const Setting = () => {
 
               <div className="px-7 pb-2.5 text-center">
                 <form
-                  className="mt-12 text-center relative"
+                  className="mt-8 text-center relative"
                   onSubmit={handleSubmit(onSubmit)}
                 >
                   <div className="">
@@ -121,8 +213,7 @@ const Setting = () => {
                     <input
                       className="text-center p-2 w-full max-w-sm focus:bg-[#722ed1] border-none outline-0 rounded-sm"
                       type="text"
-                      placeholder={name}
-                      value={values.name}
+                      value={name}
                       {...register("name", {
                         required: {
                           value: true,
@@ -130,9 +221,13 @@ const Setting = () => {
                         },
                       })}
                     />
+
+                    {errors.name && (
+                      <p className="text-white mt-2">{errors.name?.message}</p>
+                    )}
                   </div>
 
-                  <div className="my-8">
+                  <div className="my-4">
                     <FontAwesomeIcon
                       className="p-2.5 absolute text-[#23075e]"
                       icon={faEnvelope}
@@ -145,7 +240,7 @@ const Setting = () => {
                     />
                   </div>
 
-                  <div className="my-8">
+                  <div className="my-4">
                     <FontAwesomeIcon
                       className="p-2.5 absolute text-[#23075e]"
                       icon={faPhone}
@@ -155,7 +250,6 @@ const Setting = () => {
                       className="text-center p-2 w-full max-w-sm focus:bg-[#722ed1] border-none outline-0 rounded-sm"
                       type="text"
                       placeholder={mobile}
-                      value={values.mobile}
                       {...register("mobile", {
                         required: {
                           value: true,
@@ -163,9 +257,40 @@ const Setting = () => {
                         },
                       })}
                     />
+
+                    {errors.mobile && (
+                      <p className="text-white mt-2">
+                        {errors.mobile?.message}
+                      </p>
+                    )}
                   </div>
 
-                  <div className="text-white mb-8 flex justify-center items-center gap-[50px] md:gap-[75px]">
+                  <div className="my-3">
+                    <FontAwesomeIcon
+                      className="p-2.5 absolute text-[#23075e] z-50"
+                      icon={faLocationPinLock}
+                      size="lg"
+                    />
+                    <input
+                      className="text-center p-2 w-full max-w-sm focus:bg-[#722ed1] border-none outline-0 rounded-sm"
+                      type="text"
+                      placeholder="Your address"
+                      {...register("address", {
+                        required: {
+                          value: true,
+                          message: "Address is required!",
+                        },
+                      })}
+                    />
+
+                    {errors.address && (
+                      <p className="text-white mt-2">
+                        {errors.address?.message}
+                      </p>
+                    )}
+                  </div>
+
+                  <div className="text-white mb-3 flex justify-center items-center gap-[50px] md:gap-[75px]">
                     <div>
                       <h3 className="font-bold">Gender</h3>
                     </div>
@@ -191,7 +316,6 @@ const Setting = () => {
                       <input
                         type="radio"
                         value="Female"
-                        
                         {...register("gender", {
                           required: {
                             value: true,
@@ -202,6 +326,30 @@ const Setting = () => {
                       <p>Female</p>
                     </div>
                   </div>
+
+                  <div className="mb-8 w-full text-left text-white">
+                    <label className="font-bold">Image</label>
+                    <input
+                      type="file"
+                      className="text-white py-2 mt-2 w-full max-w-sm rounded-sm"
+                      {...register("uploadFile", {
+                        required: {
+                          value: true,
+                          message: "Image is required!",
+                        },
+                      })}
+                    />
+
+                    {errors.uploadFile && (
+                      <p className="text-white mt-2">
+                        {errors.uploadFile?.message}
+                      </p>
+                    )}
+                  </div>
+
+                  {updateError && (
+                    <p className="text-white mt-2">{updateError}</p>
+                  )}
 
                   <input
                     className="text-center text-white font-bold bg-[#722ed1] hover:bg-[#9258e5] transition-all p-2 w-full max-w-sm cursor-pointer rounded-sm"
