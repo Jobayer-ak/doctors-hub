@@ -6,6 +6,7 @@ import { format } from "date-fns";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashCan } from "@fortawesome/free-solid-svg-icons";
 import Swal from "sweetalert2";
+import { Link } from "react-router-dom";
 
 const MyHistory = () => {
   const { user } = useContext(AuthContext);
@@ -88,6 +89,7 @@ const MyHistory = () => {
                   <th>Date</th>
                   <th>Time</th>
                   <th>Specialist</th>
+                  <th>Payment</th>
                   <th>Remove</th>
                 </tr>
               </thead>
@@ -99,6 +101,16 @@ const MyHistory = () => {
                     <td>{format(new Date(a.date), "PP")}</td>
                     <td>{a.slot}</td>
                     <td>{a.speciality}</td>
+                    <td>
+                      {a.fee && !a.paid && (
+                        <Link to={`/dashboard/payment/${a._id}`}>
+                          <button className="btn btn-xs">Pay</button>
+                        </Link>
+                      )}
+                      {a.fee && a.paid && (
+                        <span className="text-success">Paid</span>
+                      )}
+                    </td>
                     <td
                       className="cursor-pointer"
                       onClick={() => handleDelete(a._id)}

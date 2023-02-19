@@ -18,6 +18,7 @@ import NotFound from "./components/NotFound/NotFound";
 import ForgetPassword from "./components/EmailConfirm/ForgetPassword";
 import SetPassword from "./components/EmailConfirm/SetPassword";
 import Contact from "./components/contact/Contact";
+import Payment from "./components/Dashboard/Payment";
 
 function App() {
   return (
@@ -43,6 +44,14 @@ function App() {
             element={
               <RequireAuth>
                 <Setting />
+              </RequireAuth>
+            }
+          />
+          <Route
+            path="dashboard/payment/:id"
+            element={
+              <RequireAuth>
+                <Payment />
               </RequireAuth>
             }
           />
