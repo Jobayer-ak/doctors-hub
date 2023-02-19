@@ -57,8 +57,6 @@ const Setting = () => {
       imageURL: "",
     };
 
-    console.log(data);
-
     const image = data.uploadFile[0];
     console.log(image);
     const formData = new FormData();
@@ -73,7 +71,7 @@ const Setting = () => {
       .then((res) => {
         console.log(res);
         if (res.data.success) {
-          const imgurl = res.data.data.url_viewer;
+          const imgurl = res.data.data.display_url;
           // console.log(imgurl);
 
           updateData.imageURL = imgurl;
@@ -91,6 +89,8 @@ const Setting = () => {
             .then((res) => {
               console.log(res.data);
               if (res.status === 200) {
+                refetch();
+                reset();
                 return Swal.fire({
                   position: "top-end",
                   icon: "success",
@@ -116,7 +116,7 @@ const Setting = () => {
               }
             })
             .catch((err) => {
-              console.log(err.message)
+              console.log(err.message);
               if (err.response.status === 500) {
                 return Swal.fire({
                   icon: "error",
@@ -130,11 +130,10 @@ const Setting = () => {
       .catch((err) => {
         if (err) {
           Swal.fire({
-            icon: 'error',
-            title: 'Oops...',
-            text: 'Something went wrong with image!',
-            
-          })
+            icon: "error",
+            title: "Oops...",
+            text: "Something went wrong with image!",
+          });
         }
       });
   };
@@ -143,47 +142,53 @@ const Setting = () => {
 
   return (
     <div className="w-full min-h-screen lg:h-auto my-0 bg-[#23075e] lg:border-l-4 lg:border-l-4 border-solid border-[#722ED1] z-10 lg:pb-5 pt-6 px-5 md:px-10">
-      <div className="bg-gradient-to-r from-slate-800 to-indigo-800 to-indigo-600 p-4 md:px-10 rounded-sm">
-        <h2 className="text-white font-bold text-2xl text-center mb-6">
-          My Account Information
-        </h2>
-        <image src={imageURL} alt="userImage"/>
-        <p className="text-white font-bold my-3">
-          Name: <span className="ml-4 text-[#a8a29e]">{name}</span>
-        </p>
-        <p className="text-white font-bold my-3">
-          Email: <span className="ml-4 text-[#a8a29e]">{email}</span>
-        </p>
-        <p className="text-white font-bold my-3">
-          Mobile: <span className="ml-4 text-[#a8a29e]">{mobile}</span>
-        </p>
-        <p className="text-white font-bold my-3">
-          Gender: <span className="ml-4 text-[#a8a29e]">{gender}</span>
-        </p>
-        <p className="text-white font-bold my-3">
-          Address: <span className="ml-4 text-[#a8a29e]">{address}</span>
-        </p>
-        <p className="text-white font-bold my-3">
-          Address: <span className="ml-4 text-[#a8a29e]">{imageURL}</span>
-        </p>
-        <p className="text-white font-bold my-3">
-          As user since:{" "}
-          <span className="ml-4 text-[#a8a29e]">
-            {format(createdDate, "PP")}
-          </span>
-        </p>
+      <div className="lg:flex lg:justify-around bg-gradient-to-r from-slate-800 to-indigo-800 to-indigo-600 p-4 md:px-10 rounded-sm">
+        <div className="mt-4 flex justify-center">
+          <img
+            src={imageURL}
+            alt=""
+            className="w-[350px] h-[350px] rounded-md"
+          />
+        </div>
 
-        <div className="text-center my-6">
-          <label
-            htmlFor="my-modal-3"
-            className="btn bg-[#0a062c] rounded-md mr-5"
-          >
-            update profile
-          </label>
+        <div className="mt-10 lg:mt-0">
+          <h2 className="text-white font-bold text-3xl text-center mb-6">
+            My Account Information
+          </h2>
 
-          <button className="btn bg-[#0a062c] rounded-md">
-            Delete My Account
-          </button>
+          <p className="text-white font-bold my-3">
+            Name: <span className="ml-4 text-[#a8a29e]">{name}</span>
+          </p>
+          <p className="text-white font-bold my-3">
+            Email: <span className="ml-4 text-[#a8a29e]">{email}</span>
+          </p>
+          <p className="text-white font-bold my-3">
+            Mobile: <span className="ml-4 text-[#a8a29e]">{mobile}</span>
+          </p>
+          <p className="text-white font-bold my-3">
+            Gender: <span className="ml-4 text-[#a8a29e]">{gender}</span>
+          </p>
+          <p className="text-white font-bold my-3">
+            Address: <span className="ml-4 text-[#a8a29e]">{address}</span>
+          </p>
+          <p className="text-white font-bold my-3">
+            Address: <span className="ml-4 text-[#a8a29e]">{imageURL}</span>
+          </p>
+          <p className="text-white font-bold my-3">
+            User since:{" "}
+            <span className="ml-4 text-[#a8a29e]">
+              {format(createdDate, "PP")}
+            </span>
+          </p>
+
+          <div className="text-center my-6">
+            <label
+              htmlFor="my-modal-3"
+              className="btn bg-[#0a062c] rounded-md mr-5"
+            >
+              update profile
+            </label>
+          </div>
         </div>
       </div>
 

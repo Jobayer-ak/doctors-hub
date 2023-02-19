@@ -80,7 +80,7 @@ const Navbar = () => {
 
   const logout = async () => {
     await axios
-      .get("http://localhost:5000/api/v1/logout", {withCredentials: true})
+      .get("http://localhost:5000/api/v1/logout", { withCredentials: true })
       .then((res) => console.log(res.data))
       .then((err) => console.log(err));
 
@@ -115,8 +115,10 @@ const Navbar = () => {
       </li>
 
       <li className={liClass}>
-        <FontAwesomeIcon icon={faPhoneVolume} className={padding} />
-        Contact
+        <Link to="/contact">
+          <FontAwesomeIcon icon={faPhoneVolume} className={padding} />
+          Contact
+        </Link>
       </li>
 
       <hr className="border-solid border-2 border-[#722ED1] mt-2 md:mt-4 lg:ml-3 lg:mb-4 lg:mr-3" />
@@ -200,9 +202,7 @@ const Navbar = () => {
           )}
         </div>
 
-        <hr
-          className="border-solid border-2 border-[#722ED1] mt-0 md:mt-7 lg:ml-3 lg:mb-4 lg:mr-3"
-        />
+        <hr className="border-solid border-2 border-[#722ED1] mt-0 md:mt-7 lg:ml-3 lg:mb-4 lg:mr-3" />
 
         {/* menu items */}
         <ul

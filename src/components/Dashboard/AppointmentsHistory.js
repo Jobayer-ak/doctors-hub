@@ -25,7 +25,7 @@ const MyHistory = () => {
     return <h2 className="text-xl font-bold text-white">Loading......</h2>;
   }
 
-  // console.log(data);
+  console.log(data);
 
   const handleDelete = (book_id) => {
     Swal.fire({
@@ -74,7 +74,7 @@ const MyHistory = () => {
     });
   };
 
-  console.log(data);
+  // console.log(data);
   return (
     <div>
       {data.length !== 0 ? (

@@ -17,6 +17,7 @@ import Appointments from "./components/Appointment/Appointments";
 import NotFound from "./components/NotFound/NotFound";
 import ForgetPassword from "./components/EmailConfirm/ForgetPassword";
 import SetPassword from "./components/EmailConfirm/SetPassword";
+import Contact from "./components/contact/Contact";
 
 function App() {
   return (
@@ -45,6 +46,7 @@ function App() {
               </RequireAuth>
             }
           />
+          <Route path="/contact" element={<Contact />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/login" element={<Login />} />
           <Route path="/forget-password" element={<ForgetPassword />} />
