@@ -40,7 +40,7 @@ const Login = () => {
         reset();
       })
       .catch((err) => {
-        console.log(err.response);
+        console.log(err);
         if (err.response.status === 401) {
           setLoginError(err.response.data.message);
         }
