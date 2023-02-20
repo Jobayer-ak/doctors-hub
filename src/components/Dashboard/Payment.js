@@ -31,17 +31,18 @@ const Payment = () => {
   if (isLoading) {
     return <h2 className="text-white text-xl">Loading...</h2>;
   }
-  console.log(data.appointment);
+  // console.log(data.appointment);
 
   return (
-    <div className="mx-4 my-4 p-4 bg-[#23075e] w-full">
-      <div className="card w-50 max-w-md bg-base-100 shadow-xl my-12">
-        <div className="card-body">
+    <div className="mx-4 my-4 p-4 bg-[#23075e] w-full flex justify-center gap-10">
+      <div className="card max-w-md rounded-md bg-base-100 shadow-xl ">
+        <div className="p-5">
+          <h3 className="font-bold text-xl text-center mb-4">Payment Summary</h3>
           <p className="text-xl">
-            Hello, {data.appointment.patient_name} <br /> your appointment
+            Hello, {data.appointment.patient_name} <br /> Your appointment
             information:
           </p>
-          <h2 className="card-title">{data.appointment.doctor_name}</h2>
+          <h2 className="card-title mt-4">{data.appointment.doctor_name}</h2>
           <p className="italic">{data.appointment.speciality} specialist</p>
           <p>Branch: {data.appointment.branch}</p>
           <p>
@@ -51,7 +52,7 @@ const Payment = () => {
           <p>Please Pay: ${data.appointment.fee}</p>
         </div>
       </div>
-      <div className="card flex-shrink-0 w-full max-w-md shadow-2xl bg-base-100">
+      <div className="card rounded-md w-full max-w-md shadow-2xl bg-base-100">
         <div className="card-body">
           <Elements stripe={stripePromise}>
             <CheckOutForm />

@@ -27,7 +27,7 @@ const DoctorCard = ({ doctor, setDocinfo }) => {
 
   // console.log(data);
 
-  console.log(doctor);
+  // console.log(doctor);
 
   return (
     <div>
