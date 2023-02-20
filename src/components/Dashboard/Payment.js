@@ -18,7 +18,7 @@ const Payment = () => {
     ["payment", id],
     async () => {
       const res = await axios.get(
-        `http://localhost:5000/api/v1/booking/${id}`,
+        `https://doctors-hub-server.vercel.app/api/v1/booking/${id}`,
         {
           withCredentials: true,
         }
@@ -37,7 +37,9 @@ const Payment = () => {
     <div className="mx-4 my-4 p-4 bg-[#23075e] w-full flex justify-center gap-10">
       <div className="card max-w-md rounded-md bg-base-100 shadow-xl ">
         <div className="p-5">
-          <h3 className="font-bold text-xl text-center mb-4">Payment Summary</h3>
+          <h3 className="font-bold text-xl text-center mb-4">
+            Payment Summary
+          </h3>
           <p className="text-xl">
             Hello, {data.appointment.patient_name} <br /> Your appointment
             information:
@@ -55,7 +57,7 @@ const Payment = () => {
       <div className="card rounded-md w-full max-w-md shadow-2xl bg-base-100">
         <div className="card-body">
           <Elements stripe={stripePromise}>
-            <CheckOutForm />
+            <CheckOutForm data={data} />
           </Elements>
         </div>
       </div>

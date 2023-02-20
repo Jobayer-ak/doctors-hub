@@ -12,7 +12,7 @@ const AllDoctors = () => {
   const { data, isLoading, refetch } = useQuery(
     ["allAppointments", user.userEmail],
     async () => {
-      const res = await axios.get("http://localhost:5000/api/v1/doctors", {
+      const res = await axios.get("https://doctors-hub-server.vercel.app/api/v1/doctors", {
         withCredentials: true,
       });
       const result = res.data;
@@ -37,7 +37,7 @@ const AllDoctors = () => {
       if (result.isConfirmed) {
         await axios
           .delete(
-            `http://localhost:5000/api/v1/doctor/admin/delete/${doc_email}`,
+            `https://doctors-hub-server.vercel.app/api/v1/doctor/admin/delete/${doc_email}`,
             {
               withCredentials: true,
             }

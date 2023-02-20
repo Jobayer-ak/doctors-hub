@@ -11,7 +11,7 @@ const useAdmin = (email) => {
   useEffect(() => {
     if (email) {
       axios
-        .get(`http://localhost:5000/api/v1/admin/${email}`, {
+        .get(`https://doctors-hub-server.vercel.app/api/v1/admin/${email}`, {
           withCredentials: true,
         })
         .then((res) => {
@@ -24,7 +24,7 @@ const useAdmin = (email) => {
   }, [email]);
 
   // const { data, isLoading } = useQuery(["admin"], async (user) => {
-  //   const res = await axios.get(`http://localhost:5000/api/v1/admin/${email}`, {
+  //   const res = await axios.get(`https://doctors-hub-server.vercel.app/api/v1/admin/${email}`, {
   //     withCredentials: true,
   //   });
 

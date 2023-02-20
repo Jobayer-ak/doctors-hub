@@ -39,7 +39,7 @@ const Booking = ({ date, docinfo, setDocinfo, refetch }) => {
     };
 
     axios
-      .post("http://localhost:5000/api/v1/booking", booking, {
+      .post("https://doctors-hub-server.vercel.app/api/v1/booking", booking, {
         withCredentials: true,
       })
       .then((res) => {

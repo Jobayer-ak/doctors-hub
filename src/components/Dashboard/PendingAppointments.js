@@ -12,7 +12,7 @@ const PendingAppointments = () => {
 
   const { data, isLoading } = useQuery(["pending", user], async () => {
     const res = await axios.get(
-      `http://localhost:5000/api/v1/pending-appointments?patient=${user.userEmail}&date=${formatedDate}`,
+      `https://doctors-hub-server.vercel.app/api/v1/pending-appointments?patient=${user.userEmail}&date=${formatedDate}`,
       {
         withCredentials: true,
       }

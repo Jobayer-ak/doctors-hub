@@ -39,7 +39,7 @@ const SetPassword = () => {
       const pass = data.password;
       console.log(pass);
       await axios
-        .post(`http://localhost:5000/api/v1/user/set-new-password/${ptoken}`, {
+        .post(`https://doctors-hub-server.vercel.app/api/v1/user/set-new-password/${ptoken}`, {
           pass: data.password,
         })
         .then((res) => {

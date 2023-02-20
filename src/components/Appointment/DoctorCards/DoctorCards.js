@@ -18,7 +18,7 @@ const DoctorCards = ({ selectedCity, date}) => {
     refetch,
   } = useQuery(["doctor",date], async () => {
     const res = await axios.get(
-      `http://localhost:5000/api/v1/doctors/slots?date=${formatedDate}`,
+      `https://doctors-hub-server.vercel.app/api/v1/doctors/slots?date=${formatedDate}`,
       {
         withCredentials: true,
       }

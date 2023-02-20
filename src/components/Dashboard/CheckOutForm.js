@@ -1,11 +1,43 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import image from "../../assets/images/contact.jpg";
+import axios from "axios";
 
-const CheckOutForm = () => {
+const CheckOutForm = ({ data }) => {
   const stripe = useStripe();
   const elements = useElements();
   const [cardError, setCardError] = useState("");
+  const [success, setSuccess] = useState("");
+  const [clientSecret, setClientSecret] = useState("");
+
+  useEffect(() => {
+    // console.log(data.appointment.fee);
+
+    axios
+      .post(
+        `https://doctors-hub-server.vercel.app/api/v1/create-payment-intent`,
+        data.appointment.fee,
+        {
+          withCredentials: true,
+        }
+      )
+      .then((res) => {
+        if (res.data?.clientSecret) {
+          setClientSecret(res.data.clientSecret);
+        }
+      });
+  }, [data.appointment.fee]);
+
+  const {
+    patient_name,
+    patient_email,
+    doctor_name,
+    speciality,
+    date,
+    slot,
+    branch,
+    fee,
+  } = data.appointment;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -27,13 +59,27 @@ const CheckOutForm = () => {
     });
 
     setCardError(error?.message || "");
-    // if (error) {
-    //   setCardError(error.message);
-    //   console.log("[error]", error);
-    // } else {
-    //   setCardError("");
-    //   console.log("[PaymentMethod]", paymentMethod);
-    // }
+    setSuccess("");
+
+    // confirm card payment
+    const { paymentIntent, error: intentError } =
+      await stripe.confirmCardPayment(clientSecret, {
+        payment_method: {
+          card: card,
+          billing_details: {
+            name: patient_name,
+            email: patient_email,
+          },
+        },
+      });
+
+    if (intentError) {
+      setCardError(intentError.message);
+    } else {
+      setCardError("");
+      console.log(paymentIntent);
+      setSuccess("Your payment is completed!");
+    }
   };
   return (
     <div>
@@ -60,12 +106,13 @@ const CheckOutForm = () => {
         <button
           type="submit"
           className="bg-green-700 px-2 py-1"
-          disabled={!stripe}
+          disabled={!stripe || !clientSecret}
         >
           Pay
         </button>
       </form>
       {cardError && <p className="text-red-700">{cardError}</p>}
+      {success && <p className="text-green-700">{success}</p>}
     </div>
   );
 };

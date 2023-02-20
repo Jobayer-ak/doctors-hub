@@ -10,7 +10,7 @@ const AllUsers = () => {
   const { data, isLoading, refetch } = useQuery(
     ["allAppointments", user],
     async () => {
-      const res = await axios.get("http://localhost:5000/api/v1/admin/users", {
+      const res = await axios.get("https://doctors-hub-server.vercel.app/api/v1/admin/users", {
         withCredentials: true,
       });
       const result = res.data;

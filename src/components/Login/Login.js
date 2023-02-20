@@ -23,7 +23,7 @@ const Login = () => {
 
   const onSubmit = (data) => {
     axios
-      .post("http://localhost:5000/api/v1/login", data, {
+      .post("https://doctors-hub-server.vercel.app/api/v1/login", data, {
         withCredentials: true,
       })
       .then((res) => {

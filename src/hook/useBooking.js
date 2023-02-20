@@ -9,7 +9,7 @@ const useBooking = (user) => {
         refetch,
       } = useQuery(["booking", user], async () => {
         const res = await axios.get(
-          `http://localhost:5000/api/v1/bookings?patient=${user.userEmail}`,
+          `https://doctors-hub-server.vercel.app/api/v1/bookings?patient=${user.userEmail}`,
           {
             withCredentials: true,
           }

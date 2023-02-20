@@ -80,7 +80,7 @@ const Navbar = () => {
 
   const logout = async () => {
     await axios
-      .get("http://localhost:5000/api/v1/logout", { withCredentials: true })
+      .get("https://doctors-hub-server.vercel.app/api/v1/logout", { withCredentials: true })
       .then((res) => console.log(res.data))
       .then((err) => console.log(err));
 

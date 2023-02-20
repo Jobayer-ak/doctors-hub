@@ -6,7 +6,7 @@ const { Provider } = FetchContext;
 
 const FetchProvider = ({ children }) => {
   const authAxios = axios.create({
-    baseURL: "http://localhost:5000/api/v1/",
+    baseURL: "https://doctors-hub-server.vercel.app/api/v1/",
   });
   return <Provider value={{ authAxios }}>{children}</Provider>;
 };

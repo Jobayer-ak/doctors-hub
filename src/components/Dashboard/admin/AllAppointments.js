@@ -13,7 +13,7 @@ const AllAppointments = () => {
     ["allAppointments", user.userRole],
     async () => {
       const res = await axios.get(
-        "http://localhost:5000/api/v1/all-appointments",
+        "https://doctors-hub-server.vercel.app/api/v1/all-appointments",
         {
           withCredentials: true,
         }

@@ -28,7 +28,7 @@ const Setting = () => {
     ["info", user.userEmail],
     async () => {
       const res = await axios.get(
-        `http://localhost:5000/api/v1/setting/${user.userEmail}`,
+        `https://doctors-hub-server.vercel.app/api/v1/setting/${user.userEmail}`,
         {
           withCredentials: true,
         }
@@ -80,7 +80,7 @@ const Setting = () => {
 
           axios
             .patch(
-              `http://localhost:5000/api/v1/update-profile/${email}`,
+              `https://doctors-hub-server.vercel.app/api/v1/update-profile/${email}`,
               updateData,
               {
                 withCredentials: true,

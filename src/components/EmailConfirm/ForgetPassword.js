@@ -18,7 +18,7 @@ const ForgetPassword = () => {
     console.log(data);
 
     await axios
-      .post("http://localhost:5000/api/v1/forget-password", data, {
+      .post("https://doctors-hub-server.vercel.app/api/v1/forget-password", data, {
         withCredentials: true,
       })
       .then((res) => {

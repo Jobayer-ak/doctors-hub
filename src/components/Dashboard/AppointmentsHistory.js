@@ -13,7 +13,7 @@ const MyHistory = () => {
 
   const { data, isLoading, refetch } = useQuery(["booking", user], async () => {
     const res = await axios.get(
-      `http://localhost:5000/api/v1/bookings?patient=${user.userEmail}`,
+      `https://doctors-hub-server.vercel.app/api/v1/bookings?patient=${user.userEmail}`,
       {
         withCredentials: true,
       }
@@ -40,7 +40,7 @@ const MyHistory = () => {
     }).then(async (result) => {
       if (result.isConfirmed) {
         await axios
-          .delete(`http://localhost:5000/api/v1/booking/delete/${book_id}`, {
+          .delete(`https://doctors-hub-server.vercel.app/api/v1/booking/delete/${book_id}`, {
             withCredentials: true,
           })
           .then((res) => {
