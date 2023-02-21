@@ -3,6 +3,7 @@ import React, { useContext } from "react";
 import { useQuery } from "react-query";
 import AuthContext from "../../context/AuthProvider";
 import { format } from "date-fns";
+import { CirclesWithBar } from "react-loader-spinner";
 
 const PendingAppointments = () => {
   const { user } = useContext(AuthContext);
@@ -22,7 +23,18 @@ const PendingAppointments = () => {
   });
 
   if (isLoading) {
-    return <h2 className="text-xl font-bold text-white">Loading......</h2>;
+    return <CirclesWithBar
+    height="100"
+    width="100"
+    color="#4fa94d"
+    wrapperStyle={{}}
+    wrapperClass=""
+    visible={true}
+    outerCircleColor=""
+    innerCircleColor=""
+    barColor=""
+    ariaLabel='circles-with-bar-loading'
+  />;
   }
 
   console.log(data.length);

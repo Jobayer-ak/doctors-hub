@@ -83,18 +83,12 @@ const Navbar = () => {
       .get("https://doctors-hub-server.vercel.app/api/v1/logout", {
         withCredentials: true,
       })
-      .then((res) => {
-        console.log(res.data);
-        setLoading(false);
+      .then((res) => console.log(res.data))
+      .then((err) => console.log(err));
 
-        localStorage.removeItem("userEmail");
-        localStorage.removeItem("userName");
-        localStorage.removeItem("userRole");
-      })
-      .then((err) => {
-        console.log(err);
-        setLoading(false);
-      });
+    localStorage.removeItem("userEmail");
+    localStorage.removeItem("userName");
+    localStorage.removeItem("userRole");
 
     navigate("/login");
   };
@@ -180,10 +174,6 @@ const Navbar = () => {
       )}
     </>
   );
-
-  if (laoding) {
-    return <h2 className="text-white font-bold">Loading...</h2>;
-  }
 
   return (
     <div className="md:w-full lg:w-[250px] max-h-screen text-white bg-[#23075e] z-50 sticky top-0">

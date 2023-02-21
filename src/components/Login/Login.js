@@ -37,12 +37,12 @@ const Login = () => {
         if (res.data.others.status === "inactive") {
           console.log(res.data.others);
         }
-        setLoading(false);
+        // setLoading(false);
         navigate(from, { replace: true });
         reset();
       })
       .catch((err) => {
-        setLoading(false);
+        // setLoading(false);
         console.log(err);
         if (err.response.status === 401) {
           setLoginError(err.response.data.message);
@@ -56,9 +56,7 @@ const Login = () => {
       });
   };
 
-  if (loading) {
-    return <h2 className="text-white font-xl">Loading....</h2>;
-  }
+
 
   return (
     <div className="flex lg:justify-center lg:h-screen lg:items-center mt-0 lg:bg-[#722ed1] w-full">

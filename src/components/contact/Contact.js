@@ -32,7 +32,7 @@ const Contact = () => {
             backgroundPositionY: "bottom",
           }}
         >
-          <div className="hero-overlay bg-slate-800 bg-opacity-60 text-center"></div>
+          <div className="hero-overlay bg-slate-800 bg-opacity-40 text-center"></div>
         </div>
 
         <div className="my-6">

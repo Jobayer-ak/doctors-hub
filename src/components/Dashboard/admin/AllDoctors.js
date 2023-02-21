@@ -3,8 +3,9 @@ import AuthContext from "../../../context/AuthProvider";
 import { useQuery } from "react-query";
 import axios from "axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCross, faTrashCan, faX } from "@fortawesome/free-solid-svg-icons";
+import { faX } from "@fortawesome/free-solid-svg-icons";
 import Swal from "sweetalert2";
+import { CirclesWithBar } from "react-loader-spinner";
 
 const AllDoctors = () => {
   const { user } = useContext(AuthContext);
@@ -12,16 +13,32 @@ const AllDoctors = () => {
   const { data, isLoading, refetch } = useQuery(
     ["allAppointments", user.userEmail],
     async () => {
-      const res = await axios.get("https://doctors-hub-server.vercel.app/api/v1/doctors", {
-        withCredentials: true,
-      });
+      const res = await axios.get(
+        "https://doctors-hub-server.vercel.app/api/v1/doctors",
+        {
+          withCredentials: true,
+        }
+      );
       const result = res.data;
       return result;
     }
   );
 
   if (isLoading) {
-    return <h2 className="text-xl text-white">Loading....</h2>;
+    return (
+      <CirclesWithBar
+        height="100"
+        width="100"
+        color="#4fa94d"
+        wrapperStyle={{}}
+        wrapperClass=""
+        visible={true}
+        outerCircleColor=""
+        innerCircleColor=""
+        barColor=""
+        ariaLabel="circles-with-bar-loading"
+      />
+    );
   }
 
   const handleDelete = (doc_email) => {
