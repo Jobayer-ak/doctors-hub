@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
-import image from "../../assets/images/contact.jpg";
 import axios from "axios";
 
 const CheckOutForm = ({ data }) => {
