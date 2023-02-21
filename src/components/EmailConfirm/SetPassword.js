@@ -1,11 +1,13 @@
 import axios from "axios";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
-import { useNavigate} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
+import Loader from "../common/Loading/Loader";
 
 const SetPassword = () => {
   const [loginError, setLoginError] = useState("");
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const {
     register,
@@ -20,6 +22,7 @@ const SetPassword = () => {
   // console.log(ptoken);
 
   const onSubmit = async (data) => {
+    setLoading(true);
     console.log(data);
 
     const pass = data.password;
@@ -39,10 +42,14 @@ const SetPassword = () => {
       const pass = data.password;
       console.log(pass);
       await axios
-        .post(`https://doctors-hub-server.vercel.app/api/v1/user/set-new-password/${ptoken}`, {
-          pass: data.password,
-        })
+        .post(
+          `https://doctors-hub-server.vercel.app/api/v1/user/set-new-password/${ptoken}`,
+          {
+            pass: data.password,
+          }
+        )
         .then((res) => {
+          setLoading(false);
           console.log(res);
           if (res.status === 200) {
             reset();
@@ -51,6 +58,7 @@ const SetPassword = () => {
           }
         })
         .catch((err) => {
+          setLoading(false);
           console.log(err);
 
           if (err.response.status === 401) {
@@ -62,9 +70,14 @@ const SetPassword = () => {
           }
         });
     } else {
+      setLoading(false);
       console.log("didn't match password");
     }
   };
+
+  if (loading) {
+    return <Loader />;
+  }
 
   return (
     <div className="mx-10 my-10  w-full h-screen">

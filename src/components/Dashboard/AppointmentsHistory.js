@@ -7,6 +7,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashCan } from "@fortawesome/free-solid-svg-icons";
 import Swal from "sweetalert2";
 import { Link } from "react-router-dom";
+import Loader from "../common/Loading/Loader";
 
 const MyHistory = () => {
   const { user } = useContext(AuthContext);
@@ -23,7 +24,7 @@ const MyHistory = () => {
   });
 
   if (isLoading) {
-    return <h2 className="text-xl font-bold text-white">Loading......</h2>;
+    return <Loader />;
   }
 
   console.log(data);
@@ -40,9 +41,12 @@ const MyHistory = () => {
     }).then(async (result) => {
       if (result.isConfirmed) {
         await axios
-          .delete(`https://doctors-hub-server.vercel.app/api/v1/booking/delete/${book_id}`, {
-            withCredentials: true,
-          })
+          .delete(
+            `https://doctors-hub-server.vercel.app/api/v1/booking/delete/${book_id}`,
+            {
+              withCredentials: true,
+            }
+          )
           .then((res) => {
             if (res.status === 200) {
               console.log(book_id);

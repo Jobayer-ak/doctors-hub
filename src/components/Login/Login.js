@@ -7,13 +7,15 @@ import { faCircleUser, faLock } from "@fortawesome/free-solid-svg-icons";
 import { useForm } from "react-hook-form";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
+import Loader from "../common/Loading/Loader";
+import { useMutation } from "react-query";
 
 const Login = () => {
   const navigate = useNavigate();
   const location = useLocation();
   let from = location.state?.from?.pathname || "/";
   const [loginError, setLoginError] = useState("");
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
 
   const {
     register,
@@ -22,12 +24,14 @@ const Login = () => {
     reset,
   } = useForm();
 
-  const onSubmit = (data) => {
-    axios
+  const onSubmit = async (data) => {
+    setLoading(true);
+    await axios
       .post("https://doctors-hub-server.vercel.app/api/v1/login", data, {
         withCredentials: true,
       })
       .then((res) => {
+        setLoading(false);
         const { name, email, role } = res.data.others;
         localStorage.setItem("userRole", role);
         localStorage.setItem("userName", name);
@@ -37,12 +41,11 @@ const Login = () => {
         if (res.data.others.status === "inactive") {
           console.log(res.data.others);
         }
-        // setLoading(false);
         navigate(from, { replace: true });
         reset();
       })
       .catch((err) => {
-        // setLoading(false);
+        setLoading(false);
         console.log(err);
         if (err.response.status === 401) {
           setLoginError(err.response.data.message);
@@ -56,7 +59,9 @@ const Login = () => {
       });
   };
 
-
+  if (loading) {
+    return <Loader />;
+  }
 
   return (
     <div className="flex lg:justify-center lg:h-screen lg:items-center mt-0 lg:bg-[#722ed1] w-full">
@@ -145,3 +150,5 @@ const Login = () => {
 };
 
 export default Login;
+
+// react-hook-form data post request with axios using useMutation hook including isLoading

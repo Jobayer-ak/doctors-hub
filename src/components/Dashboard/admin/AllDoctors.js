@@ -5,7 +5,8 @@ import axios from "axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faX } from "@fortawesome/free-solid-svg-icons";
 import Swal from "sweetalert2";
-import { CirclesWithBar } from "react-loader-spinner";
+import { CirclesWithBar, Dna } from "react-loader-spinner";
+import Loader from "../../common/Loading/Loader";
 
 const AllDoctors = () => {
   const { user } = useContext(AuthContext);
@@ -25,20 +26,7 @@ const AllDoctors = () => {
   );
 
   if (isLoading) {
-    return (
-      <CirclesWithBar
-        height="100"
-        width="100"
-        color="#4fa94d"
-        wrapperStyle={{}}
-        wrapperClass=""
-        visible={true}
-        outerCircleColor=""
-        innerCircleColor=""
-        barColor=""
-        ariaLabel="circles-with-bar-loading"
-      />
-    );
+    return <Loader />;
   }
 
   const handleDelete = (doc_email) => {

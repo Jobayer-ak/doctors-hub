@@ -12,6 +12,7 @@ import {
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import Loader from "../common/Loading/Loader";
 
 const Signup = () => {
   const {
@@ -20,10 +21,11 @@ const Signup = () => {
     handleSubmit,
     reset,
   } = useForm();
-
+  const [loading, setLoading] = useState(false);
   const [signupError, setSignUpError] = useState("");
 
   const onSubmit = async (data) => {
+    setLoading(true);
     console.log(data);
     await axios
       .post("https://doctors-hub-server.vercel.app/api/v1/signup", data, {
@@ -31,16 +33,22 @@ const Signup = () => {
       })
       .then((res) => {
         // console.log(res)
+        setLoading(false);
         if (res.data.status === 403) {
           setSignUpError(res.data.message);
         }
         reset();
       })
       .catch((err) => {
+        setLoading(false);
         console.log(err);
         // setLoginError(err.response.data.message);
       });
   };
+
+  if (loading) {
+    return <Loader />;
+  }
 
   return (
     <div className="flex mt-0 h-screen lg:h-auto lg:bg-[#722ed1] w-full">

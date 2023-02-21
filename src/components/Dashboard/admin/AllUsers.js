@@ -3,6 +3,7 @@ import AuthContext from "../../../context/AuthProvider";
 import { useQuery } from "react-query";
 import axios from "axios";
 import { format } from "date-fns";
+import Loader from "../../common/Loading/Loader";
 
 const AllUsers = () => {
   const { user } = useContext(AuthContext);
@@ -10,19 +11,21 @@ const AllUsers = () => {
   const { data, isLoading, refetch } = useQuery(
     ["allAppointments", user],
     async () => {
-      const res = await axios.get("https://doctors-hub-server.vercel.app/api/v1/admin/users", {
-        withCredentials: true,
-      });
+      const res = await axios.get(
+        "https://doctors-hub-server.vercel.app/api/v1/admin/users",
+        {
+          withCredentials: true,
+        }
+      );
       const result = res.data;
       return result;
     }
   );
 
   if (isLoading) {
-    return <h2 className="text-xl text-white">Loading....</h2>;
+    return <Loader />;
   }
 
- 
   return (
     <div className="px-4">
       <div className="overflow-auto">

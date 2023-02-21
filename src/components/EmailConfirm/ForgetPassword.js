@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
+import Loader from "../common/Loading/Loader";
 
 const ForgetPassword = () => {
   const [loginError, setLoginError] = useState("");
@@ -14,14 +15,21 @@ const ForgetPassword = () => {
     reset,
   } = useForm();
 
+  const [loading, setLoading] = useState(false);
+
   const onSubmit = async (data) => {
-    console.log(data);
+    setLoading(true);
 
     await axios
-      .post("https://doctors-hub-server.vercel.app/api/v1/forget-password", data, {
-        withCredentials: true,
-      })
+      .post(
+        "https://doctors-hub-server.vercel.app/api/v1/forget-password",
+        data,
+        {
+          withCredentials: true,
+        }
+      )
       .then((res) => {
+        setLoading(false);
         if (res.status === 200) {
           reset();
           navigate("/login");
@@ -29,6 +37,7 @@ const ForgetPassword = () => {
         }
       })
       .catch((err) => {
+        setLoading(false);
         if (err.response.status === 403) {
           reset();
           return setLoginError(err.response.data.message);
@@ -40,6 +49,10 @@ const ForgetPassword = () => {
         }
       });
   };
+
+  if (loading) {
+    return <Loader />;
+  }
 
   return (
     <div className="mx-10 my-10  w-full h-screen">

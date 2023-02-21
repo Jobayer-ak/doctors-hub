@@ -4,19 +4,20 @@ import { useQuery } from "react-query";
 import axios from "axios";
 import { format } from "date-fns";
 import Booking from "./Booking/Booking";
+import Loader from "../../common/Loading/Loader";
 
-const DoctorCards = ({ selectedCity, date}) => {
+const DoctorCards = ({ selectedCity, date }) => {
   const [curDepartment, setCurDepartment] = useState("All");
   const formatedDate = format(date, "PP");
   const [active, setActive] = useState("All");
   const [docinfo, setDocinfo] = useState(null);
 
-  console.log( date);
+  console.log(date);
   const {
     data: doctors,
     isLoading,
     refetch,
-  } = useQuery(["doctor",date], async () => {
+  } = useQuery(["doctor", date], async () => {
     const res = await axios.get(
       `https://doctors-hub-server.vercel.app/api/v1/doctors/slots?date=${formatedDate}`,
       {
@@ -28,11 +29,13 @@ const DoctorCards = ({ selectedCity, date}) => {
   });
 
   if (isLoading) {
-    return <h2 className="text-xl font-bold text-white">Loading......</h2>;
+    return <Loader />;
   }
 
-
-  const doctorArray = ["All", ...new Set(doctors?.map((doc) => doc.department))];
+  const doctorArray = [
+    "All",
+    ...new Set(doctors?.map((doc) => doc.department)),
+  ];
 
   const depDoctors = doctors.filter((doc) => doc.department === curDepartment);
 

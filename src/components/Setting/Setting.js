@@ -12,6 +12,7 @@ import AuthContext from "../../context/AuthProvider";
 import { useQuery } from "react-query";
 import { format } from "date-fns";
 import Swal from "sweetalert2";
+import Loader from "../common/Loading/Loader";
 
 const Setting = () => {
   const {
@@ -23,6 +24,7 @@ const Setting = () => {
   const { user } = useContext(AuthContext);
 
   const [updateError, setUpdateError] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const { data, isLoading, refetch } = useQuery(
     ["info", user.userEmail],
@@ -39,7 +41,7 @@ const Setting = () => {
   );
 
   if (isLoading) {
-    return <h2 className="text-xl font-black">Loading...</h2>;
+    return <Loader />;
   }
 
   const { email, gender, mobile, name, address, imageURL } = data.user;
@@ -69,6 +71,7 @@ const Setting = () => {
     await axios
       .post(imgbbUrl, formData)
       .then((res) => {
+        setLoading(true);
         console.log(res);
         if (res.data.success) {
           const imgurl = res.data.data.display_url;
@@ -87,10 +90,11 @@ const Setting = () => {
               }
             )
             .then((res) => {
+              setLoading(false);
               console.log(res.data);
+              refetch();
+              reset();
               if (res.status === 200) {
-                refetch();
-                reset();
                 return Swal.fire({
                   position: "top-end",
                   icon: "success",
@@ -116,6 +120,7 @@ const Setting = () => {
               }
             })
             .catch((err) => {
+              setLoading(false);
               console.log(err.message);
               if (err.response.status === 500) {
                 return Swal.fire({
@@ -128,6 +133,7 @@ const Setting = () => {
         }
       })
       .catch((err) => {
+        setLoading(false);
         if (err) {
           Swal.fire({
             icon: "error",
@@ -138,7 +144,9 @@ const Setting = () => {
       });
   };
 
-  console.log(imageURL);
+  if (loading) {
+    return <Loader />;
+  }
 
   return (
     <div className="w-full min-h-screen lg:h-auto my-0 bg-[#23075e] lg:border-l-4 lg:border-l-4 border-solid border-[#722ED1] z-10 lg:pb-5 pt-6 px-5 md:px-10">

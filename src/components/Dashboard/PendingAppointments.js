@@ -4,6 +4,7 @@ import { useQuery } from "react-query";
 import AuthContext from "../../context/AuthProvider";
 import { format } from "date-fns";
 import { CirclesWithBar } from "react-loader-spinner";
+import Loader from "../common/Loading/Loader";
 
 const PendingAppointments = () => {
   const { user } = useContext(AuthContext);
@@ -23,18 +24,7 @@ const PendingAppointments = () => {
   });
 
   if (isLoading) {
-    return <CirclesWithBar
-    height="100"
-    width="100"
-    color="#4fa94d"
-    wrapperStyle={{}}
-    wrapperClass=""
-    visible={true}
-    outerCircleColor=""
-    innerCircleColor=""
-    barColor=""
-    ariaLabel='circles-with-bar-loading'
-  />;
+    return <Loader />;
   }
 
   console.log(data.length);
@@ -70,7 +60,6 @@ const PendingAppointments = () => {
         </div>
       ) : (
         <div className="text-center ">
-          
           <h2 className="text-white text-xl mt-12">
             There is no pending appointments.
           </h2>

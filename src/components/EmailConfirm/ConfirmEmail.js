@@ -1,18 +1,27 @@
 import axios from "axios";
-import React from "react";
+import React, { useState } from "react";
 import { useParams } from "react-router-dom";
+import Loader from "../common/Loading/Loader";
 
 const ConfirmEmail = () => {
   const { token } = useParams();
+  const [loading, setLoading] = useState(false);
+
   console.log(token);
   const handleConfirm = async () => {
+    setLoading(true);
     await axios
       .get(
         `https://doctors-hub-server.vercel.app/api/v1/signup/confirmation/${token}`
       )
-      .then((res) => console.log(res.data))
-      .catch((err) => console.log(err));
+      .then((res) => setLoading(false))
+      .catch((err) => setLoading(false));
   };
+
+  if (loading) {
+    return <Loader />;
+  }
+
 
   return (
     <div className="mx-4 md:mx-6 my-4 justify-center bg-[#381f6e] w-[80%] flex rounded-md">
