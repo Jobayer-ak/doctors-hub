@@ -15,15 +15,15 @@ const ForUser = () => {
 
   return (
     <>
-      <div className=" mt-4 bg-[#23075e] py-4 rounded-md sticky top-[0px] z-50">
+      <div className=" mt-4 bg-[#23075e] py-4 rounded-md sticky top-[100px] z-10">
         {/* dashboard buttons */}
-        <div className="text-white px-4 my-5 flex justify-around gap-12 ">
+        <div className="text-white px-4 my-5 md:flex md:justify-center md:gap-12">
           {dashboardBtn.map((b) => (
             <button
               className={
                 active === b
-                  ? "bg-[#0a062c] w-full py-2 text-xl rounded-md"
-                  : "bg-[#4a1a98] hover:bg-[#0a062c] transition-all w-full py-2 text-xl rounded-md "
+                  ? "bg-[#0a062c] w-full py-2 text-xl rounded-md mb-4 md:mb-0"
+                  : "bg-[#4a1a98] hover:bg-[#0a062c] transition-all w-full py-2 text-xl rounded-md mb-4 md:mb-0"
               }
               onClick={() => setActive(b)}
             >
