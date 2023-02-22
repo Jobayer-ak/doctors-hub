@@ -1,5 +1,5 @@
 import { format } from "date-fns";
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faCalendarDays,
@@ -11,20 +11,18 @@ import axios from "axios";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
 import AuthContext from "../../../../context/AuthProvider";
+import Loader from "../../../common/Loading/Loader";
 
 const Booking = ({ date, docinfo, setDocinfo, refetch }) => {
+  const [loading, setLoading] = useState(false);
   const formatedDate = format(date, "PP");
   const { _id, name, slot, speciality } = docinfo;
   const navigate = useNavigate();
   const { user } = useContext(AuthContext);
 
-  // console.log(typeof formatedDate, formatedDate);
-
- 
-
   const handleSubmit = (e) => {
     e.preventDefault();
-
+    setLoading(true);
     const booking = {
       doctor_name: name,
       doctor_id: _id,
@@ -43,6 +41,7 @@ const Booking = ({ date, docinfo, setDocinfo, refetch }) => {
         withCredentials: true,
       })
       .then((res) => {
+        setLoading(false);
         if (res.data.success === true) {
           Swal.fire({
             icon: "success",
@@ -63,6 +62,7 @@ const Booking = ({ date, docinfo, setDocinfo, refetch }) => {
         setDocinfo(null);
       })
       .catch((error) => {
+        setLoading(false);
         if (error.response.status === 403) {
           Swal.fire({
             icon: "error",
@@ -84,6 +84,10 @@ const Booking = ({ date, docinfo, setDocinfo, refetch }) => {
         console.log(error.response);
       });
   };
+
+  if (loading) {
+    return <Loader />;
+  }
 
   return (
     <div className="text-center">

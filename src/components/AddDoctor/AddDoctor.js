@@ -12,11 +12,17 @@ import {
   faUserPlus,
   faBookSkull,
   faCodeBranch,
+  faUsd,
+  faClock,
 } from "@fortawesome/free-solid-svg-icons";
 import { useForm } from "react-hook-form";
 import axios from "axios";
+import Loader from "../common/Loading/Loader";
+import SlotModal from "./SlotModal";
 
 const AddDoctor = () => {
+  const [loading, setLoading] = useState(false);
+  const [modalData, setModalData] = useState([]);
   const {
     register,
     formState: { errors },
@@ -26,14 +32,22 @@ const AddDoctor = () => {
 
   const [loginError, setLoginError] = useState("");
 
+  console.log(modalData);
+
   const onSubmit = async (data) => {
+    setLoading(true);
     console.log(data);
 
     await axios
-      .post("https://doctors-hub-server.vercel.app/api/v1/admin/addDoctor", data, {
-        withCredentials: true,
-      })
+      .post(
+        "https://doctors-hub-server.vercel.app/api/v1/admin/addDoctor",
+        data,
+        {
+          withCredentials: true,
+        }
+      )
       .then((res) => {
+        setLoading(false);
         // console.log(res)
         if (res.data.status === 403) {
           setLoginError(res.data.message);
@@ -41,13 +55,18 @@ const AddDoctor = () => {
         reset();
       })
       .catch((err) => {
+        setLoading(false);
         console.log(err);
         // setLoginError(err.response.data.message);
       });
   };
 
+  if (loading) {
+    return <Loader />;
+  }
+
   return (
-    <div className="w-full md:h-screen lg:h-auto bg-[#23075e] lg:border-l-4 md:border-l-4 border-solid border-[#722ED1] z-10 lg:pb-5">
+    <div className="w-[82%] md:h-screen lg:h-auto bg-[#23075e] lg:border-l-4 md:border-l-4 border-solid border-[#722ED1] z-10 lg:pb-5">
       <div className="pt-3 md:pt-6 pb-2.5 text-center mx-4 lg:mx-6">
         <h2 className="text-[#722ed1] font-bold text-4xl bg-white inline-block py-3 px-6 rounded-full">
           <span className="mr-4">Add Doctor</span>
@@ -68,7 +87,7 @@ const AddDoctor = () => {
                   size="lg"
                 />
                 <input
-                  className="text-center p-2 w-full md:w-96 lg:w-[350px] focus:bg-[#722ed1] border-none outline-0 rounded-sm"
+                  className="text-center p-2 w-full md:w-96 ma-w-md focus:bg-[#722ed1] border-none outline-0 rounded-sm"
                   type="text"
                   placeholder="Doctor's Full Name"
                   {...register("name", {
@@ -91,7 +110,7 @@ const AddDoctor = () => {
                   size="lg"
                 />
                 <input
-                  className="text-center p-2 w-full md:w-96 lg:w-[350px] focus:bg-[#722ed1] border-none outline-0 rounded-sm"
+                  className="text-center p-2 w-full md:w-96 ma-w-md  focus:bg-[#722ed1] border-none outline-0 rounded-sm"
                   type="email"
                   placeholder="Enter Email"
                   {...register("email", {
@@ -116,7 +135,7 @@ const AddDoctor = () => {
                   size="lg"
                 />
                 <input
-                  className="text-center p-2 w-full md:w-96 lg:w-[350px] focus:bg-[#722ed1] border-none outline-0 rounded-sm"
+                  className="text-center p-2 w-full md:w-96 ma-w-md  focus:bg-[#722ed1] border-none outline-0 rounded-sm"
                   type="text"
                   placeholder="Mobile Number"
                   {...register("contact_number", {
@@ -140,7 +159,7 @@ const AddDoctor = () => {
                   size="lg"
                 />
                 <input
-                  className="text-center p-2 w-full md:w-96 lg:w-[350px] focus:bg-[#722ed1] border-none outline-0 rounded-sm"
+                  className="text-center p-2 w-full md:w-96 max-w-md focus:bg-[#722ed1] border-none outline-0 rounded-sm"
                   type="text"
                   placeholder="Address"
                   {...register("address", {
@@ -155,14 +174,14 @@ const AddDoctor = () => {
                 )}
               </div>
 
-              <div className="mb-8">
+              <div className="mb-6">
                 <FontAwesomeIcon
                   className="p-2.5 absolute text-[#23075e]"
                   icon={faIdCard}
                   size="lg"
                 />
                 <input
-                  className="text-center p-2 w-full md:w-96 lg:w-[350px] focus:bg-[#722ed1] border-none outline-0 rounded-sm"
+                  className="text-center p-2 w-full md:w-96 max-w-md focus:bg-[#722ed1] border-none outline-0 rounded-sm"
                   type="text"
                   placeholder="NID number"
                   {...register("nid", {
@@ -174,6 +193,27 @@ const AddDoctor = () => {
                 />
                 {errors.nid && (
                   <p className="text-white mt-2">{errors.nid?.message}</p>
+                )}
+              </div>
+              <div className="mb-8">
+                <FontAwesomeIcon
+                  className="p-2.5 absolute text-[#23075e]"
+                  icon={faUsd}
+                  size="lg"
+                />
+                <input
+                  className="text-center p-2 w-full md:w-96 max-w-md focus:bg-[#722ed1] border-none outline-0 rounded-sm"
+                  type="text"
+                  placeholder="Visit Fee"
+                  {...register("fee", {
+                    required: {
+                      value: true,
+                      message: "NID number is required!",
+                    },
+                  })}
+                />
+                {errors.fee && (
+                  <p className="text-white mt-2">{errors.fee?.message}</p>
                 )}
               </div>
 
@@ -218,19 +258,18 @@ const AddDoctor = () => {
                 )}
               </div>
             </div>
-
             {/* First part end */}
 
             {/* second part */}
             <div>
-              <div className="mt-8 lg:mt-0 mb-8">
+              <div className="lg:mt-0 mb-8">
                 <FontAwesomeIcon
                   className="p-2.5 absolute text-[#23075e]"
                   icon={faHospital}
                   size="lg"
                 />
                 <input
-                  className="text-center p-2 w-full md:w-96 lg:w-[350px] focus:bg-[#722ed1] border-none outline-0 rounded-sm"
+                  className="text-center p-2 w-full md:w-96 max-w-md focus:bg-[#722ed1] border-none outline-0 rounded-sm"
                   type="text"
                   placeholder="Working Hospital Name"
                   {...register("working_hospital", {
@@ -255,7 +294,7 @@ const AddDoctor = () => {
                   size="lg"
                 />
                 <input
-                  className="text-center p-2 w-full md:w-96 lg:w-[350px] focus:bg-[#722ed1] border-none outline-0 rounded-sm"
+                  className="text-center p-2 w-full md:w-96 max-w-md focus:bg-[#722ed1] border-none outline-0 rounded-sm"
                   type="text"
                   placeholder="docinfo Field"
                   {...register("speciality", {
@@ -280,7 +319,7 @@ const AddDoctor = () => {
                   size="lg"
                 />
                 <input
-                  className="text-center p-2 w-full md:w-96 lg:w-[350px] focus:bg-[#722ed1] border-none outline-0 rounded-sm"
+                  className="text-center p-2 w-full md:w-96 max-w-md focus:bg-[#722ed1] border-none outline-0 rounded-sm"
                   type="text"
                   placeholder="docinfo Department"
                   {...register("department", {
@@ -305,7 +344,7 @@ const AddDoctor = () => {
                   size="lg"
                 />
                 <input
-                  className="text-center p-2 w-full md:w-96 lg:w-[350px] focus:bg-[#722ed1] border-none outline-0 rounded-sm"
+                  className="text-center p-2 w-full md:w-96 max-w-md focus:bg-[#722ed1] border-none outline-0 rounded-sm"
                   type="text"
                   placeholder="Higher Degree with info"
                   {...register("higher_degree", {
@@ -337,7 +376,7 @@ const AddDoctor = () => {
                       message: "Too Large! Not more than 35 characters.",
                     },
                   })}
-                  className="w-full md:w-96 lg:w-[350px] pl-10 text-center font-bold p-2 focus:bg-[#722ed1] border-none outline-0 rounded-sm"
+                  className="w-full md:w-96 max-w-md pl-10 text-center font-bold p-2 focus:bg-[#722ed1] border-none outline-0 rounded-sm"
                 >
                   <option value="Mymensingh">Mymensingh</option>
                   <option value="Dhaka">Dhaka</option>
@@ -361,7 +400,7 @@ const AddDoctor = () => {
                   {...register("blood_group", {
                     required: "Blood Group is required.",
                   })}
-                  className="w-full md:w-96 lg:w-[350px] pl-10 text-center font-bold p-2 focus:bg-[#722ed1] border-none outline-0 rounded-sm"
+                  className="w-full md:w-96 max-w-md pl-10 text-center font-bold p-2 focus:bg-[#722ed1] border-none outline-0 rounded-sm"
                 >
                   <option value="A+">A+</option>
                   <option value="A-">A-</option>
@@ -375,34 +414,19 @@ const AddDoctor = () => {
                 <p className="text-white mt-2">{errors.blood_group?.message}</p>
               </div>
 
-              <div className="mt-8 lg:mt-0 mb-8">
-                <input
-                  id="slot1"
-                  className="text-center p-2 w-full md:w-96 lg:w-[350px] focus:bg-[#722ed1] border-none outline-0 rounded-sm"
-                  type="checkbox"
-                  value={6.0 - 6.3}
-                  {...register("slot", {
-                    required: "Slot is required!",
-                  })}
-                />
-                <lebel htmlFor="slot1" className="text-white">
-                  6.00pm-6.30pm
-                </lebel>
-                <input
-                  id="slot2"
-                  className="text-center p-2 w-full md:w-96 lg:w-[350px] focus:bg-[#722ed1] border-none outline-0 rounded-sm"
-                  type="checkbox"
-                  value={7.0 - 7.3}
-                  {...register("slot", {
-                    required: "Slot is required!",
-                  })}
-                />
-                <lebel htmlFor="slot2" className="text-white">
-                  7.00pm-7.30pm
-                </lebel>
-                {errors.slot && (
-                  <p className="text-white mt-2">{errors.slot?.message}</p>
-                )}
+              {/* doctor time slots */}
+              <div className="mt-8 mb-0">
+                <label
+                  htmlFor="my-modal-3"
+                  className="flex justify-start items-center p-2 bg-[#fff] md:w-96 max-w-md rounded-sm hover:bg-[#722ed1] cursor-pointer"
+                >
+                  <FontAwesomeIcon
+                    className="py-2.5 absolute text-[#23075e]"
+                    icon={faClock}
+                    size="xl"
+                  />
+                  <span className="mx-auto font-bold">Doctor's Time Slot</span>
+                </label>
               </div>
             </div>
 
@@ -410,6 +434,7 @@ const AddDoctor = () => {
           </div>
 
           {loginError && <p className="text-white mt-2">{loginError}</p>}
+          <p className="text-white">Slot: {modalData}</p>
 
           <input
             className="my-8 text-center text-white font-bold bg-[#722ed1] p-2 w-[92%] w-full md:w-96 lg:w-[350px] transition-all hover:bg-[#9258e5] cursor-pointer rounded-sm"
@@ -417,9 +442,12 @@ const AddDoctor = () => {
             value="Add"
           />
         </form>
+        <SlotModal setModalData={setModalData} />
       </div>
     </div>
   );
 };
 
 export default AddDoctor;
+
+// how to pass modal's information to parent component with react functional component

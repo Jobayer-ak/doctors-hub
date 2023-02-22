@@ -3,7 +3,6 @@ import React, { useContext } from "react";
 import { useQuery } from "react-query";
 import AuthContext from "../../context/AuthProvider";
 import { format } from "date-fns";
-import { CirclesWithBar } from "react-loader-spinner";
 import Loader from "../common/Loading/Loader";
 
 const PendingAppointments = () => {

@@ -2,13 +2,13 @@ import React, { useContext } from "react";
 import AuthContext from "../../../context/AuthProvider";
 import { useQuery } from "react-query";
 import axios from "axios";
-import { format } from "date-fns";
+// import { format } from "date-fns";
 import Loader from "../../common/Loading/Loader";
 
 const AllUsers = () => {
   const { user } = useContext(AuthContext);
 
-  const { data, isLoading, refetch } = useQuery(
+  const { data, isLoading} = useQuery(
     ["allAppointments", user],
     async () => {
       const res = await axios.get(
