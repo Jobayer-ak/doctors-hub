@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
+import Swal from "sweetalert2";
 
-const SlotModal = ({ setModalData }) => {
+const SlotModal = ({ modalData, setModalData }) => {
+  const [checkData, setCheckData] = useState(0);
   const {
     register,
     formState: { errors },
@@ -9,17 +11,31 @@ const SlotModal = ({ setModalData }) => {
     handleSubmit,
   } = useForm();
 
+  console.log("modal data: ", modalData);
+
   const onSubmit = (data) => {
     console.log(typeof data);
     console.log("Modal Data: ", data.slot);
+    setCheckData(data.slot.length);
+    if (data.slot.length < 3) {
+      console.log(data.slot.length);
+
+      return Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "You have to select at least 4 time slots.",
+      });
+    }
+
     setModalData(data.slot);
+    reset();
   };
 
   return (
     <div className="text-center">
       <input type="checkbox" id="my-modal-3" className="modal-toggle" />
       <div className="modal">
-        <div className="px-8  py-4 rounded-md relative bg-[#381f6e]">
+        <div className="px-8  py-4 rounded-lg relative bg-[#381f6e]">
           <div className="">
             <label
               htmlFor="my-modal-3"
@@ -29,78 +45,124 @@ const SlotModal = ({ setModalData }) => {
             </label>
 
             {/* docto time slot start */}
-            <div className="px-7 pb-2.5 text-center">
+            <div className="md:px-4 pb-2.5 text-center">
+              <h2 className="font-bold text-xl text-white">
+                Doctor's Time Slot
+              </h2>
               <form
                 className="mt-8 text-center relative"
                 onSubmit={handleSubmit(onSubmit)}
               >
                 <div className="mt-8 lg:mt-0 mb-8">
-                  <ul className="grid grid-cols-2 gap-12 text-white">
-                    <li>
+                  <ul className="grid grid-cols-2 gap-4 md:gap-12 text-white">
+                    <li className="">
                       <input
                         type="checkbox"
                         id="s1"
-                        value="6.00pm- 6.30pm"
-                        checked
+                        value="5.00pm- 5.30pm"
                         {...register("slot")}
                       />
-                      <label for="cb1" className="ml-2">
-                        6.00pm - 6.30pm
+                      <label htmlFor="cb1" className="ml-2">
+                        5.00pm - 5.30pm
                       </label>
                     </li>
                     <li className="">
                       <input
                         type="checkbox"
                         id="s2"
+                        value="5.30pm - 6.00pm"
+                        {...register("slot")}
+                      />
+                      <label htmlFor="cb2" className="ml-2">
+                        5.30pm - 6.00pm
+                      </label>
+                    </li>
+                    <li className="">
+                      <input
+                        type="checkbox"
+                        id="s3"
+                        value="6.00pm - 6.30pm"
+                        {...register("slot")}
+                      />
+                      <label htmlFor="cb1" className="ml-2">
+                        6.00pm - 6.30pm
+                      </label>
+                    </li>
+                    <li className="">
+                      <input
+                        type="checkbox"
+                        id="s4"
                         value="6.30pm - 7.00pm"
                         {...register("slot")}
                       />
-                      <label for="cb2" className="ml-2">
+                      <label htmlFor="cb2" className="ml-2">
                         6.30pm - 7.00pm
                       </label>
                     </li>
                     <li>
                       <input
                         type="checkbox"
-                        id="s3"
+                        id="s5"
                         value="7.00pm - 7.30pm"
                         {...register("slot")}
                       />
-                      <label for="cb2" className="ml-2">
+                      <label htmlFor="cb2" className="ml-2">
                         7.00pm - 7.30pm
                       </label>
                     </li>
                     <li>
                       <input
                         type="checkbox"
-                        id="s4"
+                        id="s6"
                         value="7.30pm - 8.00pm"
                         {...register("slot")}
                       />
-                      <label for="cb2" className="ml-2">
+                      <label htmlFor="cb2" className="ml-2">
                         7.30pm - 8.00pm
                       </label>
                     </li>
                     <li>
                       <input
                         type="checkbox"
-                        id="s5"
+                        id="s7"
                         value="8.00pm - 8.30pm"
                         {...register("slot")}
                       />
-                      <label for="cb2" className="ml-2">
+                      <label htmlFor="cb2" className="ml-2">
                         8.00pm - 8.30pm
                       </label>
                     </li>
                     <li>
                       <input
                         type="checkbox"
-                        id="s6"
+                        id="s8"
                         value="8.30pm - 9.00pm"
                         {...register("slot")}
                       />
-                      <label for="cb2" className="ml-2">
+                      <label htmlFor="cb2" className="ml-2">
                         8.30pm - 9.00pm
+                      </label>
+                    </li>
+                    <li>
+                      <input
+                        type="checkbox"
+                        id="s9"
+                        value="9.00pm - 9.30pm"
+                        {...register("slot")}
+                      />
+                      <label htmlFor="cb2" className="ml-2">
+                        9.00pm - 9.30pm
+                      </label>
+                    </li>
+                    <li>
+                      <input
+                        type="checkbox"
+                        id="s10"
+                        value="9.30pm - 10.00pm"
+                        {...register("slot")}
+                      />
+                      <label htmlFor="cb2" className="ml-2">
+                        9.30pm - 10.00pm
                       </label>
                     </li>
                   </ul>
@@ -114,7 +176,7 @@ const SlotModal = ({ setModalData }) => {
                       required: "Slot is required!",
                     })}
                   />
-                  <lebel htmlFor="slot1" className="text-white">
+                  <lebel htmlhtmlFor="slot1" className="text-white">
                     6.00pm-6.30pm
                   </lebel>
                   <input
@@ -126,14 +188,14 @@ const SlotModal = ({ setModalData }) => {
                       required: "Slot is required!",
                     })}
                   />
-                  <lebel htmlFor="slot2" className="text-white">
+                  <lebel htmlhtmlFor="slot2" className="text-white">
                     7.00pm-7.30pm
                   </lebel>
                   {errors.slot && (
                     <p className="text-white mt-2">{errors.slot?.message}</p>
                   )} */}
                 </div>
-
+                <p className="text-white">he: {checkData}</p>
                 <input
                   className="text-center text-white font-bold bg-[#722ed1] hover:bg-[#9258e5] transition-all p-2 w-full max-w-sm cursor-pointer rounded-sm"
                   type="submit"

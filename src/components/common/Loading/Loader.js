@@ -6,8 +6,8 @@ const Loader = () => {
     <div className="flex justify-center items-center w-full h-[70vh]">
       <Dna
         visible={true}
-        height="100"
-        width="100"
+        height="130"
+        width="130"
         ariaLabel="dna-loading"
         wrapperStyle={{}}
         wrapperClass="dna-wrapper"

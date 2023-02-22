@@ -32,7 +32,7 @@ const AddDoctor = () => {
 
   const [loginError, setLoginError] = useState("");
 
-  console.log(modalData);
+  console.log(typeof modalData);
 
   const onSubmit = async (data) => {
     setLoading(true);
@@ -77,7 +77,7 @@ const AddDoctor = () => {
           className="mt-8 md:bg-[#23075e] text-center relative"
           onSubmit={handleSubmit(onSubmit)}
         >
-          <div className="lg:flex lg:justify-center gap-10 p-4">
+          <div className="lg:flex lg:justify-around p-4">
             {/* First part */}
             <div>
               <div className="">
@@ -174,7 +174,7 @@ const AddDoctor = () => {
                 )}
               </div>
 
-              <div className="mb-6">
+              <div className="mb-8">
                 <FontAwesomeIcon
                   className="p-2.5 absolute text-[#23075e]"
                   icon={faIdCard}
@@ -337,7 +337,7 @@ const AddDoctor = () => {
                 )}
               </div>
 
-              <div className="mt-8 mb-0">
+              <div className="mt-8">
                 <FontAwesomeIcon
                   className="p-2.5 absolute text-[#23075e]"
                   icon={faGraduationCap}
@@ -376,7 +376,7 @@ const AddDoctor = () => {
                       message: "Too Large! Not more than 35 characters.",
                     },
                   })}
-                  className="w-full md:w-96 max-w-md pl-10 text-center font-bold p-2 focus:bg-[#722ed1] border-none outline-0 rounded-sm"
+                  className="w-full md:w-96 max-w-md pl-10 text-center font-bold p-2.5 focus:bg-[#722ed1] border-none outline-0 rounded-sm"
                 >
                   <option value="Mymensingh">Mymensingh</option>
                   <option value="Dhaka">Dhaka</option>
@@ -400,7 +400,7 @@ const AddDoctor = () => {
                   {...register("blood_group", {
                     required: "Blood Group is required.",
                   })}
-                  className="w-full md:w-96 max-w-md pl-10 text-center font-bold p-2 focus:bg-[#722ed1] border-none outline-0 rounded-sm"
+                  className="w-full md:w-96 max-w-md pl-10 text-center font-bold p-2.5 focus:bg-[#722ed1] border-none outline-0 rounded-sm"
                 >
                   <option value="A+">A+</option>
                   <option value="A-">A-</option>
@@ -434,7 +434,20 @@ const AddDoctor = () => {
           </div>
 
           {loginError && <p className="text-white mt-2">{loginError}</p>}
-          <p className="text-white">Slot: {modalData}</p>
+          <div className="mx-12 mt-2 px-7 ">
+            <h4 className="text-white font-xl font-bold">
+              Selected Time Slots
+            </h4>
+            {!modalData ? (
+              <p className="text-white">You didn't select any time slot</p>
+            ) : (
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-2 bg-[#381f6e]">
+                {modalData?.map((s) => (
+                  <p className="text-white">{s}</p>
+                ))}
+              </div>
+            )}
+          </div>
 
           <input
             className="my-8 text-center text-white font-bold bg-[#722ed1] p-2 w-[92%] w-full md:w-96 lg:w-[350px] transition-all hover:bg-[#9258e5] cursor-pointer rounded-sm"
@@ -442,12 +455,10 @@ const AddDoctor = () => {
             value="Add"
           />
         </form>
-        <SlotModal setModalData={setModalData} />
+        <SlotModal modalData={modalData} setModalData={setModalData} />
       </div>
     </div>
   );
 };
 
 export default AddDoctor;
-
-// how to pass modal's information to parent component with react functional component
