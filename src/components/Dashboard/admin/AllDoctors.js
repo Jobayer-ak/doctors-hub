@@ -5,8 +5,8 @@ import axios from "axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faX } from "@fortawesome/free-solid-svg-icons";
 import Swal from "sweetalert2";
-import { CirclesWithBar, Dna } from "react-loader-spinner";
 import Loader from "../../common/Loading/Loader";
+import baseURL from "../../../utils/baseURL";
 
 const AllDoctors = () => {
   const { user } = useContext(AuthContext);
@@ -14,8 +14,8 @@ const AllDoctors = () => {
   const { data, isLoading, refetch } = useQuery(
     ["allAppointments", user.userEmail],
     async () => {
-      const res = await axios.get(
-        "https://doctors-hub-server.vercel.app/api/v1/doctors",
+      const res = await baseURL.get(
+        "/v1/doctors",
         {
           withCredentials: true,
         }

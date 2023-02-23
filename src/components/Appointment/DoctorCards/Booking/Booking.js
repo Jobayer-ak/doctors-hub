@@ -12,6 +12,7 @@ import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
 import AuthContext from "../../../../context/AuthProvider";
 import Loader from "../../../common/Loading/Loader";
+import baseURL from "../../../../utils/baseURL";
 
 const Booking = ({ date, docinfo, setDocinfo, refetch }) => {
   const [loading, setLoading] = useState(false);
@@ -36,8 +37,8 @@ const Booking = ({ date, docinfo, setDocinfo, refetch }) => {
       branch: docinfo.branch,
     };
 
-    axios
-      .post("https://doctors-hub-server.vercel.app/api/v1/booking", booking, {
+    baseURL
+      .post("/booking", booking, {
         withCredentials: true,
       })
       .then((res) => {

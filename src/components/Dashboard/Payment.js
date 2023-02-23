@@ -1,11 +1,11 @@
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
-import axios from "axios";
 import { format } from "date-fns";
 import React from "react";
 import { useQuery } from "react-query";
 import { useParams } from "react-router-dom";
 import CheckOutForm from "./CheckOutForm";
+import baseURL from "../../utils/baseURL";
 
 const stripePromise = loadStripe(
   "pk_test_51LSbBsHNAh9QmIhmJrxmXeNGOCbnpqoJzijZbqw6Mt6f2xMvYbZ0ugrb708DdIVQoFbnUJGfAovtJaw7KRZl29Rg00pYWLyJWO"
@@ -14,11 +14,11 @@ const stripePromise = loadStripe(
 const Payment = () => {
   const { id } = useParams();
 
-  const { data, isLoading, isError, refetch } = useQuery(
+  const { data, isLoading} = useQuery(
     ["payment", id],
     async () => {
-      const res = await axios.get(
-        `https://doctors-hub-server.vercel.app/api/v1/booking/${id}`,
+      const res = await baseURL.get(
+        `/booking/${id}`,
         {
           withCredentials: true,
         }

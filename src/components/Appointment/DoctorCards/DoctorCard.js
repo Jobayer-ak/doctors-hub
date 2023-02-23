@@ -11,7 +11,7 @@ const DoctorCard = ({ doctor, setDocinfo }) => {
   //   isLoading,
   //   refetch,
   // } = useQuery(["available", formatedDate], async () => {
-  //   const res = await axios.get(
+  //   const res = await baseURL.get(
   //     `https://doctors-hub-server.vercel.app/api/v1/doctors/slots?date=${formatedDate}`,
   //     {
   //       withCredentials: true,

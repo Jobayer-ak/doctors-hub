@@ -11,8 +11,8 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
-import axios from "axios";
 import Loader from "../common/Loading/Loader";
+import baseURL from "../../utils/baseURL";
 
 const Signup = () => {
   const {
@@ -27,8 +27,8 @@ const Signup = () => {
   const onSubmit = async (data) => {
     setLoading(true);
     console.log(data);
-    await axios
-      .post("https://doctors-hub-server.vercel.app/api/v1/signup", data, {
+    await baseURL
+      .post("/signup", data, {
         withCredentials: true,
       })
       .then((res) => {

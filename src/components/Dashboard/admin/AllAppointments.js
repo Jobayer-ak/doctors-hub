@@ -1,30 +1,26 @@
 import React, { useContext } from "react";
 import { useQuery } from "react-query";
 import AuthContext from "../../../context/AuthProvider";
-import axios from "axios";
 import { format } from "date-fns";
-import { Blocks, Dna } from "react-loader-spinner";
 import Loader from "../../common/Loading/Loader";
+import baseURL from "../../../utils/baseURL";
 
 const AllAppointments = () => {
   const { user } = useContext(AuthContext);
 
-  const { data, isLoading, refetch } = useQuery(
+  const { data, isLoading } = useQuery(
     ["allAppointments", user.userRole],
     async () => {
-      const res = await axios.get(
-        "https://doctors-hub-server.vercel.app/api/v1/all-appointments",
-        {
-          withCredentials: true,
-        }
-      );
+      const res = await baseURL.get("/all-appointments", {
+        withCredentials: true,
+      });
       const result = res.data;
       return result;
     }
   );
 
   if (isLoading) {
-    return <Loader/>;
+    return <Loader />;
   }
 
   return (

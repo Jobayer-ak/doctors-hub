@@ -1,21 +1,21 @@
-import axios from "axios";
 import { useState, useEffect } from "react";
-import { useInfiniteQuery, useQuery } from "react-query";
+// import { useInfiniteQuery, useQuery } from "react-query";
+import baseURL from "../utils/baseURL";
 
 const useAdmin = (email) => {
   const [admin, setAdmin] = useState("");
   const [isLoading, setIsLoading] = useState(true);
 
-  console.log(email)
+  console.log(email);
 
   useEffect(() => {
     if (email) {
-      axios
-        .get(`https://doctors-hub-server.vercel.app/api/v1/admin/${email}`, {
+      baseURL
+        .get(`/admin/${email}`, {
           withCredentials: true,
         })
         .then((res) => {
-          console.log(res.data)
+          console.log(res.data);
           setAdmin(res.data.role);
           setIsLoading(false);
         })
@@ -24,7 +24,7 @@ const useAdmin = (email) => {
   }, [email]);
 
   // const { data, isLoading } = useQuery(["admin"], async (user) => {
-  //   const res = await axios.get(`https://doctors-hub-server.vercel.app/api/v1/admin/${email}`, {
+  //   const res = await baseURL.get(`https://doctors-hub-server.vercel.app/api/v1/admin/${email}`, {
   //     withCredentials: true,
   //   });
 

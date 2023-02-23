@@ -8,13 +8,14 @@ import { faTrashCan } from "@fortawesome/free-solid-svg-icons";
 import Swal from "sweetalert2";
 import { Link } from "react-router-dom";
 import Loader from "../common/Loading/Loader";
+import baseURL from "../../utils/baseURL";
 
 const MyHistory = () => {
   const { user } = useContext(AuthContext);
 
   const { data, isLoading, refetch } = useQuery(["booking", user], async () => {
-    const res = await axios.get(
-      `https://doctors-hub-server.vercel.app/api/v1/bookings?patient=${user.userEmail}`,
+    const res = await baseURL.get(
+      `/bookings?patient=${user.userEmail}`,
       {
         withCredentials: true,
       }

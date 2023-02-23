@@ -16,9 +16,9 @@ import {
   faClock,
 } from "@fortawesome/free-solid-svg-icons";
 import { useForm } from "react-hook-form";
-import axios from "axios";
 import Loader from "../common/Loading/Loader";
 import SlotModal from "./SlotModal";
+import baseURL from "../../utils/baseURL";
 
 const AddDoctor = () => {
   const [loading, setLoading] = useState(false);
@@ -35,17 +35,16 @@ const AddDoctor = () => {
   console.log(typeof modalData);
 
   const onSubmit = async (data) => {
-    setLoading(true);
+    // setLoading(true);
     console.log(data);
 
-    await axios
-      .post(
-        "https://doctors-hub-server.vercel.app/api/v1/admin/addDoctor",
-        data,
-        {
-          withCredentials: true,
-        }
-      )
+    const newData = { ...data, modalData };
+    console.log(newData);
+
+    await baseURL
+      .post("/admin/addDoctor", data, {
+        withCredentials: true,
+      })
       .then((res) => {
         setLoading(false);
         // console.log(res)
@@ -296,7 +295,7 @@ const AddDoctor = () => {
                 <input
                   className="text-center p-2 w-full md:w-96 max-w-md focus:bg-[#722ed1] border-none outline-0 rounded-sm"
                   type="text"
-                  placeholder="docinfo Field"
+                  placeholder="Speciality E.g. Cardiologist"
                   {...register("speciality", {
                     required: "docinfo Area name is required!",
                     maxLength: {
@@ -321,7 +320,7 @@ const AddDoctor = () => {
                 <input
                   className="text-center p-2 w-full md:w-96 max-w-md focus:bg-[#722ed1] border-none outline-0 rounded-sm"
                   type="text"
-                  placeholder="docinfo Department"
+                  placeholder="Department"
                   {...register("department", {
                     required: "Department name is required!",
                     maxLength: {
@@ -440,8 +439,8 @@ const AddDoctor = () => {
             {modalData.length === 0 || modalData === false ? (
               <p className="text-white">You didn't select any time slot</p>
             ) : (
-                <div className="grid grid-cols-2 lg:grid-cols-4 gap-2 md:gap-2 p-2 rounded-sm bg-[#381f6e] w-[328px] md:w-[384px] lg:w-[85%] mx-auto">
-                  {/* md:mx-[175px] lg:mx-[77px] */}
+              <div className="grid grid-cols-2 lg:grid-cols-4 gap-2 md:gap-2 p-2 rounded-sm bg-[#381f6e] w-[328px] md:w-[384px] lg:w-[85%] mx-auto">
+                {/* md:mx-[175px] lg:mx-[77px] */}
                 {modalData?.map((s) => (
                   <p className="text-white">{s}</p>
                 ))}
@@ -464,3 +463,5 @@ const AddDoctor = () => {
 };
 
 export default AddDoctor;
+
+// how to remove

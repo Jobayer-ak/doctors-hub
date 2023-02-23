@@ -5,7 +5,7 @@ import axios from "axios";
 import { format } from "date-fns";
 import Booking from "./Booking/Booking";
 import Loader from "../../common/Loading/Loader";
-
+import baseURL from "../../../utils/baseURL";
 const DoctorCards = ({ selectedCity, date }) => {
   const [curDepartment, setCurDepartment] = useState("All");
   const formatedDate = format(date, "PP");
@@ -18,12 +18,9 @@ const DoctorCards = ({ selectedCity, date }) => {
     isLoading,
     refetch,
   } = useQuery(["doctor", date], async () => {
-    const res = await axios.get(
-      `https://doctors-hub-server.vercel.app/api/v1/doctors/slots?date=${formatedDate}`,
-      {
-        withCredentials: true,
-      }
-    );
+    const res = await baseURL.get(`/doctors/slots?date=${formatedDate}`, {
+      withCredentials: true,
+    });
     const result = res.data;
     return result;
   });

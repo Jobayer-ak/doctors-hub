@@ -1,9 +1,9 @@
 import React, { useContext } from "react";
 import AuthContext from "../../../context/AuthProvider";
 import { useQuery } from "react-query";
-import axios from "axios";
 // import { format } from "date-fns";
 import Loader from "../../common/Loading/Loader";
+import baseURL from "../../../utils/baseURL";
 
 const AllUsers = () => {
   const { user } = useContext(AuthContext);
@@ -11,8 +11,8 @@ const AllUsers = () => {
   const { data, isLoading} = useQuery(
     ["allAppointments", user],
     async () => {
-      const res = await axios.get(
-        "https://doctors-hub-server.vercel.app/api/v1/admin/users",
+      const res = await baseURL.get(
+        "/admin/users",
         {
           withCredentials: true,
         }

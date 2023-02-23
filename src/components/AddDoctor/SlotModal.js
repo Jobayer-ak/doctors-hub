@@ -5,7 +5,7 @@ import Swal from "sweetalert2";
 const SlotModal = ({ setModalData }) => {
   const {
     register,
-    formState: { errors },
+    // formState: { errors },
     reset,
     handleSubmit,
   } = useForm();

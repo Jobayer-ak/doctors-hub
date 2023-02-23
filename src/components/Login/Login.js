@@ -6,9 +6,8 @@ import { faEnvelope } from "@fortawesome/free-regular-svg-icons";
 import { faCircleUser, faLock } from "@fortawesome/free-solid-svg-icons";
 import { useForm } from "react-hook-form";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import axios from "axios";
 import Loader from "../common/Loading/Loader";
-
+import baseURL from "../../utils/baseURL";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -26,8 +25,8 @@ const Login = () => {
 
   const onSubmit = async (data) => {
     setLoading(true);
-    await axios
-      .post("https://doctors-hub-server.vercel.app/api/v1/login", data, {
+    await baseURL
+      .post(`/login`, data, {
         withCredentials: true,
       })
       .then((res) => {
@@ -151,4 +150,4 @@ const Login = () => {
 
 export default Login;
 
-// react-hook-form data post request with axios using useMutation hook including isLoading
+// creating baseURL. with axios in react

@@ -1,9 +1,9 @@
-import axios from "axios";
 import React, { useContext } from "react";
 import { useQuery } from "react-query";
 import AuthContext from "../../context/AuthProvider";
 import { format } from "date-fns";
 import Loader from "../common/Loading/Loader";
+import baseURL from "../../utils/baseURL";
 
 const PendingAppointments = () => {
   const { user } = useContext(AuthContext);
@@ -12,8 +12,8 @@ const PendingAppointments = () => {
   // console.log("Mseconds: ",format(new Date(1675255392460), "PP"));
 
   const { data, isLoading } = useQuery(["pending", user], async () => {
-    const res = await axios.get(
-      `https://doctors-hub-server.vercel.app/api/v1/pending-appointments?patient=${user.userEmail}&date=${formatedDate}`,
+    const res = await baseURL.get(
+      `/pending-appointments?patient=${user.userEmail}&date=${formatedDate}`,
       {
         withCredentials: true,
       }

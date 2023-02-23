@@ -14,11 +14,12 @@ import {
   faXmark,
 } from "@fortawesome/free-solid-svg-icons";
 import { Link, useNavigate } from "react-router-dom";
-import axios from "axios";
+import { Cookies } from "react-cookie";
+import baseURL from "../../../utils/baseURL";
 
 const Navbar = () => {
   const [open, setOpen] = useState(false);
-  const [laoding, setLoading] = useState(true);
+  // const [laoding, setLoading] = useState(true);
   const padding = "mr-3.5";
 
   // let items = [
@@ -78,9 +79,20 @@ const Navbar = () => {
   const userEmail = localStorage.getItem("userEmail");
   const role = localStorage.getItem("userRole");
 
+  // const [logout, { isLoading }] = useMutation(() =>
+  //   baseURL.get("https://doctors-hub-server.vercel.app/api/v1/logout", {
+  //     withCredentials: true,
+  //   })
+  // );
+
+  // if (isLoading) {
+  //   return <Loader />;
+  // }
+
+
   const logout = async () => {
-    await axios
-      .get("https://doctors-hub-server.vercel.app/api/v1/logout", {
+    await baseURL
+      .post("/logout", {
         withCredentials: true,
       })
       .then((res) => console.log(res.data))
@@ -90,6 +102,8 @@ const Navbar = () => {
     localStorage.removeItem("userName");
     localStorage.removeItem("userRole");
 
+    const cookies = new Cookies();
+    cookies.remove("myCookie");
     navigate("/login");
   };
 
@@ -221,3 +235,6 @@ const Navbar = () => {
 };
 
 export default Navbar;
+
+// logout  with react-query t
+// logout should be get request with rest api

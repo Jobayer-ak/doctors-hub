@@ -1,4 +1,4 @@
-import React, { useContext, useReducer, useState } from "react";
+import React, { useContext, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEnvelope } from "@fortawesome/free-regular-svg-icons";
 import {
@@ -13,6 +13,7 @@ import { useQuery } from "react-query";
 import { format } from "date-fns";
 import Swal from "sweetalert2";
 import Loader from "../common/Loading/Loader";
+import baseURL from "../../utils/baseURL";
 
 const Setting = () => {
   const {
@@ -23,13 +24,13 @@ const Setting = () => {
   } = useForm();
   const { user } = useContext(AuthContext);
 
-  const [updateError, setUpdateError] = useState("");
+  // const [updateError, setUpdateError] = useState("");
   const [loading, setLoading] = useState(false);
 
   const { data, isLoading, refetch } = useQuery(
     ["info", user.userEmail],
     async () => {
-      const res = await axios.get(
+      const res = await baseURL.get(
         `https://doctors-hub-server.vercel.app/api/v1/setting/${user.userEmail}`,
         {
           withCredentials: true,
@@ -81,14 +82,10 @@ const Setting = () => {
 
           console.log(updateData);
 
-          axios
-            .patch(
-              `https://doctors-hub-server.vercel.app/api/v1/update-profile/${email}`,
-              updateData,
-              {
-                withCredentials: true,
-              }
-            )
+          baseURL
+            .patch(`/update-profile/${email}`, updateData, {
+              withCredentials: true,
+            })
             .then((res) => {
               setLoading(false);
               console.log(res.data);
@@ -178,9 +175,6 @@ const Setting = () => {
           </p>
           <p className="text-white font-bold my-3">
             Address: <span className="ml-4 text-[#a8a29e]">{address}</span>
-          </p>
-          <p className="text-white font-bold my-3">
-            Address: <span className="ml-4 text-[#a8a29e]">{imageURL}</span>
           </p>
           <p className="text-white font-bold my-3">
             User since:{" "}
@@ -360,9 +354,9 @@ const Setting = () => {
                     )}
                   </div>
 
-                  {updateError && (
+                  {/* {updateError && (
                     <p className="text-white mt-2">{updateError}</p>
-                  )}
+                  )} */}
 
                   <input
                     className="text-center text-white font-bold bg-[#722ed1] hover:bg-[#9258e5] transition-all p-2 w-full max-w-sm cursor-pointer rounded-sm"
