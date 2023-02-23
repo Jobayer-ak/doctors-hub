@@ -1,9 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
 import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
 
-const SlotModal = ({ modalData, setModalData }) => {
-  const [checkData, setCheckData] = useState(0);
+const SlotModal = ({ setModalData }) => {
   const {
     register,
     formState: { errors },
@@ -11,13 +10,8 @@ const SlotModal = ({ modalData, setModalData }) => {
     handleSubmit,
   } = useForm();
 
-  console.log("modal data: ", modalData);
-
   const onSubmit = (data) => {
-    console.log(typeof data);
-    console.log("Modal Data: ", data.slot);
-    setCheckData(data.slot.length);
-    if (data.slot.length < 3) {
+    if (data.slot.length <= 3) {
       console.log(data.slot.length);
 
       return Swal.fire({
@@ -35,7 +29,7 @@ const SlotModal = ({ modalData, setModalData }) => {
     <div className="text-center">
       <input type="checkbox" id="my-modal-3" className="modal-toggle" />
       <div className="modal">
-        <div className="px-8  py-4 rounded-lg relative bg-[#381f6e]">
+        <div className="mx-2 px-5 md:px-7 py-4 rounded-lg relative bg-[#381f6e]">
           <div className="">
             <label
               htmlFor="my-modal-3"
@@ -54,7 +48,7 @@ const SlotModal = ({ modalData, setModalData }) => {
                 onSubmit={handleSubmit(onSubmit)}
               >
                 <div className="mt-8 lg:mt-0 mb-8">
-                  <ul className="grid grid-cols-2 gap-4 md:gap-12 text-white">
+                  <ul className="grid grid-cols-2 gap-4 lg:gap-6 text-white">
                     <li className="">
                       <input
                         type="checkbox"
@@ -159,6 +153,7 @@ const SlotModal = ({ modalData, setModalData }) => {
                         type="checkbox"
                         id="s10"
                         value="9.30pm - 10.00pm"
+                        className=""
                         {...register("slot")}
                       />
                       <label htmlFor="cb2" className="ml-2">
@@ -195,7 +190,7 @@ const SlotModal = ({ modalData, setModalData }) => {
                     <p className="text-white mt-2">{errors.slot?.message}</p>
                   )} */}
                 </div>
-                <p className="text-white">he: {checkData}</p>
+
                 <input
                   className="text-center text-white font-bold bg-[#722ed1] hover:bg-[#9258e5] transition-all p-2 w-full max-w-sm cursor-pointer rounded-sm"
                   type="submit"

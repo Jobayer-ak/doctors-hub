@@ -66,7 +66,7 @@ const AddDoctor = () => {
   }
 
   return (
-    <div className="w-[82%] md:h-screen lg:h-auto bg-[#23075e] lg:border-l-4 md:border-l-4 border-solid border-[#722ED1] z-10 lg:pb-5">
+    <div className="w-full lg:w-[82%] bg-[#23075e] lg:border-l-4 lg:border-l-4 border-solid border-[#722ED1] z-10 lg:pb-5">
       <div className="pt-3 md:pt-6 pb-2.5 text-center mx-4 lg:mx-6">
         <h2 className="text-[#722ed1] font-bold text-4xl bg-white inline-block py-3 px-6 rounded-full">
           <span className="mr-4">Add Doctor</span>
@@ -262,7 +262,7 @@ const AddDoctor = () => {
 
             {/* second part */}
             <div>
-              <div className="lg:mt-0 mb-8">
+              <div className="mt-8 lg:mt-0 mb-8">
                 <FontAwesomeIcon
                   className="p-2.5 absolute text-[#23075e]"
                   icon={faHospital}
@@ -415,7 +415,7 @@ const AddDoctor = () => {
               </div>
 
               {/* doctor time slots */}
-              <div className="mt-8 mb-0">
+              <div className="mt-8 mb-0 md:flex md:justify-center">
                 <label
                   htmlFor="my-modal-3"
                   className="flex justify-start items-center p-2 bg-[#fff] md:w-96 max-w-md rounded-sm hover:bg-[#722ed1] cursor-pointer"
@@ -433,15 +433,15 @@ const AddDoctor = () => {
             {/* second part end */}
           </div>
 
-          {loginError && <p className="text-white mt-2">{loginError}</p>}
-          <div className="mx-12 mt-2 px-7 ">
-            <h4 className="text-white font-xl font-bold">
-              Selected Time Slots
+          <div className="mt-2 w-[100%]">
+            <h4 className="text-white font-xl font-bold mb-2">
+              Selected Doctor's Time Slots {modalData.length}
             </h4>
-            {!modalData ? (
+            {modalData.length === 0 || modalData === false ? (
               <p className="text-white">You didn't select any time slot</p>
             ) : (
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-2 bg-[#381f6e]">
+                <div className="grid grid-cols-2 lg:grid-cols-4 gap-2 md:gap-2 p-2 rounded-sm bg-[#381f6e] w-[328px] md:w-[384px] lg:w-[85%] mx-auto">
+                  {/* md:mx-[175px] lg:mx-[77px] */}
                 {modalData?.map((s) => (
                   <p className="text-white">{s}</p>
                 ))}
@@ -449,13 +449,15 @@ const AddDoctor = () => {
             )}
           </div>
 
+          {loginError && <p className="text-white mt-2">{loginError}</p>}
+
           <input
             className="my-8 text-center text-white font-bold bg-[#722ed1] p-2 w-[92%] w-full md:w-96 lg:w-[350px] transition-all hover:bg-[#9258e5] cursor-pointer rounded-sm"
             type="submit"
             value="Add"
           />
         </form>
-        <SlotModal modalData={modalData} setModalData={setModalData} />
+        <SlotModal setModalData={setModalData} />
       </div>
     </div>
   );
