@@ -6,19 +6,20 @@ import { format } from "date-fns";
 import Booking from "./Booking/Booking";
 import Loader from "../../common/Loading/Loader";
 import baseURL from "../../../utils/baseURL";
+
 const DoctorCards = ({ selectedCity, date }) => {
   const [curDepartment, setCurDepartment] = useState("All");
   const formatedDate = format(date, "PP");
   const [active, setActive] = useState("All");
   const [docinfo, setDocinfo] = useState(null);
 
-  console.log(date);
+  // console.log(date);
   const {
     data: doctors,
     isLoading,
     refetch,
   } = useQuery(["doctor", date], async () => {
-    const res = await baseURL.get(`/doctors/slots?date=${formatedDate}`, {
+    const res = await baseURL.get(`/doctors/slots?date=${date}`, {
       withCredentials: true,
     });
     const result = res.data;
@@ -40,6 +41,9 @@ const DoctorCards = ({ selectedCity, date }) => {
 
   const cityDoc = doctors.filter((doc) => doc.branch === selectedCity);
 
+  console.log("Branch doctors: ", cityDoc);
+  console.log("City doctors: ", cityDoc);
+
   const handleActive = (department) => {
     setCurDepartment(department);
     setActive(department);
@@ -57,7 +61,7 @@ const DoctorCards = ({ selectedCity, date }) => {
                 : "font-bold text-white md:text-sm bg-[#4a1a98] hover:bg-[#0a062c] transition-all ease-in-out py-2 rounded-md"
             }
             onClick={() => handleActive(department)}
-            key={i}
+            // key={i}
           >
             {department}
           </button>
@@ -76,7 +80,7 @@ const DoctorCards = ({ selectedCity, date }) => {
               />
             ))
           : branchDoc?.map((doctor) => (
-              <DoctorCard key={doctor._id} doctor={doctor} />
+              <DoctorCard key={doctor._id} date={date} doctor={doctor} />
             ))}
       </div>
       {docinfo && (

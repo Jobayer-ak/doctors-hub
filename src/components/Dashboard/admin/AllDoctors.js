@@ -1,7 +1,6 @@
 import React, { useContext } from "react";
 import AuthContext from "../../../context/AuthProvider";
 import { useQuery } from "react-query";
-import axios from "axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faX } from "@fortawesome/free-solid-svg-icons";
 import Swal from "sweetalert2";
@@ -42,9 +41,9 @@ const AllDoctors = () => {
       confirmButtonText: "Yes, delete it!",
     }).then(async (result) => {
       if (result.isConfirmed) {
-        await axios
+        await baseURL
           .delete(
-            `https://doctors-hub-server.vercel.app/api/v1/doctor/admin/delete/${doc_email}`,
+            `/doctor/admin/delete/${doc_email}`,
             {
               withCredentials: true,
             }

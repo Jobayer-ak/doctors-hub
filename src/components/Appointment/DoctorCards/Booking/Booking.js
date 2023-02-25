@@ -7,7 +7,6 @@ import {
   faEnvelope,
 } from "@fortawesome/free-regular-svg-icons";
 import { faPhone, faUserPlus } from "@fortawesome/free-solid-svg-icons";
-import axios from "axios";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
 import AuthContext from "../../../../context/AuthProvider";
