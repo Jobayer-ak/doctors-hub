@@ -15,7 +15,7 @@ const AllDoctors = () => {
     ["allAppointments", user.userEmail],
     async () => {
       const res = await baseURL.get(
-        "/v1/doctors",
+        "/doctors",
         {
           withCredentials: true,
         }
@@ -28,6 +28,8 @@ const AllDoctors = () => {
   if (isLoading) {
     return <Loader />;
   }
+
+  console.log(data);
 
   const handleDelete = (doc_email) => {
     Swal.fire({

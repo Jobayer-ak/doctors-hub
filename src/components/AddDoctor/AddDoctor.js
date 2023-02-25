@@ -32,13 +32,13 @@ const AddDoctor = () => {
 
   const [loginError, setLoginError] = useState("");
 
-  console.log(typeof modalData);
+  // console.log(typeof modalData);
 
   const onSubmit = async (data) => {
-    // setLoading(true);
-    console.log(data);
+    setLoading(true);
+    data.time_slots = modalData;
 
-    const newData = { ...data, modalData };
+    const newData = { ...data };
     console.log(newData);
 
     await baseURL
@@ -47,7 +47,7 @@ const AddDoctor = () => {
       })
       .then((res) => {
         setLoading(false);
-        // console.log(res)
+        console.log(res.data);
         if (res.data.status === 403) {
           setLoginError(res.data.message);
         }

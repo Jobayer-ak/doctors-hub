@@ -23,7 +23,7 @@ const Setting = () => {
     reset,
   } = useForm();
   const { user } = useContext(AuthContext);
-
+  console.log(user);
   // const [updateError, setUpdateError] = useState("");
   const [loading, setLoading] = useState(false);
 
@@ -31,7 +31,7 @@ const Setting = () => {
     ["info", user.userEmail],
     async () => {
       const res = await baseURL.get(
-        `https://doctors-hub-server.vercel.app/api/v1/setting/${user.userEmail}`,
+        `/setting/${user.userEmail}`,
         {
           withCredentials: true,
         }
@@ -44,6 +44,8 @@ const Setting = () => {
   if (isLoading) {
     return <Loader />;
   }
+
+  console.log("Data ", data);
 
   const { email, gender, mobile, name, address, imageURL } = data.user;
   const createdDate = new Date(data.user.createdAt);

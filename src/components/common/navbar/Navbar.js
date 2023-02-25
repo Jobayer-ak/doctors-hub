@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import brandLogo from "../../../assets/icons/brand-logo.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -16,63 +16,12 @@ import {
 import { Link, useNavigate } from "react-router-dom";
 import { Cookies } from "react-cookie";
 import baseURL from "../../../utils/baseURL";
+import { useQuery } from "react-query";
 
 const Navbar = () => {
   const [open, setOpen] = useState(false);
-  // const [laoding, setLoading] = useState(true);
+  const [refetch, setRefetch] = useState(false);
   const padding = "mr-3.5";
-
-  // let items = [
-  //   {
-  //     icon: <FontAwesomeIcon icon={faHome} className={padding} />,
-  //     name: "Home",
-  //     link: "/",
-  //   },
-  //   {
-  //     icon: <FontAwesomeIcon icon={faBriefcaseMedical} className={padding} />,
-  //     name: "Specialties",
-  //     link: "/specialties",
-  //   },
-  //   {
-  //     icon: <FontAwesomeIcon icon={faCalendarDays} className="mr-[16px]" />,
-  //     name: "Appointments",
-  //     link: "/appointment",
-  //   },
-
-  //   {
-  //     icon: <FontAwesomeIcon icon={faUsers} size="xs" className={padding} />,
-  //     name: "About Us",
-  //     link: "/about",
-  //   },
-  //   {
-  //     icon: <FontAwesomeIcon icon={faPhoneVolume} className={padding} />,
-  //     name: "Contact",
-  //     link: "/contact",
-  //   },
-  //   {
-  //     icon: (
-  //       <FontAwesomeIcon icon={faStethoscope} size="sm" className={padding} />
-  //     ),
-  //     name: "Add Doctor",
-  //     link: "/add-doctor",
-  //   },
-  //   {
-  //     icon: <FontAwesomeIcon icon={faTableColumns} className={padding} />,
-  //     name: "Dashboard",
-  //     link: "/dashboard",
-  //   },
-
-  //   {
-  //     icon: <FontAwesomeIcon icon={faGear} className={padding} />,
-  //     name: "Setting",
-  //     link: "/setting",
-  //   },
-  //   {
-  //     icon: <FontAwesomeIcon icon={faRightFromBracket} className={padding} />,
-  //     name: "Login",
-  //     link: "/login",
-  //   },
-  // ];
 
   const navigate = useNavigate();
 
@@ -85,14 +34,11 @@ const Navbar = () => {
   //   })
   // );
 
-  // if (isLoading) {
-  //   return <Loader />;
-  // }
-
+  // useEffect(() => {}, [refetch]);
 
   const logout = async () => {
     await baseURL
-      .post("/logout", {
+      .get("/logout", {
         withCredentials: true,
       })
       .then((res) => console.log(res.data))

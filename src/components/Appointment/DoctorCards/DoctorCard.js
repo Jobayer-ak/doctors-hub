@@ -1,33 +1,36 @@
 import React from "react";
+import baseURL from "../../../utils/baseURL";
+import { useQuery } from "react-query";
+import { format } from "date-fns";
 
 
-const DoctorCard = ({ doctor, setDocinfo }) => {
-  // const formatedDate = format(date, "PP");
+const DoctorCard = ({date, doctor, setDocinfo }) => {
+  const formatedDate = format(date, "PP");
 
-  // console.log(doctor)
+  console.log(doctor)
 
-  // const {
-  //   data,
-  //   isLoading,
-  //   refetch,
-  // } = useQuery(["available", formatedDate], async () => {
-  //   const res = await baseURL.get(
-  //     `https://doctors-hub-server.vercel.app/api/v1/doctors/slots?date=${formatedDate}`,
-  //     {
-  //       withCredentials: true,
-  //     }
-  //   );
-  //   const result = res.data;
-  //   return result;
-  // });
+  const {
+    data,
+    isLoading,
+    refetch,
+  } = useQuery(["available", formatedDate], async () => {
+    const res = await baseURL.get(
+      `/doctors/slots?date=${formatedDate}`,
+      {
+        withCredentials: true,
+      }
+    );
+    const result = res.data;
+    return result;
+  });
 
-  // if (isLoading) {
-  //   return <h2 className="text-white font-bold text-xl">Loading....</h2>;
-  // }
+  if (isLoading) {
+    return <h2 className="text-white font-bold text-xl">Loading....</h2>;
+  }
 
-  // console.log(data);
+  console.log(data);
 
-  // console.log(doctor);
+  console.log(doctor);
 
   return (
     <div>

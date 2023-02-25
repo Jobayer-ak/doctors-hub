@@ -1,27 +1,51 @@
-import axios from "axios";
 import React, { useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import Loader from "../common/Loading/Loader";
+import baseURL from "../../utils/baseURL";
+import Swal from "sweetalert2";
 
 const ConfirmEmail = () => {
   const { token } = useParams();
+  const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
 
-  console.log(token);
+  // console.log(token);
   const handleConfirm = async () => {
     setLoading(true);
-    await axios
-      .get(
-        `https://doctors-hub-server.vercel.app/api/v1/signup/confirmation/${token}`
-      )
-      .then((res) => setLoading(false))
-      .catch((err) => setLoading(false));
+    await baseURL
+      .get(`/signup/confirmation/${token}`)
+      .then((res) => {
+        setLoading(false);
+        res.status === 200 &&
+          Swal.fire("Success!", res.data.message, "success");
+
+        navigate("/login");
+      })
+      .catch((err) => {
+        setLoading(false);
+
+        err.response.status === 401 &&
+          Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: err.response.data.error,
+          });
+
+        err.response.status === 403 &&
+          Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: err.response.data.error,
+          });
+        err.response.status === 500 &&
+          Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: "Something went wrong!",
+          });
+        navigate("/login");
+      });
   };
-
-  if (loading) {
-    return <Loader />;
-  }
-
 
   return (
     <div className="mx-4 md:mx-6 my-4 justify-center bg-[#381f6e] w-[80%] flex rounded-md">

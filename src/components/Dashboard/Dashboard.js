@@ -18,7 +18,7 @@ const Dashboard = () => {
   }
 
   return (
-    <div className="mx-4 md:mx-10 mt-4 bg-[#23075e] lg:w-full min-h-screen py-4 rounded-md">
+    <div className="mx-4 md:mx-10 mt-4 bg-[#23075e] lg:w-[80%] min-h-screen py-4 rounded-md">
       <h2 className="font-bold text-3xl text-white text-center">
         Welcome To Dashboard
       </h2>
