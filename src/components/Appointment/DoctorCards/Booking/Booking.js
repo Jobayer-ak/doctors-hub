@@ -28,7 +28,7 @@ const Booking = ({ date, docinfo, setDocinfo, refetch }) => {
       doctor_id: _id,
       gender: e.target.gender.value,
       patient_name: e.target.patient_name.value,
-      patient_email: e.target.patient_email.value,
+      patient_email: user.userEmail,
       patient_contact_number: e.target.patient_contact_number.value,
       slot: e.target.slot.value,
       speciality: speciality,
@@ -36,6 +36,8 @@ const Booking = ({ date, docinfo, setDocinfo, refetch }) => {
       date: formatedDate,
       branch: docinfo.branch,
     };
+
+    console.log(booking);
 
     baseURL
       .post("/booking", booking, {
@@ -165,7 +167,7 @@ const Booking = ({ date, docinfo, setDocinfo, refetch }) => {
                     size="lg"
                   />
                   <input
-                    type="email"
+                    type="text"
                     name="patient_email"
                     value={fee + "$"}
                     required

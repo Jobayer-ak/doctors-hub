@@ -20,7 +20,7 @@ const DoctorCards = ({ selectedCity, date }) => {
     isLoading,
     refetch,
   } = useQuery(["doctor", date], async () => {
-    const res = await baseURL.get(`/doctors/slots?date=${date}`, {
+    const res = await baseURL.get(`/doctors/slots?date=${formatedDate}`, {
       withCredentials: true,
     });
     const result = res.data;
@@ -41,9 +41,6 @@ const DoctorCards = ({ selectedCity, date }) => {
   const branchDoc = depDoctors.filter((doc) => doc.branch === selectedCity);
 
   const cityDoc = doctors.filter((doc) => doc.branch === selectedCity);
-
-  console.log("Branch doctors: ", cityDoc);
-  console.log("City doctors: ", cityDoc);
 
   const handleActive = (department) => {
     setCurDepartment(department);
@@ -74,7 +71,7 @@ const DoctorCards = ({ selectedCity, date }) => {
         {curDepartment === "All"
           ? cityDoc?.map((doctor) => (
               <DoctorCard
-                key={doctor._id} 
+                key={doctor._id}
                 doctor={doctor}
                 date={date}
                 setDocinfo={setDocinfo}

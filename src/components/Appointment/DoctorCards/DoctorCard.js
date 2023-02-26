@@ -5,12 +5,12 @@ import { format } from "date-fns";
 
 const DoctorCard = ({ date, doctor, setDocinfo }) => {
   const formatedDate = format(date, "PP");
-  console.log("date: ", formatedDate);
+  // console.log("date: ", formatedDate);
 
   const { data, isLoading, refetch } = useQuery(
     ["available", formatedDate],
     async () => {
-      const res = await baseURL.get(`/doctors/slots?date=${date}`, {
+      const res = await baseURL.get(`/doctors/slots?date=${formatedDate}`, {
         withCredentials: true,
       });
       const result = res.data;
@@ -22,9 +22,9 @@ const DoctorCard = ({ date, doctor, setDocinfo }) => {
     return <h2 className="text-white font-bold text-xl">Loading....</h2>;
   }
 
-  // console.log(data);
+  console.log(data);
 
-  // console.log(doctor);
+  // console.log(doctor);1
 
   return (
     <div>
