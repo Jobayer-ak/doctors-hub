@@ -8,6 +8,7 @@ import Loader from "../../common/Loading/Loader";
 import baseURL from "../../../utils/baseURL";
 
 const DoctorCards = ({ selectedCity, date }) => {
+  const [ab, setAb] = useState("");
   const [curDepartment, setCurDepartment] = useState("All");
   const formatedDate = format(date, "PP");
   const [active, setActive] = useState("All");
@@ -73,7 +74,7 @@ const DoctorCards = ({ selectedCity, date }) => {
         {curDepartment === "All"
           ? cityDoc?.map((doctor) => (
               <DoctorCard
-                key={doctor._id}
+                key={doctor._id} 
                 doctor={doctor}
                 date={date}
                 setDocinfo={setDocinfo}

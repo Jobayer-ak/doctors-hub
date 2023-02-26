@@ -1,11 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import baseURL from "../../../utils/baseURL";
 import { useQuery } from "react-query";
 import { format } from "date-fns";
 
 const DoctorCard = ({ date, doctor, setDocinfo }) => {
   const formatedDate = format(date, "PP");
-
   console.log("date: ", formatedDate);
 
   const { data, isLoading, refetch } = useQuery(

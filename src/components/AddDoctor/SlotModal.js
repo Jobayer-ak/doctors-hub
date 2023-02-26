@@ -161,34 +161,6 @@ const SlotModal = ({ setModalData }) => {
                       </label>
                     </li>
                   </ul>
-
-                  {/* <input
-                    id="slot1"
-                    className=""
-                    type="checkbox"
-                    value={6.0 - 6.3}
-                    {...register("slot", {
-                      required: "Slot is required!",
-                    })}
-                  />
-                  <lebel htmlhtmlFor="slot1" className="text-white">
-                    6.00pm-6.30pm
-                  </lebel>
-                  <input
-                    id="slot2"
-                    className=""
-                    type="checkbox"
-                    value={7.0 - 7.3}
-                    {...register("slot", {
-                      required: "Slot is required!",
-                    })}
-                  />
-                  <lebel htmlhtmlFor="slot2" className="text-white">
-                    7.00pm-7.30pm
-                  </lebel>
-                  {errors.slot && (
-                    <p className="text-white mt-2">{errors.slot?.message}</p>
-                  )} */}
                 </div>
 
                 <input

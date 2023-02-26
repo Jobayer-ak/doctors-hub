@@ -58,9 +58,9 @@ const Login = () => {
       });
   };
 
-  if (loading) {
-    return <Loader />;
-  }
+  // if (loading) {
+  //   return <Loader />;
+  // }
 
   return (
     <div className="flex lg:justify-center lg:h-screen lg:items-center mt-0 lg:bg-[#722ed1] w-full">
@@ -129,7 +129,7 @@ const Login = () => {
           <input
             className="text-center text-white font-bold bg-[#722ed1] p-2 w-full max-w-sm cursor-pointer rounded-sm"
             type="submit"
-            value="Login"
+            value={loading ? <Loader/>: "Login"}
           />
           {loginError && <p className="text-white mt-2">{loginError}</p>}
         </form>

@@ -27,10 +27,12 @@ const PendingAppointments = () => {
   }
 
   console.log(data.length);
+  console.log(typeof data);
+
 
   return (
     <>
-      {data.length !== 0 ? (
+      {data.length !== 0 || data === false ? (
         <div className="px-4">
           <div className="overflow-x-auto">
             <table className="table w-full md:min-w-[60%] lg:w-full">

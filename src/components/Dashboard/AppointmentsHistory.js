@@ -14,12 +14,9 @@ const MyHistory = () => {
   const { user } = useContext(AuthContext);
 
   const { data, isLoading, refetch } = useQuery(["booking", user], async () => {
-    const res = await baseURL.get(
-      `/bookings?patient=${user.userEmail}`,
-      {
-        withCredentials: true,
-      }
-    );
+    const res = await baseURL.get(`/bookings?patient=${user.userEmail}`, {
+      withCredentials: true,
+    });
     const result = res.data;
     return result;
   });
@@ -41,13 +38,10 @@ const MyHistory = () => {
       confirmButtonText: "Yes, delete it!",
     }).then(async (result) => {
       if (result.isConfirmed) {
-        await axios
-          .delete(
-            `https://doctors-hub-server.vercel.app/api/v1/booking/delete/${book_id}`,
-            {
-              withCredentials: true,
-            }
-          )
+        await baseURL
+          .delete(`/booking/delete/${user.userEmail}`, {
+            withCredentials: true,
+          })
           .then((res) => {
             if (res.status === 200) {
               console.log(book_id);

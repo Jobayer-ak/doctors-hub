@@ -6,7 +6,7 @@ import {
   faClock,
   faEnvelope,
 } from "@fortawesome/free-regular-svg-icons";
-import { faPhone, faUserPlus } from "@fortawesome/free-solid-svg-icons";
+import { faPhone, faUsd, faUserPlus } from "@fortawesome/free-solid-svg-icons";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
 import AuthContext from "../../../../context/AuthProvider";
@@ -16,7 +16,7 @@ import baseURL from "../../../../utils/baseURL";
 const Booking = ({ date, docinfo, setDocinfo, refetch }) => {
   const [loading, setLoading] = useState(false);
   const formatedDate = format(date, "PP");
-  const { _id, name, slot, speciality } = docinfo;
+  const { _id, name, slot, speciality, fee } = docinfo;
   const navigate = useNavigate();
   const { user } = useContext(AuthContext);
 
@@ -32,6 +32,7 @@ const Booking = ({ date, docinfo, setDocinfo, refetch }) => {
       patient_contact_number: e.target.patient_contact_number.value,
       slot: e.target.slot.value,
       speciality: speciality,
+      fee: fee,
       date: formatedDate,
       branch: docinfo.branch,
     };
@@ -151,6 +152,22 @@ const Booking = ({ date, docinfo, setDocinfo, refetch }) => {
                     type="email"
                     name="patient_email"
                     value={user.userEmail}
+                    required
+                    readOnly
+                    className="text-center p-2 w-full max-w-sm focus:bg-[#722ed1] border-none outline-0 rounded-sm"
+                  />
+                </div>
+
+                <div className="my-6">
+                  <FontAwesomeIcon
+                    className="p-2.5 absolute text-[#23075e]"
+                    icon={faUsd}
+                    size="lg"
+                  />
+                  <input
+                    type="email"
+                    name="patient_email"
+                    value={fee + "$"}
                     required
                     readOnly
                     className="text-center p-2 w-full max-w-sm focus:bg-[#722ed1] border-none outline-0 rounded-sm"
