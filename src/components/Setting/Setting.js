@@ -148,7 +148,7 @@ const Setting = () => {
   }
 
   return (
-    <div className="w-full min-h-screen lg:h-auto my-0 bg-[#23075e] lg:border-l-4 lg:border-l-4 border-solid border-[#722ED1] z-10 lg:pb-5 pt-6 px-5 md:px-10">
+    <div className="lg:w-[87%] md:min-h-screen my-0 bg-[#23075e] lg:border-l-4 lg:border-l-4 border-solid border-[#722ED1] z-10 lg:pb-5 py-6 px-5 md:px-10">
       <div className="lg:flex lg:justify-around bg-gradient-to-r from-slate-800 to-indigo-800 to-indigo-600 p-4 md:px-10 rounded-sm">
         <div className="mt-4 flex justify-center">
           <img

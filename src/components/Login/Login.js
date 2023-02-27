@@ -1,19 +1,20 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
 // import "./login.css";
-import loginImage from "../../assets/images/loginImage .png";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEnvelope } from "@fortawesome/free-regular-svg-icons";
-import { faCircleUser, faLock } from "@fortawesome/free-solid-svg-icons";
-import { useForm } from "react-hook-form";
-import { Link, useLocation, useNavigate } from "react-router-dom";
-import Loader from "../common/Loading/Loader";
-import baseURL from "../../utils/baseURL";
+import loginImage from '../../assets/images/loginImage .png';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEnvelope } from '@fortawesome/free-regular-svg-icons';
+import { faCircleUser, faLock } from '@fortawesome/free-solid-svg-icons';
+import { useForm } from 'react-hook-form';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import Loader from '../common/Loading/Loader';
+import baseURL from '../../utils/baseURL';
+import { ColorRing } from 'react-loader-spinner';
 
 const Login = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  let from = location.state?.from?.pathname || "/";
-  const [loginError, setLoginError] = useState("");
+  let from = location.state?.from?.pathname || '/';
+  const [loginError, setLoginError] = useState('');
   const [loading, setLoading] = useState(false);
 
   const {
@@ -32,12 +33,12 @@ const Login = () => {
       .then((res) => {
         setLoading(false);
         const { name, email, role } = res.data.others;
-        localStorage.setItem("userRole", role);
-        localStorage.setItem("userName", name);
-        localStorage.setItem("userEmail", email);
+        localStorage.setItem('userRole', role);
+        localStorage.setItem('userName', name);
+        localStorage.setItem('userEmail', email);
         // setUser({name, email});
         console.log(res.data.others);
-        if (res.data.others.status === "inactive") {
+        if (res.data.others.status === 'inactive') {
           console.log(res.data.others);
         }
         navigate(from, { replace: true });
@@ -88,14 +89,14 @@ const Login = () => {
               className="text-center p-2 w-full max-w-sm focus:bg-[#722ed1] border-none outline-0 rounded-sm"
               type="email"
               placeholder="Enter Email"
-              {...register("email", {
+              {...register('email', {
                 required: {
                   value: true,
-                  message: "Email is required",
+                  message: 'Email is required',
                 },
 
                 pattern: /[a-z0-9]+@[a-z]+\.[a-z]{2,3}/,
-                message: "Provide a valid email",
+                message: 'Provide a valid email',
               })}
             />
             {errors.email && (
@@ -113,11 +114,11 @@ const Login = () => {
               className="text-center p-2 w-full max-w-sm focus:bg-[#722ed1] border-none outline-0 rounded-sm"
               type="password"
               placeholder="Enter Password"
-              {...register("password", {
-                required: "Password is required!",
+              {...register('password', {
+                required: 'Password is required!',
                 minLength: {
                   value: 6,
-                  message: "Password must be 6 characters or longer",
+                  message: 'Password must be 6 characters or longer',
                 },
               })}
             />
@@ -125,12 +126,32 @@ const Login = () => {
               <p className="text-white mt-2">{errors.password?.message}</p>
             )}
           </div>
-
-          <input
-            className="text-center text-white font-bold bg-[#722ed1] p-2 w-full max-w-sm cursor-pointer rounded-sm"
-            type="submit"
-            value={loading ? <Loader/>: "Login"}
-          />
+          <div>
+            <div className="flex justify-center">
+              {loading && (
+                <ColorRing
+                  visible={true}
+                  height="50"
+                  width="50"
+                  ariaLabel="blocks-loading"
+                  wrapperStyle={{}}
+                  wrapperClass="blocks-wrapper"
+                  colors={[
+                    '#e15b64',
+                    '#f47e60',
+                    '#f8b26a',
+                    '#abbd81',
+                    '#849b87',
+                  ]}
+                />
+              )}
+            </div>
+            <input
+              className="text-center text-white font-bold bg-[#722ed1] p-2 w-full max-w-sm cursor-pointer rounded-sm"
+              type="submit"
+              value={'Login'}
+            />
+          </div>
           {loginError && <p className="text-white mt-2">{loginError}</p>}
         </form>
 
@@ -150,4 +171,4 @@ const Login = () => {
 
 export default Login;
 
-// creating baseURL. with axios in react
+// how to set loader inside login button in react

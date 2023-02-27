@@ -1,14 +1,12 @@
 import React, { useState } from "react";
 import DoctorCard from "./DoctorCard";
 import { useQuery } from "react-query";
-import axios from "axios";
 import { format } from "date-fns";
 import Booking from "./Booking/Booking";
 import Loader from "../../common/Loading/Loader";
 import baseURL from "../../../utils/baseURL";
 
 const DoctorCards = ({ selectedCity, date }) => {
-  const [ab, setAb] = useState("");
   const [curDepartment, setCurDepartment] = useState("All");
   const formatedDate = format(date, "PP");
   const [active, setActive] = useState("All");
