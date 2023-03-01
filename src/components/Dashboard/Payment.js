@@ -31,7 +31,7 @@ const Payment = () => {
   if (isLoading) {
     return <h2 className="text-white text-xl">Loading...</h2>;
   }
-  console.log(data.appointment);
+  // console.log(data.appointment);
 
   return (
     <div className="w-[83%] mx-4 my-4 p-4 bg-[#23075e] w-full flex justify-center gap-10">

@@ -1,31 +1,14 @@
-import React, { useEffect, useState } from "react";
-import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
-import axios from "axios";
+import React, { useEffect, useState } from 'react';
+import { CardElement, useElements, useStripe } from '@stripe/react-stripe-js';
+import baseURL from '../../utils/baseURL';
 
 const CheckOutForm = ({ data }) => {
   const stripe = useStripe();
   const elements = useElements();
-  const [cardError, setCardError] = useState("");
-  const [success, setSuccess] = useState("");
-  const [clientSecret, setClientSecret] = useState("");
-
-  useEffect(() => {
-    // console.log(data.appointment.fee);
-
-    axios
-      .post(
-        `https://doctors-hub-server.vercel.app/api/v1/create-payment-intent`,
-        data.appointment.fee,
-        {
-          withCredentials: true,
-        }
-      )
-      .then((res) => {
-        if (res.data?.clientSecret) {
-          setClientSecret(res.data.clientSecret);
-        }
-      });
-  }, [data.appointment.fee]);
+  const [cardError, setCardError] = useState('');
+  const [success, setSuccess] = useState('');
+  const [transactionId, setTransactionId] = useState('');
+  const [clientSecret, setClientSecret] = useState('');
 
   const {
     patient_name,
@@ -37,6 +20,22 @@ const CheckOutForm = ({ data }) => {
     branch,
     fee,
   } = data.appointment;
+
+  useEffect(() => {
+    console.log(fee);
+
+    baseURL
+      .post(`/create-payment-intent`, {fee}, {
+        withCredentials: true,
+      })
+      .then((res) => {
+        console.log(res);
+        if (res.data?.clientSecret) {
+          console.log('res: ', res.data.clientSecret);
+          setClientSecret(res.data.clientSecret);
+        }
+      }).catch(error=> console.log(error));
+  }, [fee]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -53,12 +52,15 @@ const CheckOutForm = ({ data }) => {
 
     // Use your card Element with other Stripe.js APIs
     const { error, paymentMethod } = await stripe.createPaymentMethod({
-      type: "card",
+      type: 'card',
       card,
     });
 
-    setCardError(error?.message || "");
-    setSuccess("");
+    console.log('Payment Method: ', paymentMethod);
+    console.log('client Secret: ', clientSecret);
+
+    setCardError(error?.message || '');
+    setSuccess('');
 
     // confirm card payment
     const { paymentIntent, error: intentError } =
@@ -72,12 +74,17 @@ const CheckOutForm = ({ data }) => {
         },
       });
 
+    console.log('Payment intent: ', paymentIntent);
+
     if (intentError) {
       setCardError(intentError.message);
     } else {
-      setCardError("");
+      setCardError('');
       console.log(paymentIntent);
-      setSuccess("Your payment is completed!");
+
+      setTransactionId(paymentIntent.id);
+
+      setSuccess('Your payment has done!');
     }
   };
   return (
@@ -89,14 +96,14 @@ const CheckOutForm = ({ data }) => {
           options={{
             style: {
               base: {
-                fontSize: "16px",
-                color: "#424770",
-                "::placeholder": {
-                  color: "#aab7c4",
+                fontSize: '16px',
+                color: '#424770',
+                '::placeholder': {
+                  color: '#aab7c4',
                 },
               },
               invalid: {
-                color: "#9e2146",
+                color: '#9e2146',
               },
             },
           }}
