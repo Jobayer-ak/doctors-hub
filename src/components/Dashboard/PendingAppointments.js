@@ -1,17 +1,17 @@
-import React, { useContext } from "react";
-import { useQuery } from "react-query";
-import AuthContext from "../../context/AuthProvider";
-import { format } from "date-fns";
-import Loader from "../common/Loading/Loader";
-import baseURL from "../../utils/baseURL";
+import React, { useContext } from 'react';
+import { useQuery } from 'react-query';
+import AuthContext from '../../context/AuthProvider';
+import { format } from 'date-fns';
+import Loader from '../common/Loading/Loader';
+import baseURL from '../../utils/baseURL';
 
 const PendingAppointments = () => {
   const { user } = useContext(AuthContext);
   const date = new Date();
-  const formatedDate = format(date, "PP");
+  const formatedDate = format(date, 'PP');
   // console.log("Mseconds: ",format(new Date(1675255392460), "PP"));
 
-  const { data, isLoading } = useQuery(["pending", user], async () => {
+  const { data, isLoading, isError } = useQuery(['pending', user], async () => {
     const res = await baseURL.get(
       `/pending-appointments?patient=${user.userEmail}&date=${formatedDate}`,
       {
@@ -26,9 +26,12 @@ const PendingAppointments = () => {
     return <Loader />;
   }
 
+  if (isError) {
+    console.log(isError);
+  }
+
   console.log(data.length);
   console.log(typeof data);
-
 
   return (
     <>
@@ -50,7 +53,7 @@ const PendingAppointments = () => {
                   <tr className="relative">
                     <th className="sticky left-0">{index + 1}</th>
                     <td>{a.doctor_name}</td>
-                    <td>{format(new Date(a.date), "PP")}</td>
+                    <td>{format(new Date(a.date), 'PP')}</td>
                     <td>{a.slot}</td>
                     <td>{a.speciality}</td>
                   </tr>

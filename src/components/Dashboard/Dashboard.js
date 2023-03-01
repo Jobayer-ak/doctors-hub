@@ -1,20 +1,23 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState } from 'react';
 
-import ForUser from "./ForUser";
-import Admin from "./admin/Admin";
+import ForUser from './ForUser';
+import Admin from './admin/Admin';
+import Loader from '../common/Loading/Loader';
 
 const Dashboard = () => {
-  const [role, setRole] = useState("");
+  const [role, setRole] = useState('');
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const userRole = localStorage.getItem("userRole");
+   const userRole = localStorage.getItem('userRole');
     setRole(userRole);
     setLoading(false);
   }, []);
 
+
+
   if (loading) {
-    return <h2 className="text-white text-xl">Loading...</h2>;
+    return <Loader />;
   }
 
   return (
@@ -25,10 +28,9 @@ const Dashboard = () => {
 
       {/* dashboard buttons for normal user */}
 
-      {role === "admin" ? <Admin /> : <ForUser />}
+      {role === 'admin' ? <Admin /> : <ForUser />}
     </div>
   );
 };
 
 export default Dashboard;
-

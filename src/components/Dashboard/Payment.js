@@ -5,7 +5,7 @@ import React from "react";
 import { useQuery } from "react-query";
 import { useParams } from "react-router-dom";
 import CheckOutForm from "./CheckOutForm";
-import baseURL from "../../utils/baseURL";
+import baseURL from "../../utils/baseURL"; 
 
 const stripePromise = loadStripe(
   "pk_test_51LSbBsHNAh9QmIhmJrxmXeNGOCbnpqoJzijZbqw6Mt6f2xMvYbZ0ugrb708DdIVQoFbnUJGfAovtJaw7KRZl29Rg00pYWLyJWO"
@@ -31,10 +31,10 @@ const Payment = () => {
   if (isLoading) {
     return <h2 className="text-white text-xl">Loading...</h2>;
   }
-  // console.log(data.appointment);
+  console.log(data.appointment);
 
   return (
-    <div className="mx-4 my-4 p-4 bg-[#23075e] w-full flex justify-center gap-10">
+    <div className="w-[83%] mx-4 my-4 p-4 bg-[#23075e] w-full flex justify-center gap-10">
       <div className="card max-w-md rounded-md bg-base-100 shadow-xl ">
         <div className="p-5">
           <h3 className="font-bold text-xl text-center mb-4">
