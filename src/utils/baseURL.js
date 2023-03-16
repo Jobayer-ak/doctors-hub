@@ -7,4 +7,4 @@ const baseURL = axios.create({
 
 export default baseURL;
 
-// how to use baseURL. of axios in react
+// how to configure base url with axios

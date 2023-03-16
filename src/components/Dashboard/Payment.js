@@ -6,6 +6,7 @@ import { useQuery } from "react-query";
 import { useParams } from "react-router-dom";
 import CheckOutForm from "./CheckOutForm";
 import baseURL from "../../utils/baseURL"; 
+import Loader from "../common/Loading/Loader";
 
 const stripePromise = loadStripe(
   "pk_test_51LSbBsHNAh9QmIhmJrxmXeNGOCbnpqoJzijZbqw6Mt6f2xMvYbZ0ugrb708DdIVQoFbnUJGfAovtJaw7KRZl29Rg00pYWLyJWO"
@@ -29,7 +30,7 @@ const Payment = () => {
   );
 
   if (isLoading) {
-    return <h2 className="text-white text-xl">Loading...</h2>;
+    return <Loader />;
   }
   // console.log(data.appointment);
 

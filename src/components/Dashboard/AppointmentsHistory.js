@@ -1,7 +1,6 @@
 import React, { useContext } from "react";
 import AuthContext from "../../context/AuthProvider";
 import { useQuery } from "react-query";
-import axios from "axios";
 import { format } from "date-fns";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashCan } from "@fortawesome/free-solid-svg-icons";

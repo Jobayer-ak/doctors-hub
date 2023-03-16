@@ -25,16 +25,21 @@ const CheckOutForm = ({ data }) => {
     console.log(fee);
 
     baseURL
-      .post(`/create-payment-intent`, {fee}, {
-        withCredentials: true,
-      })
+      .post(
+        `/create-payment-intent`,
+        { fee },
+        {
+          withCredentials: true,
+        }
+      )
       .then((res) => {
         console.log(res);
         if (res.data?.clientSecret) {
           console.log('res: ', res.data.clientSecret);
           setClientSecret(res.data.clientSecret);
         }
-      }).catch(error=> console.log(error));
+      })
+      .catch((error) => console.log(error));
   }, [fee]);
 
   const handleSubmit = async (e) => {
@@ -80,6 +85,7 @@ const CheckOutForm = ({ data }) => {
       setCardError(intentError.message);
     } else {
       setCardError('');
+      setTransactionId(paymentIntent.id);
       console.log(paymentIntent);
 
       setTransactionId(paymentIntent.id);
@@ -118,7 +124,10 @@ const CheckOutForm = ({ data }) => {
         </button>
       </form>
       {cardError && <p className="text-red-700">{cardError}</p>}
-      {success && <p className="text-green-700">{success}</p>}
+      {success && <div className="text-green-700">
+      <p>  {success}</p>
+        <p> Your Transaction Id: <span className='text-orange-500 font-bold'>{transactionId}</span> </p>
+      </div>}
     </div>
   );
 };

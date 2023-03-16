@@ -1,21 +1,21 @@
-import { format } from "date-fns";
-import React, { useContext, useState } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { format } from 'date-fns';
+import React, { useContext, useState } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faCalendarDays,
   faClock,
   faEnvelope,
-} from "@fortawesome/free-regular-svg-icons";
-import { faPhone, faUsd, faUserPlus } from "@fortawesome/free-solid-svg-icons";
-import Swal from "sweetalert2";
-import { useNavigate } from "react-router-dom";
-import AuthContext from "../../../../context/AuthProvider";
-import Loader from "../../../common/Loading/Loader";
-import baseURL from "../../../../utils/baseURL";
+} from '@fortawesome/free-regular-svg-icons';
+import { faPhone, faUsd, faUserPlus } from '@fortawesome/free-solid-svg-icons';
+import Swal from 'sweetalert2';
+import { useNavigate } from 'react-router-dom';
+import AuthContext from '../../../../context/AuthProvider';
+import Loader from '../../../common/Loading/Loader';
+import baseURL from '../../../../utils/baseURL';
 
 const Booking = ({ date, docinfo, setDocinfo, refetch }) => {
   const [loading, setLoading] = useState(false);
-  const formatedDate = format(date, "PP");
+  const formatedDate = format(date, 'PP');
   const { _id, name, slot, speciality, fee } = docinfo;
   const navigate = useNavigate();
   const { user } = useContext(AuthContext);
@@ -40,49 +40,49 @@ const Booking = ({ date, docinfo, setDocinfo, refetch }) => {
     console.log(booking);
 
     baseURL
-      .post("/booking", booking, {
+      .post('/booking', booking, {
         withCredentials: true,
       })
       .then((res) => {
         setLoading(false);
         if (res.data.success === true) {
           Swal.fire({
-            icon: "success",
-            title: "Success",
+            icon: 'success',
+            title: 'Success',
             text: `${res.data.message} at ${booking.slot} on ${date} `,
           });
         }
 
         if (res.data.success === false) {
           Swal.fire({
-            icon: "error",
-            title: "Oops...",
+            icon: 'error',
+            title: 'Oops...',
             text: `${res.data.message} at ${booking.slot} on ${date}`,
           });
         }
 
-        refetch();
         setDocinfo(null);
+        refetch();
       })
       .catch((error) => {
         setLoading(false);
         if (error.response.status === 403) {
           Swal.fire({
-            icon: "error",
-            title: "Oops...",
-            text: "You are not permitted to book appointment!",
+            icon: 'error',
+            title: 'Oops...',
+            text: 'You are not permitted to book appointment!',
           });
 
-          navigate("/");
+          navigate('/');
         }
 
         if (error.response.status === 401) {
           Swal.fire({
-            icon: "error",
-            title: "Oops...",
-            text: "You are not logged in!",
+            icon: 'error',
+            title: 'Oops...',
+            text: 'You are not logged in!',
           });
-          navigate("/login");
+          navigate('/login');
         }
         console.log(error.response);
       });
@@ -169,7 +169,7 @@ const Booking = ({ date, docinfo, setDocinfo, refetch }) => {
                   <input
                     type="text"
                     name="patient_email"
-                    value={fee + "$"}
+                    value={fee + '$'}
                     required
                     readOnly
                     className="text-center p-2 w-full max-w-sm focus:bg-[#722ed1] border-none outline-0 rounded-sm"
