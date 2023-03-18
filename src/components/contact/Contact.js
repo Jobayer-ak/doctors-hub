@@ -20,7 +20,7 @@ const Contact = () => {
   };
 
   return (
-    <div className="mx-4 md:mx-6 py-4 lg:w-full">
+    <div className="mx-4 md:mx-6 lg:mx-4 py-4 w-[83%]">
       <div className="bg-[#23075e]">
         {/* contact Form */}
 

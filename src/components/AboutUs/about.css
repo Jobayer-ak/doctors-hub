@@ -1,0 +1,14 @@
+.line{
+    /* margin: 100px ; */
+    position: relative;
+}
+.line:before {
+  content: '';
+  display: block;
+  width: 40px;
+  height: 2px;
+  background: #13bab9;
+  left: 0px;
+  top: 12px;
+  position: absolute;
+}

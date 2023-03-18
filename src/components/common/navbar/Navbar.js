@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
-import brandLogo from "../../../assets/icons/brand-logo.png";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import React, { useEffect, useState } from 'react';
+import brandLogo from '../../../assets/icons/brand-logo.png';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faBars,
   faBriefcaseMedical,
@@ -12,21 +12,21 @@ import {
   faTableColumns,
   faUsers,
   faXmark,
-} from "@fortawesome/free-solid-svg-icons";
-import { Link, useNavigate } from "react-router-dom";
-import { Cookies } from "react-cookie";
-import baseURL from "../../../utils/baseURL";
-import { useQuery } from "react-query";
+} from '@fortawesome/free-solid-svg-icons';
+import { Link, useNavigate } from 'react-router-dom';
+import { Cookies } from 'react-cookie';
+import baseURL from '../../../utils/baseURL';
+import { useQuery } from 'react-query';
 
 const Navbar = () => {
   const [open, setOpen] = useState(false);
   const [refetch, setRefetch] = useState(false);
-  const padding = "mr-3.5";
+  const padding = 'mr-3.5';
 
   const navigate = useNavigate();
 
-  const userEmail = localStorage.getItem("userEmail");
-  const role = localStorage.getItem("userRole");
+  const userEmail = localStorage.getItem('userEmail');
+  const role = localStorage.getItem('userRole');
 
   // const [logout, { isLoading }] = useMutation(() =>
   //   baseURL.get("https://doctors-hub-server.vercel.app/api/v1/logout", {
@@ -38,23 +38,23 @@ const Navbar = () => {
 
   const logout = async () => {
     await baseURL
-      .get("/logout", {
+      .get('/logout', {
         withCredentials: true,
       })
       .then((res) => console.log(res.data))
       .then((err) => console.log(err));
 
-    localStorage.removeItem("userEmail");
-    localStorage.removeItem("userName");
-    localStorage.removeItem("userRole");
+    localStorage.removeItem('userEmail');
+    localStorage.removeItem('userName');
+    localStorage.removeItem('userRole');
 
     const cookies = new Cookies();
-    cookies.remove("myCookie");
-    navigate("/login");
+    cookies.remove('myCookie');
+    navigate('/login');
   };
 
   const liClass =
-    "mt-2 hover:border-l-2 py-1.5 pr-2 pl-7 hover:border-solid hover:border-solid hover:bg-[#722ed180] transition duration-300 ease-in-out";
+    'mt-2 hover:border-l-2 py-1.5 pr-2 pl-7 hover:border-solid hover:border-solid hover:bg-[#722ed180] transition duration-300 ease-in-out';
 
   const menu = (
     <>
@@ -72,8 +72,10 @@ const Navbar = () => {
       </li>
 
       <li className={liClass}>
-        <FontAwesomeIcon icon={faUsers} size="sm" className={padding} />
-        About Us
+        <Link to="/about">
+          <FontAwesomeIcon icon={faUsers} size="sm" className={padding} />
+          About Us
+        </Link>
       </li>
 
       <li className={liClass}>
@@ -94,7 +96,7 @@ const Navbar = () => {
         </li>
       )}
 
-      {userEmail && role === "admin" && (
+      {userEmail && role === 'admin' && (
         <li className={liClass}>
           <Link to="/addDoctor">
             <FontAwesomeIcon
@@ -169,7 +171,7 @@ const Navbar = () => {
         {/* menu items */}
         <ul
           className={`lg:static bg-[#23075e] pb-5 md:mt-1 lg:mt-0 absolute transition-all duration-1000 ease-in-out z-100 ${
-            open ? "top-[100px] w-full" : "top-[-1000px] left-[-1000px]"
+            open ? 'top-[100px] w-full' : 'top-[-1000px] left-[-1000px]'
           }`}
           onClick={() => setOpen(!open)}
         >

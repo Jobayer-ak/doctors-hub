@@ -114,7 +114,7 @@ const PendingAppointments = () => {
                         </Link>
                       )}
                       {a.fee && a.paid && (
-                        <span className="text-success">Paid</span>
+                        <span className="text-white bg-green-700 px-[7px] py-1 rounded-full">PAID</span>
                       )}
                     </td>
                     <td

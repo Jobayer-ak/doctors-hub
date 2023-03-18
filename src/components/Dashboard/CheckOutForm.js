@@ -7,10 +7,12 @@ const CheckOutForm = ({ data }) => {
   const elements = useElements();
   const [cardError, setCardError] = useState('');
   const [success, setSuccess] = useState('');
+  const [processing, setProcessing] = useState(false);
   const [transactionId, setTransactionId] = useState('');
   const [clientSecret, setClientSecret] = useState('');
 
   const {
+    _id,
     patient_name,
     patient_email,
     doctor_name,
@@ -20,6 +22,8 @@ const CheckOutForm = ({ data }) => {
     branch,
     fee,
   } = data.appointment;
+
+  console.log('From appointment: ', data.appointment);
 
   useEffect(() => {
     console.log(fee);
@@ -66,6 +70,7 @@ const CheckOutForm = ({ data }) => {
 
     setCardError(error?.message || '');
     setSuccess('');
+    setProcessing(true);
 
     // confirm card payment
     const { paymentIntent, error: intentError } =
@@ -83,6 +88,7 @@ const CheckOutForm = ({ data }) => {
 
     if (intentError) {
       setCardError(intentError.message);
+      setProcessing(false);
     } else {
       setCardError('');
       setTransactionId(paymentIntent.id);
@@ -90,44 +96,78 @@ const CheckOutForm = ({ data }) => {
 
       setTransactionId(paymentIntent.id);
 
-      setSuccess('Your payment has done!');
+      // store payment on database
+      const payment = {
+        appointment: _id,
+        transactionId: paymentIntent.id,
+      };
+
+      await baseURL
+        .patch(
+          `/booking/${_id}`,
+          { payment },
+          {
+            withCredentials: true,
+          }
+        )
+        .then((res) => {
+          setProcessing(false);
+          console.log(res.data);
+        })
+        .catch((error) => console.log(error));
+
+      setSuccess('Your payment is done!');
     }
   };
   return (
-    <div>
-      <form onSubmit={handleSubmit}>
-        {/* <img src={image} alt=""/> */}
-        <CardElement
-          className="p-4"
-          options={{
-            style: {
-              base: {
-                fontSize: '16px',
-                color: '#424770',
-                '::placeholder': {
-                  color: '#aab7c4',
+    <div className="bg-[#242852] px-4 py-4 mx-2 rounded-md">
+      <div>
+        <form onSubmit={handleSubmit}>
+          {/* <img src={image} alt=""/> */}
+          <CardElement
+            className="pt-4 pb-6"
+            options={{
+              style: {
+                base: {
+                  fontSize: '16px',
+                  color: '#ffffff',
+                  '::placeholder': {
+                    color: '#aab7c4',
+                  },
+                },
+                invalid: {
+                  color: '#9e2146',
                 },
               },
-              invalid: {
-                color: '#9e2146',
-              },
-            },
-          }}
-        />
+            }}
+          />
 
-        <button
-          type="submit"
-          className="bg-green-700 px-2 py-1"
-          disabled={!stripe || !clientSecret}
-        >
-          Pay
-        </button>
-      </form>
-      {cardError && <p className="text-red-700">{cardError}</p>}
-      {success && <div className="text-green-700">
-      <p>  {success}</p>
-        <p> Your Transaction Id: <span className='text-orange-500 font-bold'>{transactionId}</span> </p>
-      </div>}
+          <div className="flex justify-center mt-4">
+            <button
+              type="submit"
+              className="bg-[#722ed1] text-white font-bold px-4 py-1 rounded-md"
+              disabled={!stripe || !clientSecret}
+            >
+              Pay
+            </button>
+          </div>
+        </form>
+        {cardError && (
+          <p className="text-red-700 text-center mt-4">{cardError}</p>
+        )}
+        {success && (
+          <div className="text-green-700 text-center mt-4">
+            <p> {success}</p>
+            <p>
+              {' '}
+              Your Transaction Id:{' '}
+              <span className="text-orange-500 font-bold">
+                {transactionId}
+              </span>{' '}
+            </p>
+          </div>
+        )}
+      </div>
     </div>
   );
 };
