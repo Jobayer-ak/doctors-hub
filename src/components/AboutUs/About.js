@@ -3,6 +3,11 @@ import firstImg from '../../assets/about/first.png';
 import secondImg from '../../assets/about/second.png';
 import thirdImg from '../../assets/about/third.png';
 import aboutImg from '../../assets/about/about.jpg';
+import DMC from '../../assets/about/hopitalsIcons/DMC.png';
+import RMC from '../../assets/about/hopitalsIcons/RMC.png';
+import MMC from '../../assets/about/hopitalsIcons/MMC.png';
+import Apollo from '../../assets/about/hopitalsIcons/Apollo Hopital.png';
+import United from '../../assets/about/hopitalsIcons/United Hospital.png';
 import './about.css';
 import ProgressBar from 'react-animated-progress-bar';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -12,11 +17,16 @@ import {
   faTrophy,
 } from '@fortawesome/free-solid-svg-icons';
 import { faCalendarCheck } from '@fortawesome/free-regular-svg-icons';
+import { Pagination, Navigation, Autoplay } from 'swiper';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
 
 const About = () => {
   return (
     <div className="mx-4 lg:w-[83%] rounded-md py-2">
-      <div className='bg-[#23075e]'>
+      <div className="bg-[#23075e]">
         <div className="bg-[#1e2148] py-[60px] mb-[60px]">
           <h2 className="text-white font-bold text-3xl text-center">
             About Us
@@ -221,7 +231,6 @@ const About = () => {
 
               <div className="bg-[#23075e] w-full text-[#13bab9] box-border divOne pt-6">
                 <div className="text-left px-4 mt-4 mb-4">
-                  {/* <img src={oneImg} alt="" /> */}
                   <FontAwesomeIcon
                     icon={faClipboardCheck}
                     size="2xl"
@@ -275,6 +284,65 @@ const About = () => {
             </div>
           </div>
         </div>
+
+        {/* hopitals slider */}
+        <div className="py-10">
+          <Swiper
+            slidesPerView={3}
+            spaceBetween={50}
+            navigation={true}
+            loop={true}
+            autoplay={{
+              delay: 1000,
+              disableOnInteraction: false,
+            }}
+            // pagination={{
+            //   clickable: true,
+            // }}
+            breakpoints={{
+              640: {
+                slidesPerView: 2,
+                spaceBetween: 20,
+              },
+              768: {
+                slidesPerView: 4,
+                spaceBetween: 40,
+              },
+              1024: {
+                slidesPerView: 5,
+                spaceBetween: 50,
+              },
+            }}
+            modules={[Navigation, Autoplay]}
+            className="myClass"
+          >
+            <SwiperSlide>
+              <div className="flex justify-center items-center p-4 w-[300px]">
+                <img src={DMC} alt="" className="" />
+              </div>
+            </SwiperSlide>
+            <SwiperSlide className="mr-6">
+              <div className="flex justify-center items-center p-4 w-[300px]">
+                <img src={MMC} alt="" />
+              </div>
+            </SwiperSlide>
+            <SwiperSlide>
+              <div className="flex justify-center items-center p-4 w-[300px]">
+                <img src={RMC} alt="" />
+              </div>
+            </SwiperSlide>
+            <SwiperSlide>
+              <div className="flex justify-center items-center p-4 w-[300px]">
+                <img src={United} alt="" />
+              </div>
+            </SwiperSlide>
+            <SwiperSlide>
+              <div className="flex justify-center items-center p-4 w-[300px]">
+                <img src={Apollo} alt="" />
+              </div>
+            </SwiperSlide>
+          </Swiper>
+        </div>
       </div>
     </div>
   );
@@ -282,4 +350,4 @@ const About = () => {
 
 export default About;
 
-//how to draw 30px horizontal line using pseudo class content using tailwindcss in react
+//how to use multi carousel with switperjs included navigation in react
