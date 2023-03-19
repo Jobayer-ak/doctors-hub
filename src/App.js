@@ -1,7 +1,6 @@
 // import logo from './logo.svg';
 import { Route, Routes } from 'react-router-dom';
 import './App.css';
-import 'react-toastify/dist/ReactToastify.css';
 
 import { AuthProvider } from './context/AuthProvider';
 import Navbar from './components/common/navbar/Navbar';
@@ -68,8 +67,6 @@ function App() {
           <Route path="/user/set-new-password" element={<SetPassword />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
-
-        {/* <ToastContainer /> */}
       </AuthProvider>
     </div>
   );

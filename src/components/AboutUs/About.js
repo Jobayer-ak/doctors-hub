@@ -4,6 +4,14 @@ import secondImg from '../../assets/about/second.png';
 import thirdImg from '../../assets/about/third.png';
 import aboutImg from '../../assets/about/about.jpg';
 import './about.css';
+import ProgressBar from 'react-animated-progress-bar';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {
+  faBriefcaseMedical,
+  faClipboardCheck,
+  faTrophy,
+} from '@fortawesome/free-solid-svg-icons';
+import { faCalendarCheck } from '@fortawesome/free-regular-svg-icons';
 
 const About = () => {
   return (
@@ -14,9 +22,10 @@ const About = () => {
 
       <div className="text-center mt-[60px] text-white">
         <div className="">
-          <span className="text-white font-bold uppercase pl-12 line ">
+          <h4 className="text-white font-bold uppercase pl-12 line inline-block">
             doctor's hub
-          </span>
+          </h4>
+
           <h2 className="text-2xl my-2">
             <span className="text-[#13bab9] mr-2 font-bold">
               Doctor's Hub - The Plastform
@@ -30,8 +39,8 @@ const About = () => {
         </div>
 
         {/* three cards */}
-        <div className="flex justify-around items-center my-[150px]">
-          <div className="w-[30%] h-auto bg-[#1e2148] p-4 relative hover:-translate-y-[30px] transition duration-300 delay-75">
+        <div className="grid grid-col md:grid-cols-3 my-[150px] gap-20 md:gap-5 px-4">
+          <div className="w-full h-auto bg-[#1e2148] p-4 relative hover:-translate-y-[30px] transition duration-300 delay-75">
             <div className="flex justify-center absolute top-[-30px] left-[84px]">
               <img src={firstImg} alt="" className="" />
             </div>
@@ -43,7 +52,7 @@ const About = () => {
               </p>
             </div>
           </div>
-          <div className="w-[30%] bg-[#1e2148] p-4 relative hover:-translate-y-[30px] transition duration-300 delay-75">
+          <div className="w-full bg-[#1e2148] p-4 relative hover:-translate-y-[30px] transition duration-300 delay-75">
             <div className="flex justify-center absolute top-[-30px] left-[84px]">
               <img src={secondImg} alt="" />
             </div>
@@ -55,7 +64,7 @@ const About = () => {
               </p>
             </div>
           </div>
-          <div className="w-[30%] bg-[#1e2148] p-4 relative hover:-translate-y-[30px] transition duration-300 delay-75">
+          <div className="w-full bg-[#1e2148] p-4 relative hover:-translate-y-[30px] transition duration-300 delay-75">
             <div className="flex justify-center absolute top-[-30px] left-[84px]">
               <img src={thirdImg} alt="" />
             </div>
@@ -74,7 +83,7 @@ const About = () => {
           <div className="flex items-center gap-12">
             {/* left part */}
             <div className="text-left pl-4 w-[50%]">
-              <div className="py-4 ">
+              <div className="pt-4 ">
                 <h2 className="text-white font-bold uppercase line pl-12">
                   about
                   <span className="text-[#13bab9] ml-2">doctor's hub</span>
@@ -92,36 +101,57 @@ const About = () => {
               </div>
 
               {/* proress bars */}
-              <div className="mt-10 mb-4">
-                <div className="flex justify-between">
+              <div className="mt-4">
+                <div className="">
                   <span className="text-[#13bab9]">Successful Operations</span>
-                  <span className="text-[#13bab9]">80%</span>
                 </div>
-                <progress
-                  className="progress progress-info w-[100%]"
-                  value="80"
-                  max="100"
-                ></progress>
+                <ProgressBar
+                  width="100%"
+                  height="10px"
+                  rect
+                  fontColor="#3abff8"
+                  percentage="80"
+                  rectPadding="1px"
+                  rectBorderRadius="20px"
+                  trackPathColor="transparent"
+                  // bgColor="#333333"
 
-                <div className="flex justify-between mt-6">
+                  trackBorderColor="grey"
+                />
+
+                <div className="">
                   <span className="text-[#13bab9]">Empathy for Patients</span>
-                  <span className="text-[#13bab9]">90%</span>
                 </div>
-                <progress
-                  className="progress progress-info w-[100%]"
-                  value="90"
-                  max="100"
-                ></progress>
 
-                <div className="flex justify-between mt-6">
+                <ProgressBar
+                  width="100%"
+                  height="10px"
+                  rect
+                  fontColor="#3abff8"
+                  percentage="90"
+                  rectPadding="1px"
+                  rectBorderRadius="20px"
+                  trackPathColor="transparent"
+                  bgColor="#fffff"
+                  trackBorderColor="grey"
+                />
+
+                <div className="">
                   <span className="text-[#13bab9]">Hygiene</span>
-                  <span className="text-[#13bab9]">100%</span>
                 </div>
-                <progress
-                  className="progress progress-info w-[100%]"
-                  value="100"
-                  max="100"
-                ></progress>
+
+                <ProgressBar
+                  width="100%"
+                  height="10px"
+                  rect
+                  fontColor="#3abff8"
+                  percentage="100"
+                  rectPadding="1px"
+                  rectBorderRadius="20px"
+                  trackPathColor="transparent"
+                  // bgColor="#00000"
+                  trackBorderColor="grey"
+                />
               </div>
             </div>
 
@@ -133,8 +163,107 @@ const About = () => {
         </div>
 
         {/* why choose us */}
-        <div>
-          
+        <div className="my-20 py-20 bg-[#1e2148]">
+          {/* top part */}
+          <div className="flex justify-between items-center px-4">
+            {/* left part of top */}
+            <div className="w-full">
+              <h2 className="text-[#13bab9] flex justify-left font-bold uppercase line inline-block pl-12">
+                Services
+              </h2>
+
+              <h2 className="text-3xl my-2 text-4xl text-left">
+                <span className="text-[#13bab9] mr-2 font-bold">
+                  Why Choose
+                </span>
+                <span className="text-white">Us</span>
+              </h2>
+            </div>
+
+            {/* right part of bottom */}
+            <div>
+              <p>
+                Mollit deserunt commodo tempor duis excepteur in excepteur
+                incididunt in pariatur Lorem Lorem. Veniam reprehenderit ad
+                nostrud anim est est cupidatat.
+              </p>
+            </div>
+          </div>
+
+          {/* bottom part */}
+          <div className="lg:flex lg:gap-5 mt-20 px-4">
+            <div className="bg-[#23075e] w-1/4 text-[#13bab9] box-border divOne pt-6">
+              <div className="text-left px-4 mt-4 mb-4">
+                {/* <img src={oneImg} alt="" /> */}
+                <FontAwesomeIcon
+                  icon={faBriefcaseMedical}
+                  size="2xl"
+                  className="h-[60px] text-[#13bab9]"
+                />
+              </div>
+              <h2 className="text-3xl text-left font-bold px-4">
+                Family Consultant
+              </h2>
+              <p className="px-4 text-left mt-4 mb-[59px]">
+                LoremEt sint nulla irure nostrud elit ullamco laboris ut dolore
+                amet dolor in aute.
+              </p>
+            </div>
+
+            <div className="bg-[#23075e] w-1/4 text-[#13bab9] box-border divOne pt-6">
+              <div className="text-left px-4 mt-4 mb-4">
+                {/* <img src={oneImg} alt="" /> */}
+                <FontAwesomeIcon
+                  icon={faClipboardCheck}
+                  size="2xl"
+                  className="h-[60px] text-[#13bab9]"
+                />
+              </div>
+              <h2 className="text-3xl text-left font-bold px-4">
+                Health Services
+              </h2>
+              <p className="px-4 text-left mt-4 mb-[59px]">
+                LoremEt sint nulla irure nostrud elit ullamco laboris ut dolore
+                amet dolor in aute.
+              </p>
+            </div>
+
+            <div className="bg-[#23075e] w-1/4 text-[#13bab9] box-border divOne pt-6">
+              <div className="text-left px-4 mt-4 mb-4">
+                {/* <img src={oneImg} alt="" /> */}
+                <FontAwesomeIcon
+                  icon={faCalendarCheck}
+                  size="2xl"
+                  className="h-[60px] text-[#13bab9]"
+                />
+              </div>
+              <h2 className="text-3xl text-left font-bold px-4">
+                Health Checkup
+              </h2>
+              <p className="px-4 text-left mt-4 mb-[59px]">
+                LoremEt sint nulla irure nostrud elit ullamco laboris ut dolore
+                amet dolor in aute.
+              </p>
+            </div>
+
+            <div className="bg-[#23075e] w-1/4 text-[#13bab9] box-border divOne pt-6">
+              <div className="text-left px-4 mt-4 mb-4">
+                {/* <img src={oneImg} alt="" /> */}
+                <FontAwesomeIcon
+                  icon={faTrophy}
+                  size="2xl"
+                  className="h-[60px] text-[#13bab9]"
+                />
+              </div>
+              <h2 className="text-3xl text-left font-bold px-4">
+                Health Checkup
+              </h2>
+              <p className="px-4 text-left mt-4 mb-[59px]">
+                LoremEt sint nulla irure nostrud elit ullamco laboris ut dolore
+                amet dolor in aute.
+              </p>
+            </div>
+          </div>
         </div>
       </div>
     </div>

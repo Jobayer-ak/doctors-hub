@@ -20,6 +20,7 @@
     "js-cookie": "^3.0.1",
     "nodemailer": "^6.8.0",
     "react": "^18.2.0",
+    "react-animated-progress-bar": "^1.1.2",
     "react-calendar": "^4.0.0",
     "react-cookie": "^4.1.1",
     "react-dom": "^18.2.0",
@@ -29,7 +30,6 @@
     "react-router-dom": "^6.4.1",
     "react-scripts": "5.0.1",
     "react-table": "^7.8.0",
-    "react-toastify": "^9.1.1",
     "sweetalert2": "^11.7.1",
     "swiper": "^8.4.6",
     "web-vitals": "^2.1.4"
