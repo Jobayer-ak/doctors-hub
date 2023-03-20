@@ -1,0 +1,27 @@
+.line {
+  /* margin: 100px ; */
+  position: relative;
+}
+.line:before {
+  content: '';
+  display: block;
+  width: 40px;
+  height: 2px;
+  background: #13bab9;
+  left: 0px;
+  top: 12px;
+  position: absolute;
+}
+
+.divOne::after {
+  content: '';
+  display: block;
+  width: 0;
+  height: 4px;
+  background: #13bab9;
+  transition: width 0.3s;
+}
+.divOne:hover::after {
+  width: 100%;
+  transition: width 0.3s;
+}

@@ -9,16 +9,13 @@ import { AnimationOnScroll } from 'react-animation-on-scroll';
 
 const Banner = () => {
   return (
-    <div
-      className="w-full bg-[#23075e]"
-      data-aos="fade-right"
-      data-aos-duration="1000"
-    >
+    <div className="w-full bg-[#23075e]">
       <div className="md:flex justify-between py-6 px-4">
         {/* left part */}
 
         <div className="block md:hidden lg:block text-center lg:text-left mb-8 lg:mb-0">
           <div className="h-[30%] border-l-2 border-[#25beef] mt-5 mb-12 hidden lg:block"></div>
+
           <AnimationOnScroll animateIn="animate__fadeInUp">
             <div className="leading-9 mb-4">
               <h3 className="uppercase text-[#25beef]">Top Doctors</h3>
