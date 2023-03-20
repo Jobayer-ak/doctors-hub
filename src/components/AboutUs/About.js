@@ -17,7 +17,7 @@ import {
   faTrophy,
 } from '@fortawesome/free-solid-svg-icons';
 import { faCalendarCheck } from '@fortawesome/free-regular-svg-icons';
-import { Pagination, Navigation, Autoplay } from 'swiper';
+import { Navigation, Autoplay } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/navigation';
@@ -25,7 +25,7 @@ import 'swiper/css/pagination';
 
 const About = () => {
   return (
-    <div className="mx-4 lg:w-[83%] rounded-md py-2">
+    <div className="mx-4 lg:w-[80%] rounded-md py-2">
       <div className="bg-[#23075e]">
         <div className="bg-[#1e2148] py-[60px] mb-[60px]">
           <h2 className="text-white font-bold text-3xl text-center">
@@ -318,7 +318,7 @@ const About = () => {
           >
             <SwiperSlide>
               <div className="flex justify-center items-center p-4 w-[300px]">
-                <img src={DMC} alt="" className="" />
+                <img src={DMC} alt="" />
               </div>
             </SwiperSlide>
             <SwiperSlide className="mr-6">

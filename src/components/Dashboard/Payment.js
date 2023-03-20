@@ -34,21 +34,21 @@ const Payment = () => {
   // console.log(data.appointment);
 
   return (
-    <div className="w-[83%] mx-4 my-4 p-4 bg-[#23075e] w-full flex justify-around">
-      <div className="max-w-md rounded-md bg-[#1e2148] shadow-xl text-white">
-        <div className="p-5">
-          <h3 className="text-[#13bab9] font-bold text-2xl text-center mb-4">
+    <div className="lg:w-[83%] mx-4 py-2">
+      <div className="bg-[#23075e] min-h-screen lg:flex lg:justify-around lg:py-4">
+        <div className="lg:w-[50%] rounded-md bg-[#1e2148] shadow-xl text-white p-4">
+          <h3 className="text-[#13bab9] text-center font-bold text-2xl my-4">
             Payment Summary
           </h3>
-          <p className="text-xl">
+          <p className="text-xl py-4">
             Hello, {data.appointment.patient_name} <br /> Your appointment
             information:
           </p>
-          <div className='bg-[#242852] px-4 pt-1 pb-2 mt-4 rounded-md'>
-            <h2 className="card-title mt-4">{data.appointment.doctor_name}</h2>
+          <div className="bg-[#242852] mt-4 rounded-md px-6 pt-4 pb-6">
+            <h2 className="text-xl mt-4">{data.appointment.doctor_name}</h2>
             <p className="italic">{data.appointment.speciality} specialist</p>
-            <hr className='my-2'/>
-            <p>Branch: {data.appointment.branch}</p>
+            <hr className="mt-2" />
+            <p className="pt-4">Branch: {data.appointment.branch}</p>
             <p>
               Your appointment on{' '}
               {format(new Date(data.appointment.date), 'PP')} at{' '}
@@ -57,30 +57,30 @@ const Payment = () => {
             <p>Please Pay: ${data.appointment.fee}</p>
           </div>
         </div>
-      </div>
-      <div className="w-[90%] rounded-md max-w-md shadow-2xl bg-[#1e2148]">
-        <div className="p-4">
-          <h2 className="text-[#13bab9] text-center mb-4 text-2xl">
-            Great! That's ${data.appointment.fee}!
-          </h2>
-          <div className="flex justify-between items-center">
-            <div className="text-white flex items-center gap-2">
-              <FontAwesomeIcon icon={faCircleDot} size="lg" />
-              <h2 className="text-white font-bold text-xl">
-                Debit/Credit Card
-              </h2>
-            </div>
+        <div className="lg:w-[90%] lg:max-w-md rounded-md mt-12 lg:mt-0 shadow-2xl bg-[#1e2148] pb-6 md:pb-0 md:py-12 lg:py-4">
+          <div className="w-full px-4 py-6 md:py-12 lg:py-6">
+            <h2 className="text-[#13bab9] text-center mb-4 text-2xl">
+              Great! That's ${data.appointment.fee}!
+            </h2>
+            <div className="flex justify-between items-center">
+              <div className="text-white flex items-center gap-2">
+                <FontAwesomeIcon icon={faCircleDot} size="lg" />
+                <h2 className="text-white font-bold text-xl">
+                  Debit/Credit Card
+                </h2>
+              </div>
 
-            <div className="flex justify-center items-center gap-2">
-              <img src={visaCard} alt="" className="" />
-              <img src={masterCard} alt="" className="" />
+              <div className="flex justify-center items-center gap-2">
+                <img src={visaCard} alt="" className="" />
+                <img src={masterCard} alt="" className="" />
+              </div>
             </div>
           </div>
-        </div>
 
-        <Elements stripe={stripePromise}>
-          <CheckOutForm data={data} />
-        </Elements>
+          <Elements stripe={stripePromise}>
+            <CheckOutForm data={data} />
+          </Elements>
+        </div>
       </div>
     </div>
   );

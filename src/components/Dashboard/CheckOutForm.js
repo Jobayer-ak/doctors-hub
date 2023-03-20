@@ -120,7 +120,7 @@ const CheckOutForm = ({ data }) => {
     }
   };
   return (
-    <div className="bg-[#242852] px-4 py-4 mx-2 rounded-md">
+    <div className="bg-[#242852] mt-4 px-4 py-4 mx-2 rounded-md">
       <div>
         <form onSubmit={handleSubmit}>
           {/* <img src={image} alt=""/> */}
