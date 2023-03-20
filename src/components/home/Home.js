@@ -9,7 +9,7 @@ import Banner from "./Banner";
 
 const Home = () => {
   return (
-    <div className="md:w-[95%] lg:w-[80%] mx-4 lg:mx-4 bg-[#0a062c] text-white">
+    <div className="md:w-[95%] lg:w-[80%] mx-4 py-2 lg:mx-4 bg-[#0a062c] text-white">
       <Banner/>
       {/* <Searchbar /> */}
       {/* <Banner /> */}
