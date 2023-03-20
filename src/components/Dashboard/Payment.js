@@ -34,7 +34,7 @@ const Payment = () => {
   // console.log(data.appointment);
 
   return (
-    <div className="lg:w-[83%] mx-4 py-2">
+    <div className="lg:w-[83%] mx-4 py-2 rounded-sm">
       <div className="bg-[#23075e] min-h-screen lg:flex lg:justify-around lg:py-4">
         <div className="lg:w-[50%] rounded-md bg-[#1e2148] shadow-xl text-white p-4">
           <h3 className="text-[#13bab9] text-center font-bold text-2xl my-4">
