@@ -1,13 +1,12 @@
 import React from 'react';
 import './home.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {
+import { 
   faCheckSquare,
-  faClock,
   faPlus,
 } from '@fortawesome/free-solid-svg-icons';
 import { AnimationOnScroll } from 'react-animation-on-scroll';
-
+import clock from '../../assets/home/clock.gif';
 
 const Welcome = () => {
   const specialists = [
@@ -54,18 +53,10 @@ const Welcome = () => {
           </div>
 
           {/* Opening time  */}
-          <div className="bg-[#1e2148] lg:w-[90%] px-4 py-12 w-full">
-            <AnimationOnScroll
-              animateIn="animate__bounceIn"
-              
-            >
-              <FontAwesomeIcon
-                icon={faClock}
-                size="2xl"
-                className="ml-4 h-[70px] text-[#25beef] hover:rotate-[360deg] transition-all duration-700"
-              />
-            </AnimationOnScroll>
-            <h2 className="text-[#25beef] text-3xl my-4">Opening Time</h2>
+          <div className="bg-[#1e2148] lg:w-[90%] px-4 pb-12 w-full">
+            <img src={clock} alt="" className="w-[150px] h-auto" />
+
+            <h2 className="text-[#25beef] text-3xl mb-4">Opening Time</h2>
 
             <AnimationOnScroll animateIn="animate__fadeIn">
               <div className="flex justify-between items-center">
@@ -89,8 +80,8 @@ const Welcome = () => {
           </div>
         </div>
 
-        <div className="text-left pl-2 lg:pl-0 lg:w-[60%] pt-4">
-          <div className="leading-[45px]">
+        <div className="text-left pl-2 lg:pl-0 lg:w-[60%] pt-2">
+          <div className="leading-[47px]">
             {specialists.map((a) => (
               <AnimationOnScroll animateIn="animate__fadeIn">
                 <div>

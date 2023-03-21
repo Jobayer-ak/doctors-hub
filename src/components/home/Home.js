@@ -1,18 +1,19 @@
-import React from "react";
+import React from 'react';
 // import Searchbar from "../common/searchbar/Searchbar";
 
-import Hero from "./banner/hero/Hero";
+import Hero from './banner/hero/Hero';
 // import Footer from "../common/Footer/Footer";
-import Slider from "./carousel/Slider";
-import Banner from "./Banner";
-import Welcome from "./Welcome";
-
+import Slider from './carousel/Slider';
+import Banner from './Banner';
+import Welcome from './Welcome';
+import Services from './Services';
 
 const Home = () => {
   return (
-    <div className="md:w-[95%] lg:w-[80%] mx-4 py-2 lg:mx-4 bg-[#0a062c] text-white">
+    <div className="lg:w-[80%] lg:mx-4 py-2 lg:mx-4 bg-[#0a062c] text-white">
       <Banner />
-      <Welcome/>
+      <Welcome />
+      <Services />
       {/* <Searchbar /> */}
       {/* <Banner /> */}
       <Hero />
@@ -24,5 +25,4 @@ const Home = () => {
   );
 };
 
-export default Home; 
- 
+export default Home;
