@@ -63,7 +63,7 @@ const Services = () => {
       {/* z-index part */}
 
       <div className="bg-[#1e2148] px-4 md:flex md:justify-between md:itmes-center gap-4 lg:absolute lg:top-1/2 py-14">
-        <AnimationOnScroll animateIn="animate__fadeInLeft">
+        <AnimationOnScroll animateIn="animate__fadeInDown">
           <div className="">
             <FontAwesomeIcon
               icon={faHandHoldingMedical}
@@ -81,7 +81,7 @@ const Services = () => {
           </div>
         </AnimationOnScroll>
 
-        <AnimationOnScroll animateIn="animate__fadeInDown">
+        <AnimationOnScroll animateIn="animate__fadeInLeft">
           <div className="my-12 md:my-0">
             <FontAwesomeIcon
               icon={faHouseChimneyMedical}
@@ -98,7 +98,7 @@ const Services = () => {
           </div>
         </AnimationOnScroll>
 
-        <AnimationOnScroll animateIn="animate__fadeInRight">
+        <AnimationOnScroll animateIn="animate__fadeInUp">
           <div>
             <FontAwesomeIcon
               icon={faThumbsUp}

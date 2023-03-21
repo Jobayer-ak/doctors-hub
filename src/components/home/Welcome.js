@@ -1,10 +1,7 @@
 import React from 'react';
 import './home.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { 
-  faCheckSquare,
-  faPlus,
-} from '@fortawesome/free-solid-svg-icons';
+import { faCheckSquare, faPlus } from '@fortawesome/free-solid-svg-icons';
 import { AnimationOnScroll } from 'react-animation-on-scroll';
 import clock from '../../assets/home/clock.gif';
 
@@ -34,23 +31,22 @@ const Welcome = () => {
       <div className="p-4 lg:flex lg:justify-between gap-14">
         {/* left part */}
         <div className="w-[100%]">
-          <div className="mb-6 lg:w-[100%]">
-            <AnimationOnScroll animateIn="animate__fadeInLeft">
+          <AnimationOnScroll animateIn="animate__fadeIn">
+            <div className="mb-6 lg:w-[100%]">
               <h4 className="text-[#14aab1] font-bold uppercase pl-12 line inline-block">
                 About Doctor's Hub
               </h4>
-            </AnimationOnScroll>
-            <AnimationOnScroll animateIn="animate__fadeInRight">
+
               <h1 className="font-bold text-3xl text-[#f68685] mt-2">
                 Welcome <br />
                 To Doctor's Hub
               </h1>
-            </AnimationOnScroll>
-            <p className="text-white mt-2 pr-6">
-              It is a long established fact that a reader will be distracted by
-              the readable content.
-            </p>
-          </div>
+              <p className="text-white mt-2 pr-6">
+                It is a long established fact that a reader will be distracted
+                by the readable content.
+              </p>
+            </div>
+          </AnimationOnScroll>
 
           {/* Opening time  */}
           <div className="bg-[#1e2148] lg:w-[90%] px-4 pb-12 w-full">
