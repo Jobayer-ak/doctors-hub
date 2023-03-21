@@ -1,19 +1,20 @@
-import React, { useContext, useState } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEnvelope } from "@fortawesome/free-regular-svg-icons";
+import React, { useContext, useState } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEnvelope } from '@fortawesome/free-regular-svg-icons';
 import {
   faLocationPinLock,
   faPhone,
   faUserPlus,
-} from "@fortawesome/free-solid-svg-icons";
-import { useForm } from "react-hook-form";
-import axios from "axios";
-import AuthContext from "../../context/AuthProvider";
-import { useQuery } from "react-query";
-import { format } from "date-fns";
-import Swal from "sweetalert2";
-import Loader from "../common/Loading/Loader";
-import baseURL from "../../utils/baseURL";
+} from '@fortawesome/free-solid-svg-icons';
+import { useForm } from 'react-hook-form';
+import axios from 'axios';
+import AuthContext from '../../context/AuthProvider';
+import { useQuery } from 'react-query';
+import { format } from 'date-fns';
+import Swal from 'sweetalert2';
+import Loader from '../common/Loading/Loader';
+import baseURL from '../../utils/baseURL';
+import Review from './Review';
 
 const Setting = () => {
   const {
@@ -23,19 +24,16 @@ const Setting = () => {
     reset,
   } = useForm();
   const { user } = useContext(AuthContext);
-  console.log(user);
+  // console.log(user);
   // const [updateError, setUpdateError] = useState("");
   const [loading, setLoading] = useState(false);
 
   const { data, isLoading, refetch } = useQuery(
-    ["info", user.userEmail],
+    ['info', user.userEmail],
     async () => {
-      const res = await baseURL.get(
-        `/setting/${user.userEmail}`,
-        {
-          withCredentials: true,
-        }
-      );
+      const res = await baseURL.get(`/setting/${user.userEmail}`, {
+        withCredentials: true,
+      });
       const result = res.data;
       return result;
     }
@@ -45,12 +43,12 @@ const Setting = () => {
     return <Loader />;
   }
 
-  console.log("Data ", data);
+  // console.log('Data ', data);
 
   const { email, gender, mobile, name, address, imageURL } = data.user;
   const createdDate = new Date(data.user.createdAt);
 
-  const imgStorageKey = "23d6548fb8456e2bee8c9306819c612c";
+  const imgStorageKey = '23d6548fb8456e2bee8c9306819c612c';
 
   const onSubmit = async (data) => {
     const updateData = {
@@ -59,15 +57,15 @@ const Setting = () => {
       address: data.address,
       mobile: data.mobile,
       gender: data.gender,
-      imageURL: "",
+      imageURL: '',
     };
 
     const image = data.uploadFile[0];
-    console.log(image);
+    // console.log(image);
     const formData = new FormData();
-    formData.append("image", image);
+    formData.append('image', image);
 
-    console.log("formdata: ", formData);
+    // console.log('formdata: ', formData);
 
     const imgbbUrl = `https://api.imgbb.com/1/upload?key=${imgStorageKey}`;
 
@@ -75,14 +73,14 @@ const Setting = () => {
       .post(imgbbUrl, formData)
       .then((res) => {
         setLoading(true);
-        console.log(res);
+        // console.log(res);
         if (res.data.success) {
           const imgurl = res.data.data.display_url;
           // console.log(imgurl);
 
           updateData.imageURL = imgurl;
 
-          console.log(updateData);
+          // console.log(updateData);
 
           baseURL
             .patch(`/update-profile/${email}`, updateData, {
@@ -90,13 +88,13 @@ const Setting = () => {
             })
             .then((res) => {
               setLoading(false);
-              console.log(res.data);
+              // console.log(res.data);
               refetch();
               reset();
               if (res.status === 200) {
                 return Swal.fire({
-                  position: "top-end",
-                  icon: "success",
+                  position: 'top-end',
+                  icon: 'success',
                   title: res.data.message,
                   showConfirmButton: false,
                   timer: 1500,
@@ -105,26 +103,26 @@ const Setting = () => {
 
               if (res.status === 403) {
                 return Swal.fire({
-                  icon: "error",
-                  title: "Oops...",
+                  icon: 'error',
+                  title: 'Oops...',
                   text: res.data.message,
                 });
               }
               if (res.status === 304) {
                 return Swal.fire({
-                  icon: "error",
-                  title: "Oops...",
+                  icon: 'error',
+                  title: 'Oops...',
                   text: res.data.message,
                 });
               }
             })
             .catch((err) => {
               setLoading(false);
-              console.log(err.message);
+              // console.log(err.message);
               if (err.response.status === 500) {
                 return Swal.fire({
-                  icon: "error",
-                  title: "Oops...",
+                  icon: 'error',
+                  title: 'Oops...',
                   text: err.message,
                 });
               }
@@ -135,13 +133,15 @@ const Setting = () => {
         setLoading(false);
         if (err) {
           Swal.fire({
-            icon: "error",
-            title: "Oops...",
-            text: "Something went wrong with image!",
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Something went wrong with image!',
           });
         }
       });
   };
+
+  //
 
   if (loading) {
     return <Loader />;
@@ -149,12 +149,13 @@ const Setting = () => {
 
   return (
     <div className="lg:w-[83%] md:min-h-screen my-0 bg-[#23075e] lg:border-l-4 lg:border-l-4 border-solid border-[#722ED1] z-10 lg:pb-5 py-6 px-5 md:px-10">
+      {/* account info */}
       <div className="lg:flex lg:justify-around bg-gradient-to-r from-slate-800 to-indigo-800 to-indigo-600 p-4 md:px-10 rounded-sm">
         <div className="mt-4 flex justify-center">
           <img
             src={imageURL}
             alt=""
-            className="w-[350px] h-[350px] rounded-md"
+            className="w-[350px] h-[350px] rounded-full"
           />
         </div>
 
@@ -179,9 +180,9 @@ const Setting = () => {
             Address: <span className="ml-4 text-[#a8a29e]">{address}</span>
           </p>
           <p className="text-white font-bold my-3">
-            User since:{" "}
+            User since:{' '}
             <span className="ml-4 text-[#a8a29e]">
-              {format(createdDate, "PP")}
+              {format(createdDate, 'PP')}
             </span>
           </p>
 
@@ -196,11 +197,12 @@ const Setting = () => {
         </div>
       </div>
 
+      {/* modal */}
       <div className="text-center">
         <input type="checkbox" id="my-modal-3" className="modal-toggle" />
         <div className="modal">
-          <div className="px-8  py-4 rounded-md relative bg-[#381f6e]">
-            <div className="">
+          <div className="px-8  py-4 rounded-md relative bg-[#381f6e] opacity-80">
+            <div>
               <label
                 htmlFor="my-modal-3"
                 className="btn btn-sm btn-circle absolute right-3 top-2"
@@ -223,10 +225,10 @@ const Setting = () => {
                       className="text-center p-2 w-full max-w-sm focus:bg-[#722ed1] border-none outline-0 rounded-sm"
                       type="text"
                       value={name}
-                      {...register("name", {
+                      {...register('name', {
                         required: {
                           value: true,
-                          message: "Name is required!",
+                          message: 'Name is required!',
                         },
                       })}
                     />
@@ -259,10 +261,10 @@ const Setting = () => {
                       className="text-center p-2 w-full max-w-sm focus:bg-[#722ed1] border-none outline-0 rounded-sm"
                       type="text"
                       placeholder={mobile}
-                      {...register("mobile", {
+                      {...register('mobile', {
                         required: {
                           value: true,
-                          message: "Mobile number is required!",
+                          message: 'Mobile number is required!',
                         },
                       })}
                     />
@@ -276,7 +278,7 @@ const Setting = () => {
 
                   <div className="my-3">
                     <FontAwesomeIcon
-                      className="p-2.5 absolute text-[#23075e] z-50"
+                      className="p-2.5 absolute text-[#23075e] z-100 "
                       icon={faLocationPinLock}
                       size="lg"
                     />
@@ -284,10 +286,10 @@ const Setting = () => {
                       className="text-center p-2 w-full max-w-sm focus:bg-[#722ed1] border-none outline-0 rounded-sm"
                       type="text"
                       placeholder="Your address"
-                      {...register("address", {
+                      {...register('address', {
                         required: {
                           value: true,
-                          message: "Address is required!",
+                          message: 'Address is required!',
                         },
                       })}
                     />
@@ -311,10 +313,10 @@ const Setting = () => {
                         value="Male"
                         className=""
                         checked
-                        {...register("gender", {
+                        {...register('gender', {
                           required: {
                             value: true,
-                            message: "Gender is required!",
+                            message: 'Gender is required!',
                           },
                         })}
                       />
@@ -325,10 +327,10 @@ const Setting = () => {
                       <input
                         type="radio"
                         value="Female"
-                        {...register("gender", {
+                        {...register('gender', {
                           required: {
                             value: true,
-                            message: "Gender is required!",
+                            message: 'Gender is required!',
                           },
                         })}
                       />
@@ -341,10 +343,10 @@ const Setting = () => {
                     <input
                       type="file"
                       className="text-white py-2 mt-2 w-full max-w-sm rounded-sm"
-                      {...register("uploadFile", {
+                      {...register('uploadFile', {
                         required: {
                           value: true,
-                          message: "Image is required!",
+                          message: 'Image is required!',
                         },
                       })}
                     />
@@ -371,8 +373,132 @@ const Setting = () => {
           </div>
         </div>
       </div>
+
+      {/* add review */}
+      <Review />
+      {/* <div className="w-[100%] bg-gradient-to-r from-[#101a2d] to-[#173350] to-[#1c2a50] mt-20 rounded-sm pb-12">
+        <h1 className="text-white text-3xl font-bold text-center py-6">
+          Add Your Review
+        </h1>
+        <div className=" flex justify-center">
+          <form onSubmit={handleReview} className="text-center">
+           
+
+            <textarea
+              type="text"
+              placeholder="Write Your Review"
+              value={nam}
+              rows="8"
+              cols="50"
+              onChange={(e) => setNam(e.target.value)}
+              className="bg-[#1c2a4f] px-4 py-2 text-white rounded-md focus:bg-[#35368a] outline-0 border-none"
+            />
+            <br />
+            <div className="text-left px-2 py-4 flex ">
+              <label className="text-white text-xl text-left mr-4">
+                Rating:
+              </label>
+              <div className="rating rating-md rating-half">
+                <input
+                  type="radio"
+                  name="rating-10"
+                  className="rating-hidden"
+                />
+                <input
+                  type="radio"
+                  name="rating-10"
+                  className="bg-indigo-500 mask mask-star-2 mask-half-1"
+                  value={0.5}
+                  checked={rating === 0.5}
+                  onChange={handleRatingChange}
+                />
+                <input
+                  type="radio"
+                  name="rating-10"
+                  className="bg-indigo-500 mask mask-star-2 mask-half-2"
+                  value={1}
+                  checked={rating === 1}
+                  onChange={handleRatingChange}
+                />
+                <input
+                  type="radio"
+                  name="rating-10"
+                  className="bg-indigo-500 mask mask-star-2 mask-half-1"
+                  value={1.5}
+                  checked={rating === 1.5}
+                  onChange={handleRatingChange}
+                />
+                <input
+                  type="radio"
+                  name="rating-10"
+                  className="bg-indigo-500 mask mask-star-2 mask-half-2"
+                  value={2}
+                  checked={rating === 2}
+                  onChange={handleRatingChange}
+                />
+                <input
+                  type="radio"
+                  name="rating-10"
+                  className="bg-indigo-500 mask mask-star-2 mask-half-1"
+                  value={2.5}
+                  checked={rating === 2.5}
+                  onChange={handleRatingChange}
+                />
+                <input
+                  type="radio"
+                  name="rating-10"
+                  className="bg-indigo-500 mask mask-star-2 mask-half-2"
+                  value={3}
+                  checked={rating === 3}
+                  onChange={handleRatingChange}
+                />
+                <input
+                  type="radio"
+                  name="rating-10"
+                  className="bg-indigo-500 mask mask-star-2 mask-half-1"
+                  value={3.5}
+                  checked={rating === 3.5}
+                  onChange={handleRatingChange}
+                />
+                <input
+                  type="radio"
+                  name="rating-10"
+                  className="bg-indigo-500 mask mask-star-2 mask-half-2"
+                  value={4}
+                  checked={rating === 4}
+                  onChange={handleRatingChange}
+                />
+                <input
+                  type="radio"
+                  name="rating-10"
+                  className="bg-indigo-500 mask mask-star-2 mask-half-1"
+                  value={4.5}
+                  checked={rating === 4.5}
+                  onChange={handleRatingChange}
+                />
+                <input
+                  type="radio"
+                  name="rating-10"
+                  className="bg-indigo-500 mask mask-star-2 mask-half-2"
+                  value={5}
+                  checked={rating === 5}
+                  onChange={handleRatingChange}
+                />
+              </div>
+            </div>
+
+            <button
+              type="submit"
+              className="text-[#13bab9] btn bg-[#403daf] rounded-md mt-8"
+            >
+              Submit
+            </button>
+          </form>
+        </div>
+      </div> */}
     </div>
   );
 };
 
 export default Setting;
+// how to add dynamic rating with daisyui in react
