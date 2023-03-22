@@ -3,10 +3,11 @@ import React from 'react';
 
 import Hero from './banner/hero/Hero';
 // import Footer from "../common/Footer/Footer";
-import Slider from './carousel/Slider';
+// import Slider from './carousel/Slider';
 import Banner from './Banner';
 import Welcome from './Welcome';
 import Services from './Services';
+import Testimonial from './Testimonial';
 
 const Home = () => {
   return (
@@ -14,10 +15,11 @@ const Home = () => {
       <Banner />
       <Welcome />
       <Services />
+      <Testimonial />
       {/* <Searchbar /> */}
       {/* <Banner /> */}
       <Hero />
-      <Slider />
+      {/* <Slider /> */}
       {/* <Footer/> */}
       {/* <div></div>
       <div></div> */}

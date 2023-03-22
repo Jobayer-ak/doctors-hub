@@ -1,4 +1,4 @@
-input[type="radio"]{
+.review-form input[type="radio"]{
     display: none;
 }
 .star{

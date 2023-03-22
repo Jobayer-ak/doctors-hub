@@ -44,6 +44,7 @@ const Setting = () => {
   }
 
   // console.log('Data ', data);
+  console.log("URL: ",data.user.imageURL)
 
   const { _id, email, gender, mobile, name, address, imageURL } = data.user;
   const createdDate = new Date(data.user.createdAt);

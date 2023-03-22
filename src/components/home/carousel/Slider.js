@@ -13,22 +13,22 @@ const Slider = () => {
 
   return (
     <div className="lg:max-w-[750px] xl:max-w-[1200px]">
-      <div className="w-full md:w-full lg:w-full">
+      <div className="w-full md:w-full lg:w-1/2">
         <Swiper
           slidesPerView={1}
           spaceBetween={30}
           loop={true}
-          autoplay={{ delay: 2000 }}
+          autoplay={{ delay: 500 }}
           pagination={{
             clickable: true,
           }}
           // navigation={true}
           modules={[Pagination, Autoplay]}
-          className="mySwiper h-[100%] mt-5"
+          className="mySwiper h-[100%] mt-5 w-1/2"
         >
           {info.map((d) => (
             <SwiperSlide>
-              <div className="card w-full bg-[#23075e] shadow-xl min-h-[250px]">
+              <div className="card w-1/2 bg-[#6027da] shadow-xl min-h-[250px]">
                 <div className="card-body">
                   <div className="flex w-full overflow-hidden bg-slate-700">
                     <p className="italic text-xl">

@@ -72,7 +72,7 @@ const Review = ({ userData }) => {
         Add Your Review
       </h1>
       <div className="flex justify-center">
-        <form onSubmit={handleSubmit(onSubmit)} className="text-center">
+        <form onSubmit={handleSubmit(onSubmit)} className="text-center review-form">
           <textarea
             type="text"
             placeholder="Write your review here"
