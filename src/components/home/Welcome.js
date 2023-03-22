@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheckSquare, faPlus } from '@fortawesome/free-solid-svg-icons';
 import { AnimationOnScroll } from 'react-animation-on-scroll';
 import clock from '../../assets/home/clock.gif';
+import { Watch } from 'react-loader-spinner';
 
 const Welcome = () => {
   const specialists = [
@@ -51,7 +52,7 @@ const Welcome = () => {
           {/* Opening time  */}
           <div className="bg-[#1e2148] lg:w-[90%] px-4 pb-12 w-full">
             <img src={clock} alt="" className="w-[150px] h-auto" />
-
+            
             <h2 className="text-[#25beef] text-3xl mb-4">Opening Time</h2>
 
             <AnimationOnScroll animateIn="animate__fadeIn">
