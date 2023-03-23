@@ -16,49 +16,93 @@ import {
   faClock,
 } from '@fortawesome/free-solid-svg-icons';
 import { useForm } from 'react-hook-form';
+import * as yup from 'yup';
 import Loader from '../common/Loading/Loader';
 import SlotModal from './SlotModal';
 import baseURL from '../../utils/baseURL';
-import './doctor.css';
+import axios from 'axios';
+import Swal from 'sweetalert2';
+
+const schema = yup.object().shape({
+  docImage: yup
+    .mixed()
+    .required('You need to provide a file')
+    .test('fileSize', 'The file is too large', (value) => {
+      return value && value[0].size <= 2000000;
+    }),
+});
 
 const AddDoctor = () => {
   const [loading, setLoading] = useState(false);
   const [modalData, setModalData] = useState([]);
+  // const [fileSize, setFileSize] = useState(0);
   const {
     register,
     formState: { errors },
     reset,
     handleSubmit,
-  } = useForm();
+    // errors
+  } = useForm({ validationSchema: schema });
 
   const [addError, setAddError] = useState('');
 
   // console.log(typeof modalData);
 
   const onSubmit = async (data) => {
-    setLoading(true);
     data.time_slots = modalData;
 
     const newData = { ...data };
     console.log(newData);
 
-    await baseURL
-      .post('/admin/addDoctor', data, {
-        withCredentials: true,
-      })
-      .then((res) => {
-        setLoading(false);
-        console.log(res.data);
-        if (res.data.status === 403) {
-          setAddError(res.data.message);
-        }
-        reset();
-      })
-      .catch((err) => {
-        setLoading(false);
-        console.log(err);
-        // setLoginError(err.response.data.message);
-      });
+    // imgbb api key
+    const imgStorageKey = '23d6548fb8456e2bee8c9306819c612c';
+
+    const imgbbUrl = `https://api.imgbb.com/1/upload?key=${imgStorageKey}`;
+
+    const image = data.docImage[0];
+    // console.log(image);
+    const formData = new FormData();
+    formData.append('image', image);
+
+    // await axios
+    //   .post(imgbbUrl, formData)
+    //   .then((res) => {
+    //     setLoading(true);
+    //     if (res.data.success) {
+    //       const imgurl = res.data.data.display_url;
+    //       // console.log(imgurl);
+
+    //       data.imageURL = imgurl;
+
+    //       baseURL
+    //         .post('/admin/addDoctor', data, {
+    //           withCredentials: true,
+    //         })
+    //         .then((res) => {
+    //           setLoading(false);
+    //           console.log(res.data);
+    //           if (res.data.status === 403) {
+    //             setAddError(res.data.message);
+    //           }
+    //           reset();
+    //         })
+    //         .catch((err) => {
+    //           setLoading(false);
+    //           console.log(err);
+    //           // setLoginError(err.response.data.message);
+    //         });
+    //     }
+    //   })
+    //   .catch((err) => {
+    //     setLoading(false);
+    //     if (err) {
+    //       Swal.fire({
+    //         icon: 'error',
+    //         title: 'Oops...',
+    //         text: 'Something went wrong with image!',
+    //       });
+    //     }
+    //   });
   };
 
   if (loading) {
@@ -463,6 +507,14 @@ const AddDoctor = () => {
                   file:bg-gradient-to-r file:from-indigo-800 file:to-indigo-600
                   hover:file:cursor-pointer hover:file:opacity-80
                 "
+                
+                // accept=".jpg, .png, .jpeg"
+                {...register('docImage', {
+                  required: {
+                    value: true,
+                    message: 'Image is required!',
+                  },
+                })}
               />
             </label>
 
@@ -483,4 +535,4 @@ const AddDoctor = () => {
 
 export default AddDoctor;
 
-// how to remove
+// how to validate image dimension and size and formar with YUP in react
