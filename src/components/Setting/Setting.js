@@ -44,7 +44,7 @@ const Setting = () => {
   }
 
   // console.log('Data ', data);
-  console.log("URL: ",data.user.imageURL)
+  console.log('URL: ', data.user.imageURL);
 
   const { _id, email, gender, mobile, name, address, imageURL } = data.user;
   const createdDate = new Date(data.user.createdAt);
@@ -141,10 +141,6 @@ const Setting = () => {
         }
       });
   };
-
-  if (loading) {
-    return <Loader />;
-  }
 
   return (
     <div className="lg:w-[83%] md:min-h-screen my-0 bg-[#23075e] lg:border-l-4 lg:border-l-4 border-solid border-[#722ED1] z-10 lg:pb-5 py-6 px-5 md:px-10">
@@ -338,17 +334,19 @@ const Setting = () => {
                   </div>
 
                   <div className="mb-8 w-full text-left text-white">
-                    <label className="font-bold">Image</label>
-                    <input
-                      type="file"
-                      className="text-white py-2 mt-2 w-full max-w-sm rounded-sm"
-                      {...register('uploadFile', {
-                        required: {
-                          value: true,
-                          message: 'Image is required!',
-                        },
-                      })}
-                    />
+                    <label className="flex justify-around items-center font-bold">
+                      Image:
+                      <input
+                        type="file"
+                        className="text-white py-2 w-[75%] max-w-sm rounded-sm"
+                        {...register('uploadFile', {
+                          required: {
+                            value: true,
+                            message: 'Image is required!',
+                          },
+                        })}
+                      />
+                    </label>
 
                     {errors.uploadFile && (
                       <p className="text-white mt-2">

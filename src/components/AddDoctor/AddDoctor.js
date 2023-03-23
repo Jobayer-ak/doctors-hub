@@ -1,6 +1,6 @@
-import React, { useState } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEnvelope, faIdCard } from "@fortawesome/free-regular-svg-icons";
+import React, { useState } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEnvelope, faIdCard } from '@fortawesome/free-regular-svg-icons';
 import {
   faHospital,
   faBriefcaseMedical,
@@ -14,11 +14,12 @@ import {
   faCodeBranch,
   faUsd,
   faClock,
-} from "@fortawesome/free-solid-svg-icons";
-import { useForm } from "react-hook-form";
-import Loader from "../common/Loading/Loader";
-import SlotModal from "./SlotModal";
-import baseURL from "../../utils/baseURL";
+} from '@fortawesome/free-solid-svg-icons';
+import { useForm } from 'react-hook-form';
+import Loader from '../common/Loading/Loader';
+import SlotModal from './SlotModal';
+import baseURL from '../../utils/baseURL';
+import './doctor.css';
 
 const AddDoctor = () => {
   const [loading, setLoading] = useState(false);
@@ -30,7 +31,7 @@ const AddDoctor = () => {
     handleSubmit,
   } = useForm();
 
-  const [loginError, setLoginError] = useState("");
+  const [addError, setAddError] = useState('');
 
   // console.log(typeof modalData);
 
@@ -42,14 +43,14 @@ const AddDoctor = () => {
     console.log(newData);
 
     await baseURL
-      .post("/admin/addDoctor", data, {
+      .post('/admin/addDoctor', data, {
         withCredentials: true,
       })
       .then((res) => {
         setLoading(false);
         console.log(res.data);
         if (res.data.status === 403) {
-          setLoginError(res.data.message);
+          setAddError(res.data.message);
         }
         reset();
       })
@@ -76,9 +77,9 @@ const AddDoctor = () => {
           className="mt-8 md:bg-[#23075e] text-center relative"
           onSubmit={handleSubmit(onSubmit)}
         >
-          <div className="lg:flex lg:justify-around p-4">
+          <div className="lg:flex lg:justify-between p-4">
             {/* First part */}
-            <div>
+            <div className="w-[100%]">
               <div className="">
                 <FontAwesomeIcon
                   className="p-2.5 absolute text-[#23075e]"
@@ -86,14 +87,14 @@ const AddDoctor = () => {
                   size="lg"
                 />
                 <input
-                  className="text-center p-2 w-full md:w-96 ma-w-md focus:bg-[#722ed1] border-none outline-0 rounded-sm"
+                  className="text-center p-2 w-full max-w-md focus:bg-[#722ed1] border-none outline-0 rounded-sm"
                   type="text"
                   placeholder="Doctor's Full Name"
-                  {...register("name", {
-                    required: "Name is required!",
+                  {...register('name', {
+                    required: 'Name is required!',
                     maxLength: {
                       value: 35,
-                      message: "Too Large! Not more than 35 characters.",
+                      message: 'Too Large! Not more than 35 characters.',
                     },
                   })}
                 />
@@ -109,17 +110,17 @@ const AddDoctor = () => {
                   size="lg"
                 />
                 <input
-                  className="text-center p-2 w-full md:w-96 ma-w-md  focus:bg-[#722ed1] border-none outline-0 rounded-sm"
+                  className="text-center p-2 w-full max-w-md focus:bg-[#722ed1] border-none outline-0 rounded-sm"
                   type="email"
                   placeholder="Enter Email"
-                  {...register("email", {
+                  {...register('email', {
                     required: {
                       value: true,
-                      message: "Email is required!",
+                      message: 'Email is required!',
                     },
 
                     pattern: /[a-z0-9]+@[a-z]+\.[a-z]{2,3}/,
-                    message: "Provide a valid email!",
+                    message: 'Provide a valid email!',
                   })}
                 />
                 {errors.email && (
@@ -134,13 +135,13 @@ const AddDoctor = () => {
                   size="lg"
                 />
                 <input
-                  className="text-center p-2 w-full md:w-96 ma-w-md  focus:bg-[#722ed1] border-none outline-0 rounded-sm"
+                  className="text-center p-2 w-full max-w-md focus:bg-[#722ed1] border-none outline-0 rounded-sm"
                   type="text"
                   placeholder="Mobile Number"
-                  {...register("contact_number", {
+                  {...register('contact_number', {
                     required: {
                       value: true,
-                      message: "Mobile Number is required!",
+                      message: 'Mobile Number is required!',
                     },
                   })}
                 />
@@ -158,13 +159,13 @@ const AddDoctor = () => {
                   size="lg"
                 />
                 <input
-                  className="text-center p-2 w-full md:w-96 max-w-md focus:bg-[#722ed1] border-none outline-0 rounded-sm"
+                  className="text-center p-2 w-full max-w-md focus:bg-[#722ed1] border-none outline-0 rounded-sm"
                   type="text"
                   placeholder="Address"
-                  {...register("address", {
+                  {...register('address', {
                     required: {
                       value: true,
-                      message: "Address is required!",
+                      message: 'Address is required!',
                     },
                   })}
                 />
@@ -180,13 +181,13 @@ const AddDoctor = () => {
                   size="lg"
                 />
                 <input
-                  className="text-center p-2 w-full md:w-96 max-w-md focus:bg-[#722ed1] border-none outline-0 rounded-sm"
+                  className="text-center p-2 w-full max-w-md focus:bg-[#722ed1] border-none outline-0 rounded-sm"
                   type="text"
                   placeholder="NID number"
-                  {...register("nid", {
+                  {...register('nid', {
                     required: {
                       value: true,
-                      message: "NID number is required!",
+                      message: 'NID number is required!',
                     },
                   })}
                 />
@@ -201,13 +202,13 @@ const AddDoctor = () => {
                   size="lg"
                 />
                 <input
-                  className="text-center p-2 w-full md:w-96 max-w-md focus:bg-[#722ed1] border-none outline-0 rounded-sm"
+                  className="text-center p-2 w-full max-w-md focus:bg-[#722ed1] border-none outline-0 rounded-sm"
                   type="text"
                   placeholder="Visit Fee"
-                  {...register("fee", {
+                  {...register('fee', {
                     required: {
                       value: true,
-                      message: "NID number is required!",
+                      message: 'NID number is required!',
                     },
                   })}
                 />
@@ -217,7 +218,7 @@ const AddDoctor = () => {
               </div>
 
               <div>
-                <div className="text-white flex justify-center items-center gap-[50px] md:gap-[75px]">
+                <div className="text-white w-full flex justify-center items-center gap-[50px] md:gap-[120px]">
                   <div>
                     <h3 className="font-bold">Gender</h3>
                   </div>
@@ -228,24 +229,24 @@ const AddDoctor = () => {
                       placeholder="Gender"
                       value="Male"
                       className=""
-                      {...register("gender", {
+                      {...register('gender', {
                         required: {
                           value: true,
-                          message: "Gender is required!",
+                          message: 'Gender is required!',
                         },
                       })}
                     />
                     <p>Male</p>
                   </div>
 
-                  <div className="flex items-center gap-3">
+                  <div className="flex justify-between items-center gap-4">
                     <input
                       type="radio"
                       value="Female"
-                      {...register("gender", {
+                      {...register('gender', {
                         required: {
                           value: true,
-                          message: "Gender is required!",
+                          message: 'Gender is required!',
                         },
                       })}
                     />
@@ -257,10 +258,9 @@ const AddDoctor = () => {
                 )}
               </div>
             </div>
-            {/* First part end */}
 
             {/* second part */}
-            <div>
+            <div className="w-[100%]">
               <div className="mt-8 lg:mt-0 mb-8">
                 <FontAwesomeIcon
                   className="p-2.5 absolute text-[#23075e]"
@@ -268,14 +268,14 @@ const AddDoctor = () => {
                   size="lg"
                 />
                 <input
-                  className="text-center p-2 w-full md:w-96 max-w-md focus:bg-[#722ed1] border-none outline-0 rounded-sm"
+                  className="text-center p-2 w-full max-w-md focus:bg-[#722ed1] border-none outline-0 rounded-sm"
                   type="text"
                   placeholder="Working Hospital Name"
-                  {...register("working_hospital", {
-                    required: "Hospital name is required!",
+                  {...register('working_hospital', {
+                    required: 'Hospital name is required!',
                     maxLength: {
                       value: 35,
-                      message: "Too Large! Not more than 35 characters.",
+                      message: 'Too Large! Not more than 35 characters.',
                     },
                   })}
                 />
@@ -293,14 +293,14 @@ const AddDoctor = () => {
                   size="lg"
                 />
                 <input
-                  className="text-center p-2 w-full md:w-96 max-w-md focus:bg-[#722ed1] border-none outline-0 rounded-sm"
+                  className="text-center p-2 w-full max-w-md focus:bg-[#722ed1] border-none outline-0 rounded-sm"
                   type="text"
                   placeholder="Speciality E.g. Cardiologist"
-                  {...register("speciality", {
-                    required: "docinfo Area name is required!",
+                  {...register('speciality', {
+                    required: 'Doctor speciality is required!',
                     maxLength: {
                       value: 35,
-                      message: "Too Large! Not more than 35 characters.",
+                      message: 'Too Large! Not more than 35 characters.',
                     },
                   })}
                 />
@@ -318,20 +318,20 @@ const AddDoctor = () => {
                   size="lg"
                 />
                 <input
-                  className="text-center p-2 w-full md:w-96 max-w-md focus:bg-[#722ed1] border-none outline-0 rounded-sm"
+                  className="text-center p-2 w-full max-w-md focus:bg-[#722ed1] border-none outline-0 rounded-sm"
                   type="text"
                   placeholder="Department"
-                  {...register("department", {
-                    required: "Department name is required!",
+                  {...register('department', {
+                    required: 'Department name is required!',
                     maxLength: {
                       value: 35,
-                      message: "Too Large! Not more than 35 characters.",
+                      message: 'Too Large! Not more than 35 characters.',
                     },
                   })}
                 />
                 {errors.email && (
                   <p className="text-white mt-2">
-                    {errors.studied_medical_college?.message}
+                    {errors.department?.message}
                   </p>
                 )}
               </div>
@@ -343,14 +343,14 @@ const AddDoctor = () => {
                   size="lg"
                 />
                 <input
-                  className="text-center p-2 w-full md:w-96 max-w-md focus:bg-[#722ed1] border-none outline-0 rounded-sm"
+                  className="text-center p-2 w-full max-w-md focus:bg-[#722ed1] border-none outline-0 rounded-sm"
                   type="text"
                   placeholder="Higher Degree with info"
-                  {...register("higher_degree", {
-                    required: "Higher Degree and University Name is required!",
+                  {...register('higher_degree', {
+                    required: 'Higher Degree and University Name is required!',
                     maxLength: {
                       value: 60,
-                      message: "Too Large! Not more than 35 characters.",
+                      message: 'Too Large! Not more than 35 characters.',
                     },
                   })}
                 />
@@ -368,14 +368,14 @@ const AddDoctor = () => {
 
                 <select
                   placeholder="Branch"
-                  {...register("branch", {
+                  {...register('branch', {
                     required: "Doctor's Hub Branch Name Is Required!",
                     maxLength: {
                       value: 60,
-                      message: "Too Large! Not more than 35 characters.",
+                      message: 'Too Large! Not more than 35 characters.',
                     },
                   })}
-                  className="w-full md:w-96 max-w-md pl-10 text-center font-bold p-2.5 focus:bg-[#722ed1] border-none outline-0 rounded-sm"
+                  className="w-full max-w-md pl-10 text-center font-bold p-2.5 focus:bg-[#722ed1] border-none outline-0 rounded-sm"
                 >
                   <option value="Mymensingh">Mymensingh</option>
                   <option value="Dhaka">Dhaka</option>
@@ -396,10 +396,10 @@ const AddDoctor = () => {
                 />
 
                 <select
-                  {...register("blood_group", {
-                    required: "Blood Group is required.",
+                  {...register('blood_group', {
+                    required: 'Blood Group is required.',
                   })}
-                  className="w-full md:w-96 max-w-md pl-10 text-center font-bold p-2.5 focus:bg-[#722ed1] border-none outline-0 rounded-sm"
+                  className="w-full max-w-md pl-10 text-center font-bold p-2.5 focus:bg-[#722ed1] border-none outline-0 rounded-sm"
                 >
                   <option value="A+">A+</option>
                   <option value="A-">A-</option>
@@ -417,7 +417,7 @@ const AddDoctor = () => {
               <div className="mt-8 mb-0 md:flex md:justify-center">
                 <label
                   htmlFor="my-modal-3"
-                  className="flex justify-start items-center p-2 bg-[#fff] md:w-96 max-w-md rounded-sm hover:bg-[#722ed1] cursor-pointer"
+                  className="flex justify-start items-center p-2 bg-[#fff] w-full max-w-md rounded-sm hover:bg-[#722ed1] cursor-pointer"
                 >
                   <FontAwesomeIcon
                     className="py-2.5 absolute text-[#23075e]"
@@ -428,10 +428,9 @@ const AddDoctor = () => {
                 </label>
               </div>
             </div>
-
-            {/* second part end */}
           </div>
 
+          {/* time slots */}
           <div className="mt-2 w-[100%]">
             <h4 className="text-white font-xl font-bold mb-2">
               Selected Doctor's Time Slots {modalData.length}
@@ -448,7 +447,27 @@ const AddDoctor = () => {
             )}
           </div>
 
-          {loginError && <p className="text-white mt-2">{loginError}</p>}
+          {addError && <p className="text-white mt-2">{addError}</p>}
+
+          {/* upload doctor image */}
+
+          <div className="text-left md:text-center lg:flex lg:justify-center mt-8">
+            <label className="text-white pl-6">
+              <span className="font-bold">Upload Image:</span>
+              <input
+                type="file"
+                class="text-sm text-grey-500 pl-4 md:pl-6 lg:pl-4 mt-4 lg:mt-0
+                  file:mr-4 file:py-3 file:px-10
+                  file:rounded-full file:border-0
+                  file:text-md file:font-semibold  file:text-white
+                  file:bg-gradient-to-r file:from-indigo-800 file:to-indigo-600
+                  hover:file:cursor-pointer hover:file:opacity-80
+                "
+              />
+            </label>
+
+            <p className="text-white mt-2">{errors.docImage?.message}</p>
+          </div>
 
           <input
             className="my-8 text-center text-white font-bold bg-[#722ed1] p-2 w-[92%] w-full md:w-96 lg:w-[350px] transition-all hover:bg-[#9258e5] cursor-pointer rounded-sm"

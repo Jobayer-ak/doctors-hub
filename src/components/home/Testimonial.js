@@ -58,10 +58,10 @@ const Testimonial = () => {
               pagination={{
                 type: 'progressbar',
               }}
-              navigation={true}
+              // navigation={true}
               loop={true}
               autoplay={{ delay: 2000 }}
-              modules={[Autoplay, Pagination, Navigation]}
+              modules={[Autoplay, Pagination]}
               className="mySwiper h-[100%]"
             >
               {reviews?.map((d) => (
