@@ -6,7 +6,7 @@ import {
   faStar,
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import React from 'react';
+import React, { useState } from 'react';
 import { Pagination, Navigation, Autoplay } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
@@ -16,6 +16,7 @@ import baseURL from '../../utils/baseURL';
 import { faThumbsUp } from '@fortawesome/free-regular-svg-icons';
 import { AnimationOnScroll } from 'react-animation-on-scroll';
 import { useQuery } from 'react-query';
+import Loader from '../common/Loading/Loader';
 
 const Testimonial = () => {
   const { data, isLoading } = useQuery(['reviews'], async () => {
@@ -27,7 +28,7 @@ const Testimonial = () => {
   });
 
   if (isLoading) {
-    return <h2 className="text-white">loading....</h2>;
+    return <Loader />;
   }
 
   const reviews = data.result;
@@ -175,3 +176,5 @@ const Testimonial = () => {
 };
 
 export default Testimonial;
+
+// how to get image width using form in reactjs

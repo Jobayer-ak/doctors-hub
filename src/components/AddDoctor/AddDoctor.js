@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEnvelope, faIdCard } from '@fortawesome/free-regular-svg-icons';
 import {
@@ -23,46 +23,128 @@ import baseURL from '../../utils/baseURL';
 import axios from 'axios';
 import Swal from 'sweetalert2';
 
-const schema = yup.object().shape({
-  docImage: yup
-    .mixed()
-    .required('You need to provide a file')
-    .test('fileSize', 'The file is too large', (value) => {
-      return value && value[0].size <= 2000000;
-    }),
-});
-
 const AddDoctor = () => {
   const [loading, setLoading] = useState(false);
   const [modalData, setModalData] = useState([]);
-  // const [fileSize, setFileSize] = useState(0);
+  const [imgWidth, setImgWidth] = useState('');
+  const [imgHeight, setImgHeight] = useState('');
+
   const {
     register,
     formState: { errors },
     reset,
     handleSubmit,
     // errors
-  } = useForm({ validationSchema: schema });
+  } = useForm();
 
   const [addError, setAddError] = useState('');
 
   // console.log(typeof modalData);
 
+  const handleImage = (e) => {
+    e.preventDefault();
+    const image = e.target.hima.files[0];
+
+    // const img = new Image();
+    // img.onload = function () {
+    //   // setLoading(true);
+    //   setImgWidth(img.width);
+    //   setImgHeight(img.height);
+    // };
+
+    // img.src = URL.createObjectURL(image);
+
+  };
+
   const onSubmit = async (data) => {
     data.time_slots = modalData;
 
     const newData = { ...data };
-    console.log(newData);
 
-    // imgbb api key
+    const image = data.docImage[0];
+
+    // console.log(image);
+
+    const img = new Image();
+    img.onload = async function () {
+      // setLoading(true);
+      setImgWidth(img.width);
+      setImgHeight(img.height);
+
+      const { width, height } = img;
+      if (width > 500) {
+        return console.log("too much width: ", width);
+      }
+
+        // imgbb api key
     const imgStorageKey = '23d6548fb8456e2bee8c9306819c612c';
 
     const imgbbUrl = `https://api.imgbb.com/1/upload?key=${imgStorageKey}`;
 
-    const image = data.docImage[0];
-    // console.log(image);
+    // const image = data.docImage[0];
+    console.log("data: ", data);
     const formData = new FormData();
-    formData.append('image', image);
+      formData.append('image', image);
+      
+      await axios
+      .post(imgbbUrl, formData)
+      .then((res) => {
+        setLoading(true);
+        if (res.data.success) {
+          const imgurl = res.data.data.display_url;
+          // console.log(imgurl);
+
+          data.imageURL = imgurl;
+
+          baseURL
+            .post('/admin/addDoctor', data, {
+              withCredentials: true,
+            })
+            .then((res) => {
+              setLoading(false);
+              console.log(res.data);
+              if (res.data.status === 403) {
+                setAddError(res.data.message);
+              }
+              reset();
+            })
+            .catch((err) => {
+              setLoading(false);
+              console.log(err);
+              // setLoginError(err.response.data.message);
+            });
+        }
+      })
+      .catch((err) => {
+        setLoading(false);
+        if (err) {
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Something went wrong with image!',
+          });
+        }
+      });
+
+
+    };
+
+    img.src = URL.createObjectURL(image);
+
+    if (imgWidth > 400) {
+      return console.log('image width not more than 400px');
+    }
+
+
+    // // imgbb api key
+    // const imgStorageKey = '23d6548fb8456e2bee8c9306819c612c';
+
+    // const imgbbUrl = `https://api.imgbb.com/1/upload?key=${imgStorageKey}`;
+
+    // // const image = data.docImage[0];
+    // console.log("data: ", data);
+    // const formData = new FormData();
+    // formData.append('image', image);
 
     // await axios
     //   .post(imgbbUrl, formData)
@@ -496,7 +578,7 @@ const AddDoctor = () => {
           {/* upload doctor image */}
 
           <div className="text-left md:text-center lg:flex lg:justify-center mt-8">
-            <label className="text-white pl-6">
+            <label htmlFor="file" className="text-white pl-6">
               <span className="font-bold">Upload Image:</span>
               <input
                 type="file"
@@ -507,8 +589,7 @@ const AddDoctor = () => {
                   file:bg-gradient-to-r file:from-indigo-800 file:to-indigo-600
                   hover:file:cursor-pointer hover:file:opacity-80
                 "
-                
-                // accept=".jpg, .png, .jpeg"
+                accept="image/*"
                 {...register('docImage', {
                   required: {
                     value: true,
@@ -517,6 +598,17 @@ const AddDoctor = () => {
                 })}
               />
             </label>
+
+            <p className="text-white">
+              Image dimensions:{' '}
+              {imgWidth > 400
+                ? 'image dimension not more than 400 x 400px'
+                : imgWidth}
+            </p>
+
+            {errors.docImage === 'validate' && (
+              <p className="text-white mt-2">{errors.docImage}</p>
+            )}
 
             <p className="text-white mt-2">{errors.docImage?.message}</p>
           </div>
@@ -535,4 +627,38 @@ const AddDoctor = () => {
 
 export default AddDoctor;
 
-// how to validate image dimension and size and formar with YUP in react
+// how onload method make synchronously
+
+// function App() {
+//   const [image, setImage] = useState('');
+
+//   const handleChange = (e) => {
+//     const selectedImage = e.target.files[0];
+//     const reader = new FileReader();
+//     reader.onloadend = () => {
+//       const img = new Image();
+//       img.onload = () => {
+//         const { width, height } = img;
+//         console.log(`Image width: ${width}, Image height: ${height}`);
+//       };
+//       img.src = reader.result;
+//     };
+//     if (selectedImage) {
+//       reader.readAsDataURL(selectedImage);
+//       setImage(selectedImage);
+//     }
+//   };
+
+//   return (
+//     <div>
+//       <h1>Check image width and height after uploading</h1>
+//       <form>
+//         <input type='file' onChange={handleChange} />
+//       </form>
+//     </div>
+//   );
+// }
+
+// export default App;
+
+// 
