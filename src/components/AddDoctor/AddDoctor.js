@@ -72,8 +72,8 @@ const AddDoctor = () => {
       setImgHeight(img.height);
 
       const { width, height } = img;
-      if (width > 500) {
-        return console.log("too much width: ", width);
+      if (width > 900 && height > 9000) {
+        return console.log("too much width and width: ", width);
       }
 
         // imgbb api key

@@ -8,6 +8,7 @@ import Banner from './Banner';
 import Welcome from './Welcome';
 import Services from './Services';
 import Testimonial from './Testimonial';
+import DoctorsSlider from './DoctorsSlider';
 
 const Home = () => {
   return (
@@ -16,6 +17,7 @@ const Home = () => {
       <Welcome />
       <Services />
       <Testimonial />
+      <DoctorsSlider/>
       {/* <Searchbar /> */}
       {/* <Banner /> */}
       <Hero />

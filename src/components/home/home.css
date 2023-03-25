@@ -1,3 +1,25 @@
+.left-content{
+  position:relative;
+}
+
+.left-content::after{
+  content:"";
+  display:block;
+  height: 0;
+  width: 4px;
+  background: blue;
+  left: 0px;
+  top: 0px;
+  bottom:0px;
+  position: absolute;
+}
+
+.parent:hover .left-content::after {
+  height: 100%;
+  transition: height 0.5s;
+}
+
+
 .line {
   /* margin: 100px ; */
   position: relative;
