@@ -192,7 +192,7 @@ const AddDoctor = () => {
   }
 
   return (
-    <div className="w-full lg:w-[82%] bg-[#23075e] lg:border-l-4 lg:border-l-4 border-solid border-[#722ED1] z-10 lg:pb-5">
+    <div className="w-full lg:w-[86%] bg-[#23075e] ml-0 lg:ml-1 border-solid border-[#722ED1] z-10 lg:pb-5">
       <div className="pt-3 md:pt-6 pb-2.5 text-center mx-4 lg:mx-6">
         <h2 className="text-[#722ed1] font-bold text-4xl bg-white inline-block py-3 px-6 rounded-full">
           <span className="mr-4">Add Doctor</span>

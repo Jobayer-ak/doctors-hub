@@ -25,7 +25,7 @@ import 'swiper/css/pagination';
 
 const About = () => {
   return (
-    <div className="mx-4 lg:w-[80%] rounded-sm py-2">
+    <div className="ml-1 lg:w-[82%] rounded-sm">
       <div className="bg-[#23075e]">
         <div className="bg-[#1e2148] py-[60px] mb-[60px]">
           <h2 className="text-white font-bold text-3xl text-center">

@@ -4,7 +4,7 @@ import AppointmentBanner from "./AppointmentBanner";
 
 const Appointments = () => {
   return (
-    <div className="mx-4 md:mx-10 lg:mx-4 mt-6 md:w-[90%] lg:w-[83%] min-h-screen md:h-auto">
+    <div className="lg:ml-1 w-full lg:w-[86%]">
       <AppointmentBanner />
     </div>
   );

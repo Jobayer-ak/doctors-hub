@@ -9,16 +9,34 @@ import doc2 from '../../assets/home/docSlider/doc2.jpg';
 import doc3 from '../../assets/home/docSlider/doc3.jpg';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import './home.css';
+import { useQuery } from 'react-query';
+import baseURL from '../../utils/baseURL';
+import Loader from '../common/Loading/Loader';
+import { Puff } from 'react-loader-spinner';
 
 const DoctorsSlider = () => {
-  const images = [doc1, doc2, doc3];
+  const { data, isLoading } = useQuery(['sliderDocs'], async () => {
+    const res = await baseURL.get('/all-doctors', {
+      withCredentials: true,
+    });
+    const result = res.data;
+    return result;
+  });
+
+  // if (isLoading) {
+  //   return <Loader />;
+  // }
+
+  // console.log("doctors: ",data);
+
+  // const images = [doc1, doc2, doc3];
 
   return (
-    <div className="bg-[#23075e] w-full my-6 px-4">
+    <div className="bg-[#23075e] w-full px-4 pb-12">
       {/* top part  */}
-      <div className="w-[100%] text-center mb-12">
+      <div className="w-[100%] text-center mb-6">
         <AnimationOnScroll animateIn="animate__fadeInDown">
-          <h4 className="mt-[30px] md:mt-[100px] text-[#14aab1] font-bold uppercase pl-12 line inline-block">
+          <h4 className="mt-[30px] md:mt-[80px] text-[#14aab1] font-bold uppercase pl-12 line inline-block">
             Doctors
           </h4>
         </AnimationOnScroll>
@@ -34,32 +52,63 @@ const DoctorsSlider = () => {
       </div>
 
       {/* slider */}
-      <div className="py-10">
-        <div className="my-12">
+      {/* < className="py-10"> */}
+        <div className="py-12">
           <Swiper
-            slidesPerView={3}
+            slidesPerView={1}
             spaceBetween={30}
             loop={true}
             freeMode={true}
             autoplay={{ delay: 2000 }}
-            // pagination={{
-            //   type: 'progressbar',
-            // }}
+            breakpoints={{
+              640: {
+                slidesPerView: 1,
+                spaceBetween: 2,
+              },
+              768: {
+                slidesPerView: 2,
+                spaceBetween: 40,
+              },
+              1024: {
+                slidesPerView: 3,
+                spaceBetween: 50,
+              },
+            }}
             modules={[Autoplay, Pagination]}
             className="mySwiper"
           >
-            {images?.map((i) => (
+            {isLoading && (
+              <div className='flex justify-center'>
+                <Puff
+                  height="100"
+                  width="100"
+                  radius={1}
+                  color="#fff"
+                  ariaLabel="puff-loading"
+                  wrapperStyle={{}}
+                  wrapperClass=""
+                  visible={true}
+                /> 
+              </div>
+            )}
+            {data?.map((i) => (
               <SwiperSlide>
                 <div className="relative">
                   <div className="parent">
-                    <img src={i} className=" w-full opacity-75" alt="" />
+                    <img
+                      src={i.imageURL}
+                      className=" w-[400px] h-[340px] opacity-75"
+                      alt=""
+                    />
 
                     <div className="absolute w-full h-full px-4 bottom-0 pb-4 flex items-end justify-start opacity-0 hover:opacity-100 transition-all duration-500">
                       <div className="bg-white w-full px-4 py-2 left-content">
                         <h4 className="text-2xl font-bold text-blue-700">
-                          Dr. Hendrik
+                          {i.name}
                         </h4>
-                        <h6 className="text-gray-700 text-xl">Cardiologist</h6>
+                        <h6 className="text-gray-700 text-xl">
+                          {i.speciality}
+                        </h6>
                       </div>
                     </div>
                   </div>
@@ -113,11 +162,9 @@ const DoctorsSlider = () => {
             ))}
           </Swiper>
         </div>
-      </div>
+      {/* </div> */}
     </div>
   );
 };
 
 export default DoctorsSlider;
-
-

@@ -12,9 +12,9 @@ import AuthContext from '../../context/AuthProvider';
 import { useQuery } from 'react-query';
 import { format } from 'date-fns';
 import Swal from 'sweetalert2';
-import Loader from '../common/Loading/Loader';
 import baseURL from '../../utils/baseURL';
 import Review from './Review';
+import { Dna} from 'react-loader-spinner';
 
 const Setting = () => {
   const {
@@ -28,6 +28,8 @@ const Setting = () => {
   // const [updateError, setUpdateError] = useState("");
   const [loading, setLoading] = useState(false);
 
+  let load = '';
+
   const { data, isLoading, refetch } = useQuery(
     ['info', user.userEmail],
     async () => {
@@ -40,7 +42,18 @@ const Setting = () => {
   );
 
   if (isLoading) {
-    return <Loader />;
+    return (load = (
+      <div className="flex justify-center items-center bg-[#23075e] ml-1 w-[86%] h-[100vh]">
+        <Dna
+          visible={true}
+          height="120"
+          width="120"
+          ariaLabel="dna-loading"
+          wrapperStyle={{}}
+          wrapperClass="dna-wrapper"
+        />
+      </div>
+    ));
   }
 
   // console.log('Data ', data);
@@ -143,54 +156,58 @@ const Setting = () => {
   };
 
   return (
-    <div className="lg:w-[83%] md:min-h-screen my-0 bg-[#23075e] lg:border-l-4 lg:border-l-4 border-solid border-[#722ED1] z-10 lg:pb-5 py-6 px-5 md:px-10">
+    <div className="w-full lg:w-[86%] md:min-h-screen bg-[#0a062c] z-10">
       {/* account info */}
-      <div className="lg:flex lg:justify-around bg-gradient-to-r from-slate-800 to-indigo-800 to-indigo-600 p-4 md:px-10 rounded-sm">
-        <div className="mt-4 flex justify-center">
-          <img
-            src={imageURL}
-            alt=""
-            className="w-[350px] h-[350px] rounded-full"
-          />
-        </div>
+      {isLoading ? (
+        load
+      ) : (
+        <div className="lg:flex lg:justify-around bg-[#23075e] ml-0 lg:ml-1 px-4 py-12 md:px-10 rounded-sm">
+          <div className="mt-0 flex justify-center">
+            <img
+              src={imageURL}
+              alt=""
+              className="w-[350px] h-[350px] rounded-full"
+            />
+          </div>
 
-        <div className="mt-10 lg:mt-0">
-          <h2 className="text-white font-bold text-3xl text-center mb-6">
-            My Account Information
-          </h2>
+          <div className="mt-10 lg:mt-0">
+            <h2 className="text-[#f68685] font-bold text-3xl text-center mb-6">
+              My Account Information
+            </h2>
 
-          <p className="text-white font-bold my-3">
-            Name: <span className="ml-4 text-[#a8a29e]">{name}</span>
-          </p>
-          <p className="text-white font-bold my-3">
-            Email: <span className="ml-4 text-[#a8a29e]">{email}</span>
-          </p>
-          <p className="text-white font-bold my-3">
-            Mobile: <span className="ml-4 text-[#a8a29e]">{mobile}</span>
-          </p>
-          <p className="text-white font-bold my-3">
-            Gender: <span className="ml-4 text-[#a8a29e]">{gender}</span>
-          </p>
-          <p className="text-white font-bold my-3">
-            Address: <span className="ml-4 text-[#a8a29e]">{address}</span>
-          </p>
-          <p className="text-white font-bold my-3">
-            User since:{' '}
-            <span className="ml-4 text-[#a8a29e]">
-              {format(createdDate, 'PP')}
-            </span>
-          </p>
+            <p className="text-white font-bold my-3">
+              Name: <span className="ml-4 text-[#a8a29e]">{name}</span>
+            </p>
+            <p className="text-white font-bold my-3">
+              Email: <span className="ml-4 text-[#a8a29e]">{email}</span>
+            </p>
+            <p className="text-white font-bold my-3">
+              Mobile: <span className="ml-4 text-[#a8a29e]">{mobile}</span>
+            </p>
+            <p className="text-white font-bold my-3">
+              Gender: <span className="ml-4 text-[#a8a29e]">{gender}</span>
+            </p>
+            <p className="text-white font-bold my-3">
+              Address: <span className="ml-4 text-[#a8a29e]">{address}</span>
+            </p>
+            <p className="text-white font-bold my-3">
+              User since:{' '}
+              <span className="ml-4 text-[#a8a29e]">
+                {format(createdDate, 'PP')}
+              </span>
+            </p>
 
-          <div className="text-center my-6">
-            <label
-              htmlFor="my-modal-3"
-              className="btn bg-[#0a062c] rounded-md mr-5"
-            >
-              update profile
-            </label>
+            <div className="text-center mt-12">
+              <label
+                htmlFor="my-modal-3"
+                className="btn bg-[#f68685] text-[#381f6e] rounded-sm hover:bg-slate-500 hover:text-white"
+              >
+                update profile
+              </label>
+            </div>
           </div>
         </div>
-      </div>
+      )}
 
       {/* modal */}
       <div className="text-center">

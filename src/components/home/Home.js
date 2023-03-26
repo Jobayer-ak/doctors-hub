@@ -12,7 +12,7 @@ import DoctorsSlider from './DoctorsSlider';
 
 const Home = () => {
   return (
-    <div className="lg:w-[80%] lg:mx-4 py-2 lg:mx-4 bg-[#0a062c] text-white">
+    <div className="w-full lg:w-[82%] py-0 lg:ml-1 bg-[#0a062c] text-white">
       <Banner />
       <Welcome />
       <Services />
@@ -20,7 +20,7 @@ const Home = () => {
       <DoctorsSlider/>
       {/* <Searchbar /> */}
       {/* <Banner /> */}
-      <Hero />
+      {/* <Hero /> */}
       {/* <Slider /> */}
       {/* <Footer/> */}
       {/* <div></div>

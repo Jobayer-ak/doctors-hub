@@ -6,6 +6,7 @@ import { useForm } from 'react-hook-form';
 import { Puff } from 'react-loader-spinner';
 import baseURL from '../../utils/baseURL';
 import Swal from 'sweetalert2';
+import reviewImage from "../../assets/review/comment.png"
 
 const Review = ({ userData }) => {
   const [rating, setRating] = useState(null);
@@ -67,19 +68,25 @@ const Review = ({ userData }) => {
   };
 
   return (
-    <div className="w-[100%] bg-gradient-to-r from-[#101a2d] to-[#173350] to-[#1c2a50] mt-20 rounded-sm pb-12 relative">
-      <h1 className="text-white text-3xl font-bold text-center py-6">
+    <div className="bg-[#23075e] mt-1 ml-0 lg:ml-1 pb-12 relative">
+      <h1 className="text-[#f68685] text-3xl font-bold text-center pt-12 pb-12">
         Add Your Review
       </h1>
-      <div className="flex justify-center">
-        <form onSubmit={handleSubmit(onSubmit)} className="text-center review-form">
+      <div className="md:flex md:justify-around md:items-center">
+
+        <div className='hidden lg:block'>
+          <img src={ reviewImage} alt='comment' className='w-full md:[60%]'/>
+        </div>
+        <form
+          onSubmit={handleSubmit(onSubmit)}
+          className="text-center review-form"
+        >
           <textarea
             type="text"
-            placeholder="Write your review here"
+            placeholder="Write your review here...."
             rows={8}
-            cols={50}
-            // onChange={(e) => setComment(e.target.value)}
-            className="bg-[#1c2a4f] px-4 py-2 text-white rounded-md focus:bg-[#35368a] outline-0 border-none"
+            cols={30}
+            className="bg-[#3a5191] px-4 py-2 text-white rounded-md focus:bg-[#35368a] outline-0 border-none"
             {...register('review', {
               required: {
                 value: true,
@@ -96,13 +103,13 @@ const Review = ({ userData }) => {
             })}
           />
           {errors.review && (
-            <p className="text-white text-left pl-2 mt-2 ">
+            <p className="text-white text-left pl-8 md:pl-2 mt-2 ">
               {errors.review?.message}
             </p>
           )}
           <br />
 
-          <div className="text-left px-2 py-4 flex items-center">
+          <div className="text-left pl-8 md:pl-2 lg:px-2 py-4 mt-4 flex items-center">
             <span className="mr-2 text-white font-bold">Rating:</span>
             {[...Array(5)].map((star, i) => {
               const ratingValue = i + 1;
@@ -134,12 +141,12 @@ const Review = ({ userData }) => {
             })}
           </div>
           {errors.rating && (
-            <p className="text-white text-left pl-2 mt-2">
+            <p className="text-white text-left pl-8 md:pl-2 mt-2">
               {errors.rating?.message}
             </p>
           )}
           {rating ? (
-            <h2 className="text-white text-xl text-left pl-2">
+            <h2 className="text-white text-xl text-left pl-8 md:pl-2">
               Your rating is: {rating}
             </h2>
           ) : (
@@ -162,7 +169,7 @@ const Review = ({ userData }) => {
           ) : (
             <button
               type="submit"
-              className="text-[#13bab9] btn bg-[#403daf] rounded-md mt-6"
+              className="text-[#381f6e] btn bg-[#f68685] rounded-sm mt-6 hover:bg-slate-500 hover:text-white"
             >
               Submit
             </button>

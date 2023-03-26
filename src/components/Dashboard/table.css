@@ -4,7 +4,7 @@ table {
   background: #4a1a98;
   color: white;
   border-radius: 50%; 
- 
+  /* padding: 8px; */
 }
 
 table td,

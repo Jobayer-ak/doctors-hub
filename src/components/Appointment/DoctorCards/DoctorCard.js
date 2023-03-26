@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import baseURL from "../../../utils/baseURL";
 import { useQuery } from "react-query";
 import { format } from "date-fns";
+import { Puff } from "react-loader-spinner";
 
 const DoctorCard = ({ date, doctor, setDocinfo }) => {
   const formatedDate = format(date, "PP");
@@ -19,7 +20,16 @@ const DoctorCard = ({ date, doctor, setDocinfo }) => {
   );
 
   if (isLoading) {
-    return <h2 className="text-white font-bold text-xl">Loading....</h2>;
+    return <Puff
+    height="60"
+    width="60"
+    radius={1}
+    color="#4fa94d"
+    ariaLabel="puff-loading"
+    wrapperStyle={{}}
+    wrapperClass=""
+    visible={true}
+  />;
   }
 
   console.log(data);

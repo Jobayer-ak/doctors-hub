@@ -3,7 +3,7 @@ import React, { useState } from "react";
 // import "react-day-picker/dist/style.css";
 // import "./dayCalender.css";
 import { Calendar } from "react-calendar";
-import "../home/banner/hero/calender.css";
+// import "../home/banner/hero/calender.css";
 import DoctorCards from "./DoctorCards/DoctorCards";
 
 const AppointmentBanner = () => {
@@ -32,15 +32,15 @@ const AppointmentBanner = () => {
   };
 
   return (
-    <div className="pb-4">
+    <div className="">
       {/*  all city branches */}
-      <div className="lg:grid grid-cols-2 gap-4 lg:gap-0 mb-4">
-        <div className="text-white rounded-md mb-4 lg:mb-0">
+      <div className="lg:flex justify-center gap-1 mb-1">
+        <div className="text-white mb-1 lg:mb-0">
           <Calendar value={date} onChange={onDateChange} />
         </div>
 
-        <div className="bg-[#23075e] px-4 py-3 text-center rounded-md relative">
-          <h2 className="font-bold text-2xl text-white mb-3">Select City</h2>
+        <div className="bg-[#23075e] w-[100%] px-4 py-3 text-center relative">
+          <h2 className="font-bold text-2xl text-white mt-3 mb-6">Select City</h2>
           <div className="grid grid-cols-2 lg:grid-cols-3 gap-4">
             {regions.map((region) => (
               <button
@@ -56,9 +56,9 @@ const AppointmentBanner = () => {
             ))}
           </div>
 
-          <div className="text-center flex justify-center mt-10 lg:mt-0">
-            <h3 className="font-bold text-white text-xl bottom-0 mb-2 absolute">
-              Selected City is{" "}
+          <div className="text-center flex justify-center mt-20 lg:mt-0">
+            <h3 className="font-bold text-white text-xl bottom-0 pb-8 absolute">
+              Selected City is 
               <span className="text-[#d3adf8]">{selectedCity}</span>
             </h3>
           </div>
@@ -66,7 +66,7 @@ const AppointmentBanner = () => {
       </div>
 
       {/* All doctor cards */}
-      <div className="bg-[#23075e] py-4 rounded-md">
+      <div className="bg-[#23075e] py-4">
         <div>
           <h2 className="font-bold text-3xl text-center text-white px-4 pb-2 rounded-md">
             All Specialists
@@ -74,7 +74,7 @@ const AppointmentBanner = () => {
           <p className="text-white"></p>
         </div>
         {/* Doctor Cards */}
-        <div>
+        <div className="bg-[#2375e] w-full min-h-[40vh]">
           <DoctorCards date={date} selectedCity={selectedCity} />
         </div>
       </div>

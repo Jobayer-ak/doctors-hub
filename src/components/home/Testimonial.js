@@ -34,7 +34,7 @@ const Testimonial = () => {
   const reviews = data.result;
 
   return (
-    <div className="bg-[#23075e] w-full my-6 lg:pl-4 px-4 lg:px-0">
+    <div className="bg-[#23075e] w-full my-1 lg:pl-4 px-4 lg:px-0">
       <div className="pb-12">
         {/* top part  */}
         <div className="w-[100%] mb-20 lg:mb-10">

@@ -28,7 +28,7 @@ const Welcome = () => {
   ];
 
   return (
-    <div className="w-full bg-[#23075e] my-6 pb-12">
+    <div className="w-full bg-[#23075e] my-1 pb-12">
       <div className="p-4 lg:flex lg:justify-between gap-14">
         {/* left part */}
         <div className="w-[100%]">
