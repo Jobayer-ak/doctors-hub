@@ -5,7 +5,7 @@ import { format } from 'date-fns';
 import Booking from './Booking/Booking';
 import Loader from '../../common/Loading/Loader';
 import baseURL from '../../../utils/baseURL';
-import { Puff } from 'react-loader-spinner';
+import { Dna, Puff } from 'react-loader-spinner';
 
 const DoctorCards = ({ selectedCity, date }) => {
   const [curDepartment, setCurDepartment] = useState('All');
@@ -28,19 +28,15 @@ const DoctorCards = ({ selectedCity, date }) => {
 
   if (isLoading) {
     return (
-      <div className='flex'>
-        {' '}
-        <Puff
-          height="80"
-          width="80"
-          radius={1}
-          color="#fff"
-          ariaLabel="puff-loading"
-          wrapperStyle={{}}
-          wrapperClass=""
-          visible={true}
-        />
-        ;
+      <div className='flex justify-center items-center'>
+        <Dna
+  visible={true}
+  height="100"
+  width="100"
+  ariaLabel="dna-loading"
+  wrapperStyle={{}}
+  wrapperClass="dna-wrapper"
+/>
       </div>
     );
   }

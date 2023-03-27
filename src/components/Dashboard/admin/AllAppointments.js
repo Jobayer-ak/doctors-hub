@@ -1,13 +1,14 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { useQuery } from 'react-query';
 import AuthContext from '../../../context/AuthProvider';
 import { format } from 'date-fns';
-import Loader from '../../common/Loading/Loader';
 import baseURL from '../../../utils/baseURL';
-import { Dna } from 'react-loader-spinner';
+import { ColorRing, Dna } from 'react-loader-spinner';
+import Loader from '../../common/Loading/Loader';
 
 const AllAppointments = () => {
   const { user } = useContext(AuthContext);
+  const [loading, setLoading] = useState(true);
 
   let loader = '';
 
@@ -23,24 +24,12 @@ const AllAppointments = () => {
   );
 
   if (isLoading) {
-    return (loader = (
-      <div className="flex justify-center items-center bg-[#23075e] ml-1 w-[86%] h-[50vh]">
-        <Dna
-          visible={true}
-          height="120"
-          width="120"
-          ariaLabel="dna-loading"
-          wrapperStyle={{}}
-          wrapperClass="dna-wrapper"
-        />
-      </div>
-    ));
+    return <Loader />;
   }
 
   return (
-  
     <div className="px-4">
-      { isLoading ? loader: (<div className="overflow-x-auto">
+      <div className="overflow-x-auto">
         <table className="table w-full md:min-w-[60%] lg:w-full">
           <thead>
             <tr>
@@ -63,8 +52,7 @@ const AllAppointments = () => {
             ))}
           </tbody>
         </table>
-      </div>)}
-      
+      </div>
     </div>
   );
 };

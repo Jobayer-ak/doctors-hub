@@ -77,7 +77,7 @@ const DoctorsSlider = () => {
             modules={[Autoplay, Pagination]}
             className="mySwiper"
           >
-            {isLoading && (
+            {/* {isLoading && (
               <div className='flex justify-center'>
                 <Puff
                   height="100"
@@ -90,7 +90,7 @@ const DoctorsSlider = () => {
                   visible={true}
                 /> 
               </div>
-            )}
+            )} */}
             {data?.map((i) => (
               <SwiperSlide>
                 <div className="relative">

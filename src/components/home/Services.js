@@ -55,7 +55,7 @@ const Services = () => {
           <img
             src={docImg}
             alt="doctor"
-            className="h-[90%] hidden lg:block hover:rotate-[5deg] duration-500 "
+            className="h-[90%] hidden lg:block hover:rotate-[3deg] duration-500 "
           />
         </div>
       </div>

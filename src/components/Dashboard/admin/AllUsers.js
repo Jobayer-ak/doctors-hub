@@ -1,20 +1,20 @@
-import React, { useContext } from "react";
-import AuthContext from "../../../context/AuthProvider";
-import { useQuery } from "react-query";
+import React, { useContext } from 'react';
+import AuthContext from '../../../context/AuthProvider';
+import { useQuery } from 'react-query';
 // import { format } from "date-fns";
-import Loader from "../../common/Loading/Loader";
-import baseURL from "../../../utils/baseURL";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faX } from "@fortawesome/free-solid-svg-icons";
-import Swal from "sweetalert2";
+import Loader from '../../common/Loading/Loader';
+import baseURL from '../../../utils/baseURL';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faX } from '@fortawesome/free-solid-svg-icons';
+import Swal from 'sweetalert2';
 
 const AllUsers = () => {
   const { user } = useContext(AuthContext);
 
   const { data, isLoading, refetch } = useQuery(
-    ["allAppointments", user],
+    ['allAppointments', user],
     async () => {
-      const res = await baseURL.get("/admin/users", {
+      const res = await baseURL.get('/admin/users', {
         withCredentials: true,
       });
       const result = res.data;
@@ -23,18 +23,20 @@ const AllUsers = () => {
   );
 
   if (isLoading) {
-    return <Loader />;
+    return (
+      <Loader/>
+    );
   }
 
   const handleDelete = (doc_email) => {
     Swal.fire({
-      title: "Are you sure?",
+      title: 'Are you sure?',
       text: "You won't be able to revert this!",
-      icon: "warning",
+      icon: 'warning',
       showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
-      confirmButtonText: "Yes, delete it!",
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!',
     }).then(async (result) => {
       if (result.isConfirmed) {
         await baseURL
@@ -46,26 +48,26 @@ const AllUsers = () => {
               console.log(doc_email);
               Swal.fire(
                 `${res.data.message}`,
-                "Doctor has been deleted.",
-                "success"
+                'Doctor has been deleted.',
+                'success'
               );
               refetch();
             }
 
             if (res.status === 403) {
               return Swal.fire({
-                icon: "error",
-                title: "Oops...",
-                text: "Something went wrong!!!",
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Something went wrong!!!',
               });
             }
           })
           .catch((err) => {
             if (err.response.status) {
               return Swal.fire({
-                icon: "error",
-                title: "Oops...",
-                text: "Something went wrong!",
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Something went wrong!',
               });
             }
           });

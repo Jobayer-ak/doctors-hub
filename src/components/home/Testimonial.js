@@ -6,8 +6,8 @@ import {
   faStar,
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import React, { useState } from 'react';
-import { Pagination, Navigation, Autoplay } from 'swiper';
+import React from 'react';
+import { Pagination, Autoplay } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/pagination';
@@ -16,7 +16,8 @@ import baseURL from '../../utils/baseURL';
 import { faThumbsUp } from '@fortawesome/free-regular-svg-icons';
 import { AnimationOnScroll } from 'react-animation-on-scroll';
 import { useQuery } from 'react-query';
-import Loader from '../common/Loading/Loader';
+// import Loader from '../common/Loading/Loader';
+import { Dna } from 'react-loader-spinner';
 
 const Testimonial = () => {
   const { data, isLoading } = useQuery(['reviews'], async () => {
@@ -28,13 +29,25 @@ const Testimonial = () => {
   });
 
   if (isLoading) {
-    return <Loader />;
+    return (
+      <div className="flex justify-center items-center h-[70vh]">
+        {' '}
+        <Dna
+          visible={true}
+          height="80"
+          width="80"
+          ariaLabel="dna-loading"
+          wrapperStyle={{}}
+          wrapperClass="dna-wrapper"
+        />
+      </div>
+    );
   }
 
   const reviews = data.result;
 
   return (
-    <div className="bg-[#23075e] w-full my-1 lg:pl-4 px-4 lg:px-0">
+    <div className="bg-[#23075e] my-1 w-full lg:pl-4 px-4 lg:px-0">
       <div className="pb-12">
         {/* top part  */}
         <div className="w-[100%] mb-20 lg:mb-10">
@@ -52,6 +65,7 @@ const Testimonial = () => {
         </div>
 
         {/* bottom part */}
+
         <div className="lg:flex lg:justify-between lg:gap-4">
           {/* slider  */}
           <div className="lg:w-[50%]">

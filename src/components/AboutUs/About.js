@@ -210,29 +210,32 @@ const About = () => {
             </div>
 
             {/* bottom part */}
-            <div className="grid grid-col md:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-6 lg:gap-4 mt-20 px-2 md:px-4">
-              <div className="bg-[#23075e] w-full text-[#13bab9] box-border divOne pt-6">
+            <div className="grid grid-col md:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-6 lg:gap-4 mt-20 px-4">
+              <div className="bg-[#23075e] w-full text-[#13bab9] divOne box-border pt-6">
+                
+                  <div className="text-left px-4 mt-4 mb-4">
+                    {/* <img src={oneImg} alt="" /> */}
+                    <FontAwesomeIcon
+                      icon={faBriefcaseMedical}
+                      size="2xl"
+                      className="h-[60px] text-[#13bab9]"
+                    />
+                  </div>
+                  <h2 className="text-3xl text-left font-bold px-4">
+                    Family Consultant
+                  </h2>
+                  <p className="px-4 text-left mt-4 mb-[59px] box-border overflow-x-auto">
+                    LoremEt sint nulla irure nostrud elit ullamco laboris ut
+                    dolore amet dolor in aute.
+                  </p>
+                
+              </div>
+
+              <div className="bg-[#23075e] w-full text-[#13bab9] divOne box-border pt-6">
                 <div className="text-left px-4 mt-4 mb-4">
                   {/* <img src={oneImg} alt="" /> */}
                   <FontAwesomeIcon
-                    icon={faBriefcaseMedical}
-                    size="2xl"
-                    className="h-[60px] text-[#13bab9]"
-                  />
-                </div>
-                <h2 className="text-3xl text-left font-bold px-4">
-                  Family Consultant
-                </h2>
-                <p className="px-4 text-left mt-4 mb-[59px]">
-                  LoremEt sint nulla irure nostrud elit ullamco laboris ut
-                  dolore amet dolor in aute.
-                </p>
-              </div>
-
-              <div className="bg-[#23075e] w-full text-[#13bab9] box-border divOne pt-6">
-                <div className="text-left px-4 mt-4 mb-4">
-                  <FontAwesomeIcon
-                    icon={faClipboardCheck}
+                    icon={faCalendarCheck}
                     size="2xl"
                     className="h-[60px] text-[#13bab9]"
                   />
@@ -274,7 +277,7 @@ const About = () => {
                   />
                 </div>
                 <h2 className="text-3xl text-left font-bold px-4">
-                  Health Checkup
+                  Awesome Services
                 </h2>
                 <p className="px-4 text-left mt-4 mb-[59px]">
                   LoremEt sint nulla irure nostrud elit ullamco laboris ut

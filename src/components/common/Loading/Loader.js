@@ -3,12 +3,11 @@ import { Dna } from "react-loader-spinner";
 
 const Loader = () => {
   return (
-    <div className="flex justify-center items-center bg-[#23075e] ml-1 w-[100%] h-[100vh]">
+    <div className="flex justify-center items-center h-[50vh]">
     <Dna
       visible={true}
-      height="130"
-        width="130"
-        className='text-right'
+      height="120"
+      width="120"
       ariaLabel="dna-loading"
       wrapperStyle={{}}
       wrapperClass="dna-wrapper"

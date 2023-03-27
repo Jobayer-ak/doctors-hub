@@ -1,24 +1,21 @@
-import React, { useContext } from "react";
-import AuthContext from "../../../context/AuthProvider";
-import { useQuery } from "react-query";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faX } from "@fortawesome/free-solid-svg-icons";
-import Swal from "sweetalert2";
-import Loader from "../../common/Loading/Loader";
-import baseURL from "../../../utils/baseURL";
+import React, { useContext } from 'react';
+import AuthContext from '../../../context/AuthProvider';
+import { useQuery } from 'react-query';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faX } from '@fortawesome/free-solid-svg-icons';
+import Swal from 'sweetalert2';
+import baseURL from '../../../utils/baseURL';
+import Loader from '../../common/Loading/Loader';
 
 const AllDoctors = () => {
   const { user } = useContext(AuthContext);
 
   const { data, isLoading, refetch } = useQuery(
-    ["allAppointments", user.userEmail],
+    ['allAppointments', user.userEmail],
     async () => {
-      const res = await baseURL.get(
-        "/doctors",
-        {
-          withCredentials: true,
-        }
-      );
+      const res = await baseURL.get('/doctors', {
+        withCredentials: true,
+      });
       const result = res.data;
       return result;
     }
@@ -32,47 +29,44 @@ const AllDoctors = () => {
 
   const handleDelete = (doc_email) => {
     Swal.fire({
-      title: "Are you sure?",
+      title: 'Are you sure?',
       text: "You won't be able to revert this!",
-      icon: "warning",
+      icon: 'warning',
       showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
-      confirmButtonText: "Yes, delete it!",
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!',
     }).then(async (result) => {
       if (result.isConfirmed) {
         await baseURL
-          .delete(
-            `/doctor/admin/delete/${doc_email}`,
-            {
-              withCredentials: true,
-            }
-          )
+          .delete(`/doctor/admin/delete/${doc_email}`, {
+            withCredentials: true,
+          })
           .then((res) => {
             if (res.status === 200) {
               console.log(doc_email);
               Swal.fire(
                 `${res.data.message}`,
-                "Doctor has been deleted.",
-                "success"
+                'Doctor has been deleted.',
+                'success'
               );
               refetch();
             }
 
             if (res.status === 403) {
               return Swal.fire({
-                icon: "error",
-                title: "Oops...",
-                text: "Something went wrong!!!",
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Something went wrong!!!',
               });
             }
           })
           .catch((err) => {
             if (err.response.status) {
               return Swal.fire({
-                icon: "error",
-                title: "Oops...",
-                text: "Something went wrong!",
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Something went wrong!',
               });
             }
           });
@@ -84,7 +78,7 @@ const AllDoctors = () => {
   return (
     <div className="px-4">
       <div className="overflow-x-auto">
-        <table className="table w-full md:min-w-[60%] lg:w-full">
+        <table className="table w-full lg:w-[86%]">
           <thead>
             <tr className="text-center">
               <th>Sr.</th>

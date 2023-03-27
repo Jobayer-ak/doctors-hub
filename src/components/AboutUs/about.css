@@ -13,16 +13,19 @@
   position: absolute;
 }
 
+.divOne {
+  position: relative;
+}
 .divOne::after {
   content: '';
-  display: block;
   width: 0;
   height: 4px;
   background: #13bab9;
   transition: width 0.3s;
+  bottom: 0px;
+  position: absolute;
 }
 .divOne:hover::after {
   width: 100%;
   transition: width 0.3s;
 }
-

@@ -1,15 +1,16 @@
-import React, { useState } from "react";
-import baseURL from "../../../utils/baseURL";
-import { useQuery } from "react-query";
-import { format } from "date-fns";
-import { Puff } from "react-loader-spinner";
+import React, { useState } from 'react';
+import baseURL from '../../../utils/baseURL';
+import { useQuery } from 'react-query';
+import { format } from 'date-fns';
+import { Puff, Triangle } from 'react-loader-spinner';
+import Loader from '../../common/Loading/Loader';
 
 const DoctorCard = ({ date, doctor, setDocinfo }) => {
-  const formatedDate = format(date, "PP");
+  const formatedDate = format(date, 'PP');
   // console.log("date: ", formatedDate);
 
   const { data, isLoading, refetch } = useQuery(
-    ["available", formatedDate],
+    ['available', formatedDate],
     async () => {
       const res = await baseURL.get(`/doctors/slots?date=${formatedDate}`, {
         withCredentials: true,
@@ -20,16 +21,7 @@ const DoctorCard = ({ date, doctor, setDocinfo }) => {
   );
 
   if (isLoading) {
-    return <Puff
-    height="60"
-    width="60"
-    radius={1}
-    color="#4fa94d"
-    ariaLabel="puff-loading"
-    wrapperStyle={{}}
-    wrapperClass=""
-    visible={true}
-  />;
+    return <Loader />;
   }
 
   console.log(data);
