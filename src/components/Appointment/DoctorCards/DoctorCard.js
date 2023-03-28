@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import baseURL from '../../../utils/baseURL';
 import { useQuery } from 'react-query';
 import { format } from 'date-fns';
-import { Puff, Triangle } from 'react-loader-spinner';
+import { Dna, Puff, Triangle } from 'react-loader-spinner';
 import Loader from '../../common/Loading/Loader';
 
 const DoctorCard = ({ date, doctor, setDocinfo }) => {
@@ -21,7 +21,18 @@ const DoctorCard = ({ date, doctor, setDocinfo }) => {
   );
 
   if (isLoading) {
-    return <Loader />;
+    return (
+      <div className="flex justify-center items-center h-[40vh]">
+        <Dna
+          visible={true}
+          height="60"
+          width="60"
+          ariaLabel="dna-loading"
+          wrapperStyle={{}}
+          wrapperClass="dna-wrapper"
+        />
+      </div>
+    );
   }
 
   console.log(data);
@@ -30,7 +41,7 @@ const DoctorCard = ({ date, doctor, setDocinfo }) => {
 
   return (
     <div>
-      <div className="rounded-md w-full h-[220px] md:w-[100%] bg-[#4a1a98] shadow-xl">
+      <div className="rounded-md w-full h-[220px] bg-[#4a1a98] shadow-xl">
         <div className="px-4 py-2 text-white">
           <h3 className="text-xl">{doctor.name}</h3>
           <p className="italic">{doctor.higher_degree}</p>

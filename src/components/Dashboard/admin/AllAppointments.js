@@ -1,16 +1,12 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext } from 'react';
 import { useQuery } from 'react-query';
 import AuthContext from '../../../context/AuthProvider';
 import { format } from 'date-fns';
 import baseURL from '../../../utils/baseURL';
-import { ColorRing, Dna } from 'react-loader-spinner';
 import Loader from '../../common/Loading/Loader';
 
 const AllAppointments = () => {
   const { user } = useContext(AuthContext);
-  const [loading, setLoading] = useState(true);
-
-  let loader = '';
 
   const { data, isLoading } = useQuery(
     ['allAppointments', user.userRole],

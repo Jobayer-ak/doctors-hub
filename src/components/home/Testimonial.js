@@ -16,8 +16,7 @@ import baseURL from '../../utils/baseURL';
 import { faThumbsUp } from '@fortawesome/free-regular-svg-icons';
 import { AnimationOnScroll } from 'react-animation-on-scroll';
 import { useQuery } from 'react-query';
-// import Loader from '../common/Loading/Loader';
-import { Dna } from 'react-loader-spinner';
+import Loader from '../common/Loading/Loader';
 
 const Testimonial = () => {
   const { data, isLoading } = useQuery(['reviews'], async () => {
@@ -28,20 +27,9 @@ const Testimonial = () => {
     return result;
   });
 
+
   if (isLoading) {
-    return (
-      <div className="flex justify-center items-center h-[70vh]">
-        {' '}
-        <Dna
-          visible={true}
-          height="80"
-          width="80"
-          ariaLabel="dna-loading"
-          wrapperStyle={{}}
-          wrapperClass="dna-wrapper"
-        />
-      </div>
-    );
+    return <Loader/>;
   }
 
   const reviews = data.result;

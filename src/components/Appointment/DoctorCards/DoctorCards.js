@@ -28,15 +28,15 @@ const DoctorCards = ({ selectedCity, date }) => {
 
   if (isLoading) {
     return (
-      <div className='flex justify-center items-center'>
+      <div className="flex justify-center items-center h-[40vh]">
         <Dna
-  visible={true}
-  height="100"
-  width="100"
-  ariaLabel="dna-loading"
-  wrapperStyle={{}}
-  wrapperClass="dna-wrapper"
-/>
+          visible={true}
+          height="80"
+          width="80"
+          ariaLabel="dna-loading"
+          wrapperStyle={{}}
+          wrapperClass="dna-wrapper"
+        />
       </div>
     );
   }

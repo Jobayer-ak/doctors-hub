@@ -14,7 +14,8 @@ import { format } from 'date-fns';
 import Swal from 'sweetalert2';
 import baseURL from '../../utils/baseURL';
 import Review from './Review';
-import { Dna} from 'react-loader-spinner';
+import { Dna } from 'react-loader-spinner';
+import Loader from '../common/Loading/Loader';
 
 const Setting = () => {
   const {
@@ -28,7 +29,7 @@ const Setting = () => {
   // const [updateError, setUpdateError] = useState("");
   const [loading, setLoading] = useState(false);
 
-  let load = '';
+  let loader = '';
 
   const { data, isLoading, refetch } = useQuery(
     ['info', user.userEmail],
@@ -42,12 +43,12 @@ const Setting = () => {
   );
 
   if (isLoading) {
-    return (load = (
-      <div className="flex justify-center items-center bg-[#23075e] ml-1 w-[86%] h-[100vh]">
+    return (loader = (
+      <div className="flex justify-center items-center bg-[#23075e] ml-0 lg:ml-1 w-full lg:w-[83%] h-[100vh]">
         <Dna
           visible={true}
-          height="120"
-          width="120"
+          height="100"
+          width="100"
           ariaLabel="dna-loading"
           wrapperStyle={{}}
           wrapperClass="dna-wrapper"
@@ -156,12 +157,13 @@ const Setting = () => {
   };
 
   return (
-    <div className="w-full lg:w-[86%] md:min-h-screen bg-[#0a062c] z-10">
+    <div className="w-full lg:w-[83%] ml-0 lg:ml-1 md:min-h-screen bg-[#0a062c] z-10">
       {/* account info */}
-      {isLoading ? (
-        load
+
+      {loader ? (
+        loader
       ) : (
-        <div className="lg:flex lg:justify-around bg-[#23075e] ml-0 lg:ml-1 px-4 py-12 md:px-10 rounded-sm">
+        <div className="lg:flex lg:justify-around bg-[#23075e] px-4 py-12 md:px-10 rounded-sm">
           <div className="mt-0 flex justify-center">
             <img
               src={imageURL}

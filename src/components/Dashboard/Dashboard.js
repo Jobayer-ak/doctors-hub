@@ -1,21 +1,17 @@
 import React, { useEffect, useState } from 'react';
-
 import ForUser from './ForUser';
 import Admin from './admin/Admin';
-import Loader from '../common/Loading/Loader';
-import { Dna } from 'react-loader-spinner';
 
 const Dashboard = () => {
   const [role, setRole] = useState('');
 
   useEffect(() => {
-   const userRole = localStorage.getItem('userRole');
+    const userRole = localStorage.getItem('userRole');
     setRole(userRole);
   }, []);
 
-
   return (
-    <div className="ml-0 lg:ml-1 bg-[#23075e] lg:w-[86%] min-h-screen py-4">
+    <div className="ml-0 lg:ml-1 bg-[#23075e] lg:w-[82%] min-h-screen py-4">
       <h2 className="font-bold text-3xl text-white text-center">
         Welcome To Dashboard
       </h2>

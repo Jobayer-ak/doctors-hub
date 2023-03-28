@@ -51,12 +51,12 @@ const Signup = () => {
   }
 
   return (
-    <div className="flex mt-0 h-screen lg:h-auto lg:bg-[#722ed1] w-full">
+    <div className="flex justify-between w-full lg:w-[83%] h-screen lg:h-auto lg:bg-[#722ed1] ">
       <div className="lg:block hidden">
-        <img src={loginImage} alt="" className="px-4 lg:mt-10 h-[500px]" />
+        <img src={loginImage} alt="" className="px-2 lg:mt-10 h-[80vh]" />
       </div>
 
-      <div className="grow w-[350px] md:bg-[#23075e] lg:border-l-0 md:border-l-4 border-solid border-[#722ED1] px-7 pt-6 md:pt-12 pb-2.5 text-center">
+      <div className="w-full lg:w-1/2 bg-[#23075e] pt-6 md:pt-12 pb-2.5 text-center">
         <h2 className="text-[#722ed1] font-bold text-6xl">
           <FontAwesomeIcon icon={faCircleUser} size="2xl" />
         </h2>

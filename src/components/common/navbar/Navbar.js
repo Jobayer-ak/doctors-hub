@@ -138,7 +138,7 @@ const Navbar = () => {
   );
 
   return (
-    <div className="md:w-full lg:w-[250px] max-h-screen text-white bg-[#23075e] z-50 sticky top-0">
+    <div className="w-full lg:w-[225px] max-h-screen text-white bg-[#23075e] z-50 sticky top-0">
       {/* logo part */}
 
       <div className="sticky top-0">

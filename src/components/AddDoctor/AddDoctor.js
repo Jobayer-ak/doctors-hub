@@ -59,8 +59,6 @@ const AddDoctor = () => {
   const onSubmit = async (data) => {
     data.time_slots = modalData;
 
-    const newData = { ...data };
-
     const image = data.docImage[0];
 
     // console.log(image);
@@ -192,7 +190,7 @@ const AddDoctor = () => {
   }
 
   return (
-    <div className="w-full lg:w-[86%] bg-[#23075e] ml-0 lg:ml-1 border-solid border-[#722ED1] z-10 lg:pb-5">
+    <div className="w-full lg:w-[82%] bg-[#23075e] ml-0 lg:ml-1 border-solid border-[#722ED1] z-10 lg:pb-5">
       <div className="pt-3 md:pt-6 pb-2.5 text-center mx-4 lg:mx-6">
         <h2 className="text-[#722ed1] font-bold text-4xl bg-white inline-block py-3 px-6 rounded-full">
           <span className="mr-4">Add Doctor</span>
@@ -614,7 +612,7 @@ const AddDoctor = () => {
           </div>
 
           <input
-            className="my-8 text-center text-white font-bold bg-[#722ed1] p-2 w-[92%] w-full md:w-96 lg:w-[350px] transition-all hover:bg-[#9258e5] cursor-pointer rounded-sm"
+            className="my-8 text-center text-white font-bold bg-[#722ed1] p-2 w-full md:w-96 lg:w-[350px] transition-all hover:bg-[#9258e5] cursor-pointer rounded-sm"
             type="submit"
             value="Add"
           />

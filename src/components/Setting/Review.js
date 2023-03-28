@@ -68,7 +68,7 @@ const Review = ({ userData }) => {
   };
 
   return (
-    <div className="bg-[#23075e] mt-1 ml-0 lg:ml-1 pb-12 relative">
+    <div className="bg-[#23075e] mt-1 pb-12 relative">
       <h1 className="text-[#f68685] text-3xl font-bold text-center pt-12 pb-12">
         Add Your Review
       </h1>

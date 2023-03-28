@@ -13,7 +13,6 @@ import ProgressBar from 'react-animated-progress-bar';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faBriefcaseMedical,
-  faClipboardCheck,
   faTrophy,
 } from '@fortawesome/free-solid-svg-icons';
 import { faCalendarCheck } from '@fortawesome/free-regular-svg-icons';
@@ -25,7 +24,7 @@ import 'swiper/css/pagination';
 
 const About = () => {
   return (
-    <div className="ml-1 lg:w-[82%] rounded-sm">
+    <div className="w-full lg:w-[83%] ml-0 lg:ml-1 rounded-sm">
       <div className="bg-[#23075e]">
         <div className="bg-[#1e2148] py-[60px] mb-[60px]">
           <h2 className="text-white font-bold text-3xl text-center">
@@ -187,11 +186,11 @@ const About = () => {
             <div className="lg:flex justify-between items-center px-4">
               {/* left part of top */}
               <div className="w-full">
-                <h2 className="text-[#13bab9] flex justify-left font-bold uppercase line inline-block pl-12">
+                <h2 className="text-[#13bab9] flex justify-left font-bold uppercase line pl-12">
                   Services
                 </h2>
 
-                <h2 className="text-3xl my-2 text-4xl text-left">
+                <h2 className="my-2 text-4xl text-left">
                   <span className="text-[#13bab9] mr-2 font-bold">
                     Why Choose
                   </span>

@@ -3,7 +3,7 @@ import React, { useState } from "react";
 // import "react-day-picker/dist/style.css";
 // import "./dayCalender.css";
 import { Calendar } from "react-calendar";
-// import "../home/banner/hero/calender.css";
+import "../home/banner/hero/calender.css";
 import DoctorCards from "./DoctorCards/DoctorCards";
 
 const AppointmentBanner = () => {

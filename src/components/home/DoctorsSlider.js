@@ -4,15 +4,11 @@ import { Autoplay, Pagination } from 'swiper';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import doc1 from '../../assets/home/docSlider/doc1.jpg';
-import doc2 from '../../assets/home/docSlider/doc2.jpg';
-import doc3 from '../../assets/home/docSlider/doc3.jpg';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import './home.css';
 import { useQuery } from 'react-query';
 import baseURL from '../../utils/baseURL';
 import Loader from '../common/Loading/Loader';
-import { Puff } from 'react-loader-spinner';
 
 const DoctorsSlider = () => {
   const { data, isLoading } = useQuery(['sliderDocs'], async () => {
@@ -23,9 +19,9 @@ const DoctorsSlider = () => {
     return result;
   });
 
-  // if (isLoading) {
-  //   return <Loader />;
-  // }
+  if (isLoading) {
+    return <Loader />;
+  }
 
   // console.log("doctors: ",data);
 

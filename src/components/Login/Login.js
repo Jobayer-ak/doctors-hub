@@ -64,13 +64,14 @@ const Login = () => {
   // }
 
   return (
-    <div className="flex lg:justify-center lg:h-screen lg:items-center mt-0 lg:bg-[#722ed1] w-full">
+    <div className="flex justify-between lg:h-screen lg:items-center lg:bg-[#722ed1] w-full lg:w-[83%]">
       {/* login image */}
-      <div className="lg:block hidden">
-        <img src={loginImage} alt="" className="px-4 lg:mb-10 md:h-[500px]" />
+      <div className="lg:block hidden w-1/2">
+        <img src={loginImage} alt="" className="lg:mb-10 px-2 h-[80vh]" />
       </div>
 
-      <div className="grow w-[350px] md:bg-[#23075e] lg:border-l-0 md:border-l-4 h-screen border-solid border-[#722ED1] px-7 pt-6 md:pt-12 pb-2.5 text-center">
+      {/* login form */}
+      <div className="w-full lg:w-1/2 bg-[#23075e] h-screen pt-6 md:pt-12 pb-2.5 text-center">
         <h2 className="text-[#722ed1] font-bold text-6xl">
           <FontAwesomeIcon icon={faCircleUser} size="2xl" />
         </h2>
