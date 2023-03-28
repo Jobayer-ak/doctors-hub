@@ -35,31 +35,40 @@ const DoctorCard = ({ date, doctor, setDocinfo }) => {
     );
   }
 
-  console.log(data);
+  console.log('doctor: ', data);
 
-  // console.log(doctor);1
+  // console.log(doctor);
 
   return (
     <div>
-      <div className="rounded-md w-full h-[220px] bg-[#4a1a98] shadow-xl">
-        <div className="px-4 py-2 text-white">
-          <h3 className="text-xl">{doctor.name}</h3>
-          <p className="italic">{doctor.higher_degree}</p>
+      <div className="rounded-md w-full h-[300px] bg-[#4a1a98] shadow-xl">
+        <div className="px-3 py-2 text-white">
+          <div className="flex justify-between items-center gap-4 mb-3">
+            <div className="w-full">
+              <h3 className="text-xl font-bold text-[#f39896]">{doctor.name}</h3>
+              <p className="italic">{doctor.higher_degree}</p>
+            </div>
+            <div className="w-1/2">
+              <img src={doctor.imageURL} alt="" className="rounded-full" />
+            </div>
+          </div>
           <hr className="border-solid border-1 border-[#722ED1] my-2 " />
-          <p className="italic">{doctor.speciality}</p>
+          <div className='mb-4'>
+            <p className="italic">{doctor.speciality}</p>
 
-          <p className="text-[14px]">{doctor.working_hospital}</p>
-          <p className="text-[20px] italic">
-            Fee: <span className="">${doctor.fee}</span>
-          </p>
+            <p className="text-[14px]">{doctor.working_hospital}</p>
+            <p className="text-[20px py-2">
+              Fee: <span className="">${doctor.fee}</span>
+            </p>
+          </div>
 
           <div className="card-actions justify-center">
             <label
               htmlFor="my-modal-3"
-              className="text-white cursor-pointer bg-[#0a062c] px-2 py-2 rounded-md mt-2 inline-block"
+              className="bg-[#f68685] text-[#381f6e] rounded-sm hover:bg-slate-500 hover:text-white border-none p-2 outline-0 cursor-pointer"
               onClick={() => setDocinfo(doctor)}
             >
-              Booking Appointment
+              Make Appointment
             </label>
           </div>
         </div>

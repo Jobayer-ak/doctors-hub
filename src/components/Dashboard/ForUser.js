@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 // import MyHistory from "./MyHistory";
-import MyReviews from "./MyReviews";
+import PaymentHistory from "./PaymentHistory";
 import PendingAppointments from "./PendingAppointments";
 import AppointmentHistory from "./AppointmentsHistory";
 
@@ -37,7 +37,7 @@ const ForUser = () => {
       <div className="max-h-screen lg:h-auto">
         {active === "Pending Appointments" && <PendingAppointments />}
         {active === "Appointments History" && <AppointmentHistory />}
-        {active === "My Reviews" && <MyReviews />}
+        {active === "My Reviews" && <PaymentHistory />}
       </div>
     </div>
   );

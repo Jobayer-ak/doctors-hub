@@ -44,13 +44,12 @@ const AllDoctors = () => {
           })
           .then((res) => {
             if (res.status === 200) {
-              console.log(doc_email);
-              Swal.fire(
+              refetch();
+              return Swal.fire(
                 `${res.data.message}`,
                 'Doctor has been deleted.',
                 'success'
               );
-              refetch();
             }
 
             if (res.status === 403) {
@@ -78,7 +77,7 @@ const AllDoctors = () => {
   return (
     <div className="px-4">
       <div className="overflow-x-auto">
-        <table className="table w-full lg:w-[86%]">
+        <table className="table w-full">
           <thead>
             <tr className="text-center">
               <th>Sr.</th>

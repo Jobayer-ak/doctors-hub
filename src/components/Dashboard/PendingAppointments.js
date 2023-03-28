@@ -15,7 +15,9 @@ const PendingAppointments = () => {
   const formatedDate = format(date, 'PP');
   // console.log("Mseconds: ",format(new Date(1675255392460), "PP"));
 
-  const { data, isLoading, isError, refetch } = useQuery(['pending', user], async () => {
+  console.log('userddd: ', user);
+
+  const { data, isLoading, refetch } = useQuery(['pending', user], async () => {
     const res = await baseURL.get(
       `/pending-appointments?patient=${user.userEmail}&date=${formatedDate}`,
       {
@@ -30,19 +32,17 @@ const PendingAppointments = () => {
     return <Loader />;
   }
 
-  if (isError) {
-    console.log(isError);
-  }
+  console.log('dd: ', typeof data);
 
   const handleDelete = (book_id) => {
     Swal.fire({
-      title: "Are you sure?",
+      title: 'Are you sure?',
       text: "You won't be able to revert this!",
-      icon: "warning",
+      icon: 'warning',
       showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
-      confirmButtonText: "Yes, delete it!",
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!',
     }).then(async (result) => {
       if (result.isConfirmed) {
         await baseURL
@@ -50,31 +50,31 @@ const PendingAppointments = () => {
             withCredentials: true,
           })
           .then((res) => {
-            console.log(res.data)
+            console.log(res.data);
+            refetch();
             if (res.status === 200) {
               console.log(book_id);
-              Swal.fire(
+              return Swal.fire(
                 `${res.data.message}`,
-                "Booking has been deleted.",
-                "success"
+                'Booking has been deleted.',
+                'success'
               );
-              refetch();
             }
 
             if (res.status === 403) {
               return Swal.fire({
-                icon: "error",
-                title: "Oops...",
-                text: "Something went wrong!!!",
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Something went wrong!!!',
               });
             }
           })
           .catch((err) => {
             if (err.response.status) {
               return Swal.fire({
-                icon: "error",
-                title: "Oops...",
-                text: "Something went wrong!",
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Something went wrong!',
               });
             }
           });
@@ -84,12 +84,18 @@ const PendingAppointments = () => {
 
   return (
     <>
-      {data.length !== 0 || data === false ? (
+      {data.length < 1 || data === undefined ? (
+        <div className="text-center ">
+          <h2 className="text-white text-xl mt-12">
+            There is no pending appointments.
+          </h2>
+        </div>
+      ) : (
         <div className="px-4">
           <div className="overflow-x-auto">
             <table className="table w-full md:min-w-[60%] lg:w-full">
               <thead>
-                <tr className='text-center'> 
+                <tr className="text-center">
                   <th>Sr.</th>
                   <th>Doctor</th>
                   <th>Date</th>
@@ -114,7 +120,9 @@ const PendingAppointments = () => {
                         </Link>
                       )}
                       {a.fee && a.paid && (
-                        <span className="text-white bg-green-700 px-[7px] py-1 rounded-full">PAID</span>
+                        <span className="text-white bg-green-700 px-[7px] py-1 rounded-full">
+                          PAID
+                        </span>
                       )}
                     </td>
                     <td
@@ -133,12 +141,6 @@ const PendingAppointments = () => {
               </tbody>
             </table>
           </div>
-        </div>
-      ) : (
-        <div className="text-center ">
-          <h2 className="text-white text-xl mt-12">
-            There is no pending appointments.
-          </h2>
         </div>
       )}
     </>

@@ -12,6 +12,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleDot } from '@fortawesome/free-regular-svg-icons';
 import visaCard from '../../assets/card/icons8-visa-card-67.png';
 import masterCard from '../../assets/card/icons8-credit-card-67.png';
+import { Dna } from 'react-loader-spinner';
 
 const stripePromise = loadStripe(
   'pk_test_51LSbBsHNAh9QmIhmJrxmXeNGOCbnpqoJzijZbqw6Mt6f2xMvYbZ0ugrb708DdIVQoFbnUJGfAovtJaw7KRZl29Rg00pYWLyJWO'
@@ -29,12 +30,21 @@ const Payment = () => {
   });
 
   if (isLoading) {
-    return <Loader />;
+    return  <div className="flex justify-center items-center w-full lg:w-[83%] bg-[#23075e] ml-0 lg:ml-1 h-[100vh]">
+    <Dna
+      visible={true}
+      height="100"
+      width="100"
+      ariaLabel="dna-loading"
+      wrapperStyle={{}}
+      wrapperClass="dna-wrapper"
+    />
+  </div>;
   }
   // console.log(data.appointment);
 
   return (
-    <div className="lg:w-[83%] mx-4 py-2 rounded-sm">
+    <div className="w-full lg:w-[83%] ml-0 lg:ml-1">
       <div className="bg-[#23075e] min-h-screen lg:flex lg:justify-around lg:py-4">
         <div className="lg:w-[50%] rounded-md bg-[#1e2148] shadow-xl text-white p-4">
           <h3 className="text-[#13bab9] text-center font-bold text-2xl my-4">
