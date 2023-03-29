@@ -194,7 +194,7 @@ const AddDoctor = () => {
       <div className="pt-3 md:pt-6 pb-2.5 text-center mx-4 lg:mx-6">
         <h2 className="text-[#722ed1] font-bold text-4xl bg-white inline-block py-3 px-6 rounded-full">
           <span className="mr-4">Add Doctor</span>
-          <FontAwesomeIcon icon={faUserDoctor} size="md" />
+          <FontAwesomeIcon icon={faUserDoctor} size="sm" />
         </h2>
 
         <form
@@ -580,7 +580,7 @@ const AddDoctor = () => {
               <span className="font-bold">Upload Image:</span>
               <input
                 type="file"
-                class="text-sm text-grey-500 pl-4 md:pl-6 lg:pl-4 mt-4 lg:mt-0
+                className="text-sm text-grey-500 pl-4 md:pl-6 lg:pl-4 mt-4 lg:mt-0
                   file:mr-4 file:py-3 file:px-10
                   file:rounded-full file:border-0
                   file:text-md file:font-semibold  file:text-white

@@ -2,7 +2,6 @@
 import { Route, Routes } from 'react-router-dom';
 import './App.css';
 
-import { AuthProvider } from './context/AuthProvider';
 import Navbar from './components/common/navbar/Navbar';
 import Home from './components/home/Home';
 import Login from './components/Login/Login';
@@ -23,51 +22,46 @@ import About from './components/AboutUs/About';
 function App() {
   return (
     <div className="App lg:flex min-h-screen">
-      <AuthProvider>
-        <Navbar />
+      <Navbar />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/appointments" element={<Appointments />} />
 
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/appointments" element={<Appointments />} />
-          <Route path="/addDoctor" element={<AddDoctor />} />
+        <Route path="/addDoctor" element={<AddDoctor />} />
+        <Route path="/login" element={<Login />} />
+        <Route
+          path="/dashboard"
+          element={
+            <RequireAuth>
+              <Dashboard />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="/setting"
+          element={
+            <RequireAuth>
+              <Setting />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="dashboard/payment/:id"
+          element={
+            <RequireAuth>
+              <Payment />
+            </RequireAuth>
+          }
+        />
+        <Route path="/about" element={<About />} />
+        <Route path="/contact" element={<Contact />} />
+        <Route path="/signup" element={<Signup />} />
+        <Route path="/signup/confirmation/:token" element={<ConfirmEmail />} />
 
-          <Route
-            path="/dashboard"
-            element={
-              <RequireAuth>
-                <Dashboard />
-              </RequireAuth>
-            }
-          />
-          <Route
-            path="/setting"
-            element={
-              <RequireAuth>
-                <Setting />
-              </RequireAuth>
-            }
-          />
-          <Route
-            path="dashboard/payment/:id"
-            element={
-              <RequireAuth>
-                <Payment />
-              </RequireAuth>
-            }
-          />
-          <Route path="/about" element={<About />} />
-          <Route path="/contact" element={<Contact />} />
-          <Route path="/signup" element={<Signup />} />
-          <Route
-            path="/signup/confirmation/:token"
-            element={<ConfirmEmail />}
-          />
-          <Route path="/login" element={<Login />} />
-          <Route path="/forget-password" element={<ForgetPassword />} />
-          <Route path="/user/set-new-password" element={<SetPassword />} />
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </AuthProvider>
+        <Route path="/forget-password" element={<ForgetPassword />} />
+        <Route path="/user/set-new-password" element={<SetPassword />} />
+        <Route path="*" element={<NotFound />} />
+      </Routes>
     </div>
   );
 }

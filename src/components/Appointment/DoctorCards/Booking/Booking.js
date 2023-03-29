@@ -1,5 +1,5 @@
 import { format } from 'date-fns';
-import React, { useContext, useState } from 'react';
+import React, {useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faCalendarDays,
@@ -9,16 +9,18 @@ import {
 import { faPhone, faUsd, faUserPlus } from '@fortawesome/free-solid-svg-icons';
 import Swal from 'sweetalert2';
 import { useNavigate } from 'react-router-dom';
-import AuthContext from '../../../../context/AuthProvider';
 import Loader from '../../../common/Loading/Loader';
 import baseURL from '../../../../utils/baseURL';
+import useStorage from '../../../../hook/useStorage';
 
 const Booking = ({ date, docinfo, setDocinfo, refetch }) => {
   const [loading, setLoading] = useState(false);
   const formatedDate = format(date, 'PP');
   const { _id, name, slot, speciality, fee } = docinfo;
   const navigate = useNavigate();
-  const { user } = useContext(AuthContext);
+  const [user] = useStorage();
+
+  const userInfo = JSON.parse(user);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -28,7 +30,7 @@ const Booking = ({ date, docinfo, setDocinfo, refetch }) => {
       doctor_id: _id,
       gender: e.target.gender.value,
       patient_name: e.target.patient_name.value,
-      patient_email: user.userEmail,
+      patient_email: userInfo.userEmail,
       patient_contact_number: e.target.patient_contact_number.value,
       slot: e.target.slot.value,
       speciality: speciality,
@@ -138,8 +140,8 @@ const Booking = ({ date, docinfo, setDocinfo, refetch }) => {
                     required
                     className="w-full md:w-96 lg:w-[350px] pl-10 text-center font-bold p-2 focus:bg-[#722ed1] border-none outline-0 rounded-sm"
                   >
-                    {slot?.map((s) => (
-                      <option value={s}>{s}</option>
+                    {slot?.map((s, index) => (
+                      <option value={s} key={index}>{s}</option>
                     ))}
                   </select>
                 </div>
@@ -153,7 +155,7 @@ const Booking = ({ date, docinfo, setDocinfo, refetch }) => {
                   <input
                     type="email"
                     name="patient_email"
-                    value={user.userEmail}
+                    value={userInfo.userEmail}
                     required
                     readOnly
                     className="text-center p-2 w-full max-w-sm focus:bg-[#722ed1] border-none outline-0 rounded-sm"

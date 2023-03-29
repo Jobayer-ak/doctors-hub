@@ -6,7 +6,7 @@ import { useForm } from 'react-hook-form';
 import { Puff } from 'react-loader-spinner';
 import baseURL from '../../utils/baseURL';
 import Swal from 'sweetalert2';
-import reviewImage from "../../assets/review/comment.png"
+import reviewImage from '../../assets/review/comment.png';
 
 const Review = ({ userData }) => {
   const [rating, setRating] = useState(null);
@@ -73,9 +73,8 @@ const Review = ({ userData }) => {
         Add Your Review
       </h1>
       <div className="md:flex md:justify-around md:items-center">
-
-        <div className='hidden lg:block'>
-          <img src={ reviewImage} alt='comment' className='w-full md:[60%]'/>
+        <div className="hidden lg:block">
+          <img src={reviewImage} alt="comment" className="w-full md:[60%]" />
         </div>
         <form
           onSubmit={handleSubmit(onSubmit)}
@@ -115,7 +114,7 @@ const Review = ({ userData }) => {
               const ratingValue = i + 1;
 
               return (
-                <label>
+                <label key={i}>
                   <input
                     type="radio"
                     value={ratingValue}

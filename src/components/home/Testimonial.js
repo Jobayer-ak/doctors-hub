@@ -27,9 +27,8 @@ const Testimonial = () => {
     return result;
   });
 
-
   if (isLoading) {
-    return <Loader/>;
+    return <Loader />;
   }
 
   const reviews = data.result;
@@ -67,10 +66,10 @@ const Testimonial = () => {
               modules={[Autoplay, Pagination]}
               className="mySwiper h-[100%]"
             >
-              {reviews?.map((d) => (
+              {reviews?.map((d, index) => (
                 <SwiperSlide>
                   <div className="w-[100%] px-4 py-10 bg-[#260078] shadow-xl">
-                    <div className="px-2 py-2">
+                    <div className="px-2 py-2" key={index}>
                       <div className="h-[180px] w-full overflow-hidden">
                         <p className="italic text-xl text-left">
                           <FontAwesomeIcon
@@ -87,8 +86,8 @@ const Testimonial = () => {
                           />
                         </p>
 
-                        <div className="text-left mt-2">
-                          {[...Array(d.rating)].map((r) => (
+                        <div className="text-left mt-2" key={index}>
+                          {[...Array(d.rating)].map((r, index) => (
                             <>
                               <FontAwesomeIcon
                                 icon={faStar}

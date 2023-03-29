@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEnvelope } from '@fortawesome/free-regular-svg-icons';
 import {
@@ -8,13 +8,13 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { useForm } from 'react-hook-form';
 import axios from 'axios';
-import AuthContext from '../../context/AuthProvider';
 import { useQuery } from 'react-query';
 import { format } from 'date-fns';
 import Swal from 'sweetalert2';
 import baseURL from '../../utils/baseURL';
 import Review from './Review';
 import { Dna } from 'react-loader-spinner';
+import useStorage from '../../hook/useStorage';
 
 const Setting = () => {
   const {
@@ -23,21 +23,18 @@ const Setting = () => {
     handleSubmit,
     reset,
   } = useForm();
-  const { user } = useContext(AuthContext);
-  // console.log(user);
-  // const [updateError, setUpdateError] = useState("");
   const [loading, setLoading] = useState(false);
+  const [user] = useStorage();
 
-  const { data, isLoading, refetch } = useQuery(
-    ['info', user.userEmail],
-    async () => {
-      const res = await baseURL.get(`/setting/${user.userEmail}`, {
-        withCredentials: true,
-      });
-      const result = res.data;
-      return result;
-    }
-  );
+  const userInfo = JSON.parse(user);
+
+  const { data, isLoading, refetch } = useQuery(['info'], async () => {
+    const res = await baseURL.get(`/setting/${userInfo.userEmail}`, {
+      withCredentials: true,
+    });
+    const result = res.data;
+    return result;
+  });
 
   if (isLoading || loading) {
     return (
@@ -232,6 +229,7 @@ const Setting = () => {
                       className="text-center p-2 w-full max-w-sm focus:bg-[#722ed1] border-none outline-0 rounded-sm"
                       type="text"
                       value={name}
+                      readOnly
                       {...register('name', {
                         required: {
                           value: true,
@@ -255,6 +253,7 @@ const Setting = () => {
                       className="text-center p-2 w-full max-w-sm focus:bg-[#722ed1] border-none outline-0 rounded-sm"
                       type="text"
                       value={email}
+                      readOnly
                     />
                   </div>
 

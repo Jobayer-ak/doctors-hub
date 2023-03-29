@@ -1,7 +1,4 @@
 import React, { useState } from "react";
-
-// import "react-day-picker/dist/style.css";
-// import "./dayCalender.css";
 import { Calendar } from "react-calendar";
 import "../home/banner/hero/calender.css";
 import DoctorCards from "./DoctorCards/DoctorCards";
@@ -42,7 +39,7 @@ const AppointmentBanner = () => {
         <div className="bg-[#23075e] w-[100%] px-4 py-3 text-center relative">
           <h2 className="font-bold text-2xl text-white mt-3 mb-6">Select City</h2>
           <div className="grid grid-cols-2 lg:grid-cols-3 gap-4">
-            {regions.map((region) => (
+            {regions.map((region, index) => (
               <button
                 className={
                   active === region
@@ -50,6 +47,7 @@ const AppointmentBanner = () => {
                     : "text-white font-bold rounded-md px-2 py-2 bg-[#4a1a98] hover:bg-[#0a062c] transition-all"
                 }
                 onClick={() => handleRegion(region)}
+                key={index}
               >
                 {region}
               </button>
@@ -75,7 +73,7 @@ const AppointmentBanner = () => {
         </div>
         {/* Doctor Cards */}
         <div className="bg-[#2375e] w-full min-h-[40vh]">
-          <DoctorCards date={date} selectedCity={selectedCity} />
+          <DoctorCards date={date} selectedCity={selectedCity}/>
         </div>
       </div>
     </div>

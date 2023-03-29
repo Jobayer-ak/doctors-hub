@@ -1,7 +1,5 @@
-import React, { useContext } from 'react';
-import AuthContext from '../../../context/AuthProvider';
+import React from 'react';
 import { useQuery } from 'react-query';
-// import { format } from "date-fns";
 import Loader from '../../common/Loading/Loader';
 import baseURL from '../../../utils/baseURL';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -9,18 +7,14 @@ import { faX } from '@fortawesome/free-solid-svg-icons';
 import Swal from 'sweetalert2';
 
 const AllUsers = () => {
-  const { user } = useContext(AuthContext);
 
-  const { data, isLoading, refetch } = useQuery(
-    ['allAppointments', user],
-    async () => {
-      const res = await baseURL.get('/admin/users', {
-        withCredentials: true,
-      });
-      const result = res.data;
-      return result;
-    }
-  );
+  const { data, isLoading, refetch } = useQuery(['adminAllUsers'], async () => {
+    const res = await baseURL.get('/admin/users', {
+      withCredentials: true,
+    });
+    const result = res.data;
+    return result;
+  });
 
   if (isLoading) {
     return <Loader />;
@@ -130,7 +124,7 @@ const AllUsers = () => {
           </thead>
           <tbody>
             {data?.map((a, index) => (
-              <tr className="relative text-center">
+              <tr className="relative text-center" key={index}>
                 <th className="sticky left-0">{index + 1}</th>
                 <td>{a.name}</td>
                 <td>{a.email}</td>

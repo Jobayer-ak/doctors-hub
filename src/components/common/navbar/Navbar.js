@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import brandLogo from '../../../assets/icons/brand-logo.png';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
@@ -13,72 +13,69 @@ import {
   faUsers,
   faXmark,
 } from '@fortawesome/free-solid-svg-icons';
-import { Link, useNavigate } from 'react-router-dom';
-import { Cookies } from 'react-cookie';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
+import useStorage from '../../../hook/useStorage';
 import baseURL from '../../../utils/baseURL';
-import { useQuery } from 'react-query';
 
 const Navbar = () => {
   const [open, setOpen] = useState(false);
-  const [refetch, setRefetch] = useState(false);
+  const [user] = useStorage();
+  const navigate = useNavigate();
+  const location = useLocation();
+
   const padding = 'mr-3.5';
 
-  const navigate = useNavigate();
+  const userInfo = JSON.parse(user);
 
-  const userEmail = localStorage.getItem('userEmail');
-  const role = localStorage.getItem('userRole');
-
-  // const [logout, { isLoading }] = useMutation(() =>
-  //   baseURL.get("https://doctors-hub-server.vercel.app/api/v1/logout", {
-  //     withCredentials: true,
-  //   })
-  // );
-
-  // useEffect(() => {}, [refetch]);
-
-  const logout = async () => {
-    await baseURL
+  const logout = () => {
+    baseURL
       .get('/logout', {
         withCredentials: true,
       })
-      .then((res) => console.log(res.data))
+      .then((res) => {
+        localStorage.removeItem('user');
+        navigate('/login');
+      })
       .then((err) => console.log(err));
-
-    localStorage.removeItem('userEmail');
-    localStorage.removeItem('userName');
-    localStorage.removeItem('userRole');
-
-    const cookies = new Cookies();
-    cookies.remove('myCookie');
-    navigate('/login');
   };
 
   const liClass =
-    'mt-2 hover:border-l-2 py-1.5 pr-2 pl-7 hover:border-solid hover:border-solid hover:bg-[#722ed180] transition duration-300 ease-in-out';
+    'mt-2 hover:border-l-2 py-1.5 border-solid pr-2 pl-7 hover:bg-[#722ed180] transition duration-300 ease-in-out';
+
+  const style = { backgroundColor: '#722ed180' };
 
   const menu = (
     <>
-      <li className={liClass}>
+      <li className={liClass} style={location.pathname === '/' ? style : {}}>
         <Link to="/">
           <FontAwesomeIcon icon={faHome} className={padding} />
           Home
         </Link>
       </li>
-      <li className={liClass}>
+      <li
+        className={liClass}
+        style={location.pathname === '/appointments' ? style : {}}
+      >
         <Link to="/appointments">
           <FontAwesomeIcon icon={faBriefcaseMedical} className={padding} />
           Appointments
         </Link>
       </li>
 
-      <li className={liClass}>
+      <li
+        className={liClass}
+        style={location.pathname === '/about' ? style : {}}
+      >
         <Link to="/about">
           <FontAwesomeIcon icon={faUsers} size="sm" className={padding} />
           About Us
         </Link>
       </li>
 
-      <li className={liClass}>
+      <li
+        className={liClass}
+        style={location.pathname === '/contact' ? style : {}}
+      >
         <Link to="/contact">
           <FontAwesomeIcon icon={faPhoneVolume} className={padding} />
           Contact
@@ -87,8 +84,11 @@ const Navbar = () => {
 
       <hr className="border-solid border-2 border-[#722ED1] mt-2 md:mt-4 lg:ml-3 lg:mb-4 lg:mr-3" />
 
-      {userEmail && (
-        <li className={liClass}>
+      {userInfo?.userEmail && (
+        <li
+          className={liClass}
+          style={location.pathname === '/dashboard' ? style : {}}
+        >
           <Link to="/dashboard">
             <FontAwesomeIcon icon={faTableColumns} className={padding} />
             Dashboard
@@ -96,8 +96,11 @@ const Navbar = () => {
         </li>
       )}
 
-      {userEmail && role === 'admin' && (
-        <li className={liClass}>
+      {userInfo?.userEmail && userInfo.userRole === 'admin' && (
+        <li
+          className={liClass}
+          style={location.pathname === '/addDoctor' ? style : {}}
+        >
           <Link to="/addDoctor">
             <FontAwesomeIcon
               icon={faStethoscope}
@@ -109,16 +112,22 @@ const Navbar = () => {
         </li>
       )}
 
-      <li className={liClass}>
+      <li
+        className={liClass}
+        style={location.pathname === '/setting' ? style : {}}
+      >
         <Link to="/setting">
           <FontAwesomeIcon icon={faGear} className={padding} />
           Setting
         </Link>
       </li>
 
-      {userEmail ? (
-        <li className={` bg-[#9258e5] border-l-0 ${liClass}`}>
-          <Link to="/login" onClick={logout}>
+      {userInfo?.userEmail ? (
+        <li
+          className={liClass}
+          style={location.pathname === '/logout' ? style : {}}
+        >
+          <Link to="/login" onClick={() => logout()}>
             <FontAwesomeIcon
               icon={faRightFromBracket}
               className={`${padding} rotate-180`}
@@ -127,7 +136,10 @@ const Navbar = () => {
           </Link>
         </li>
       ) : (
-        <li className={liClass}>
+        <li
+          className={liClass}
+          style={location.pathname === '/login' ? style : {}}
+        >
           <Link to="/login">
             <FontAwesomeIcon icon={faRightFromBracket} className={padding} />
             Login
@@ -183,6 +195,3 @@ const Navbar = () => {
 };
 
 export default Navbar;
-
-// logout  with react-query t
-// logout should be get request with rest api

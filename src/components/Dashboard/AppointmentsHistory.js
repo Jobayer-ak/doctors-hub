@@ -1,5 +1,4 @@
-import React, { useContext } from 'react';
-import AuthContext from '../../context/AuthProvider';
+import React from 'react';
 import { useQuery } from 'react-query';
 import { format } from 'date-fns';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -8,12 +7,15 @@ import Swal from 'sweetalert2';
 import { Link } from 'react-router-dom';
 import Loader from '../common/Loading/Loader';
 import baseURL from '../../utils/baseURL';
+import useStorage from '../../hook/useStorage';
 
 const AppointmenstHistory = () => {
-  const { user } = useContext(AuthContext);
+  const [user] = useStorage();
 
-  const { data, isLoading, refetch } = useQuery(['booking', user], async () => {
-    const res = await baseURL.get(`/bookings?patient=${user.userEmail}`, {
+  const userInfo = JSON.parse(user);
+
+  const { data, isLoading, refetch } = useQuery(['userBookings'], async () => {
+    const res = await baseURL.get(`/bookings?patient=${userInfo.userEmail}`, {
       withCredentials: true,
     });
     const result = res.data;
@@ -36,7 +38,7 @@ const AppointmenstHistory = () => {
     }).then(async (result) => {
       if (result.isConfirmed) {
         await baseURL
-          .delete(`/booking/delete/${user.userEmail}`, {
+          .delete(`/booking/delete/${userInfo.userEmail}`, {
             withCredentials: true,
           })
           .then((res) => {

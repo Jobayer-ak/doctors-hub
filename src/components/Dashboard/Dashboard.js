@@ -1,14 +1,12 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import ForUser from './ForUser';
 import Admin from './admin/Admin';
+import useStorage from '../../hook/useStorage';
 
 const Dashboard = () => {
-  const [role, setRole] = useState('');
+  const [user] = useStorage();
 
-  useEffect(() => {
-    const userRole = localStorage.getItem('userRole');
-    setRole(userRole);
-  }, []);
+  const userInfo = JSON.parse(user);
 
   return (
     <div className="ml-0 lg:ml-1 bg-[#23075e] lg:w-[83%] min-h-screen py-4">
@@ -18,7 +16,7 @@ const Dashboard = () => {
 
       {/* dashboard buttons for normal user */}
 
-      {role === 'admin' ? <Admin /> : <ForUser />}
+      {userInfo?.userRole === 'admin' ? <Admin /> : <ForUser />}
     </div>
   );
 };

@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-// import MyHistory from "./MyHistory";
 import PaymentHistory from "./PaymentHistory";
 import PendingAppointments from "./PendingAppointments";
 import AppointmentHistory from "./AppointmentsHistory";
@@ -22,7 +21,7 @@ const ForUser = () => {
             <button
               className={
                 active === b
-                  ? "bg-[#0a062c] py-2 text-xl rounded-md mb-4 md:mb-0"
+                  ? "bg-[#f68685] py-2 text-xl rounded-md mb-4 md:mb-0"
                   : "bg-[#4a1a98] hover:bg-[#0a062c] transition-all w-full py-2 text-xl rounded-md mb-4 md:mb-0"
               }
               onClick={() => setActive(b)}

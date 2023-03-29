@@ -1,46 +1,43 @@
 import React, { useState } from 'react';
-// import "./login.css";
 import loginImage from '../../assets/images/loginImage .png';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEnvelope } from '@fortawesome/free-regular-svg-icons';
 import { faCircleUser, faLock } from '@fortawesome/free-solid-svg-icons';
 import { useForm } from 'react-hook-form';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import Loader from '../common/Loading/Loader';
 import baseURL from '../../utils/baseURL';
-import { ColorRing } from 'react-loader-spinner';
+import { ColorRing, Dna } from 'react-loader-spinner';
 
 const Login = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  let from = location.state?.from?.pathname || '/';
-  const [loginError, setLoginError] = useState('');
-  const [loading, setLoading] = useState(false);
-
   const {
     register,
     formState: { errors },
     handleSubmit,
     reset,
   } = useForm();
+  // const { user, setUser } = useUser();
+  const [loading, setLoading] = useState(false);
+  const [loginError, setLoginError] = useState('');
+  let from = location.state?.from?.pathname || '/';
 
   const onSubmit = async (data) => {
     setLoading(true);
+
     await baseURL
       .post(`/login`, data, {
         withCredentials: true,
       })
       .then((res) => {
         setLoading(false);
-        const { name, email, role } = res.data.others;
-        localStorage.setItem('userRole', role);
-        localStorage.setItem('userName', name);
-        localStorage.setItem('userEmail', email);
-        // setUser({name, email});
-        console.log(res.data.others);
-        if (res.data.others.status === 'inactive') {
-          console.log(res.data.others);
-        }
+
+        const userInfo = {
+          userEmail: res.data.others.email,
+          userRole: res.data.others.role,
+        };
+
+        localStorage.setItem('user', JSON.stringify(userInfo));
         navigate(from, { replace: true });
         reset();
       })
@@ -59,12 +56,23 @@ const Login = () => {
       });
   };
 
-  // if (loading) {
-  //   return <Loader />;
-  // }
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center bg-[#23075e] ml-0 lg:ml-1 w-full lg:w-[w-83%] h-[100vh]">
+        <Dna
+          visible={true}
+          height="100"
+          width="100"
+          ariaLabel="dna-loading"
+          wrapperStyle={{}}
+          wrapperClass="dna-wrapper"
+        />
+      </div>
+    );
+  }
 
   return (
-    <div className="flex justify-between lg:h-screen lg:items-center lg:bg-[#722ed1] w-full lg:w-[83%]">
+    <div className="flex justify-between lg:h-screen lg:items-center lg:bg-[#722ed1] w-full lg:w-[83%] ml-0 lg:ml-1">
       {/* login image */}
       <div className="lg:block hidden w-1/2">
         <img src={loginImage} alt="" className="lg:mb-10 px-2 h-[80vh]" />
@@ -172,4 +180,3 @@ const Login = () => {
 
 export default Login;
 
-// how to set loader inside login button in react

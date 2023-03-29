@@ -4,14 +4,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheckSquare, faPlus } from '@fortawesome/free-solid-svg-icons';
 import { AnimationOnScroll } from 'react-animation-on-scroll';
 import clock from '../../assets/home/clock.gif';
-import { Watch } from 'react-loader-spinner';
 
 const Welcome = () => {
   const specialists = [
-    // 'Treats mminor illnesses',
-    // 'Answers health questions',
-    // 'Conducts health checkups',
-    // 'Performs routine health tests',
     'Cardiologists',
     'Neuro surgeons',
     'Orthopedic surgeons',
@@ -79,9 +74,9 @@ const Welcome = () => {
 
         <div className="text-left pl-2 lg:pl-0 lg:w-[60%] pt-2">
           <div className="leading-[47px]">
-            {specialists.map((a) => (
-              <AnimationOnScroll animateIn="animate__fadeIn">
-                <div>
+            {specialists.map((a, index) => (
+              <AnimationOnScroll animateIn="animate__fadeIn" key={index}>
+                <div >
                   <FontAwesomeIcon
                     icon={faCheckSquare}
                     className="text-[#f68685] mr-4"

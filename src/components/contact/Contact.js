@@ -10,7 +10,7 @@ const Contact = () => {
     register,
     formState: { errors },
     handleSubmit,
-    reset,
+    
   } = useForm();
 
   const [contactError, setContactError] = useState("");
@@ -173,9 +173,9 @@ const Contact = () => {
               src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d57973.95570659061!2d90.3613119475975!3d24.748423499492997!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x37564f1007ad9b59%3A0x79a59cb060e32d6c!2sMymensingh!5e0!3m2!1sen!2sbd!4v1676724268845!5m2!1sen!2sbd"
               title="Doctor's Hub"
               className="rounded-md w-full lg:w-[550px] md:h-[435px]"
-              allowfullscreen={true}
+              allowFullScreen={true}
               loading="lazy"
-              referrerpolicy="no-referrer-when-downgrade"
+              referrerPolicy="no-referrer-when-downgrade"
             ></iframe>
           </div>
         </div>

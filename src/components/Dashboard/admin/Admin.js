@@ -22,14 +22,15 @@ const Admin = () => {
       <div className=" mt-4 bg-[#23075e] py-4 rounded-md">
         {/* dashboard buttons */}
         <div className="text-white px-4 my-5 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3 md:gap-6 lg:gap-12">
-          {dashboardBtn.map((b) => (
+          {dashboardBtn.map((b, index) => (
             <button
               className={
                 active === b
-                  ? "bg-[#0a062c] w-full py-2 text-xl rounded-md"
+                  ? "bg-[#f68685] w-full py-2 text-xl rounded-md"
                   : "bg-[#4a1a98] hover:bg-[#0a062c] transition-all w-full py-2 text-xl rounded-md "
               }
               onClick={() => setActive(b)}
+              key={index}
             >
               {b}
             </button>

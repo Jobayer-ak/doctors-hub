@@ -3,9 +3,8 @@ import DoctorCard from './DoctorCard';
 import { useQuery } from 'react-query';
 import { format } from 'date-fns';
 import Booking from './Booking/Booking';
-import Loader from '../../common/Loading/Loader';
 import baseURL from '../../../utils/baseURL';
-import { Dna, Puff } from 'react-loader-spinner';
+import { Dna,} from 'react-loader-spinner';
 
 const DoctorCards = ({ selectedCity, date }) => {
   const [curDepartment, setCurDepartment] = useState('All');

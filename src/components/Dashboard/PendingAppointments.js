@@ -1,6 +1,6 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { useQuery } from 'react-query';
-import AuthContext from '../../context/AuthProvider';
+
 import { format } from 'date-fns';
 import Loader from '../common/Loading/Loader';
 import baseURL from '../../utils/baseURL';
@@ -8,18 +8,19 @@ import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrashCan } from '@fortawesome/free-solid-svg-icons';
 import Swal from 'sweetalert2';
+import useStorage from '../../hook/useStorage';
 
 const PendingAppointments = () => {
-  const { user } = useContext(AuthContext);
+  const [user] = useStorage();
   const date = new Date();
   const formatedDate = format(date, 'PP');
   // console.log("Mseconds: ",format(new Date(1675255392460), "PP"));
 
-  console.log('userddd: ', user);
+  const userInfo = JSON.parse(user);
 
-  const { data, isLoading, refetch } = useQuery(['pending', user], async () => {
+  const { data, isLoading, refetch } = useQuery(['pending'], async () => {
     const res = await baseURL.get(
-      `/pending-appointments?patient=${user.userEmail}&date=${formatedDate}`,
+      `/pending-appointments?patient=${userInfo?.userEmail}&date=${formatedDate}`,
       {
         withCredentials: true,
       }
@@ -46,7 +47,7 @@ const PendingAppointments = () => {
     }).then(async (result) => {
       if (result.isConfirmed) {
         await baseURL
-          .delete(`/booking/delete/${user.userEmail}`, {
+          .delete(`/booking/delete/${userInfo?.userEmail}`, {
             withCredentials: true,
           })
           .then((res) => {

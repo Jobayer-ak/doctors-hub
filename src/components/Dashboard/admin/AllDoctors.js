@@ -1,17 +1,15 @@
-import React, { useContext } from 'react';
-import AuthContext from '../../../context/AuthProvider';
+import React from 'react';
 import { useQuery } from 'react-query';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faX } from '@fortawesome/free-solid-svg-icons';
 import Swal from 'sweetalert2';
 import baseURL from '../../../utils/baseURL';
 import Loader from '../../common/Loading/Loader';
+// import useStorage from '../../../hook/useStorage';
 
 const AllDoctors = () => {
-  const { user } = useContext(AuthContext);
-
-  const { data, isLoading, refetch } = useQuery(
-    ['allAppointments', user.userEmail],
+  const { data, isLoading, isError, refetch } = useQuery(
+    ['adminAllDoctors'],
     async () => {
       const res = await baseURL.get('/doctors', {
         withCredentials: true,
@@ -25,7 +23,10 @@ const AllDoctors = () => {
     return <Loader />;
   }
 
-  console.log(data);
+  if (isError) {
+    console.log('Error: ', isError);
+  }
+  
 
   const handleDelete = (doc_email) => {
     Swal.fire({
@@ -73,7 +74,6 @@ const AllDoctors = () => {
     });
   };
 
-  console.log(data);
   return (
     <div className="px-4">
       <div className="overflow-x-auto">
@@ -92,7 +92,7 @@ const AllDoctors = () => {
           </thead>
           <tbody>
             {data?.map((a, index) => (
-              <tr className="relative text-center">
+              <tr className="relative text-center" key={index}>
                 <th className="sticky left-0">{index + 1}</th>
                 <td>{a.name}</td>
                 <td>{a.email}</td>
