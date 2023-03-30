@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import Loader from "../common/Loading/Loader";
 import baseURL from "../../utils/baseURL";
 import Swal from "sweetalert2";
 

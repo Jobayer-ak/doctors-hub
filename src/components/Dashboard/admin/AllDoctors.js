@@ -5,6 +5,8 @@ import { faX } from '@fortawesome/free-solid-svg-icons';
 import Swal from 'sweetalert2';
 import baseURL from '../../../utils/baseURL';
 import Loader from '../../common/Loading/Loader';
+import ReactPaginate from 'react-paginate';
+import './react-paginate.css';
 // import useStorage from '../../../hook/useStorage';
 
 const AllDoctors = () => {
@@ -26,8 +28,13 @@ const AllDoctors = () => {
   if (isError) {
     console.log('Error: ', isError);
   }
-  
 
+  // pagination handle function
+  const handlePageClick = () => {
+    console.log('form paginate ');
+  };
+
+  // delte doctor handle function
   const handleDelete = (doc_email) => {
     Swal.fire({
       title: 'Are you sure?',
@@ -76,6 +83,7 @@ const AllDoctors = () => {
 
   return (
     <div className="px-4">
+      {/* table */}
       <div className="overflow-x-auto">
         <table className="table w-full">
           <thead>
@@ -115,6 +123,23 @@ const AllDoctors = () => {
             ))}
           </tbody>
         </table>
+      </div>
+
+      {/* pagination */}
+      <div className='w-full mt-4'>
+        <ReactPaginate
+          breakLabel="..."
+          nextLabel=">"
+          onPageChange={handlePageClick}
+          pageRangeDisplayed={3}
+          pageCount={20}
+          previousLabel="<"
+          renderOnZeroPageCount={null}
+          marginPagesDisplayed={2}
+          containerClassName={'custom-pagination'}
+          pageClassName={'custom-pagination-li'}
+          // forcePage={currentPage.current-1}
+        />
       </div>
     </div>
   );
