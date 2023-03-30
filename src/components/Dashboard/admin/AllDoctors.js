@@ -10,10 +10,14 @@ import './react-paginate.css';
 // import useStorage from '../../../hook/useStorage';
 
 const AllDoctors = () => {
+
+  const page = 1;
+  const limit = 3;
+
   const { data, isLoading, isError, refetch } = useQuery(
     ['adminAllDoctors'],
     async () => {
-      const res = await baseURL.get('/doctors', {
+      const res = await baseURL.get(`/doctors?page=${page}&limit=${limit}`, {
         withCredentials: true,
       });
       const result = res.data;
@@ -25,13 +29,15 @@ const AllDoctors = () => {
     return <Loader />;
   }
 
+  console.log("paginated doctors: ", data);
+
   if (isError) {
     console.log('Error: ', isError);
   }
 
   // pagination handle function
-  const handlePageClick = () => {
-    console.log('form paginate ');
+  const handlePageClick = (e) => {
+    console.log(e);
   };
 
   // delte doctor handle function
@@ -129,16 +135,22 @@ const AllDoctors = () => {
       <div className='w-full mt-4'>
         <ReactPaginate
           breakLabel="..."
-          nextLabel=">"
+          nextLabel="next >"
           onPageChange={handlePageClick}
-          pageRangeDisplayed={3}
-          pageCount={20}
-          previousLabel="<"
+          pageRangeDisplayed={5}
+          pageCount={40}
+          previousLabel="< previous"
           renderOnZeroPageCount={null}
           marginPagesDisplayed={2}
-          containerClassName={'custom-pagination'}
-          pageClassName={'custom-pagination-li'}
-          // forcePage={currentPage.current-1}
+          containerClassName="pagination justify-content-center"
+          pageClassName="page-item"
+          pageLinkClassName="page-link"
+          previousClassName="page-item"
+          previousLinkClassName="page-link"
+          nextClassName="page-item"
+          nextLinkClassName="page-link"
+          breakClassName="break"
+          activeClassName="active"
         />
       </div>
     </div>
