@@ -24,6 +24,7 @@ const Contact = () => {
       <div className="">
         {/* contact Form */}
 
+        {/* bg image */}
         <div
           className="hero h-[18vh] md:h-[22vh] lg:h-[32vh]"
           style={{
@@ -35,12 +36,13 @@ const Contact = () => {
           <div className="hero-overlay bg-slate-800 bg-opacity-40 text-center"></div>
         </div>
 
+        {/* info section */}
         <div className="my-6">
           <div className="text-center mb-8">
             <h4 className="text-white font-bold text-4xl">Contact Us</h4>
           </div>
           <div className="md:flex md:justify-between text-center p-4 mt-2">
-            <div className="bg-[#0a062c] p-4 text-center md:w-[300px] rounded-md hover:bg-slate-700 transition-all">
+            <div className="bg-[#1e2148] p-4 text-center md:w-[300px] rounded-md hover:bg-slate-700 transition-all">
               <FontAwesomeIcon
                 className="p-2.5 text-[#fff]"
                 icon={faEnvelope}
@@ -51,7 +53,7 @@ const Contact = () => {
               <p className="text-white mt-2">jobayer.ak@gmail.com</p>
             </div>
 
-            <div className="bg-[#0a062c] p-4 text-center md:w-[300px] md:mx-4 lg:mx-0 my-4 md:my-0 rounded-md hover:bg-slate-700">
+            <div className="bg-[#1e2148] p-4 text-center md:w-[300px] md:mx-4 lg:mx-0 my-4 md:my-0 rounded-md hover:bg-slate-700">
               <FontAwesomeIcon
                 className="p-2.5 text-[#fff]"
                 icon={faPhone}
@@ -62,7 +64,7 @@ const Contact = () => {
               <p className="text-white mt-2">01725-008757</p>
             </div>
 
-            <div className="bg-[#0a062c] p-4 text-center md:w-[300px] rounded-md hover:bg-slate-700 transition-all">
+            <div className="bg-[#1e2148] p-4 text-center md:w-[300px] rounded-md hover:bg-slate-700 transition-all">
               <FontAwesomeIcon
                 className="p-2.5 text-[#fff]"
                 icon={faHospital}

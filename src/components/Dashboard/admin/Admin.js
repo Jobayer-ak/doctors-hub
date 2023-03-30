@@ -1,21 +1,18 @@
-import React, {useState } from "react";
-import AllUsers from "./AllUsers";
-import AllDoctors from "./AllDoctors";
-import AllReviews from "./AllReviews";
-import AllAppointments from "./AllAppointments";
-
+import React, { useState } from 'react';
+import AllUsers from './AllUsers';
+import AllDoctors from './AllDoctors';
+import AllReviews from './AllReviews';
+import AllAppointments from './AllAppointments';
 
 const Admin = () => {
-  const [active, setActive] = useState("All Appointments");
+  const [active, setActive] = useState('All Appointments');
 
   const dashboardBtn = [
-    "All Appointments",
-    "All Users",
-    "All Doctors",
-    "All Reviews",
+    'All Appointments',
+    'All Users',
+    'All Doctors',
+    'All Reviews',
   ];
-
-
 
   return (
     <div>
@@ -26,8 +23,8 @@ const Admin = () => {
             <button
               className={
                 active === b
-                  ? "bg-[#f68685] w-full py-2 text-xl rounded-md"
-                  : "bg-[#4a1a98] hover:bg-[#0a062c] transition-all w-full py-2 text-xl rounded-md "
+                  ? 'bg-[#4a1a98] w-full py-2 text-xl rounded-md'
+                  : 'bg-[#381f6e] text-[#f68685]  hover:bg-[#413b74] hover:text-white transition-all w-full py-2 text-xl rounded-md '
               }
               onClick={() => setActive(b)}
               key={index}
@@ -39,10 +36,10 @@ const Admin = () => {
 
         {/* button details */}
         <div className="max-h-screen lg:h-auto">
-          {active === "All Appointments" && <AllAppointments />}
-          {active === "All Users" && <AllUsers />}
-          {active === "All Doctors" && <AllDoctors />}
-          {active === "All Reviews" && <AllReviews />}
+          {active === 'All Appointments' && <AllAppointments />}
+          {active === 'All Users' && <AllUsers />}
+          {active === 'All Doctors' && <AllDoctors />}
+          {active === 'All Reviews' && <AllReviews />}
         </div>
       </div>
     </div>

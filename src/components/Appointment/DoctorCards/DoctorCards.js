@@ -64,8 +64,8 @@ const DoctorCards = ({ selectedCity, date }) => {
           <button
             className={
               active === department
-                ? 'font-bold text-white md:text-sm bg-[#0a062c] transition-all ease-in-out py-2 rounded-md'
-                : 'font-bold text-white md:text-sm bg-[#4a1a98] hover:bg-[#0a062c] transition-all ease-in-out py-2 rounded-md'
+                ? 'font-bold text-white md:text-sm bg-[#4a1a98] transition-all ease-in-out py-2 rounded-md'
+                : 'font-bold text-[#f68685] md:text-sm bg-[#381f6e] hover:bg-[#6f48eb]  hover:text-white transition-all ease-in-out py-2 rounded-md'
             }
             onClick={() => handleActive(department)}
             // key={i}

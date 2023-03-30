@@ -42,7 +42,7 @@ const Navbar = () => {
   const liClass =
     'mt-2 hover:border-l-2 py-1.5 border-solid pr-2 pl-7 hover:bg-[#722ed180] transition duration-300 ease-in-out';
 
-  const style = { backgroundColor: '#722ed180' };
+  const style = { backgroundColor: '#4a1a98' };
 
   const menu = (
     <>

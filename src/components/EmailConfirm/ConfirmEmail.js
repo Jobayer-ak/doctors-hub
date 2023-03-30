@@ -48,8 +48,8 @@ const ConfirmEmail = () => {
   };
 
   return (
-    <div className="mx-4 md:mx-6 my-4 justify-center bg-[#381f6e] w-[80%] flex rounded-md">
-      <div className="card w-96 bg-[#23075e] text-white mt-6 h-fit">
+    <div className="flex justify-center bg-[#23075e] w-full lg:w-[83%] ml-0 lg:ml-1">
+      <div className="bg-[#381f6e] card w-96 text-white mt-6 h-fit">
         <div className="card-body items-center text-center">
           <h2 className="font-bold text-2xl">Please Activate Your Account!</h2>
 

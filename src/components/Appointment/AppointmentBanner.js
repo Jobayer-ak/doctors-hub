@@ -43,8 +43,8 @@ const AppointmentBanner = () => {
               <button
                 className={
                   active === region
-                    ? "text-white font-bold rounded-md px-2 py-2 bg-[#0a062c] transition-all"
-                    : "text-white font-bold rounded-md px-2 py-2 bg-[#4a1a98] hover:bg-[#0a062c] transition-all"
+                    ? "text-[#f68685] font-bold rounded-md px-2 py-2 bg-[#4a1a98] transition-all"
+                    : "text-[#f68685] font-bold rounded-md px-2 py-2 bg-[#381f6e] hover:bg-[#6f48eb] hover:text-white transition-all"
                 }
                 onClick={() => handleRegion(region)}
                 key={index}
@@ -56,8 +56,8 @@ const AppointmentBanner = () => {
 
           <div className="text-center flex justify-center mt-20 lg:mt-0">
             <h3 className="font-bold text-white text-xl bottom-0 pb-8 absolute">
-              Selected City is 
-              <span className="text-[#d3adf8]">{selectedCity}</span>
+              Selected Branch Is 
+              <span className="text-[#f68685]  ml-2">{selectedCity}</span>
             </h3>
           </div>
         </div>

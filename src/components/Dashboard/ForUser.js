@@ -21,8 +21,8 @@ const ForUser = () => {
             <button
               className={
                 active === b
-                  ? "bg-[#f68685] py-2 text-xl rounded-md mb-4 md:mb-0"
-                  : "bg-[#4a1a98] hover:bg-[#0a062c] transition-all w-full py-2 text-xl rounded-md mb-4 md:mb-0"
+                  ? "bg-[#4a1a98] py-2 text-xl rounded-md mb-4 md:mb-0"
+                  : "bg-[#381f6e] text-[#f68685] hover:bg-[#413b74] hover:text-white transition-all w-full py-2 text-xl rounded-md mb-4 md:mb-0"
               }
               onClick={() => setActive(b)}
             >

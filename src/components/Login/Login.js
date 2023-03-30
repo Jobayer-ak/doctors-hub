@@ -58,7 +58,7 @@ const Login = () => {
 
   if (loading) {
     return (
-      <div className="flex justify-center items-center bg-[#23075e] ml-0 lg:ml-1 w-full lg:w-[w-83%] h-[100vh]">
+      <div className="flex justify-center items-center bg-[#23075e] ml-0 lg:ml-1 w-full lg:w-[83%] h-[100vh]">
         <Dna
           visible={true}
           height="100"
