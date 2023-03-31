@@ -1,59 +1,61 @@
-import React, { useEffect, useState } from 'react';
-
+import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faX } from '@fortawesome/free-solid-svg-icons';
 import Swal from 'sweetalert2';
 import baseURL from '../../../utils/baseURL';
 import Loader from '../../common/Loading/Loader';
-import ReactPaginate from 'react-paginate';
-import './react-paginate.css';
-
+import usePagination from '../../../hook/usePaginatation';
 
 const AllDoctors = () => {
-  const [currentPage, setCurrentPage] = useState(1);
-  const [data, setData] = useState([]);
-  const [pageNum, setPageNum] = useState(0);
-  const [loading, setLoading] = useState(false);
+  const limit = 5;
+  const url = `/doctors`
+  const { data, loading, pagination, currentPage } = usePagination(url, limit);
 
-  useEffect(() => {
-    setLoading(true);
+  console.log('h');
+  // const [currentPage, setCurrentPage] = useState(1);
+  // const [data, setData] = useState([]);
+  // const [pageNum, setPageNum] = useState(0);
+  // const [loading, setLoading] = useState(false);
 
-    const fetchData = async () =>
-      await baseURL
-        .get(`/doctors?page=${currentPage}&limit=${limit}`, {
-          withCredentials: true,
-        })
-        .then((res) => {
-          setLoading(false);
-          console.log(res.data);
-          setData(res.data);
-          setPageNum(res.data.queries.pageCount);
-        })
-        .catch((err) => console.log(err));
+  // useEffect(() => {
+  //   setLoading(true);
 
-    fetchData();
-  }, [currentPage]);
-
-  const limit = 2;
-  console.log('current select: ', currentPage);
-
-  // const { data, isLoading, isError, refetch } = useQuery(
-  //   ['adminAllDoctors', currentPage],
-  //   async () => {
-  //     const res = await baseURL.get(
-  //       `/doctors?page=${currentPage}&limit=${limit}`,
-  //       {
+  //   const fetchData = async () =>
+  //     await baseURL
+  //       .get(`/doctors?page=${currentPage}&limit=${limit}`, {
   //         withCredentials: true,
-  //       }
-  //     );
-  //     const result = res.data;
-  //     return result;
-  //   }
-  // );
+  //       })
+  //       .then((res) => {
+  //         setLoading(false);
+  //         console.log(res.data);
+  //         setData(res.data);
+  //         setPageNum(res.data.queries.pageCount);
+  //       })
+  //       .catch((err) => console.log(err));
 
-  const handlePageChange = (e) => {
-    setCurrentPage(e.selected + 1);
-  };
+  //   fetchData();
+  // }, [currentPage]);
+
+  // const limit = 2;
+  // console.log('current select: ', currentPage);
+
+  // // const { data, isLoading, isError, refetch } = useQuery(
+  // //   ['adminAllDoctors', currentPage],
+  // //   async () => {
+  // //     const res = await baseURL.get(
+  // //       `/doctors?page=${currentPage}&limit=${limit}`,
+  // //       {
+  // //         withCredentials: true,
+  // //       }
+  // //     );
+  // //     const result = res.data;
+  // //     return result;
+  // //   }
+  // // );
+
+  // const handlePageChange = (e) => {
+  //   setCurrentPage(e.selected + 1);
+  // };
 
   // delte doctor handle function
   const handleDelete = (doc_email) => {
@@ -129,7 +131,9 @@ const AllDoctors = () => {
             <tbody>
               {data?.doctors?.map((a, index) => (
                 <tr className="relative text-center" key={index}>
-                  <th className="sticky left-0">{(currentPage - 1) * limit + index + 1}</th>
+                  <th className="sticky left-0">
+                    {(currentPage - 1) * limit + index + 1}
+                  </th>
                   <td>{a.name}</td>
                   <td>{a.email}</td>
                   <td>{a.gender}</td>
@@ -156,8 +160,8 @@ const AllDoctors = () => {
 
       {/* pagination */}
       <div className="w-full mt-4">
-        {/* {!loading && ( */}
-          <ReactPaginate
+        {pagination}
+        {/* <ReactPaginate
             breakLabel="..."
             nextLabel="next >"
             onPageChange={handlePageChange}
@@ -176,8 +180,7 @@ const AllDoctors = () => {
             nextLinkClassName="page-link"
             breakClassName="break"
             activeClassName="active"
-          />
-        {/* )} */}
+          /> */}
       </div>
     </div>
   );
