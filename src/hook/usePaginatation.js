@@ -19,11 +19,13 @@ const usePagination = (url, limit) => {
         })
         .then((res) => {
           setLoading(false);
-          console.log(res.data);
           setData(res.data);
           setPageNum(res.data.queries.pageCount);
         })
-        .catch((err) => console.log(err));
+        .catch((err) => {
+          setLoading(false);
+          console.log(err);
+        });
 
     fetchData();
   }, [currentPage, url, limit]);

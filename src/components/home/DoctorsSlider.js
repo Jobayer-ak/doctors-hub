@@ -22,9 +22,6 @@ const DoctorsSlider = () => {
     return <Loader />;
   }
 
-  // console.log("doctors: ",data);
-
-  // const images = [doc1, doc2, doc3];
 
   return (
     <div className="bg-[#23075e] w-full px-4 pb-12">
@@ -41,8 +38,7 @@ const DoctorsSlider = () => {
         </h2>
       </div>
 
-      {/* slider */}
-      {/* < className="py-10"> */}
+      {/* swiper slider */}
       <div className="py-12">
         <Swiper
           slidesPerView={1}
@@ -67,21 +63,8 @@ const DoctorsSlider = () => {
           modules={[Autoplay, Pagination]}
           className="mySwiper"
         >
-          {/* {isLoading && (
-              <div className='flex justify-center'>
-                <Puff
-                  height="100"
-                  width="100"
-                  radius={1}
-                  color="#fff"
-                  ariaLabel="puff-loading"
-                  wrapperStyle={{}}
-                  wrapperClass=""
-                  visible={true}
-                /> 
-              </div>
-            )} */}
-          {data?.map((i) => (
+            {/* slides */}
+          {data?.doctors?.map((i) => (
             <SwiperSlide>
               <div className="relative">
                 <div className="parent">
@@ -150,7 +133,6 @@ const DoctorsSlider = () => {
           ))}
         </Swiper>
       </div>
-      {/* </div> */}
     </div>
   );
 };

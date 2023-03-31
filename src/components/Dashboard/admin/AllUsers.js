@@ -1,26 +1,16 @@
-import React from 'react';
-import { useQuery } from 'react-query';
+import React, { useState } from 'react';
 import Loader from '../../common/Loading/Loader';
 import baseURL from '../../../utils/baseURL';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faX } from '@fortawesome/free-solid-svg-icons';
 import Swal from 'sweetalert2';
+import usePagination from '../../../hook/usePaginatation';
+import DataPagination from '../../pagination/DataPagination';
 
 const AllUsers = () => {
-
-  const { data, isLoading, refetch } = useQuery(['adminAllUsers'], async () => {
-    const res = await baseURL.get('/admin/users', {
-      withCredentials: true,
-    });
-    const result = res.data;
-    return result;
-  });
-
-  if (isLoading) {
-    return <Loader />;
-  }
-
-  // console.log(data);
+  const [limit, setLimit] = useState(2);
+  const url = `/admin/users`;
+  const { data, loading, pagination, currentPage } = usePagination(url, limit);
 
   const handleDelete = (doc_email) => {
     Swal.fire({
@@ -45,7 +35,7 @@ const AllUsers = () => {
                 'Doctor has been deleted.',
                 'success'
               );
-              refetch();
+              // refetch();
             }
 
             if (res.status === 403) {
@@ -78,7 +68,7 @@ const AllUsers = () => {
       .patch(`/admin/make-admin/${uId}`, uData, { withCredentials: true })
       .then((res) => {
         if (res.status === 200) {
-          refetch();
+          // refetch();
           return Swal.fire('Good job!', res.data.message, 'success');
         }
 
@@ -107,68 +97,79 @@ const AllUsers = () => {
 
   return (
     <div className="px-4">
-      <div className="overflow-auto">
-        <table className="table w-full md:min-w-[60%] lg:w-full">
-          <thead>
-            <tr className="text-center">
-              <th>Sr.</th>
-              <th>Name</th>
-              <th>Email</th>
-              <th>Mobile</th>
-              <th>Gender</th>
-              <th>Status</th>
-              <th>Role</th>
-              <th>Make Admin</th>
-              <th>Delete</th>
-            </tr>
-          </thead>
-          <tbody>
-            {data?.map((a, index) => (
-              <tr className="relative text-center" key={index}>
-                <th className="sticky left-0">{index + 1}</th>
-                <td>{a.name}</td>
-                <td>{a.email}</td>
-                <td>{a.mobile}</td>
-                <td>{a.gender}</td>
-                <td
-                  className={
-                    a.status === 'active'
-                      ? 'text-green-800 font-bold '
-                      : 'text-red-500 font-bold'
-                  }
-                >
-                  {a.status}
-                </td>
-                <td className="">{a.role}</td>
-
-                <td>
-                  {a.role === 'admin' ? (
-                    ''
-                  ) : (
-                    <button
-                      className="bg-[#f68685] p-2 rounded-md cursor-pointer"
-                      onClick={() => handleAdmin(a._id)}
-                    >
-                      Make Admin
-                    </button>
-                  )}
-                </td>
-                <td
-                  className="cursor-pointer"
-                  onClick={() => handleDelete(a.email)}
-                >
-                  {
-                    <FontAwesomeIcon
-                      icon={faX}
-                      className="bg-red-700 px-2 py-2 rounded-md text-white"
-                    />
-                  }
-                </td>
+      {/* table */}
+      {loading ? (
+        <Loader />
+      ) : (
+        <div className="overflow-auto">
+          <table className="table w-full md:min-w-[60%] lg:w-full">
+            <thead>
+              <tr className="text-center">
+                <th>Sr.</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Mobile</th>
+                <th>Gender</th>
+                <th>Status</th>
+                <th>Role</th>
+                <th>Make Admin</th>
+                <th>Delete</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+            </thead>
+            <tbody>
+              {data.users?.map((a, index) => (
+                <tr className="relative text-center" key={index}>
+                  <th className="sticky left-0">
+                    {(currentPage - 1) * limit + index + 1}
+                  </th>
+                  <td>{a.name}</td>
+                  <td>{a.email}</td>
+                  <td>{a.mobile}</td>
+                  <td>{a.gender}</td>
+                  <td
+                    className={
+                      a.status === 'active'
+                        ? 'text-green-800 font-bold '
+                        : 'text-red-500 font-bold'
+                    }
+                  >
+                    {a.status}
+                  </td>
+                  <td className="">{a.role}</td>
+
+                  <td>
+                    {a.role === 'admin' ? (
+                      ''
+                    ) : (
+                      <button
+                        className="bg-[#f68685] p-2 rounded-md cursor-pointer"
+                        onClick={() => handleAdmin(a._id)}
+                      >
+                        Make Admin
+                      </button>
+                    )}
+                  </td>
+                  <td
+                    className="cursor-pointer"
+                    onClick={() => handleDelete(a.email)}
+                  >
+                    {
+                      <FontAwesomeIcon
+                        icon={faX}
+                        className="bg-red-700 px-2 py-2 rounded-md text-white"
+                      />
+                    }
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      )}
+
+      {/* data pagination */}
+      <DataPagination setLimit={setLimit} />
+      <div className="w-full mt-2 flex justify-end">{pagination}</div>
     </div>
   );
 };

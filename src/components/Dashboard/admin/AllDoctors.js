@@ -1,61 +1,19 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faX } from '@fortawesome/free-solid-svg-icons';
 import Swal from 'sweetalert2';
 import baseURL from '../../../utils/baseURL';
 import Loader from '../../common/Loading/Loader';
 import usePagination from '../../../hook/usePaginatation';
+import DataPagination from '../../pagination/DataPagination';
 
 const AllDoctors = () => {
-  const limit = 5;
-  const url = `/doctors`
+  const [refetch, setRefetch] = useState(false);
+  const [limit, setLimit] = useState(2);
+  const url = `/doctors`;
   const { data, loading, pagination, currentPage } = usePagination(url, limit);
 
-  console.log('h');
-  // const [currentPage, setCurrentPage] = useState(1);
-  // const [data, setData] = useState([]);
-  // const [pageNum, setPageNum] = useState(0);
-  // const [loading, setLoading] = useState(false);
-
-  // useEffect(() => {
-  //   setLoading(true);
-
-  //   const fetchData = async () =>
-  //     await baseURL
-  //       .get(`/doctors?page=${currentPage}&limit=${limit}`, {
-  //         withCredentials: true,
-  //       })
-  //       .then((res) => {
-  //         setLoading(false);
-  //         console.log(res.data);
-  //         setData(res.data);
-  //         setPageNum(res.data.queries.pageCount);
-  //       })
-  //       .catch((err) => console.log(err));
-
-  //   fetchData();
-  // }, [currentPage]);
-
-  // const limit = 2;
-  // console.log('current select: ', currentPage);
-
-  // // const { data, isLoading, isError, refetch } = useQuery(
-  // //   ['adminAllDoctors', currentPage],
-  // //   async () => {
-  // //     const res = await baseURL.get(
-  // //       `/doctors?page=${currentPage}&limit=${limit}`,
-  // //       {
-  // //         withCredentials: true,
-  // //       }
-  // //     );
-  // //     const result = res.data;
-  // //     return result;
-  // //   }
-  // // );
-
-  // const handlePageChange = (e) => {
-  //   setCurrentPage(e.selected + 1);
-  // };
+  useEffect(() => {}, [refetch]);
 
   // delte doctor handle function
   const handleDelete = (doc_email) => {
@@ -75,7 +33,7 @@ const AllDoctors = () => {
           })
           .then((res) => {
             if (res.status === 200) {
-              // refetch();
+              setRefetch(true);
               return Swal.fire(
                 `${res.data.message}`,
                 'Doctor has been deleted.',
@@ -103,10 +61,6 @@ const AllDoctors = () => {
       }
     });
   };
-
-  if (loading) {
-    <Loader />;
-  }
 
   return (
     <div className="px-4">
@@ -159,29 +113,8 @@ const AllDoctors = () => {
       )}
 
       {/* pagination */}
-      <div className="w-full mt-4">
-        {pagination}
-        {/* <ReactPaginate
-            breakLabel="..."
-            nextLabel="next >"
-            onPageChange={handlePageChange}
-            // onPageActive={active}
-            pageRangeDisplayed={5}
-            pageCount={pageNum}
-            previousLabel="< previous"
-            renderOnZeroPageCount={null}
-            marginPagesDisplayed={2}
-            containerClassName="pagination justify-content-center"
-            pageClassName="page-item"
-            pageLinkClassName="page-link"
-            previousClassName="page-item"
-            previousLinkClassName="page-link"
-            nextClassName="page-item"
-            nextLinkClassName="page-link"
-            breakClassName="break"
-            activeClassName="active"
-          /> */}
-      </div>
+      <DataPagination setLimit={setLimit} />
+      <div className="w-full mt-2 flex justify-end">{pagination}</div>
     </div>
   );
 };

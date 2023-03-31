@@ -1,25 +1,20 @@
-import React from 'react';
-import { useQuery } from 'react-query';
+import React, { useState } from 'react';
 import { format } from 'date-fns';
-import baseURL from '../../../utils/baseURL';
 import Loader from '../../common/Loading/Loader';
+import usePagination from '../../../hook/usePaginatation';
+import DataPagination from '../../pagination/DataPagination';
 
 const AllAppointments = () => {
-  const { data, isLoading } = useQuery(['adminAllAppointments'], async () => {
-    const res = await baseURL.get('/all-appointments', {
-      withCredentials: true,
-    });
-    const result = res.data;
-    return result;
-  });
+  const [limit, setLimit] = useState(2);
+  const url = `/all-appointments`;
+  const { data, loading, pagination, currentPage } = usePagination(url, limit);
 
-  if (isLoading) {
-    return <Loader />;
-  }
 
   return (
-    data.length > 0 && (
-      <div className="px-4">
+    <div className="px-4">
+      {loading ? (
+        <Loader />
+      ) : (
         <div className="overflow-x-auto">
           <table className="table w-full md:min-w-[60%] lg:w-full">
             <thead>
@@ -32,9 +27,11 @@ const AllAppointments = () => {
               </tr>
             </thead>
             <tbody>
-              {data.map((a, index) => (
+              {data?.appointments?.map((a, index) => (
                 <tr className="relative" key={index}>
-                  <th className="sticky left-0">{index + 1}</th>
+                  <th className="sticky left-0">
+                    {(currentPage - 1) * limit + index + 1}
+                  </th>
                   <td>{a.doctor_name}</td>
                   <td>{format(new Date(a.date), 'PP')}</td>
                   <td>{a.slot}</td>
@@ -44,11 +41,13 @@ const AllAppointments = () => {
             </tbody>
           </table>
         </div>
-      </div>
-    )
+      )}
+
+      {/* pagination */}
+      <DataPagination setLimit={setLimit} />
+      <div className="w-full mt-2 flex justify-end">{pagination}</div>
+    </div>
   );
 };
 
 export default AllAppointments;
-
-// 2023-03-28T18:00:00.000Z convert with date fns in react
