@@ -1,5 +1,5 @@
-import React from 'react';
-import { useQuery } from 'react-query';
+import React, { useEffect, useState } from 'react';
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faX } from '@fortawesome/free-solid-svg-icons';
 import Swal from 'sweetalert2';
@@ -7,37 +7,52 @@ import baseURL from '../../../utils/baseURL';
 import Loader from '../../common/Loading/Loader';
 import ReactPaginate from 'react-paginate';
 import './react-paginate.css';
-// import useStorage from '../../../hook/useStorage';
+
 
 const AllDoctors = () => {
+  const [currentPage, setCurrentPage] = useState(1);
+  const [data, setData] = useState([]);
+  const [pageNum, setPageNum] = useState(0);
+  const [loading, setLoading] = useState(false);
 
-  const page = 1;
-  const limit = 3;
+  useEffect(() => {
+    setLoading(true);
 
-  const { data, isLoading, isError, refetch } = useQuery(
-    ['adminAllDoctors'],
-    async () => {
-      const res = await baseURL.get(`/doctors?page=${page}&limit=${limit}`, {
-        withCredentials: true,
-      });
-      const result = res.data;
-      return result;
-    }
-  );
+    const fetchData = async () =>
+      await baseURL
+        .get(`/doctors?page=${currentPage}&limit=${limit}`, {
+          withCredentials: true,
+        })
+        .then((res) => {
+          setLoading(false);
+          console.log(res.data);
+          setData(res.data);
+          setPageNum(res.data.queries.pageCount);
+        })
+        .catch((err) => console.log(err));
 
-  if (isLoading) {
-    return <Loader />;
-  }
+    fetchData();
+  }, [currentPage]);
 
-  console.log("paginated doctors: ", data);
+  const limit = 2;
+  console.log('current select: ', currentPage);
 
-  if (isError) {
-    console.log('Error: ', isError);
-  }
+  // const { data, isLoading, isError, refetch } = useQuery(
+  //   ['adminAllDoctors', currentPage],
+  //   async () => {
+  //     const res = await baseURL.get(
+  //       `/doctors?page=${currentPage}&limit=${limit}`,
+  //       {
+  //         withCredentials: true,
+  //       }
+  //     );
+  //     const result = res.data;
+  //     return result;
+  //   }
+  // );
 
-  // pagination handle function
-  const handlePageClick = (e) => {
-    console.log(e);
+  const handlePageChange = (e) => {
+    setCurrentPage(e.selected + 1);
   };
 
   // delte doctor handle function
@@ -58,7 +73,7 @@ const AllDoctors = () => {
           })
           .then((res) => {
             if (res.status === 200) {
-              refetch();
+              // refetch();
               return Swal.fire(
                 `${res.data.message}`,
                 'Doctor has been deleted.',
@@ -87,71 +102,82 @@ const AllDoctors = () => {
     });
   };
 
+  if (loading) {
+    <Loader />;
+  }
+
   return (
     <div className="px-4">
       {/* table */}
-      <div className="overflow-x-auto">
-        <table className="table w-full">
-          <thead>
-            <tr className="text-center">
-              <th>Sr.</th>
-              <th>Name</th>
-              <th>Email</th>
-              <th>Gender</th>
-              <th>Mobile</th>
-              <th>Speciality</th>
-              <th>Branch</th>
-              <th>Remove</th>
-            </tr>
-          </thead>
-          <tbody>
-            {data?.map((a, index) => (
-              <tr className="relative text-center" key={index}>
-                <th className="sticky left-0">{index + 1}</th>
-                <td>{a.name}</td>
-                <td>{a.email}</td>
-                <td>{a.gender}</td>
-                <td>{a.contact_number}</td>
-                <td>{a.speciality}</td>
-                <td>{a.branch}</td>
-                <td
-                  className="cursor-pointer"
-                  onClick={() => handleDelete(a.email)}
-                >
-                  {
-                    <FontAwesomeIcon
-                      icon={faX}
-                      className="bg-red-700 px-2 py-2 rounded-md text-white"
-                    />
-                  }
-                </td>
+      {loading ? (
+        <Loader />
+      ) : (
+        <div className="overflow-x-auto">
+          <table className="table w-full">
+            <thead>
+              <tr className="text-center">
+                <th>Sr.</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Gender</th>
+                <th>Mobile</th>
+                <th>Speciality</th>
+                <th>Branch</th>
+                <th>Remove</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+            </thead>
+            <tbody>
+              {data?.doctors?.map((a, index) => (
+                <tr className="relative text-center" key={index}>
+                  <th className="sticky left-0">{(currentPage - 1) * limit + index + 1}</th>
+                  <td>{a.name}</td>
+                  <td>{a.email}</td>
+                  <td>{a.gender}</td>
+                  <td>{a.contact_number}</td>
+                  <td>{a.speciality}</td>
+                  <td>{a.branch}</td>
+                  <td
+                    className="cursor-pointer"
+                    onClick={() => handleDelete(a.email)}
+                  >
+                    {
+                      <FontAwesomeIcon
+                        icon={faX}
+                        className="bg-red-700 px-2 py-2 rounded-md text-white"
+                      />
+                    }
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      )}
 
       {/* pagination */}
-      <div className='w-full mt-4'>
-        <ReactPaginate
-          breakLabel="..."
-          nextLabel="next >"
-          onPageChange={handlePageClick}
-          pageRangeDisplayed={5}
-          pageCount={40}
-          previousLabel="< previous"
-          renderOnZeroPageCount={null}
-          marginPagesDisplayed={2}
-          containerClassName="pagination justify-content-center"
-          pageClassName="page-item"
-          pageLinkClassName="page-link"
-          previousClassName="page-item"
-          previousLinkClassName="page-link"
-          nextClassName="page-item"
-          nextLinkClassName="page-link"
-          breakClassName="break"
-          activeClassName="active"
-        />
+      <div className="w-full mt-4">
+        {/* {!loading && ( */}
+          <ReactPaginate
+            breakLabel="..."
+            nextLabel="next >"
+            onPageChange={handlePageChange}
+            // onPageActive={active}
+            pageRangeDisplayed={5}
+            pageCount={pageNum}
+            previousLabel="< previous"
+            renderOnZeroPageCount={null}
+            marginPagesDisplayed={2}
+            containerClassName="pagination justify-content-center"
+            pageClassName="page-item"
+            pageLinkClassName="page-link"
+            previousClassName="page-item"
+            previousLinkClassName="page-link"
+            nextClassName="page-item"
+            nextLinkClassName="page-link"
+            breakClassName="break"
+            activeClassName="active"
+          />
+        {/* )} */}
       </div>
     </div>
   );

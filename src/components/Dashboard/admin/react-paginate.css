@@ -2,21 +2,21 @@
   display: flex;
   justify-content: center;
   margin-top: 10px;
+  font-size: 600;
 }
 
 .pagination li {
   display: inline-block;
   margin-right: 5px;
   margin-bottom: 5px;
-  padding: 5px 10px;
+  padding: 5px;
   border: 1px solid slategray;
   border-radius: 4px;
   cursor: pointer;
-  font-size: 14px;
 }
 
 .pagination li:hover,
-.pagination li:focus{
+.pagination li:focus {
   background-color: #817797;
   color: #fff;
 }
@@ -24,9 +24,11 @@
 .pagination a {
   color: #f68685;
   text-decoration: none;
+  padding: 5px 10px;
+  font-size: large;
 }
 
-.pagination li:hover a{
+.pagination li:hover a {
   color: #fff;
 }
 
@@ -53,7 +55,7 @@
 .pagination .disabled {
   color: #fff;
   pointer-events: none;
-  background-color: #40451a;
+  /* background-color: #40451a; */
   border-color: #ddd;
 }
 
@@ -65,7 +67,7 @@
 
 @media screen and (max-width: 768px) {
   .pagination li {
-    padding: 5px 8px;
+    padding: 8px 8px;
     font-size: 12px;
   }
 
@@ -96,4 +98,3 @@
     font-size: 10px;
   }
 }
-
