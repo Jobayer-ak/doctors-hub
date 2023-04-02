@@ -23,7 +23,7 @@ const PendingAppointments = () => {
       `/pending-appointments?patient=${userInfo?.userEmail}&date=${formatedDate}`,
       {
         withCredentials: true,
-      }
+      } 
     );
     const result = res.data;
     return result;
@@ -93,7 +93,7 @@ const PendingAppointments = () => {
         </div>
       ) : (
         <div className="px-4">
-          <div className="overflow-x-auto">
+          <div className="overflow-x-auto h-screen">
             <table className="table w-full md:min-w-[60%] lg:w-full">
               <thead>
                 <tr className="text-center">
@@ -106,7 +106,7 @@ const PendingAppointments = () => {
                   <th>Remove</th>
                 </tr>
               </thead>
-              <tbody>
+              <tbody className=''>
                 {data?.map((a, index) => (
                   <tr className="relative text-center">
                     <th className="sticky left-0">{index + 1}</th>

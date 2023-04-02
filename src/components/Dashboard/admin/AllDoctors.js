@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, {useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faX } from '@fortawesome/free-solid-svg-icons';
 import Swal from 'sweetalert2';
@@ -8,14 +8,12 @@ import usePagination from '../../../hook/usePaginatation';
 import DataPagination from '../../pagination/DataPagination';
 
 const AllDoctors = () => {
-  const [refetch, setRefetch] = useState(false);
-  const [limit, setLimit] = useState(2);
+  const [limit, setLimit] = useState(5);
   const url = `/doctors`;
-  const { data, loading, pagination, currentPage } = usePagination(url, limit);
+  const { data, isLoading, pagination, currentPage, refetch } = usePagination(url, limit);
 
-  useEffect(() => {}, [refetch]);
 
-  // delte doctor handle function
+  // delete doctor handle function
   const handleDelete = (doc_email) => {
     Swal.fire({
       title: 'Are you sure?',
@@ -33,7 +31,7 @@ const AllDoctors = () => {
           })
           .then((res) => {
             if (res.status === 200) {
-              setRefetch(true);
+              refetch()
               return Swal.fire(
                 `${res.data.message}`,
                 'Doctor has been deleted.',
@@ -65,37 +63,41 @@ const AllDoctors = () => {
   return (
     <div className="px-4">
       {/* table */}
-      {loading ? (
+      {isLoading ? (
         <Loader />
       ) : (
-        <div className="overflow-x-auto">
-          <table className="table w-full">
-            <thead>
-              <tr className="text-center">
-                <th>Sr.</th>
-                <th>Name</th>
-                <th>Email</th>
-                <th>Gender</th>
-                <th>Mobile</th>
-                <th>Speciality</th>
-                <th>Branch</th>
-                <th>Remove</th>
-              </tr>
-            </thead>
-            <tbody>
+        <div className="overflow-hidden">
+          <div className="overflow-x-auto">
+            <table className="w-full md:min-w-[60%]">
+              <thead className="bg-slate-500">
+                <tr className="">
+                  <th className="p-2 border sticky left-0">Sr.</th>
+                  <th className="p-2 border">Name</th>
+                  <th className="p-2 border">Email</th>
+                  <th className="p-2 border">Gender</th>
+                  <th className="p-2 border">Mobile</th>
+                  <th className="p-2 border">Speciality</th>
+                  <th className="p-2 border">Branch</th>
+                  <th className="p-2 border">Remove</th>
+                </tr>
+              </thead>
+
               {data?.doctors?.map((a, index) => (
                 <tr className="relative text-center" key={index}>
-                  <th className="sticky left-0">
+                  <td className="sticky left-0 bg-slate-400 border">
                     {(currentPage - 1) * limit + index + 1}
-                  </th>
-                  <td>{a.name}</td>
-                  <td>{a.email}</td>
-                  <td>{a.gender}</td>
-                  <td>{a.contact_number}</td>
-                  <td>{a.speciality}</td>
-                  <td>{a.branch}</td>
+                  </td>
+                  <td className="bg-slate-300 p-2 border">{a.name}</td>
+
+                  <td className="bg-slate-300 p-2 border">{a.email}</td>
+                  <td className="bg-slate-300 p-2 border">{a.gender}</td>
+                  <td className="bg-slate-300 p-2 border">
+                    {a.contact_number}
+                  </td>
+                  <td className="bg-slate-300 p-2 border">{a.speciality}</td>
+                  <td className="bg-slate-300 p-2 border">{a.branch}</td>
                   <td
-                    className="cursor-pointer"
+                    className="bg-slate-300 p-2 border cursor-pointer"
                     onClick={() => handleDelete(a.email)}
                   >
                     {
@@ -107,8 +109,8 @@ const AllDoctors = () => {
                   </td>
                 </tr>
               ))}
-            </tbody>
-          </table>
+            </table>
+          </div>
         </div>
       )}
 

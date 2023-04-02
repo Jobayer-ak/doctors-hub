@@ -1,38 +1,38 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useQuery } from 'react-query';
 import ReactPaginate from 'react-paginate';
 import baseURL from '../utils/baseURL';
 import './react-paginate.css';
 
 const usePagination = (url, limit) => {
   const [currentPage, setCurrentPage] = useState(1);
-  const [data, setData] = useState([]);
-  const [pageNum, setPageNum] = useState(0);
-  const [loading, setLoading] = useState(false);
+  // const [updatedLimit, setUpdatedLimit] = useState(limit);
 
-  useEffect(() => {
-    setLoading(true);
+  
 
-    const fetchData = async () =>
-      await baseURL
-        .get(`${url}?page=${currentPage}&limit=${limit}`, {
+  const { data, isLoading, refetch } = useQuery(
+    ['paginate', currentPage, limit],
+    async () => {
+      const res = await baseURL.get(
+        `${url}?page=${currentPage}&limit=${limit}`,
+        {
           withCredentials: true,
-        })
-        .then((res) => {
-          setLoading(false);
-          setData(res.data);
-          setPageNum(res.data.queries.pageCount);
-        })
-        .catch((err) => {
-          setLoading(false);
-          console.log(err);
-        });
+        }
+      );
+      const result = res.data;
+      return result;
+    }
+  );
 
-    fetchData();
-  }, [currentPage, url, limit]);
 
-  const handlePageChange = (e) => {
-    setCurrentPage(e.selected + 1);
+
+  const handlePageChange = ({ selected }) => {
+    // currentPage.current = selected + 1;
+    setCurrentPage(selected + 1)
+    console.log(currentPage);
   };
+
+  console.log(data);
 
   const pagination = (
     <ReactPaginate
@@ -40,7 +40,7 @@ const usePagination = (url, limit) => {
       nextLabel="next >"
       onPageChange={handlePageChange}
       pageRangeDisplayed={6}
-      pageCount={pageNum}
+      pageCount={data?.queries?.pageCount}
       previousLabel="< previous"
       renderOnZeroPageCount={null}
       marginPagesDisplayed={2}
@@ -56,7 +56,8 @@ const usePagination = (url, limit) => {
     />
   );
 
-  return { data, loading, pagination, currentPage };
+  return { data, isLoading, pagination, currentPage, refetch };
 };
 
 export default usePagination;
+

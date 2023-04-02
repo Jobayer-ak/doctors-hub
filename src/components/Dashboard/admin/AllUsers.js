@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Loader from '../../common/Loading/Loader';
 import baseURL from '../../../utils/baseURL';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -8,9 +8,14 @@ import usePagination from '../../../hook/usePaginatation';
 import DataPagination from '../../pagination/DataPagination';
 
 const AllUsers = () => {
-  const [limit, setLimit] = useState(2);
+  const [limit, setLimit] = useState(5);
   const url = `/admin/users`;
-  const { data, loading, pagination, currentPage } = usePagination(url, limit);
+  const { data, isLoading, pagination, currentPage, refetch } = usePagination(
+    url,
+    limit
+  );
+
+  useEffect(() => {}, [refetch]);
 
   const handleDelete = (doc_email) => {
     Swal.fire({
@@ -28,6 +33,7 @@ const AllUsers = () => {
             withCredentials: true,
           })
           .then((res) => {
+            refetch();
             if (res.status === 200) {
               console.log(doc_email);
               Swal.fire(
@@ -68,7 +74,7 @@ const AllUsers = () => {
       .patch(`/admin/make-admin/${uId}`, uData, { withCredentials: true })
       .then((res) => {
         if (res.status === 200) {
-          // refetch();
+          refetch();
           return Swal.fire('Good job!', res.data.message, 'success');
         }
 
@@ -95,49 +101,54 @@ const AllUsers = () => {
       });
   };
 
+  console.log(data);
+
   return (
     <div className="px-4">
       {/* table */}
-      {loading ? (
+      {isLoading ? (
         <Loader />
       ) : (
-        <div className="overflow-auto">
-          <table className="table w-full md:min-w-[60%] lg:w-full">
-            <thead>
-              <tr className="text-center">
-                <th>Sr.</th>
-                <th>Name</th>
-                <th>Email</th>
-                <th>Mobile</th>
-                <th>Gender</th>
-                <th>Status</th>
-                <th>Role</th>
-                <th>Make Admin</th>
-                <th>Delete</th>
-              </tr>
-            </thead>
-            <tbody>
-              {data.users?.map((a, index) => (
+        <div className="overflow-hidden">
+          <div className="overflow-x-auto">
+            <table className="w-full md:min-w-[60%]">
+              <thead className="bg-slate-500">
+                <tr className="">
+                  <th className="p-2 border sticky left-0">Sr.</th>
+                  <th className="p-2 border">Name</th>
+                  <th className="p-2 border">Email</th>
+                  <th className="p-2 border">Mobile</th>
+                  <th className="p-2 border">Gender</th>
+                  <th className="p-2 border">Status</th>
+                  <th className="p-2 border">Role</th>
+                  <th className="p-2 border">Make Admin</th>
+                  <th className="p-2 border">Delete</th>
+                </tr>
+              </thead>
+
+              {data?.users?.map((a, index) => (
                 <tr className="relative text-center" key={index}>
-                  <th className="sticky left-0">
+                  <td className="sticky left-0 bg-slate-400 border">
                     {(currentPage - 1) * limit + index + 1}
-                  </th>
-                  <td>{a.name}</td>
-                  <td>{a.email}</td>
-                  <td>{a.mobile}</td>
-                  <td>{a.gender}</td>
+                  </td>
+                  <td className="bg-slate-300 p-2 border">{a.name}</td>
+
+                  <td className="bg-slate-300 p-2 border">{a.email}</td>
+                  <td className="bg-slate-300 p-2 border">{a.mobile}</td>
+                  <td className="bg-slate-300 p-2 border">{a.gender}</td>
+                  <td className="bg-slate-300 p-2 border">{a.status}</td>
+
                   <td
                     className={
                       a.status === 'active'
-                        ? 'text-green-800 font-bold '
-                        : 'text-red-500 font-bold'
+                        ? 'text-green-800 font-bold p-2 border bg-slate-300'
+                        : 'text-red-500 font-bold p-2 border bg-slate-300'
                     }
                   >
-                    {a.status}
+                    {a.role}
                   </td>
-                  <td className="">{a.role}</td>
 
-                  <td>
+                  <td className="bg-slate-300 p-2 border">
                     {a.role === 'admin' ? (
                       ''
                     ) : (
@@ -150,7 +161,7 @@ const AllUsers = () => {
                     )}
                   </td>
                   <td
-                    className="cursor-pointer"
+                    className="bg-slate-300 p-2 border curosor-pointer"
                     onClick={() => handleDelete(a.email)}
                   >
                     {
@@ -162,8 +173,8 @@ const AllUsers = () => {
                   </td>
                 </tr>
               ))}
-            </tbody>
-          </table>
+            </table>
+          </div>
         </div>
       )}
 
