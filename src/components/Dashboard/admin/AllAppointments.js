@@ -19,9 +19,9 @@ const AllAppointments = () => {
       ) : (
         <div className="overflow-hidden">
           <div className="overflow-x-auto">
-            <table className="w-full md:min-w-[60%]">
+            <table className="w-full">
               <thead className="bg-slate-500">
-                <tr className="sticky top-0 z-50">
+                <tr>
                   <th className="p-2 border">Sr.</th>
                   <th className="p-2 border">Doctor</th>
                   <th className="p-2 border">Date</th>

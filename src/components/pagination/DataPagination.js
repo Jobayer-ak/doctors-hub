@@ -1,12 +1,6 @@
 import React from 'react';
 
 const DataPagination = ({ setLimit }) => {
-  // const handleSelectChange = (event) => {
-  //   setLimit(event.target.value);
-  // };
-
-  
-
   return (
     <div className="w-full pt-4 bg-[#23075e] text-center flex justify-end">
       <form>
@@ -20,7 +14,7 @@ const DataPagination = ({ setLimit }) => {
             id="selectOption"
             name="selectOption"
             className="w-[100px] px-1 py-1 rounded-sm border-none outline-0 cursor-pointer"
-            onChange={(e)=>setLimit(e.target.value)}
+            onChange={(e) => setLimit(e.target.value)}
           >
             <option value="">--Select--</option>
             <option value="5">5</option>

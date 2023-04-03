@@ -14,7 +14,6 @@ const PendingAppointments = () => {
   const [user] = useStorage();
   const date = new Date();
   const formatedDate = format(date, 'PP');
-  // console.log("Mseconds: ",format(new Date(1675255392460), "PP"));
 
   const userInfo = JSON.parse(user);
 
@@ -23,7 +22,7 @@ const PendingAppointments = () => {
       `/pending-appointments?patient=${userInfo?.userEmail}&date=${formatedDate}`,
       {
         withCredentials: true,
-      } 
+      }
     );
     const result = res.data;
     return result;
@@ -92,29 +91,40 @@ const PendingAppointments = () => {
           </h2>
         </div>
       ) : (
-        <div className="px-4">
-          <div className="overflow-x-auto h-screen">
-            <table className="table w-full md:min-w-[60%] lg:w-full">
-              <thead>
-                <tr className="text-center">
-                  <th>Sr.</th>
-                  <th>Doctor</th>
-                  <th>Date</th>
-                  <th>Time</th>
-                  <th>Specialist</th>
-                  <th>Payment</th>
-                  <th>Remove</th>
+        <div className="overflow-hidden">
+          <div className="overflow-x-auto">
+            <table className="w-full md:min-w-[60%] text-center">
+              <thead className="bg-slate-500">
+                <tr className="sticky top-0">
+                  <th className="p-2 border">Sr.</th>
+                  <th className="p-2 border">Doctor</th>
+                  <th className="p-2 border">Date</th>
+                  <th className="p-2 border">Time</th>
+                  <th className="p-2 border">Specialist</th>
+                  <th className="p-2 border">Payment</th>
+                  <th className="p-2 border">Delete</th>
                 </tr>
               </thead>
-              <tbody className=''>
+
+              <tbody>
                 {data?.map((a, index) => (
-                  <tr className="relative text-center">
-                    <th className="sticky left-0">{index + 1}</th>
-                    <td>{a.doctor_name}</td>
-                    <td>{format(new Date(a.date), 'PP')}</td>
-                    <td>{a.slot}</td>
-                    <td>{a.speciality}</td>
-                    <td>
+                  <tr className="relative text-center" key={index}>
+                    <td className="sticky left-0 bg-slate-400 border">
+                      {index + 1}
+                    </td>
+                    <td className="bg-slate-300 p-2 border md:table-cell">
+                      {a.doctor_name}
+                    </td>
+                    <td className="bg-slate-300 p-2 border md:table-cell">
+                      {format(new Date(a.date), 'PP')}
+                    </td>
+                    <td className="bg-slate-300 p-2 border md:table-cell">
+                      {a.slot}
+                    </td>
+                    <td className="bg-slate-300 p-2 border md:table-cell">
+                      {a.speciality}
+                    </td>
+                    <td className="bg-slate-300 p-2 border md:table-cell">
                       {a.fee && !a.paid && (
                         <Link to={`/dashboard/payment/${a._id}`}>
                           <button className="btn btn-xs">Pay</button>
@@ -127,7 +137,7 @@ const PendingAppointments = () => {
                       )}
                     </td>
                     <td
-                      className="cursor-pointer"
+                      className="bg-slate-300 p-2 border md:table-cell cursor-pointer"
                       onClick={() => handleDelete(a._id)}
                     >
                       {
@@ -143,6 +153,58 @@ const PendingAppointments = () => {
             </table>
           </div>
         </div>
+
+        // <div className="px-4">
+        //   <div className="overflow-x-auto h-screen">
+        //     <table className="table w-full md:min-w-[60%] lg:w-full">
+        //       <thead>
+        //         <tr className="text-center">
+        //           <th>Sr.</th>
+        //           <th>Doctor</th>
+        //           <th>Date</th>
+        //           <th>Time</th>
+        //           <th>Specialist</th>
+        //           <th>Payment</th>
+        //           <th>Remove</th>
+        //         </tr>
+        //       </thead>
+        //       <tbody className=''>
+        //         {data?.map((a, index) => (
+        //           <tr className="relative text-center">
+        //             <th className="sticky left-0">{index + 1}</th>
+        //             <td>{a.doctor_name}</td>
+        //             <td>{format(new Date(a.date), 'PP')}</td>
+        //             <td>{a.slot}</td>
+        //             <td>{a.speciality}</td>
+        //             <td>
+        //               {a.fee && !a.paid && (
+        //                 <Link to={`/dashboard/payment/${a._id}`}>
+        //                   <button className="btn btn-xs">Pay</button>
+        //                 </Link>
+        //               )}
+        //               {a.fee && a.paid && (
+        //                 <span className="text-white bg-green-700 px-[7px] py-1 rounded-full">
+        //                   PAID
+        //                 </span>
+        //               )}
+        //             </td>
+        //             <td
+        //               className="cursor-pointer"
+        //               onClick={() => handleDelete(a._id)}
+        //             >
+        //               {
+        //                 <FontAwesomeIcon
+        //                   icon={faTrashCan}
+        //                   className="bg-red-700 px-2 py-2 rounded-md text-white"
+        //                 />
+        //               }
+        //             </td>
+        //           </tr>
+        //         ))}
+        //       </tbody>
+        //     </table>
+        //   </div>
+        // </div>
       )}
     </>
   );

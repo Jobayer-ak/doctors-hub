@@ -48,11 +48,11 @@
 }
 
 .pagination .previous a:before {
-  content: '< previous';
+  content: '<';
 }
 
 .pagination .next a:after {
-  content: 'next >';
+  content: '>';
 }
 
 .pagination .disabled a,
@@ -86,9 +86,9 @@
   }
 }
 
-@media screen and (max-width: 576px) {
+@media screen and (max-width: 640px) {
   .pagination li {
-    padding: 5px 5px;
+    padding: 2px 2px;
     font-size: 10px;
   }
 

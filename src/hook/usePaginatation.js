@@ -4,20 +4,27 @@ import ReactPaginate from 'react-paginate';
 import baseURL from '../utils/baseURL';
 import './react-paginate.css';
 
-const usePagination = (url, limit) => {
+const usePagination = (path, limit, extraQueries = {}) => {
   const [currentPage, setCurrentPage] = useState(1);
 
   console.log('selected limit: ', limit);
 
   const { data, isLoading, refetch } = useQuery(
-    ['paginate', currentPage, limit],
+    ['paginate', currentPage, limit, extraQueries],
     async () => {
-      const res = await baseURL.get(
-        `${url}?page=${currentPage}&limit=${limit}`,
-        {
-          withCredentials: true,
+      let url = `${path}?page=${currentPage}&limit=${limit}`;
+
+      if (extraQueries !=={}) {
+        for (let key in extraQueries) {
+          url += `&${key}=${extraQueries[key]}`;
+          console.log("inside url: ", url);
         }
-      );
+      }
+
+      console.log("update url: ", url);
+      const res = await baseURL.get(url, {
+        withCredentials: true,
+      });
       const result = res.data;
       return result;
     }
@@ -34,9 +41,9 @@ const usePagination = (url, limit) => {
       breakLabel="..."
       nextLabel="next >"
       onPageChange={handlePageChange}
-      pageRangeDisplayed={6}
+      // pageRangeDisplayed={1}
       pageCount={data?.queries?.pageCount}
-      previousLabel="< previous"
+      previousLabel="<"
       renderOnZeroPageCount={null}
       marginPagesDisplayed={2}
       containerClassName="pagination justify-content-center"
