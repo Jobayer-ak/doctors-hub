@@ -60,6 +60,8 @@ const AllDoctors = () => {
     });
   };
 
+
+  console.log("docs: ", data);
   return (
     <div className="px-4">
       {/* table */}
@@ -71,7 +73,7 @@ const AllDoctors = () => {
             <table className="w-full md:min-w-[60%]">
               <thead className="bg-slate-500">
                 <tr className="">
-                  <th className="p-2 border sticky left-0">Sr.</th>
+                  <th className="p-2 border">Sr.</th>
                   <th className="p-2 border">Name</th>
                   <th className="p-2 border">Email</th>
                   <th className="p-2 border">Gender</th>
@@ -87,17 +89,16 @@ const AllDoctors = () => {
                   <td className="sticky left-0 bg-slate-400 border">
                     {(currentPage - 1) * limit + index + 1}
                   </td>
-                  <td className="bg-slate-300 p-2 border">{a.name}</td>
-
-                  <td className="bg-slate-300 p-2 border">{a.email}</td>
-                  <td className="bg-slate-300 p-2 border">{a.gender}</td>
-                  <td className="bg-slate-300 p-2 border">
+                  <td className="bg-slate-300 p-2 border md:table-cell">{a.name}</td>
+                  <td className="bg-slate-300 p-2 border md:table-cell">{a.email}</td>
+                  <td className="bg-slate-300 p-2 border md:table-cell">{a.gender}</td>
+                  <td className="bg-slate-300 p-2 border md:table-cell">
                     {a.contact_number}
                   </td>
-                  <td className="bg-slate-300 p-2 border">{a.speciality}</td>
-                  <td className="bg-slate-300 p-2 border">{a.branch}</td>
+                  <td className="bg-slate-300 p-2 border md:table-cell">{a.speciality}</td>
+                  <td className="bg-slate-300 p-2 border md:table-cell">{a.branch}</td>
                   <td
-                    className="bg-slate-300 p-2 border cursor-pointer"
+                    className="bg-slate-300 p-2 border cursor-pointer md:table-cell"
                     onClick={() => handleDelete(a.email)}
                   >
                     {

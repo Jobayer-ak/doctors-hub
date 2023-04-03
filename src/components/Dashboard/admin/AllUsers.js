@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, {useState } from 'react';
 import Loader from '../../common/Loading/Loader';
 import baseURL from '../../../utils/baseURL';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -14,8 +14,6 @@ const AllUsers = () => {
     url,
     limit
   );
-
-  useEffect(() => {}, [refetch]);
 
   const handleDelete = (doc_email) => {
     Swal.fire({
@@ -101,7 +99,7 @@ const AllUsers = () => {
       });
   };
 
-  console.log(data);
+  // console.log(data);
 
   return (
     <div className="px-4">
@@ -114,7 +112,7 @@ const AllUsers = () => {
             <table className="w-full md:min-w-[60%]">
               <thead className="bg-slate-500">
                 <tr className="">
-                  <th className="p-2 border sticky left-0">Sr.</th>
+                  <th className="p-2 border">Sr.</th>
                   <th className="p-2 border">Name</th>
                   <th className="p-2 border">Email</th>
                   <th className="p-2 border">Mobile</th>
@@ -126,53 +124,56 @@ const AllUsers = () => {
                 </tr>
               </thead>
 
-              {data?.users?.map((a, index) => (
-                <tr className="relative text-center" key={index}>
-                  <td className="sticky left-0 bg-slate-400 border">
-                    {(currentPage - 1) * limit + index + 1}
-                  </td>
-                  <td className="bg-slate-300 p-2 border">{a.name}</td>
+              <tbody>
+                {data?.users?.map((a, index) => (
+                  <tr className="relative text-center" key={index}>
+                    <td className="sticky left-0 bg-slate-400 border">
+                      {data.queries.skip === 0
+                        ? index + 1
+                        : (currentPage - 1) * limit + index + 1}
+                    </td>
+                    <td className="bg-slate-300 p-2 border md:table-cell">{a.name}</td>
+                    <td className="bg-slate-300 p-2 border md:table-cell">{a.email}</td>
+                    <td className="bg-slate-300 p-2 border md:table-cell">{a.mobile}</td>
+                    <td className="bg-slate-300 p-2 border md:table-cell">{a.gender}</td>
+                    <td className="bg-slate-300 p-2 border md:table-cell">{a.status}</td>
 
-                  <td className="bg-slate-300 p-2 border">{a.email}</td>
-                  <td className="bg-slate-300 p-2 border">{a.mobile}</td>
-                  <td className="bg-slate-300 p-2 border">{a.gender}</td>
-                  <td className="bg-slate-300 p-2 border">{a.status}</td>
+                    <td
+                      className={
+                        a.status === 'active'
+                          ? 'text-green-800 font-bold p-2 border bg-slate-300 md:table-cell'
+                          : 'text-red-500 font-bold p-2 border bg-slate-300 md:table-cell'
+                      }
+                    >
+                      {a.role}
+                    </td>
 
-                  <td
-                    className={
-                      a.status === 'active'
-                        ? 'text-green-800 font-bold p-2 border bg-slate-300'
-                        : 'text-red-500 font-bold p-2 border bg-slate-300'
-                    }
-                  >
-                    {a.role}
-                  </td>
-
-                  <td className="bg-slate-300 p-2 border">
-                    {a.role === 'admin' ? (
-                      ''
-                    ) : (
-                      <button
-                        className="bg-[#f68685] p-2 rounded-md cursor-pointer"
-                        onClick={() => handleAdmin(a._id)}
-                      >
-                        Make Admin
-                      </button>
-                    )}
-                  </td>
-                  <td
-                    className="bg-slate-300 p-2 border curosor-pointer"
-                    onClick={() => handleDelete(a.email)}
-                  >
-                    {
-                      <FontAwesomeIcon
-                        icon={faX}
-                        className="bg-red-700 px-2 py-2 rounded-md text-white"
-                      />
-                    }
-                  </td>
-                </tr>
-              ))}
+                    <td className="bg-slate-300 p-2 border md:table-cell">
+                      {a.role === 'admin' ? (
+                        ''
+                      ) : (
+                        <button
+                          className="bg-[#f68685] p-2 rounded-md cursor-pointer"
+                          onClick={() => handleAdmin(a._id)}
+                        >
+                          Make Admin
+                        </button>
+                      )}
+                    </td>
+                    <td
+                      className="bg-slate-300 p-2 border curosor-pointer md:table-cell"
+                      onClick={() => handleDelete(a.email)}
+                    >
+                      {
+                        <FontAwesomeIcon
+                          icon={faX}
+                          className="bg-red-700 px-2 py-2 rounded-md text-white"
+                        />
+                      }
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
             </table>
           </div>
         </div>

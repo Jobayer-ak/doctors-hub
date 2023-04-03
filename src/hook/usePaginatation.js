@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useQuery } from 'react-query';
 import ReactPaginate from 'react-paginate';
 import baseURL from '../utils/baseURL';
@@ -6,9 +6,8 @@ import './react-paginate.css';
 
 const usePagination = (url, limit) => {
   const [currentPage, setCurrentPage] = useState(1);
-  // const [updatedLimit, setUpdatedLimit] = useState(limit);
 
-  
+  console.log('selected limit: ', limit);
 
   const { data, isLoading, refetch } = useQuery(
     ['paginate', currentPage, limit],
@@ -24,12 +23,8 @@ const usePagination = (url, limit) => {
     }
   );
 
-
-
   const handlePageChange = ({ selected }) => {
-    // currentPage.current = selected + 1;
-    setCurrentPage(selected + 1)
-    console.log(currentPage);
+    setCurrentPage(selected + 1);
   };
 
   console.log(data);
@@ -60,4 +55,3 @@ const usePagination = (url, limit) => {
 };
 
 export default usePagination;
-
