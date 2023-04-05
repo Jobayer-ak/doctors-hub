@@ -7,24 +7,23 @@ import './react-paginate.css';
 const usePagination = (path, limit, extraQueries = {}) => {
   const [currentPage, setCurrentPage] = useState(1);
 
-  console.log('selected limit: ', limit);
-
   const { data, isLoading, refetch } = useQuery(
     ['paginate', currentPage, limit, extraQueries],
     async () => {
       let url = `${path}?page=${currentPage}&limit=${limit}`;
 
-      if (extraQueries !=={}) {
+      if (extraQueries !== {}) {
         for (let key in extraQueries) {
           url += `&${key}=${extraQueries[key]}`;
-          console.log("inside url: ", url);
         }
       }
 
-      console.log("update url: ", url);
+      console.log('update url: ', url);
       const res = await baseURL.get(url, {
         withCredentials: true,
       });
+
+      console.log(res.data);
       const result = res.data;
       return result;
     }

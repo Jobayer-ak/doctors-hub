@@ -7,6 +7,7 @@ const AppointmentBanner = () => {
   const [date, setDate] = useState(new Date());
   const [selectedCity, setSelectedCity] = useState("Dhaka");
   const [active, setActive] = useState("Dhaka");
+  const minDate = new Date();
 
   const regions = [
     "Dhaka",
@@ -33,7 +34,7 @@ const AppointmentBanner = () => {
       {/*  all city branches */}
       <div className="lg:flex justify-center gap-1 mb-1">
         <div className="text-white mb-1 lg:mb-0">
-          <Calendar value={date} onChange={onDateChange} />
+          <Calendar value={date} minDate={minDate} onChange={onDateChange} />
         </div>
 
         <div className="bg-[#23075e] w-[100%] px-4 py-3 text-center relative">

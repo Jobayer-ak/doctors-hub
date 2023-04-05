@@ -15,7 +15,7 @@ import useStorage from '../../../../hook/useStorage';
 
 const Booking = ({ date, docinfo, setDocinfo, refetch }) => {
   const [loading, setLoading] = useState(false);
-  const formatedDate = format(date, 'PP');
+  const formattedDate = format(date, 'PP');
   const { _id, name, slot, speciality, fee } = docinfo;
   const navigate = useNavigate();
   const [user] = useStorage();
@@ -24,7 +24,9 @@ const Booking = ({ date, docinfo, setDocinfo, refetch }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
     setLoading(true);
+
     const booking = {
       doctor_name: name,
       doctor_id: _id,
@@ -35,7 +37,7 @@ const Booking = ({ date, docinfo, setDocinfo, refetch }) => {
       slot: e.target.slot.value,
       speciality: speciality,
       fee: fee,
-      date: formatedDate,
+      date: formattedDate,
       branch: docinfo.branch,
     };
 
@@ -122,7 +124,7 @@ const Booking = ({ date, docinfo, setDocinfo, refetch }) => {
                   <input
                     className="text-center p-2 w-full max-w-sm focus:bg-[#722ed1] border-none outline-0 rounded-sm"
                     type="text"
-                    value={formatedDate}
+                    value={formattedDate}
                     readOnly
                     required
                   />

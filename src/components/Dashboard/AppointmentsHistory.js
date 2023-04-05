@@ -12,7 +12,7 @@ import DataPagination from '../pagination/DataPagination';
 
 const AppointmenstHistory = () => {
   const [user] = useStorage();
-  const [limit, setLimit] = useState(6);
+  const [limit, setLimit] = useState(5);
   const userInfo = JSON.parse(user);
 
   const path = '/bookings';
@@ -38,10 +38,13 @@ const AppointmenstHistory = () => {
     }).then(async (result) => {
       if (result.isConfirmed) {
         await baseURL
-          .delete(`/booking/delete/${userInfo.userEmail}`, {
+          .delete(`/booking/delete/${book_id}`, {
             withCredentials: true,
           })
           .then((res) => {
+
+            console.log(res.data)
+            refetch();
             if (res.status === 200) {
               console.log(book_id);
               Swal.fire(
@@ -49,7 +52,6 @@ const AppointmenstHistory = () => {
                 'Booking has been deleted.',
                 'success'
               );
-              refetch();
             }
 
             if (res.status === 403) {
@@ -61,6 +63,7 @@ const AppointmenstHistory = () => {
             }
           })
           .catch((err) => {
+            console.log(err)
             if (err.response.status) {
               return Swal.fire({
                 icon: 'error',
@@ -78,77 +81,91 @@ const AppointmenstHistory = () => {
       {isLoading ? (
         <Loader />
       ) : (
-        <div className="overflow-hidden ">
-          <div className="overflow-x-auto">
-            <table className="w-full">
-              <thead className="bg-slate-500">
-                <tr>
-                  <th className="p-2 border">Sr.</th>
-                  <th className="p-2 border">Doctor</th>
-                  <th className="p-2 border">Date</th>
-                  <th className="p-2 border">Time</th>
-                  <th className="p-2 border">Specialist</th>
-                  <th className="p-2 border">Payment</th>
-                  <th className="p-2 border">Delete</th>
-                </tr>
-              </thead>
+        <>
+          {data.appointments.length === 0 ? (
+            <div className="text-center ">
+              <h2 className="text-white text-xl mt-12">
+                No Appointments Left. <br />{' '}
+                <span className="text-2xl"> Please Make Appointments!</span>
+              </h2>
+            </div>
+          ) : (
+            <div>
+              {/* data table */}
+              <div className="overflow-hidden ">
+                <div className="overflow-x-auto">
+                  <table className="w-full">
+                    <thead className="bg-slate-500">
+                      <tr>
+                        <th className="p-2 border">Sr.</th>
+                        <th className="p-2 border">Doctor</th>
+                        <th className="p-2 border">Date</th>
+                        <th className="p-2 border">Time</th>
+                        <th className="p-2 border">Specialist</th>
+                        <th className="p-2 border">Payment</th>
+                        <th className="p-2 border">Delete</th>
+                      </tr>
+                    </thead>
 
-              <tbody>
-                {data.appointments?.map((a, index) => (
-                  <tr className="relative text-center" key={index}>
-                    <td className="sticky left-0 bg-slate-400 border">
-                      {data.queries.skip === 0
-                        ? index + 1
-                        : (currentPage - 1) * limit + index + 1}
-                    </td>
-                    <td className="bg-slate-300 p-2 border md:table-cell">
-                      {a.doctor_name}
-                    </td>
-                    <td className="bg-slate-300 p-2 border md:table-cell">
-                      {format(new Date(a.date), 'PP')}
-                    </td>
-                    <td className="bg-slate-300 p-2 border md:table-cell">
-                      {a.slot}
-                    </td>
-                    <td className="bg-slate-300 p-2 border md:table-cell">
-                      {a.speciality}
-                    </td>
-                    <td className="bg-slate-300 p-2 border md:table-cell">
-                      {a.fee && !a.paid && (
-                        <Link to={`/dashboard/payment/${a._id}`}>
-                          <button className="btn btn-xs">Pay</button>
-                        </Link>
-                      )}
-                      {a.fee && a.paid && (
-                        <span className="text-white bg-green-700 px-[7px] py-1 rounded-full">
-                          PAID
-                        </span>
-                      )}
-                    </td>
-                    <td
-                      className="bg-slate-300 p-2 border md:table-cell cursor-pointer"
-                      onClick={() => handleDelete(a._id)}
-                    >
-                      {
-                        <FontAwesomeIcon
-                          icon={faTrashCan}
-                          className="bg-red-700 px-2 py-2 rounded-md text-white"
-                        />
-                      }
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </div>
+                    <tbody>
+                      {data.appointments?.map((a, index) => (
+                        <tr className="relative text-center" key={index}>
+                          <td className="sticky left-0 bg-slate-400 border">
+                            {data.queries.skip === 0
+                              ? index + 1
+                              : (currentPage - 1) * limit + index + 1}
+                          </td>
+                          <td className="bg-slate-300 p-2 border md:table-cell">
+                            {a.doctor_name}
+                          </td>
+                          <td className="bg-slate-300 p-2 border md:table-cell">
+                            {format(new Date(a.date), 'PP')}
+                          </td>
+                          <td className="bg-slate-300 p-2 border md:table-cell">
+                            {a.slot}
+                          </td>
+                          <td className="bg-slate-300 p-2 border md:table-cell">
+                            {a.speciality}
+                          </td>
+                          <td className="bg-slate-300 p-2 border md:table-cell">
+                            {a.fee && !a.paid && (
+                              <Link to={`/dashboard/payment/${a._id}`}>
+                                <button className="btn btn-xs">Pay</button>
+                              </Link>
+                            )}
+                            {a.fee && a.paid && (
+                              <span className="text-white bg-green-700 px-[7px] py-1 rounded-full">
+                                PAID
+                              </span>
+                            )}
+                          </td>
+                          <td
+                            className="bg-slate-300 p-2 border md:table-cell cursor-pointer"
+                            onClick={() => handleDelete(a._id)}
+                          >
+                            {
+                              <FontAwesomeIcon
+                                icon={faTrashCan}
+                                className="bg-red-700 px-2 py-2 rounded-md text-white"
+                              />
+                            }
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+              {/* pagination */}
+              <div className="w-full">
+                <DataPagination setLimit={setLimit} />
+                <div className="w-full mt-2 flex justify-end">{pagination}</div>
+              </div>
+            </div>
+          )}
+        </>
       )}
-
-      {/* pagination */}
-      <div className="w-full">
-        <DataPagination setLimit={setLimit} />
-        <div className="w-full mt-2 flex justify-end">{pagination}</div>
-      </div>
     </div>
 
     // <div className="px-4">
