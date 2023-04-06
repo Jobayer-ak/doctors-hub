@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEnvelope } from '@fortawesome/free-regular-svg-icons';
 import {
@@ -16,6 +16,7 @@ import Review from './Review';
 import { Dna } from 'react-loader-spinner';
 import useStorage from '../../hook/useStorage';
 import Loader from '../common/Loading/Loader';
+import avatar from '../../assets/images/avatar.png';
 
 const Setting = () => {
   const {
@@ -27,7 +28,6 @@ const Setting = () => {
   } = useForm();
   const [loading, setLoading] = useState(false);
   const [user] = useStorage();
-  const [oldUser, setOldUser] = useState(null);
   const [tempUser, setTempUser] = useState(null);
   const userInfo = JSON.parse(user);
 
@@ -36,7 +36,6 @@ const Setting = () => {
       withCredentials: true,
     });
     const result = res.data;
-    setOldUser(result.user);
     setTempUser(result.user);
     return result;
   });
@@ -57,105 +56,145 @@ const Setting = () => {
   }
 
   const { _id, email, gender, mobile, name, address, imageURL } = data.user;
+
   const createdDate = new Date(data.user.createdAt);
 
   const imgStorageKey = '23d6548fb8456e2bee8c9306819c612c';
 
   const onSubmit = async (data) => {
-    // const updateData = {
-    //   name: data.name,
-    //   email: email,
-    //   address: data.address,
-    //   mobile: data.mobile,
-    //   gender: data.gender,
-    //   imageURL: '',
-    // };
+    const updatedData = {
+      name: data.name,
+      email: data.email,
+      mobile: data.mobile ? data.mobile : mobile,
+      address: data.address ? data.address : address,
+      imageURL: data.uploadFile.length === 0 ? imageURL : '',
+    };
 
-    console.log('form Data: ', data);
-    console.log("gender: ", tempUser);
+    console.log('Updated Data: ', updatedData);
 
-    // const image = data.uploadFile[0];
-    // // console.log(image);
-    // const formData = new FormData();
-    // formData.append('image', image);
+    const image = data.uploadFile[0];
 
-    // // console.log('formdata: ', formData);
+    const formData = new FormData();
+    formData.append('image', image);
 
-    // const imgbbUrl = `https://api.imgbb.com/1/upload?key=${imgStorageKey}`;
+    const imgbbUrl = `https://api.imgbb.com/1/upload?key=${imgStorageKey}`;
 
-    // await axios
-    //   .post(imgbbUrl, formData)
-    //   .then((res) => {
-    //     setLoading(true);
-    //     // console.log(res);
-    //     if (res.data.success) {
-    //       const imgurl = res.data.data.display_url;
-    //       // console.log(imgurl);
+    if (data.uploadFile.length === 0) {
+      return await baseURL
+        .patch(`/update-profile/${email}`, updatedData, {
+          withCredentials: true,
+        })
+        .then((res) => {
+          setLoading(false);
 
-    //       updateData.imageURL = imgurl;
+          refetch();
+          reset();
+          if (res.status === 200) {
+            return Swal.fire({
+              position: 'top-end',
+              icon: 'success',
+              title: res.data.message,
+              showConfirmButton: false,
+              timer: 1500,
+            });
+          }
 
-    //       // console.log(updateData);
+          if (res.status === 403) {
+            return Swal.fire({
+              icon: 'error',
+              title: 'Oops...',
+              text: res.data.message,
+            });
+          }
+          if (res.status === 304) {
+            return Swal.fire({
+              icon: 'error',
+              title: 'Oops...',
+              text: res.data.message,
+            });
+          }
+        })
+        .catch((err) => {
+          setLoading(false);
 
-    //       baseURL
-    //         .patch(`/update-profile/${email}`, updateData, {
-    //           withCredentials: true,
-    //         })
-    //         .then((res) => {
-    //           setLoading(false);
-    //           // console.log(res.data);
-    //           refetch();
-    //           reset();
-    //           if (res.status === 200) {
-    //             return Swal.fire({
-    //               position: 'top-end',
-    //               icon: 'success',
-    //               title: res.data.message,
-    //               showConfirmButton: false,
-    //               timer: 1500,
-    //             });
-    //           }
+          if (err.response.status === 500) {
+            return Swal.fire({
+              icon: 'error',
+              title: 'Oops...',
+              text: err.message,
+            });
+          }
+        });
+    }
 
-    //           if (res.status === 403) {
-    //             return Swal.fire({
-    //               icon: 'error',
-    //               title: 'Oops...',
-    //               text: res.data.message,
-    //             });
-    //           }
-    //           if (res.status === 304) {
-    //             return Swal.fire({
-    //               icon: 'error',
-    //               title: 'Oops...',
-    //               text: res.data.message,
-    //             });
-    //           }
-    //         })
-    //         .catch((err) => {
-    //           setLoading(false);
-    //           // console.log(err.message);
-    //           if (err.response.status === 500) {
-    //             return Swal.fire({
-    //               icon: 'error',
-    //               title: 'Oops...',
-    //               text: err.message,
-    //             });
-    //           }
-    //         });
-    //     }
-    //   })
-    //   .catch((err) => {
-    //     setLoading(false);
-    //     if (err) {
-    //       Swal.fire({
-    //         icon: 'error',
-    //         title: 'Oops...',
-    //         text: 'Something went wrong with image!',
-    //       });
-    //     }
-    //   });
+    await axios
+      .post(imgbbUrl, formData)
+      .then((res) => {
+        setLoading(true);
+
+        if (res.data.success) {
+          const imgurl = res.data.data.display_url;
+
+          updatedData.imageURL = imgurl;
+
+          baseURL
+            .patch(`/update-profile/${email}`, updatedData, {
+              withCredentials: true,
+            })
+            .then((res) => {
+              setLoading(false);
+
+              refetch();
+              reset();
+              if (res.status === 200) {
+                return Swal.fire({
+                  position: 'top-end',
+                  icon: 'success',
+                  title: res.data.message,
+                  showConfirmButton: false,
+                  timer: 1500,
+                });
+              }
+
+              if (res.status === 403) {
+                return Swal.fire({
+                  icon: 'error',
+                  title: 'Oops...',
+                  text: res.data.message,
+                });
+              }
+              if (res.status === 304) {
+                return Swal.fire({
+                  icon: 'error',
+                  title: 'Oops...',
+                  text: res.data.message,
+                });
+              }
+            })
+            .catch((err) => {
+              setLoading(false);
+
+              if (err.response.status === 500) {
+                return Swal.fire({
+                  icon: 'error',
+                  title: 'Oops...',
+                  text: err.message,
+                });
+              }
+            });
+        }
+      })
+      .catch((err) => {
+        setLoading(false);
+        if (err) {
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Something went wrong with image!',
+          });
+        }
+      });
   };
-
-  
 
   return (
     <div className="w-full lg:w-[83%] ml-0 lg:ml-1 md:min-h-screen bg-[#0a062c] z-10">
@@ -168,7 +207,7 @@ const Setting = () => {
           <div className="lg:flex lg:justify-around bg-[#23075e] px-4 py-12 md:px-10 rounded-sm">
             <div className="mt-0 flex justify-center">
               <img
-                src={imageURL}
+                src={imageURL ? imageURL : avatar}
                 alt=""
                 className="w-[350px] h-[350px] rounded-full"
               />
@@ -242,19 +281,14 @@ const Setting = () => {
                           type="text"
                           value={name}
                           readOnly
-                          {...register('name', {
-                            // required: {
-                            //   value: true,
-                            //   message: 'Name is required!',
-                            // },
-                          })}
+                          {...register('name')}
                         />
 
-                        {/* {errors.name && (
+                        {errors.name && (
                           <p className="text-white mt-2">
                             {errors.name?.message}
                           </p>
-                        )} */}
+                        )}
                       </div>
 
                       <div className="my-4">
@@ -283,21 +317,19 @@ const Setting = () => {
                           type="text"
                           defaultValue={tempUser.mobile}
                           onChange={(e) =>
-                            setTempUser({ ...tempUser, mobile: watch(e.target.value) })
+                            setTempUser({
+                              ...tempUser,
+                              mobile: watch(e.target.value),
+                            })
                           }
-                          {...register('mobile', {
-                            // required: {
-                            //   value: true,
-                            //   message: 'Mobile number is required!',
-                            // },
-                          })}
+                          {...register('mobile')}
                         />
 
-                        {/* {errors.mobile && (
-                      <p className="text-white mt-2">
-                        {errors.mobile?.message}
-                      </p>
-                    )} */}
+                        {errors.mobile && (
+                          <p className="text-white mt-2">
+                            {errors.mobile?.message}
+                          </p>
+                        )}
                       </div>
 
                       <div className="my-3">
@@ -316,19 +348,14 @@ const Setting = () => {
                               address: watch(e.target.value),
                             })
                           }
-                          {...register('address', {
-                            // required: {
-                            //   value: true,
-                            //   message: 'Address is required!',
-                            // },
-                          })}
+                          {...register('address')}
                         />
 
-                        {/* {errors.address && (
-                      <p className="text-white mt-2">
-                        {errors.address?.message}
-                      </p>
-                    )} */}
+                        {errors.address && (
+                          <p className="text-white mt-2">
+                            {errors.address?.message}
+                          </p>
+                        )}
                       </div>
 
                       <div className="text-white mb-3 flex justify-center items-center gap-[50px] md:gap-[75px]">
@@ -342,12 +369,12 @@ const Setting = () => {
                             value="Male"
                             className="cursor-pointer"
                             checked={tempUser.gender === 'Male'}
-                            onClick={(e) =>
-                              setTempUser({
-                                ...tempUser,
-                                gender: e.target.value,
-                              })
-                            }
+                            // onClick={(e) =>
+                            //   setTempUser({
+                            //     ...tempUser,
+                            //     gender: e.target.value,
+                            //   })
+                            // }
                             {...register('gender', {
                               // required: {
                               //   value: true,
@@ -364,12 +391,12 @@ const Setting = () => {
                             className="cursor-pointer"
                             value="Female"
                             checked={tempUser.gender === 'Female'}
-                            onClick={(e) =>
-                              setTempUser({
-                                ...tempUser,
-                                gender: e.target.value,
-                              })
-                            }
+                            // onClick={(e) =>
+                            //   setTempUser({
+                            //     ...tempUser,
+                            //     gender: e.target.value,
+                            //   })
+                            // }
                             {...register('gender', {
                               // required: {
                               //   value: true,
@@ -387,25 +414,20 @@ const Setting = () => {
                           <input
                             type="file"
                             className="text-white py-2 w-[75%] max-w-sm rounded-sm"
-                            // {...register('uploadFile', {
-                            //   required: {
-                            //     value: true,
-                            //     message: 'Image is required!',
-                            //   },
-                            // })}
+                            {...register('uploadFile')}
                           />
                         </label>
 
-                        {/* {errors.uploadFile && (
+                        {errors.uploadFile && (
                           <p className="text-white mt-2">
                             {errors.uploadFile?.message}
                           </p>
-                        )} */}
+                        )}
                       </div>
 
                       {/* {updateError && (
                     <p className="text-white mt-2">{updateError}</p>
-                  )} */}
+                  )}  */}
 
                       <input
                         className="text-center text-white font-bold bg-[#722ed1] hover:bg-[#9258e5] transition-all p-2 w-full max-w-sm cursor-pointer rounded-sm"
