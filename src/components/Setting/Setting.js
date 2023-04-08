@@ -79,6 +79,7 @@ const Setting = () => {
 
     const imgbbUrl = `https://api.imgbb.com/1/upload?key=${imgStorageKey}`;
 
+    // update user info without image url
     if (data.uploadFile.length === 0) {
       return await baseURL
         .patch(`/update-profile/${email}`, updatedData, {
@@ -127,6 +128,7 @@ const Setting = () => {
         });
     }
 
+    // update user info included image url
     await axios
       .post(imgbbUrl, formData)
       .then((res) => {
