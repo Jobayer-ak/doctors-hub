@@ -9,6 +9,7 @@ const AppointmentBanner = () => {
   const [selectedCity, setSelectedCity] = useState('Dhaka');
   const [active, setActive] = useState('Dhaka');
   const minDate = new Date();
+  const [newBooking, setNewBooking] = useState(false);
 
   const regions = [
     'Dhaka',
@@ -32,7 +33,7 @@ const AppointmentBanner = () => {
 
   return (
     <div className="">
-      <Search />
+      <Search newBooking={newBooking} />
       {/*  all city branches */}
       <div className="lg:flex justify-center gap-1 mb-1">
         <div className="text-white mb-1 lg:mb-0">
@@ -78,7 +79,7 @@ const AppointmentBanner = () => {
         </div>
         {/* Doctor Cards */}
         <div className="bg-[#2375e] w-full min-h-[40vh]">
-          <DoctorCards date={date} selectedCity={selectedCity} />
+          <DoctorCards date={date} selectedCity={selectedCity} setNewBooking={setNewBooking} />
         </div>
       </div>
     </div>

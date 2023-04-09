@@ -1,5 +1,5 @@
 import { format } from 'date-fns';
-import React, {useState } from 'react';
+import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faCalendarDays,
@@ -13,7 +13,7 @@ import Loader from '../../../common/Loading/Loader';
 import baseURL from '../../../../utils/baseURL';
 import useStorage from '../../../../hook/useStorage';
 
-const Booking = ({ date, docinfo, setDocinfo, refetch }) => {
+const Booking = ({ date, docinfo, setDocinfo, refetch, setNewBooking }) => {
   const [loading, setLoading] = useState(false);
   const formattedDate = format(date, 'PP');
   const { _id, name, slot, speciality, fee } = docinfo;
@@ -24,6 +24,8 @@ const Booking = ({ date, docinfo, setDocinfo, refetch }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    console.log('slot v: ', e.target.slot.value);
 
     setLoading(true);
 
@@ -41,14 +43,13 @@ const Booking = ({ date, docinfo, setDocinfo, refetch }) => {
       branch: docinfo.branch,
     };
 
-    console.log(booking);
-
     baseURL
       .post('/booking', booking, {
         withCredentials: true,
       })
       .then((res) => {
         setLoading(false);
+
         if (res.data.success === true) {
           Swal.fire({
             icon: 'success',
@@ -64,7 +65,7 @@ const Booking = ({ date, docinfo, setDocinfo, refetch }) => {
             text: `${res.data.message} at ${booking.slot} on ${date}`,
           });
         }
-
+        setNewBooking(true);
         setDocinfo(null);
         refetch();
       })
@@ -95,6 +96,8 @@ const Booking = ({ date, docinfo, setDocinfo, refetch }) => {
   if (loading) {
     return <Loader />;
   }
+
+  setNewBooking(false);
 
   return (
     <div className="text-center">
@@ -142,8 +145,16 @@ const Booking = ({ date, docinfo, setDocinfo, refetch }) => {
                     required
                     className="w-full md:w-96 lg:w-[350px] pl-10 text-center font-bold p-2 focus:bg-[#722ed1] border-none outline-0 rounded-sm"
                   >
+                    {slot.length === 0 && (
+                      <option disabled className="text-white">
+                        No Time Slots
+                      </option>
+                    )}
+
                     {slot?.map((s, index) => (
-                      <option value={s} key={index}>{s}</option>
+                      <option value={s} key={index}>
+                        {s}
+                      </option>
                     ))}
                   </select>
                 </div>
@@ -236,7 +247,8 @@ const Booking = ({ date, docinfo, setDocinfo, refetch }) => {
                 <input
                   className="text-center text-white font-bold bg-[#722ed1] hover:bg-[#9258e5] transition-all p-2 w-full max-w-sm cursor-pointer rounded-sm"
                   type="submit"
-                  value="Submit"
+                  value={slot.length === 0 ? 'No slots for today' : 'Submit'}
+                  disabled={slot.length === 0 ? true : false}
                 />
               </form>
             </div>

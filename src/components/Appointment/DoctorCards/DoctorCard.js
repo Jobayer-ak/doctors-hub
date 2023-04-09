@@ -1,6 +1,6 @@
 import React from 'react';
 
-const DoctorCard = ({ date, doctor, setDocinfo }) => {
+const DoctorCard = ({ date, doctor, setDocinfo, docInfo }) => {
   return (
     <div>
       <div className="rounded-md w-full h-[300px] bg-[#381f6e] shadow-xl">

@@ -6,7 +6,7 @@ import Booking from './Booking/Booking';
 import baseURL from '../../../utils/baseURL';
 import { Dna,} from 'react-loader-spinner';
 
-const DoctorCards = ({ selectedCity, date }) => {
+const DoctorCards = ({ selectedCity, date, setNewBooking }) => {
   const [curDepartment, setCurDepartment] = useState('All');
   const formatedDate = format(date, 'PP');
   const [active, setActive] = useState('All');
@@ -96,6 +96,7 @@ const DoctorCards = ({ selectedCity, date }) => {
           docinfo={docinfo}
           setDocinfo={setDocinfo}
           refetch={refetch}
+          setNewBooking={setNewBooking}
         />
       )}
     </div>

@@ -38,9 +38,9 @@ const usePagination = (path, limit, extraQueries = {}) => {
   const pagination = (
     <ReactPaginate
       breakLabel="..."
-      nextLabel="next >"
+      nextLabel=">"
       onPageChange={handlePageChange}
-      // pageRangeDisplayed={1}
+      pageRangeDisplayed={1}
       pageCount={data?.queries?.pageCount}
       previousLabel="<"
       renderOnZeroPageCount={null}

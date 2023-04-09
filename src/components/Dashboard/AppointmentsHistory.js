@@ -42,8 +42,7 @@ const AppointmenstHistory = () => {
             withCredentials: true,
           })
           .then((res) => {
-
-            console.log(res.data)
+            console.log(res.data);
             refetch();
             if (res.status === 200) {
               console.log(book_id);
@@ -63,7 +62,7 @@ const AppointmenstHistory = () => {
             }
           })
           .catch((err) => {
-            console.log(err)
+            console.log(err);
             if (err.response.status) {
               return Swal.fire({
                 icon: 'error',
@@ -167,21 +166,7 @@ const AppointmenstHistory = () => {
         </>
       )}
     </div>
-
-    // <div className="px-4">
-    //   {data.length < 1 || data === undefined ? (
-    //     <div className="text-center ">
-    //       <h2 className="text-white text-xl mt-12">
-    //         No Appointments Left. <br />{' '}
-    //         <span className="text-2xl"> Please Make Appointments!</span>
-    //       </h2>
-    //     </div>
-    //   ) : (
-
-    //   )}
-    // </div>
   );
 };
-// responsive table with jsx
 
 export default AppointmenstHistory;
