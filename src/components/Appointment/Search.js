@@ -23,7 +23,7 @@ const Search = ({ newBooking }) => {
 
   const url = '/pending-appointments';
 
-  const { data, isLoading, refetch } = useQuery(
+  const { data, isLoading, isError, refetch } = useQuery(
     ['profileInfo', newBooking],
     async () => {
       const res = await baseURL.get(
@@ -43,7 +43,11 @@ const Search = ({ newBooking }) => {
     return <h2 className="text-xl font-bold text-whtie">Loading....</h2>;
   }
 
-  console.log('Fetch data: ', data.pendingAppointments);
+  if (isError) {
+    return <h2>Error</h2>
+  }
+
+  // console.log('Fetch data: ', data.pendingAppointments);
   const a = 3;
   return (
     <div className="w-full bg-[#23075e] mb-1">

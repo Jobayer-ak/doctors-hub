@@ -7,8 +7,10 @@ import './react-paginate.css';
 const usePagination = (path, limit, extraQueries = {}) => {
   const [currentPage, setCurrentPage] = useState(1);
 
+
+
   const { data, isLoading, refetch } = useQuery(
-    ['paginate', currentPage, limit, extraQueries],
+    ['paginate', currentPage,limit],
     async () => {
       let url = `${path}?page=${currentPage}&limit=${limit}`;
 
@@ -30,6 +32,7 @@ const usePagination = (path, limit, extraQueries = {}) => {
   );
 
   const handlePageChange = ({ selected }) => {
+    console.log("selected: ", selected + 1)
     setCurrentPage(selected + 1);
   };
 
@@ -44,7 +47,7 @@ const usePagination = (path, limit, extraQueries = {}) => {
       pageCount={data?.queries?.pageCount}
       previousLabel="<"
       renderOnZeroPageCount={null}
-      marginPagesDisplayed={2}
+      marginPagesDisplayed={1}
       containerClassName="pagination justify-content-center"
       pageClassName="page-item"
       pageLinkClassName="page-link"
@@ -54,8 +57,10 @@ const usePagination = (path, limit, extraQueries = {}) => {
       nextLinkClassName="page-link"
       breakClassName="break"
       activeClassName="active"
+      forcePage={currentPage - 1}
     />
   );
+
 
   return { data, isLoading, pagination, currentPage, refetch };
 };
