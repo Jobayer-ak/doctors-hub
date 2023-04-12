@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, {useState } from 'react';
 import { Calendar } from 'react-calendar';
 import '../home/banner/hero/calender.css';
 import DoctorCards from './DoctorCards/DoctorCards';
 import Search from './Search';
+
 
 const AppointmentBanner = () => {
   const [date, setDate] = useState(new Date());
@@ -10,6 +11,8 @@ const AppointmentBanner = () => {
   const [active, setActive] = useState('Dhaka');
   const minDate = new Date();
   const [newBooking, setNewBooking] = useState(false);
+
+  
 
   const regions = [
     'Dhaka',

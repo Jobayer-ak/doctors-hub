@@ -4,7 +4,7 @@ import { useQuery } from 'react-query';
 import { format } from 'date-fns';
 import Booking from './Booking/Booking';
 import baseURL from '../../../utils/baseURL';
-import { Dna,} from 'react-loader-spinner';
+import { Dna } from 'react-loader-spinner';
 
 const DoctorCards = ({ selectedCity, date, setNewBooking }) => {
   const [curDepartment, setCurDepartment] = useState('All');

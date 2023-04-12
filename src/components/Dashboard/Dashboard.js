@@ -16,7 +16,7 @@ const Dashboard = () => {
 
       {/* dashboard buttons for normal user */}
 
-      {userInfo?.userRole === 'admin' ? <Admin /> : <ForUser />}
+      {userInfo?.role === 'admin' ? <Admin /> : <ForUser />}
     </div>
   );
 };

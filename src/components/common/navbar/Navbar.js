@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import brandLogo from '../../../assets/icons/brand-logo.png';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
@@ -14,8 +14,9 @@ import {
   faXmark,
 } from '@fortawesome/free-solid-svg-icons';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
+
+import { AuthContext } from '../../../context/AuthContext';
 import useStorage from '../../../hook/useStorage';
-import baseURL from '../../../utils/baseURL';
 
 const Navbar = () => {
   const [open, setOpen] = useState(false);
@@ -23,21 +24,28 @@ const Navbar = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const padding = 'mr-3.5';
-
   const userInfo = JSON.parse(user);
 
-  const logout = () => {
-    baseURL
-      .get('/logout', {
-        withCredentials: true,
-      })
-      .then((res) => {
-        localStorage.removeItem('user');
-        navigate('/login');
-      })
-      .then((err) => console.log(err));
+  const { logout } = useContext(AuthContext);
+
+  const padding = 'mr-3.5';
+
+  const handleLogout = () => {
+    logout();
+    navigate('/login');
   };
+
+  // const logout = () => {
+  //   baseURL
+  //     .get('/logout', {
+  //       withCredentials: true,
+  //     })
+  //     .then((res) => {
+  //       localStorage.removeItem('user');
+  //       navigate('/login');
+  //     })
+  //     .then((err) => console.log(err));
+  // };
 
   const liClass =
     'mt-2 hover:border-l-2 py-1.5 border-solid pr-2 pl-7 hover:bg-[#722ed180] transition duration-300 ease-in-out';
@@ -84,7 +92,7 @@ const Navbar = () => {
 
       <hr className="border-solid border-2 border-[#722ED1] mt-2 md:mt-4 lg:ml-3 lg:mb-4 lg:mr-3" />
 
-      {userInfo?.userEmail && (
+      {userInfo?.email && (
         <li
           className={liClass}
           style={location.pathname === '/dashboard' ? style : {}}
@@ -96,7 +104,7 @@ const Navbar = () => {
         </li>
       )}
 
-      {userInfo?.userEmail && userInfo.userRole === 'admin' && (
+      {userInfo?.email && userInfo?.role === 'admin' && (
         <li
           className={liClass}
           style={location.pathname === '/addDoctor' ? style : {}}
@@ -122,12 +130,12 @@ const Navbar = () => {
         </Link>
       </li>
 
-      {userInfo?.userEmail ? (
+      {userInfo?.email ? (
         <li
           className={liClass}
           style={location.pathname === '/logout' ? style : {}}
         >
-          <Link to="/login" onClick={() => logout()}>
+          <Link to="/login" onClick={handleLogout}>
             <FontAwesomeIcon
               icon={faRightFromBracket}
               className={`${padding} rotate-180`}

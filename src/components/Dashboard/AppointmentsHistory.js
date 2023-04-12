@@ -17,7 +17,7 @@ const AppointmenstHistory = () => {
 
   const path = '/bookings';
   const extraQueries = {
-    patient: `${userInfo.userEmail}`,
+    patient: `${userInfo.email}`,
   };
 
   const { data, isLoading, pagination, currentPage, refetch } = usePagination(

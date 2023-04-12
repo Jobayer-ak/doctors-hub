@@ -34,7 +34,7 @@ const Booking = ({ date, docinfo, setDocinfo, refetch, setNewBooking }) => {
       doctor_id: _id,
       gender: e.target.gender.value,
       patient_name: e.target.patient_name.value,
-      patient_email: userInfo.userEmail,
+      patient_email: userInfo.email,
       patient_contact_number: e.target.patient_contact_number.value,
       slot: e.target.slot.value,
       speciality: speciality,
@@ -168,7 +168,7 @@ const Booking = ({ date, docinfo, setDocinfo, refetch, setNewBooking }) => {
                   <input
                     type="email"
                     name="patient_email"
-                    value={userInfo.userEmail}
+                    value={userInfo.email}
                     required
                     readOnly
                     className="text-center p-2 w-full max-w-sm focus:bg-[#722ed1] border-none outline-0 rounded-sm"

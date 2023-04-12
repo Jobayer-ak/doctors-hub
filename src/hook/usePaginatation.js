@@ -7,10 +7,8 @@ import './react-paginate.css';
 const usePagination = (path, limit, extraQueries = {}) => {
   const [currentPage, setCurrentPage] = useState(1);
 
-
-
   const { data, isLoading, refetch } = useQuery(
-    ['paginate', currentPage,limit],
+    ['paginate', currentPage, limit, extraQueries],
     async () => {
       let url = `${path}?page=${currentPage}&limit=${limit}`;
 
@@ -20,23 +18,18 @@ const usePagination = (path, limit, extraQueries = {}) => {
         }
       }
 
-      console.log('update url: ', url);
       const res = await baseURL.get(url, {
         withCredentials: true,
       });
 
-      console.log(res.data);
       const result = res.data;
       return result;
     }
   );
 
   const handlePageChange = ({ selected }) => {
-    console.log("selected: ", selected + 1)
     setCurrentPage(selected + 1);
   };
-
-  console.log(data);
 
   const pagination = (
     <ReactPaginate
@@ -60,7 +53,6 @@ const usePagination = (path, limit, extraQueries = {}) => {
       forcePage={currentPage - 1}
     />
   );
-
 
   return { data, isLoading, pagination, currentPage, refetch };
 };

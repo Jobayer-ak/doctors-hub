@@ -19,7 +19,7 @@ const PendingAppointments = () => {
 
   const path = '/pending-appointments';
   const extraQueries = {
-    patient: `${userInfo.userEmail}`,
+    patient: `${userInfo.email}`,
     date: `${formatedDate}`,
   };
 

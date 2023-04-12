@@ -25,7 +25,7 @@ const RequireAdmin = ({ children }) => {
 
     localStorage.removeItem("userEmail");
     localStorage.removeItem("userName");
-    localStorage.removeItem("userRole");
+    localStorage.removeItem("role");
     return <Navigate to="/login" state={{ from: location }} replace></Navigate>;
   }
 

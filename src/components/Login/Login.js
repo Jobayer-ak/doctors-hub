@@ -1,59 +1,27 @@
-import React, { useState } from 'react';
+import React, { useContext} from 'react';
 import loginImage from '../../assets/images/loginImage .png';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEnvelope } from '@fortawesome/free-regular-svg-icons';
 import { faCircleUser, faLock } from '@fortawesome/free-solid-svg-icons';
 import { useForm } from 'react-hook-form';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
-import baseURL from '../../utils/baseURL';
+import { Link} from 'react-router-dom';
 import { ColorRing, Dna } from 'react-loader-spinner';
+import { AuthContext } from '../../context/AuthContext';
 
 const Login = () => {
-  const navigate = useNavigate();
-  const location = useLocation();
+  // const navigate = useNavigate();
+  // const location = useLocation();
+  const { user, login, loading, loginError } = useContext(AuthContext);
   const {
     register,
     formState: { errors },
     handleSubmit,
-    reset,
   } = useForm();
-  // const { user, setUser } = useUser();
-  const [loading, setLoading] = useState(false);
-  const [loginError, setLoginError] = useState('');
-  let from = location.state?.from?.pathname || '/';
 
-  const onSubmit = async (data) => {
-    setLoading(true);
+  console.log('loading: ', loading, user);
 
-    await baseURL
-      .post(`/login`, data, {
-        withCredentials: true,
-      })
-      .then((res) => {
-        setLoading(false);
-
-        const userInfo = {
-          userEmail: res.data.others.email,
-          userRole: res.data.others.role,
-        };
-
-        localStorage.setItem('user', JSON.stringify(userInfo));
-        navigate(from, { replace: true });
-        reset();
-      })
-      .catch((err) => {
-        setLoading(false);
-        console.log(err);
-        if (err.response.status === 401) {
-          setLoginError(err.response.data.message);
-        }
-        if (err.response.status === 403) {
-          setLoginError(err.response.data.error);
-        }
-        if (err.response.status === 404) {
-          setLoginError(err.response.data.error);
-        }
-      });
+  const onSubmit = (data) => {
+    login(data.email, data.password);
   };
 
   if (loading) {
@@ -179,4 +147,3 @@ const Login = () => {
 };
 
 export default Login;
-

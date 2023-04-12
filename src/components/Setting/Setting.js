@@ -32,7 +32,7 @@ const Setting = () => {
   const userInfo = JSON.parse(user);
 
   const { data, isLoading, refetch } = useQuery(['info'], async () => {
-    const res = await baseURL.get(`/setting/${userInfo.userEmail}`, {
+    const res = await baseURL.get(`/setting/${userInfo.email}`, {
       withCredentials: true,
     });
     const result = res.data;
