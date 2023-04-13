@@ -49,7 +49,10 @@ export const AuthContextProvider = ({ children }) => {
       .get('/logout', {
         withCredentials: true,
       })
-      .then((res) => localStorage.removeItem('user'))
+      .then((res) => {
+        localStorage.removeItem('user');
+        navigate('/login');
+      })
       .then((err) => console.log(err));
   };
 

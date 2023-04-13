@@ -22,6 +22,10 @@ const Booking = ({ date, docinfo, setDocinfo, refetch, setNewBooking }) => {
 
   const userInfo = JSON.parse(user);
 
+  if (user === null) {
+    return navigate('/login');
+  }
+
   const handleSubmit = (e) => {
     e.preventDefault();
 

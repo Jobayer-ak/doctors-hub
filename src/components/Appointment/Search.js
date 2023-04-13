@@ -50,9 +50,9 @@ const Search = ({ newBooking }) => {
     return result;
   });
 
-  if (docLoading) {
-    return <Loader />;
-  }
+  // if (docLoading) {
+  //   return <Loader />;
+  // }
 
   const handleChange = (e) => {
     e.preventDefault();
@@ -67,13 +67,20 @@ const Search = ({ newBooking }) => {
 
   const onSearch = (searchTerm) => {
     setSearchValue(searchTerm);
+
+    console.log('hdfdf: ', searchTerm);
+
+    baseURL
+      .get(`doctor-single?doctor=${searchTerm}`)
+      .then((res) => console.log(res.data))
+      .catch((err) => console.log(err));
   };
 
   return (
     <div className="w-full bg-[#23075e] mb-1">
       <div className="md:flex md:gap-1 md:justify-between lg:items-center">
         {/* Search */}
-        <div className="w-full md:w-[55%] lg:w-[60%] px-3 py-4">
+        <div className="w-full md:w-[70%] lg:w-[60%] px-3 py-4">
           <div className="flex justify-between items-center bg-white rounded-sm text-black">
             <input
               type="text"
@@ -151,7 +158,7 @@ const Search = ({ newBooking }) => {
       </div>
 
       {/* search result */}
-      <div className="absolute ml-3 mr-3 px-2 bg-slate-600 w-[94%] md:w-[48%] rounded-sm z-50">
+      <div className="absolute ml-3 mr-3 px-2 bg-slate-600 w-[94%] md:w-[39%] lg:w-[48%] rounded-sm z-10">
         {result.length > 0 &&
           result
             .filter((item) => {
