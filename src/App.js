@@ -19,6 +19,7 @@ import Payment from './components/Dashboard/Payment';
 import ConfirmEmail from './components/EmailConfirm/ConfirmEmail';
 import About from './components/AboutUs/About';
 import { AuthContextProvider } from './context/AuthContext';
+import SearchResult from './components/Appointment/SearchResult';
 
 function App() {
   return (
@@ -31,6 +32,8 @@ function App() {
 
           <Route path="/addDoctor" element={<AddDoctor />} />
           <Route path="/login" element={<Login />} />
+
+          <Route path="/search-doctor" element={<SearchResult />} />
 
           <Route
             path="/dashboard"

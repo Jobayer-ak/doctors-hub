@@ -1,0 +1,12 @@
+.scrollable-div {
+    height: auto; /* set the height to your desired value */
+    overflow-y: scroll; /* enable vertical scrolling */
+    -webkit-overflow-scrolling: touch; /* enable smooth scrolling on touch devices */
+    scrollbar-width: none; /* remove the scrollbar in modern browsers */
+  }
+  
+  /* hide the scrollbar in WebKit-based browsers */
+  .scrollable-div::-webkit-scrollbar {
+    display: none;
+  }
+  
