@@ -26,7 +26,6 @@ const SearchResult = ({ info }) => {
     setDate(newDate);
   };
 
-  console.log('date: ', formattedDate);
 
   const { data, isLoading, refetch } = useQuery(['doct', date], async () => {
     const res = await baseURL.get(`/doctors/slots?date=${formattedDate}`, {
@@ -49,12 +48,12 @@ const SearchResult = ({ info }) => {
       d.branch === info.branch
     );
   });
-  console.log('got doc: ', Array.isArray(filterData));
+  
 
   const { branch, department, email, fee, name, slot, speciality } =
     filterData[0];
 
-  console.log('slots: ', branch);
+  
 
   return (
     <div className="w-full min-h-screen bg-[#23075e]">

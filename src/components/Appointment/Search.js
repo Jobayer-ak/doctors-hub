@@ -197,7 +197,7 @@ const Search = ({ newBooking }) => {
       {/* search result modal */}
 
       {showModal && (
-        <div className="fixed top-[150px] lg:top-[50px] lg:left-[20%] inset-0 z-10 rounded-sm scrollable-div">
+        <div className="fixed top-[185px] lg:top-[50px] lg:left-[20%] inset-0 z-10 rounded-sm scrollable-div">
           <div className="flex items-center justify-center min-h-screen pt-12 px-4 pb-20 text-center sm:block sm:p-0">
             {/* Background overlay */}
             <div
