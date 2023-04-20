@@ -1,4 +1,4 @@
-import { faCircleXmark, faSearch } from '@fortawesome/free-solid-svg-icons';
+import { faArrowDown, faCircleXmark, faSearch } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useState } from 'react';
 import profile from '../../assets/images/avatar.png';
@@ -10,7 +10,7 @@ import useStorage from '../../hook/useStorage';
 import { useNavigate } from 'react-router-dom';
 import { Dna } from 'react-loader-spinner';
 import SearchResult from './SearchResult';
-import "./search.css"
+import './search.css';
 
 const Search = ({ newBooking }) => {
   const date = new Date();
@@ -71,7 +71,7 @@ const Search = ({ newBooking }) => {
     baseURL
       .get(`doctor-single?doctor=${searchValue}`)
       .then((res) => {
-        console.log('inside modal: ', res.data.doctor);
+        // console.log('inside modal: ', res.data.doctor);
 
         setInfo(res.data.doctor);
         setShowModal(true);
@@ -79,11 +79,7 @@ const Search = ({ newBooking }) => {
       .catch((err) => console.log(err));
   };
 
-  // search result modal
-  // const onOpenModal = () => {
-  //   console.log('oepning modal');
-  //   setShowModal(true);
-  // };
+  
 
   const onCloseModal = () => {
     setShowModal(false);
@@ -201,7 +197,7 @@ const Search = ({ newBooking }) => {
       {/* search result modal */}
 
       {showModal && (
-        <div className="fixed top-[50px] left-[20%] inset-0 z-10 rounded-sm scrollable-div" >
+        <div className="fixed top-[150px] lg:top-[50px] lg:left-[20%] inset-0 z-10 rounded-sm scrollable-div">
           <div className="flex items-center justify-center min-h-screen pt-12 px-4 pb-20 text-center sm:block sm:p-0">
             {/* Background overlay */}
             <div
@@ -210,8 +206,8 @@ const Search = ({ newBooking }) => {
             ></div>
 
             {/* Modal dialog */}
-          
-            <div className="inline-block align-bottom bg-[#381f6e] rounded-sm text-left shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full ">
+
+            <div className="md:inline-block align-bottom bg-[#381f6e] rounded-sm text-left shadow-xl transform transition-all sm:my-8 sm:align-middle w-[90%] md:w-[50%] ">
               <div className="flex flex-row-reverse">
                 <div className="p-2 ">
                   <button type="button" onClick={onCloseModal}>
@@ -222,10 +218,10 @@ const Search = ({ newBooking }) => {
                     />
                   </button>
                 </div>
-                <div className="sm:flex sm:items-start p-4">
+                <div className=" lg:flex lg:justify-center lg:items-start p-4">
                   <img
                     src={info.imageURL}
-                    className="rounded-full w-[30%]"
+                    className="rounded-full w-[40%] mx-auto"
                     alt=""
                   />
 
@@ -242,20 +238,21 @@ const Search = ({ newBooking }) => {
                         Fee: <span className="">${info.fee}</span>
                       </p>
                     </div>
-                    <div className="flex justify-center mt-4">
+                    <div className="flex justify-center mt-4 text-slate-700">
                       <button
                         type="button"
-                        className="text-slate-700 font-bold bg-[#f39896] rounded-sm px-2 py-1"
-                        onClick={onCloseModal}
+                        className=" font-bold bg-[#f39896] rounded-sm px-2 py-2"
+                        // onClick={onCloseModal}
                       >
-                        Get Appointment
+                        Get Appointment ?
+                      <FontAwesomeIcon icon={faArrowDown} className='animate-bounce ml-2'/>
                       </button>
+
                     </div>
                   </div>
                 </div>
               </div>
-              <SearchResult />
-              
+              <SearchResult info={info} />
             </div>
           </div>
         </div>

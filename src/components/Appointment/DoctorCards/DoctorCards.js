@@ -12,7 +12,6 @@ const DoctorCards = ({ selectedCity, date, setNewBooking }) => {
   const [active, setActive] = useState('All');
   const [docinfo, setDocinfo] = useState(null);
 
-  // console.log(date);
   const {
     data: doctors,
     isLoading,
