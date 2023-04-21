@@ -14,6 +14,8 @@ import {
   faUserPlus,
 } from '@fortawesome/free-solid-svg-icons';
 import useStorage from '../../hook/useStorage';
+import Swal from 'sweetalert2';
+import { useNavigate } from 'react-router-dom';
 
 const SearchResult = ({ info }) => {
   const [date, setDate] = useState(new Date());
@@ -21,11 +23,12 @@ const SearchResult = ({ info }) => {
   const formattedDate = format(date, 'PP');
   const [user] = useStorage();
   const userInfo = JSON.parse(user);
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
 
   const onDateChange = (newDate) => {
     setDate(newDate);
   };
-
 
   const { data, isLoading, refetch } = useQuery(['doct', date], async () => {
     const res = await baseURL.get(`/doctors/slots?date=${formattedDate}`, {
@@ -39,8 +42,6 @@ const SearchResult = ({ info }) => {
     return <h2 className="text-white font-bold">Loading...</h2>;
   }
 
-  const handleSubmit = () => {};
-
   const filterData = data.filter((d) => {
     return (
       d.name.toLowerCase() === info.name.toLowerCase() &&
@@ -48,12 +49,81 @@ const SearchResult = ({ info }) => {
       d.branch === info.branch
     );
   });
-  
 
-  const { branch, department, email, fee, name, slot, speciality } =
+  const { branch, department, email, fee, name, slot, speciality, _id } =
     filterData[0];
 
-  
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    console.log('slot v: ', e.target.slot.value);
+
+    setLoading(true);
+
+    const booking = {
+      doctor_name: name,
+      doctor_id: _id,
+      gender: e.target.gender.value,
+      patient_name: e.target.patient_name.value,
+      patient_email: userInfo.email,
+      patient_contact_number: e.target.patient_contact_number.value,
+      slot: e.target.slot.value,
+      speciality: speciality,
+      fee: fee,
+      date: formattedDate,
+      branch: branch,
+    };
+
+    console.log('Booking info: ', booking);
+    baseURL
+      .post('/booking', booking, {
+        withCredentials: true,
+      })
+      .then((res) => {
+        setLoading(false);
+
+        if (res.data.success === true) {
+          Swal.fire({
+            icon: 'success',
+            title: 'Success',
+            text: `${res.data.message} at ${booking.slot} on ${date} `,
+          });
+        }
+
+        if (res.data.success === false) {
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: `${res.data.message} at ${booking.slot} on ${date}`,
+          });
+        }
+        
+        refetch();
+        navigate("/dashboard")
+      })
+      .catch((error) => {
+        setLoading(false);
+        if (error.response.status === 403) {
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'You are not permitted to book appointment!',
+          });
+
+          navigate('/');
+        }
+
+        if (error.response.status === 401) {
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'You are not logged in!',
+          });
+          navigate('/login');
+        }
+        console.log(error.response);
+      });
+  };
 
   return (
     <div className="w-full min-h-screen bg-[#23075e]">
@@ -63,7 +133,7 @@ const SearchResult = ({ info }) => {
       </div>
 
       {/* booking form  */}
-      <div className="px-6 py-4 rounded-sm relative bg-[#381f6e]">
+      <div className="py-4 rounded-sm relative bg-[#381f6e]">
         <div className="">
           <div className="px-7 pb-2.5 text-center">
             <form className="mt-8 text-center relative" onSubmit={handleSubmit}>
@@ -171,7 +241,7 @@ const SearchResult = ({ info }) => {
                 />
               </div>
               <div>
-                <div className="text-white mb-6 flex justify-center items-center gap-[50px] md:gap-[75px]">
+                <div className="text-white mb-6 flex justify-center items-center gap-[30px] md:gap-[60px] lg:gap-[85px]">
                   <div>
                     <h3 className="font-bold">Gender</h3>
                   </div>

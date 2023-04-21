@@ -1,4 +1,8 @@
-import { faArrowDown, faCircleXmark, faSearch } from '@fortawesome/free-solid-svg-icons';
+import {
+  faArrowDown,
+  faCircleXmark,
+  faSearch,
+} from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useState } from 'react';
 import profile from '../../assets/images/avatar.png';
@@ -71,18 +75,20 @@ const Search = ({ newBooking }) => {
     baseURL
       .get(`doctor-single?doctor=${searchValue}`)
       .then((res) => {
-        // console.log('inside modal: ', res.data.doctor);
-
         setInfo(res.data.doctor);
         setShowModal(true);
       })
       .catch((err) => console.log(err));
   };
 
-  
-
   const onCloseModal = () => {
     setShowModal(false);
+  };
+
+  const handleGetAppointments = () => {
+    if (!userInfo) {
+      navigate('/login');
+    }
   };
 
   return (
@@ -197,8 +203,8 @@ const Search = ({ newBooking }) => {
       {/* search result modal */}
 
       {showModal && (
-        <div className="fixed top-[185px] lg:top-[50px] lg:left-[20%] inset-0 z-10 rounded-sm scrollable-div">
-          <div className="flex items-center justify-center min-h-screen pt-12 px-4 pb-20 text-center sm:block sm:p-0">
+        <div className="fixed top-[185px] md:top-[157px] lg:top-[85px] lg:left-[20%] inset-0 z-10 rounded-sm scrollable-div">
+          <div className="flex items-center justify-center min-h-screen pt-0 px-4 pb-20 text-center sm:block sm:p-0">
             {/* Background overlay */}
             <div
               className="fixed inset-0 transition-opacity bg-black bg-opacity-40"
@@ -207,7 +213,7 @@ const Search = ({ newBooking }) => {
 
             {/* Modal dialog */}
 
-            <div className="md:inline-block align-bottom bg-[#381f6e] rounded-sm text-left shadow-xl transform transition-all sm:my-8 sm:align-middle w-[90%] md:w-[50%] ">
+            <div className="pb-4 md:inline-block align-bottom bg-[#381f6e] rounded-sm text-left shadow-xl transform transition-all sm:my-8 sm:align-middle w-[90%] md:w-[50%] ">
               <div className="flex flex-row-reverse">
                 <div className="p-2 ">
                   <button type="button" onClick={onCloseModal}>
@@ -242,17 +248,20 @@ const Search = ({ newBooking }) => {
                       <button
                         type="button"
                         className=" font-bold bg-[#f39896] rounded-sm px-2 py-2"
-                        // onClick={onCloseModal}
+                        onClick={handleGetAppointments}
                       >
                         Get Appointment ?
-                      <FontAwesomeIcon icon={faArrowDown} className='animate-bounce ml-2'/>
+                        <FontAwesomeIcon
+                          icon={faArrowDown}
+                          className="animate-bounce ml-2"
+                        />
                       </button>
-
                     </div>
                   </div>
                 </div>
               </div>
-              <SearchResult info={info} />
+
+              {userInfo && <SearchResult info={info} />}
             </div>
           </div>
         </div>
