@@ -2,7 +2,7 @@ import React from 'react';
 
 const DoctorCard = ({ date, doctor, setDocinfo, docInfo }) => {
   return (
-    <div className="rounded-md w-full h-[300px] bg-[#381f6e] shadow-xl">
+    <div className="rounded-sm w-full h-[300px] bg-[#381f6e] shadow-xl">
       <div className="px-3 py-2 text-white">
         <div className="flex justify-between items-center gap-4 mb-3">
           <div className="w-full">

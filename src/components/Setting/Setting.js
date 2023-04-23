@@ -30,6 +30,7 @@ const Setting = () => {
   const [user] = useStorage();
   const [tempUser, setTempUser] = useState(null);
   const userInfo = JSON.parse(user);
+  const [imgMessage, setImgMessage] = useState('');
 
   const { data, isLoading, refetch } = useQuery(['info'], async () => {
     const res = await baseURL.get(`/setting/${userInfo.email}`, {
@@ -59,9 +60,7 @@ const Setting = () => {
 
   const createdDate = new Date(data.user.createdAt);
 
-  const imgStorageKey = '23d6548fb8456e2bee8c9306819c612c';
-
-  const onSubmit = async (data) => {
+  const onSubmit = (data) => {
     const updatedData = {
       name: data.name,
       email: data.email,
@@ -70,18 +69,9 @@ const Setting = () => {
       imageURL: data.uploadFile.length === 0 ? imageURL : '',
     };
 
-    console.log('Updated Data: ', updatedData);
-
-    const image = data.uploadFile[0];
-
-    const formData = new FormData();
-    formData.append('image', image);
-
-    const imgbbUrl = `https://api.imgbb.com/1/upload?key=${imgStorageKey}`;
-
     // update user info without image url
     if (data.uploadFile.length === 0) {
-      return await baseURL
+      return baseURL
         .patch(`/update-profile/${email}`, updatedData, {
           withCredentials: true,
         })
@@ -128,74 +118,103 @@ const Setting = () => {
         });
     }
 
-    // update user info included image url
-    await axios
-      .post(imgbbUrl, formData)
-      .then((res) => {
-        setLoading(true);
+    const image = data.uploadFile[0];
+    const imgInKb = image.size / (1024 * 1024);
 
-        if (res.data.success) {
-          const imgurl = res.data.data.display_url;
+    if (imgInKb > 1) {
+      setImgMessage('Imae size not more than 1Mb!');
 
-          updatedData.imageURL = imgurl;
+      return;
+    }
 
-          baseURL
-            .patch(`/update-profile/${email}`, updatedData, {
-              withCredentials: true,
-            })
-            .then((res) => {
-              setLoading(false);
+    // image dimension checking
+    const img = new Image();
 
-              refetch();
-              reset();
-              if (res.status === 200) {
-                return Swal.fire({
-                  position: 'top-end',
-                  icon: 'success',
-                  title: res.data.message,
-                  showConfirmButton: false,
-                  timer: 1500,
-                });
-              }
+    img.onload = function () {
+      const { width, height } = img;
 
-              if (res.status === 403) {
-                return Swal.fire({
-                  icon: 'error',
-                  title: 'Oops...',
-                  text: res.data.message,
-                });
-              }
-              if (res.status === 304) {
-                return Swal.fire({
-                  icon: 'error',
-                  title: 'Oops...',
-                  text: res.data.message,
-                });
-              }
-            })
-            .catch((err) => {
-              setLoading(false);
+      if (width > 900 && height > 900) {
+        setImgMessage('Image width and height not mora than 900X900px!');
+        return;
+      }
 
-              if (err.response.status === 500) {
-                return Swal.fire({
-                  icon: 'error',
-                  title: 'Oops...',
-                  text: err.message,
-                });
-              }
+      const imgStorageKey = '23d6548fb8456e2bee8c9306819c612c';
+      const imgbbUrl = `https://api.imgbb.com/1/upload?key=${imgStorageKey}`;
+
+      const formData = new FormData();
+      formData.append('image', image);
+
+      // update user info included image url
+      axios
+        .post(imgbbUrl, formData)
+        .then((res) => {
+          setLoading(true);
+
+          if (res.data.success) {
+            const imgurl = res.data.data.display_url;
+
+            updatedData.imageURL = imgurl;
+
+            baseURL
+              .patch(`/update-profile/${email}`, updatedData, {
+                withCredentials: true,
+              })
+              .then((res) => {
+                setLoading(false);
+
+                refetch();
+                reset();
+                if (res.status === 200) {
+                  return Swal.fire({
+                    position: 'top-end',
+                    icon: 'success',
+                    title: res.data.message,
+                    showConfirmButton: false,
+                    timer: 1500,
+                  });
+                }
+
+                if (res.status === 403) {
+                  return Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: res.data.message,
+                  });
+                }
+                if (res.status === 304) {
+                  return Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: res.data.message,
+                  });
+                }
+              })
+              .catch((err) => {
+                setLoading(false);
+
+                if (err.response.status === 500) {
+                  return Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: err.message,
+                  });
+                }
+              });
+          }
+        })
+        .catch((err) => {
+          setLoading(false);
+          if (err) {
+            Swal.fire({
+              icon: 'error',
+              title: 'Oops...',
+              text: 'Something went wrong with image!',
             });
-        }
-      })
-      .catch((err) => {
-        setLoading(false);
-        if (err) {
-          Swal.fire({
-            icon: 'error',
-            title: 'Oops...',
-            text: 'Something went wrong with image!',
-          });
-        }
-      });
+          }
+        });
+    };
+
+    img.src = URL.createObjectURL(image);
   };
 
   return (
@@ -424,6 +443,9 @@ const Setting = () => {
                           <p className="text-white mt-2">
                             {errors.uploadFile?.message}
                           </p>
+                        )}
+                        {imgMessage && (
+                          <p className="text-red-500 ml-2">{imgMessage}</p>
                         )}
                       </div>
 

@@ -52,8 +52,8 @@ const AppointmentBanner = () => {
               <button
                 className={
                   active === region
-                    ? 'text-[#f68685] font-bold rounded-md px-2 py-2 bg-[#4a1a98] transition-all'
-                    : 'text-[#f68685] font-bold rounded-md px-2 py-2 bg-[#381f6e] hover:bg-[#6f48eb] hover:text-white transition-all'
+                    ? 'text-[#f68685] font-bold rounded-sm px-2 py-2 bg-[#4a1a98] transition-all'
+                    : 'text-[#f68685] font-bold rounded-sm px-2 py-2 bg-[#381f6e] hover:bg-[#6f48eb] hover:text-white transition-all'
                 }
                 onClick={() => handleRegion(region)}
                 key={index}

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEnvelope, faIdCard } from '@fortawesome/free-regular-svg-icons';
 import {
@@ -16,7 +16,6 @@ import {
   faClock,
 } from '@fortawesome/free-solid-svg-icons';
 import { useForm } from 'react-hook-form';
-import * as yup from 'yup';
 import Loader from '../common/Loading/Loader';
 import SlotModal from './SlotModal';
 import baseURL from '../../utils/baseURL';
@@ -26,8 +25,7 @@ import Swal from 'sweetalert2';
 const AddDoctor = () => {
   const [loading, setLoading] = useState(false);
   const [modalData, setModalData] = useState([]);
-  const [imgWidth, setImgWidth] = useState('');
-  const [imgHeight, setImgHeight] = useState('');
+  const [imgMessage, setImgMessage] = useState('');
 
   const {
     register,
@@ -39,100 +37,81 @@ const AddDoctor = () => {
 
   const [addError, setAddError] = useState('');
 
-  // console.log(typeof modalData);
-
-  const handleImage = (e) => {
-    e.preventDefault();
-    const image = e.target.hima.files[0];
-
-    // const img = new Image();
-    // img.onload = function () {
-    //   // setLoading(true);
-    //   setImgWidth(img.width);
-    //   setImgHeight(img.height);
-    // };
-
-    // img.src = URL.createObjectURL(image);
-
-  };
-
   const onSubmit = async (data) => {
     data.time_slots = modalData;
 
     const image = data.docImage[0];
 
-    // console.log(image);
+    // image size checking
+    const imgInKb = image.size / (1024 * 1024);
 
+    if (imgInKb > 1) {
+      setImgMessage('Imae size not more than 1Mb!');
+
+      return;
+    }
+
+    // uploaded image dimension checking
     const img = new Image();
-    img.onload = async function () {
-      // setLoading(true);
-      setImgWidth(img.width);
-      setImgHeight(img.height);
 
+    img.onload = async function () {
       const { width, height } = img;
-      if (width > 900 && height > 9000) {
-        return console.log("too much width and width: ", width);
+
+      if (width > 900 && height > 900) {
+        setImgMessage('Image width and height not mora than 900 X 900px!');
+        return;
       }
 
-        // imgbb api key
-    const imgStorageKey = '23d6548fb8456e2bee8c9306819c612c';
+      // imgbb api key
+      const imgStorageKey = '23d6548fb8456e2bee8c9306819c612c';
 
-    const imgbbUrl = `https://api.imgbb.com/1/upload?key=${imgStorageKey}`;
+      const imgbbUrl = `https://api.imgbb.com/1/upload?key=${imgStorageKey}`;
 
-    // const image = data.docImage[0];
-    console.log("data: ", data);
-    const formData = new FormData();
+      const formData = new FormData();
       formData.append('image', image);
-      
+
       await axios
-      .post(imgbbUrl, formData)
-      .then((res) => {
-        setLoading(true);
-        if (res.data.success) {
-          const imgurl = res.data.data.display_url;
-          // console.log(imgurl);
+        .post(imgbbUrl, formData)
+        .then((res) => {
+          setLoading(true);
+          if (res.data.success) {
+            const imgurl = res.data.data.display_url;
+            // console.log(imgurl);
 
-          data.imageURL = imgurl;
+            data.imageURL = imgurl;
 
-          baseURL
-            .post('/admin/addDoctor', data, {
-              withCredentials: true,
-            })
-            .then((res) => {
-              setLoading(false);
-              console.log(res.data);
-              if (res.data.status === 403) {
-                setAddError(res.data.message);
-              }
-              reset();
-            })
-            .catch((err) => {
-              setLoading(false);
-              console.log(err);
-              // setLoginError(err.response.data.message);
+            baseURL
+              .post('/admin/addDoctor', data, {
+                withCredentials: true,
+              })
+              .then((res) => {
+                setLoading(false);
+                console.log(res.data);
+                if (res.data.status === 403) {
+                  setAddError(res.data.message);
+                }
+                reset();
+              })
+              .catch((err) => {
+                setLoading(false);
+                console.log(err);
+                // setLoginError(err.response.data.message);
+              });
+          }
+        })
+        .catch((err) => {
+          setLoading(false);
+          if (err) {
+            Swal.fire({
+              icon: 'error',
+              title: 'Oops...',
+              text: 'Something went wrong with image!',
             });
-        }
-      })
-      .catch((err) => {
-        setLoading(false);
-        if (err) {
-          Swal.fire({
-            icon: 'error',
-            title: 'Oops...',
-            text: 'Something went wrong with image!',
-          });
-        }
-      });
-
-
+          }
+        });
     };
 
     img.src = URL.createObjectURL(image);
-
-    if (imgWidth > 400) {
-      return console.log('image width not more than 400px');
-    }
-
 
     // // imgbb api key
     // const imgStorageKey = '23d6548fb8456e2bee8c9306819c612c';
@@ -575,7 +554,7 @@ const AddDoctor = () => {
 
           {/* upload doctor image */}
 
-          <div className="text-left md:text-center lg:flex lg:justify-center mt-8">
+          <div className="text-left md:text-center mt-8">
             <label htmlFor="file" className="text-white pl-6">
               <span className="font-bold">Upload Image:</span>
               <input
@@ -587,7 +566,7 @@ const AddDoctor = () => {
                   file:bg-gradient-to-r file:from-indigo-800 file:to-indigo-600
                   hover:file:cursor-pointer hover:file:opacity-80
                 "
-                accept="image/*"
+                accept="image/jpg, jpeg, png"
                 {...register('docImage', {
                   required: {
                     value: true,
@@ -597,12 +576,7 @@ const AddDoctor = () => {
               />
             </label>
 
-            <p className="text-white">
-              Image dimensions:{' '}
-              {imgWidth > 400
-                ? 'image dimension not more than 400 x 400px'
-                : imgWidth}
-            </p>
+            {imgMessage && <p className="text-red-500 mt-2">{imgMessage}</p>}
 
             {errors.docImage === 'validate' && (
               <p className="text-white mt-2">{errors.docImage}</p>
@@ -659,4 +633,4 @@ export default AddDoctor;
 
 // export default App;
 
-// 
+//
