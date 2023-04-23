@@ -16,6 +16,7 @@ import {
 import useStorage from '../../hook/useStorage';
 import Swal from 'sweetalert2';
 import { useNavigate } from 'react-router-dom';
+import Loader from "../../components/common/Loading/Loader"
 
 const SearchResult = ({ info }) => {
   const [date, setDate] = useState(new Date());
@@ -50,7 +51,7 @@ const SearchResult = ({ info }) => {
     );
   });
 
-  const { branch, department, email, fee, name, slot, speciality, _id } =
+  const { branch, fee, name, slot, speciality, _id } =
     filterData[0];
 
   const handleSubmit = (e) => {
@@ -124,6 +125,10 @@ const SearchResult = ({ info }) => {
         console.log(error.response);
       });
   };
+
+  if (loading) {
+    return <Loader/>
+  }
 
   return (
     <div className="w-full min-h-screen bg-[#23075e]">
