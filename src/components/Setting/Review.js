@@ -96,8 +96,8 @@ const Review = ({ userData }) => {
                 message: 'At least 15 characters!',
               },
               maxLength: {
-                value: 280,
-                message: 'Too large! Maximum 280 characters!',
+                value: 150,
+                message: 'Too large! Maximum 150 characters!',
               },
             })}
           />

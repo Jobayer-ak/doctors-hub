@@ -133,7 +133,7 @@ const Setting = () => {
     img.onload = function () {
       const { width, height } = img;
 
-      if (width > 900 && height > 900) {
+      if (width > 450 && height > 450) {
         setImgMessage('Image width and height not mora than 900X900px!');
         return;
       }
