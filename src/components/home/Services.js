@@ -9,6 +9,7 @@ import {
   faThumbsUp,
 } from '@fortawesome/free-solid-svg-icons';
 import { AnimationOnScroll } from 'react-animation-on-scroll';
+import { Link } from 'react-router-dom';
 
 const Services = () => {
   return (
@@ -37,16 +38,18 @@ const Services = () => {
           </AnimationOnScroll>
 
           <AnimationOnScroll animateIn="animate__fadeInUp">
-            <button className="bg-[#f68685] px-4 py-4 font-bold rounded-sm mt-12 mb-6 md:mb-0 lg:mt-16">
-              <h4 className="border-r inline-block border-white pr-3 mr-3 uppercase">
-                Get Appointment
-              </h4>
+            <Link to="/appointments">
+              <button className="bg-[#f68685] px-4 py-4 font-bold rounded-sm mt-12 mb-6 md:mb-0 lg:mt-16">
+                <h4 className="border-r inline-block border-white pr-3 mr-3 uppercase">
+                  Get Appointment
+                </h4>
 
-              <FontAwesomeIcon
-                icon={faPlus}
-                className="hover:rotate-[360deg] transition-all duration-700"
-              />
-            </button>
+                <FontAwesomeIcon
+                  icon={faPlus}
+                  className="hover:rotate-[360deg] transition-all duration-700"
+                />
+              </button>
+            </Link>
           </AnimationOnScroll>
         </div>
 

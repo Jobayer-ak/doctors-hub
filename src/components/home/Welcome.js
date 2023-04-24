@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheckSquare, faPlus } from '@fortawesome/free-solid-svg-icons';
 import { AnimationOnScroll } from 'react-animation-on-scroll';
 import clock from '../../assets/home/clock.gif';
+import { Link } from 'react-router-dom';
 
 const Welcome = () => {
   const specialists = [
@@ -47,7 +48,7 @@ const Welcome = () => {
           {/* Opening time  */}
           <div className="bg-[#1e2148] lg:w-[90%] px-4 pb-12 w-full">
             <img src={clock} alt="" className="w-[150px] h-auto" />
-            
+
             <h2 className="text-[#25beef] text-3xl mb-4">Opening Time</h2>
 
             <AnimationOnScroll animateIn="animate__fadeIn">
@@ -76,7 +77,7 @@ const Welcome = () => {
           <div className="leading-[47px]">
             {specialists.map((a, index) => (
               <AnimationOnScroll animateIn="animate__fadeIn" key={index}>
-                <div >
+                <div>
                   <FontAwesomeIcon
                     icon={faCheckSquare}
                     className="text-[#f68685] mr-4"
@@ -92,16 +93,18 @@ const Welcome = () => {
       {/* right part */}
       <AnimationOnScroll animateIn="animate__fadeInUp">
         <div className="flex justify-center w-[100%] mt-4">
-          <button className="bg-[#f68685] px-4 py-4 font-bold rounded-sm">
-            <h4 className="border-r inline-block border-white pr-3 mr-3 uppercase">
-              Get Appointment
-            </h4>
+          <Link to="/appointments">
+            <button className="bg-[#f68685] px-4 py-4 font-bold rounded-sm">
+              <h4 className="border-r inline-block border-white pr-3 mr-3 uppercase">
+                Get Appointment
+              </h4>
 
-            <FontAwesomeIcon
-              icon={faPlus}
-              className="hover:rotate-[360deg] transition-all duration-700"
-            />
-          </button>
+              <FontAwesomeIcon
+                icon={faPlus}
+                className="hover:rotate-[360deg] transition-all duration-700"
+              />
+            </button>
+          </Link>
         </div>
       </AnimationOnScroll>
     </div>

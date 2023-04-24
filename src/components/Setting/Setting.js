@@ -389,19 +389,8 @@ const Setting = () => {
                             type="radio"
                             value="Male"
                             className="cursor-pointer"
-                            checked={tempUser.gender === 'Male'}
-                            // onClick={(e) =>
-                            //   setTempUser({
-                            //     ...tempUser,
-                            //     gender: e.target.value,
-                            //   })
-                            // }
-                            {...register('gender', {
-                              // required: {
-                              //   value: true,
-                              //   message: 'Gender is required!',
-                              // },
-                            })}
+                            checked
+                            {...register('gender', {})}
                           />
                           <p>Male</p>
                         </div>
@@ -411,19 +400,7 @@ const Setting = () => {
                             type="radio"
                             className="cursor-pointer"
                             value="Female"
-                            checked={tempUser.gender === 'Female'}
-                            // onClick={(e) =>
-                            //   setTempUser({
-                            //     ...tempUser,
-                            //     gender: e.target.value,
-                            //   })
-                            // }
-                            {...register('gender', {
-                              // required: {
-                              //   value: true,
-                              //   message: 'Gender is required!',
-                              // },
-                            })}
+                            {...register('gender', {})}
                           />
                           <p>Female</p>
                         </div>
@@ -448,10 +425,6 @@ const Setting = () => {
                           <p className="text-red-500 ml-2">{imgMessage}</p>
                         )}
                       </div>
-
-                      {/* {updateError && (
-                    <p className="text-white mt-2">{updateError}</p>
-                  )}  */}
 
                       <input
                         className="text-center text-white font-bold bg-[#722ed1] hover:bg-[#9258e5] transition-all p-2 w-full max-w-sm cursor-pointer rounded-sm"

@@ -3,9 +3,7 @@ import banner from '../../assets/home/HomeBanner.png';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import { AnimationOnScroll } from 'react-animation-on-scroll';
-// import "animate.css/animate.min.css";
-
-//style={{backgroundImage: `url(${banner})`, backgroundRepeat: "no-repeat", backgroundSize: "cover", backgroundPosition: "center"}}
+import { Link } from 'react-router-dom';
 
 const Banner = () => {
   return (
@@ -28,16 +26,18 @@ const Banner = () => {
               </h1>
             </div>
 
-            <button className="bg-[#f68685] px-4 py-4 font-bold rounded-sm">
-              <h4 className="border-r inline-block border-white pr-3 mr-3 uppercase">
-                Get Appointment
-              </h4>
+            <Link to="/appointments">
+              <button className="bg-[#f68685] px-4 py-4 font-bold rounded-sm">
+                <h4 className="border-r inline-block border-white pr-3 mr-3 uppercase">
+                  Get Appointment
+                </h4>
 
-              <FontAwesomeIcon
-                icon={faPlus}
-                className="hover:rotate-[360deg] transition-all duration-700"
-              />
-            </button>
+                <FontAwesomeIcon
+                  icon={faPlus}
+                  className="hover:rotate-[360deg] transition-all duration-700"
+                />
+              </button>
+            </Link>
           </AnimationOnScroll>
         </div>
         {/* image part */}
@@ -61,22 +61,22 @@ const Banner = () => {
             </h2>
 
             <div className="leading-9 mt-12">
-              <h2 className="text-white font-bold uppercase text-xl text-white text-right">
+              <h2 className="text-white font-bold uppercase text-xl text-right">
                 Specialists Of
               </h2>
-              <h4 className="text-white font-bold uppercase text-[#25beef] text-right">
+              <h4 className="font-bold uppercase text-[#25beef] text-right">
                 medicine
               </h4>
-              <h2 className="text-white font-bold uppercase text-[#25beef] text-right">
+              <h2 className="font-bold uppercase text-[#25beef] text-right">
                 Cardiology
               </h2>
-              <h2 className="text-white font-bold uppercase text-[#25beef] text-right">
+              <h2 className="font-bold uppercase text-[#25beef] text-right">
                 Neurology
               </h2>
-              <h2 className="text-white font-bold uppercase text-[#25beef] text-right">
+              <h2 className="font-bold uppercase text-[#25beef] text-right">
                 Gynecology
               </h2>
-              <h2 className="text-white font-bold uppercase text-[#25beef] text-right">
+              <h2 className="font-bold uppercase text-[#25beef] text-right">
                 Cardiology <br /> & so on.......
               </h2>
             </div>
