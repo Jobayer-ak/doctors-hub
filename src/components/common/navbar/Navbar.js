@@ -35,18 +35,6 @@ const Navbar = () => {
     navigate('/login');
   };
 
-  // const logout = () => {
-  //   baseURL
-  //     .get('/logout', {
-  //       withCredentials: true,
-  //     })
-  //     .then((res) => {
-  //       localStorage.removeItem('user');
-  //       navigate('/login');
-  //     })
-  //     .then((err) => console.log(err));
-  // };
-
   const liClass =
     'mt-2 hover:border-l-2 py-1.5 border-solid pr-2 pl-7 hover:bg-[#722ed180] transition duration-300 ease-in-out';
 

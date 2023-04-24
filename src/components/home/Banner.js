@@ -56,7 +56,7 @@ const Banner = () => {
               Our Moto
             </h3>
 
-            <h2 className="text-white font-bold text-4xl uppercase text-[#25beef]">
+            <h2 className="font-bold text-4xl uppercase text-[#25beef]">
               Great Health
             </h2>
 
