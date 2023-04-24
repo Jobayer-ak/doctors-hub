@@ -62,7 +62,7 @@ const Signup = () => {
         </h2>
 
         <form
-          className="mt-12 md:bg-[#23075e] text-center relative"
+          className="mt-12 px-4 md:bg-[#23075e] text-center relative"
           onSubmit={handleSubmit(onSubmit)}
         >
           {/* name field */}

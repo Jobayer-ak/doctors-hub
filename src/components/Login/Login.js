@@ -53,7 +53,7 @@ const Login = () => {
         </h2>
 
         <form
-          className="mt-12 md:bg-[#23075e] w-full text-center relative mb-4"
+          className="mt-12 md:bg-[#23075e] w-full text-center relative px-4 mb-4"
           onSubmit={handleSubmit(onSubmit)}
         >
           <div className="my-8">
@@ -63,7 +63,7 @@ const Login = () => {
               size="lg"
             />
             <input
-              className="text-center p-2 w-full max-w-sm focus:bg-[#722ed1] border-none outline-0 rounded-sm"
+              className="text-center p-2 w-full max-w-md focus:bg-[#722ed1] border-none outline-0 rounded-sm"
               type="email"
               placeholder="Enter Email"
               {...register('email', {
@@ -88,7 +88,7 @@ const Login = () => {
               size="lg"
             />
             <input
-              className="text-center p-2 w-full max-w-sm focus:bg-[#722ed1] border-none outline-0 rounded-sm"
+              className="text-center p-2 w-full max-w-md focus:bg-[#722ed1] border-none outline-0 rounded-sm"
               type="password"
               placeholder="Enter Password"
               {...register('password', {
@@ -124,7 +124,7 @@ const Login = () => {
               )}
             </div>
             <input
-              className="text-center text-white font-bold bg-[#722ed1] p-2 w-full max-w-sm cursor-pointer rounded-sm"
+              className="text-center text-white font-bold bg-[#722ed1] p-2 w-full max-w-md cursor-pointer rounded-sm"
               type="submit"
               value={'Login'}
             />
