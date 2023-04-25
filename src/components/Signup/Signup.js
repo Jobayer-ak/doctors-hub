@@ -51,7 +51,7 @@ const Signup = () => {
   }
 
   return (
-    <div className="flex justify-between w-full lg:w-[83%] h-screen lg:h-auto lg:bg-[#722ed1] ">
+    <div className="flex justify-between w-full lg:w-[83%] min-h-screen lg:bg-[#722ed1] ">
       <div className="lg:block hidden">
         <img src={loginImage} alt="" className="px-2 lg:mt-10 h-[80vh]" />
       </div>

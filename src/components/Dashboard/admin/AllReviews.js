@@ -29,7 +29,7 @@ const AllReviews = () => {
     <div className="w-full min-h-screen px-4">
       {/* user comment card */}
 
-      <div className="grid grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {reviews.map((r, index) => (
           <div className="w-full h-50 bg-[#260078] p-4 rounded-sm">
             <div className="text-white">

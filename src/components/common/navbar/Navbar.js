@@ -157,7 +157,7 @@ const Navbar = () => {
             alt="Brand Logo"
           />
           <span className="font-bold pl-2">
-            <span className="text-[#D3ADF8]">DOCTOR'S</span> <br /> HUB
+            <span className="text-[#D3ADF8]">DOCTORS</span> <br /> HUB
           </span>
         </div>
 
