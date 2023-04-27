@@ -6,7 +6,7 @@ import AllAppointments from './AllAppointments';
 import AllPayments from './AllPayments';
 
 const Admin = () => {
-  const [active, setActive] = useState('All Appointments');
+  const [active, setActive] = useState('Appointments');
 
   const dashboardBtn = [
     'Appointments',
@@ -40,8 +40,8 @@ const Admin = () => {
         {active === 'Appointments' && <AllAppointments />}
         {active === 'Users' && <AllUsers />}
         {active === 'Doctors' && <AllDoctors />}
-        {active === 'Reviews' && <AllReviews />}
         {active === 'Payments' && <AllPayments />}
+        {active === 'Reviews' && <AllReviews />}
       </div>
     </div>
   );

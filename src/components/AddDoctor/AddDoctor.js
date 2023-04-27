@@ -76,7 +76,6 @@ const AddDoctor = () => {
           setLoading(true);
           if (res.data.success) {
             const imgurl = res.data.data.display_url;
-            // console.log(imgurl);
 
             data.imageURL = imgurl;
 
@@ -86,7 +85,7 @@ const AddDoctor = () => {
               })
               .then((res) => {
                 setLoading(false);
-                console.log(res.data);
+
                 if (res.data.status === 403) {
                   setAddError(res.data.message);
                 }
@@ -94,8 +93,6 @@ const AddDoctor = () => {
               })
               .catch((err) => {
                 setLoading(false);
-                console.log(err);
-                // setLoginError(err.response.data.message);
               });
           }
         })
@@ -112,56 +109,6 @@ const AddDoctor = () => {
     };
 
     img.src = URL.createObjectURL(image);
-
-    // // imgbb api key
-    // const imgStorageKey = '23d6548fb8456e2bee8c9306819c612c';
-
-    // const imgbbUrl = `https://api.imgbb.com/1/upload?key=${imgStorageKey}`;
-
-    // // const image = data.docImage[0];
-    // console.log("data: ", data);
-    // const formData = new FormData();
-    // formData.append('image', image);
-
-    // await axios
-    //   .post(imgbbUrl, formData)
-    //   .then((res) => {
-    //     setLoading(true);
-    //     if (res.data.success) {
-    //       const imgurl = res.data.data.display_url;
-    //       // console.log(imgurl);
-
-    //       data.imageURL = imgurl;
-
-    //       baseURL
-    //         .post('/admin/addDoctor', data, {
-    //           withCredentials: true,
-    //         })
-    //         .then((res) => {
-    //           setLoading(false);
-    //           console.log(res.data);
-    //           if (res.data.status === 403) {
-    //             setAddError(res.data.message);
-    //           }
-    //           reset();
-    //         })
-    //         .catch((err) => {
-    //           setLoading(false);
-    //           console.log(err);
-    //           // setLoginError(err.response.data.message);
-    //         });
-    //     }
-    //   })
-    //   .catch((err) => {
-    //     setLoading(false);
-    //     if (err) {
-    //       Swal.fire({
-    //         icon: 'error',
-    //         title: 'Oops...',
-    //         text: 'Something went wrong with image!',
-    //       });
-    //     }
-    //   });
   };
 
   if (loading) {
