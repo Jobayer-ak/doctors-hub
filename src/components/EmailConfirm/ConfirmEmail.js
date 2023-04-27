@@ -1,7 +1,8 @@
-import React, { useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
-import baseURL from "../../utils/baseURL";
-import Swal from "sweetalert2";
+import React, { useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+import baseURL from '../../utils/baseURL';
+import Swal from 'sweetalert2';
+import Loader from '../common/Loading/Loader';
 
 const ConfirmEmail = () => {
   const { token } = useParams();
@@ -16,35 +17,39 @@ const ConfirmEmail = () => {
       .then((res) => {
         setLoading(false);
         res.status === 200 &&
-          Swal.fire("Success!", res.data.message, "success");
+          Swal.fire('Success!', res.data.message, 'success');
 
-        navigate("/login");
+        navigate('/login');
       })
       .catch((err) => {
         setLoading(false);
 
         err.response.status === 401 &&
           Swal.fire({
-            icon: "error",
-            title: "Oops...",
+            icon: 'error',
+            title: 'Oops...',
             text: err.response.data.error,
           });
 
         err.response.status === 403 &&
           Swal.fire({
-            icon: "error",
-            title: "Oops...",
+            icon: 'error',
+            title: 'Oops...',
             text: err.response.data.error,
           });
         err.response.status === 500 &&
           Swal.fire({
-            icon: "error",
-            title: "Oops...",
-            text: "Something went wrong!",
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Something went wrong!',
           });
-        navigate("/login");
+        navigate('/login');
       });
   };
+
+  if (loading) {
+    return <Loader />;
+  }
 
   return (
     <div className="flex justify-center bg-[#23075e] w-full lg:w-[83%] min-h-screen ml-0 lg:ml-1 px-4 md:px-0">

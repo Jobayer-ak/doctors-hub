@@ -6,7 +6,6 @@ import { useQuery } from 'react-query';
 import { useParams } from 'react-router-dom';
 import CheckOutForm from './CheckOutForm';
 import baseURL from '../../utils/baseURL';
-import Loader from '../common/Loading/Loader';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleDot } from '@fortawesome/free-regular-svg-icons';
@@ -30,18 +29,19 @@ const Payment = () => {
   });
 
   if (isLoading) {
-    return  <div className="flex justify-center items-center w-full lg:w-[83%] bg-[#23075e] ml-0 lg:ml-1 h-[100vh]">
-    <Dna
-      visible={true}
-      height="100"
-      width="100"
-      ariaLabel="dna-loading"
-      wrapperStyle={{}}
-      wrapperClass="dna-wrapper"
-    />
-  </div>;
+    return (
+      <div className="flex justify-center items-center w-full lg:w-[83%] bg-[#23075e] ml-0 lg:ml-1 h-[100vh]">
+        <Dna
+          visible={true}
+          height="100"
+          width="100"
+          ariaLabel="dna-loading"
+          wrapperStyle={{}}
+          wrapperClass="dna-wrapper"
+        />
+      </div>
+    );
   }
-  // console.log(data.appointment);
 
   return (
     <div className="w-full lg:w-[83%] ml-0 lg:ml-1">

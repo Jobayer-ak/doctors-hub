@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { CardElement, useElements, useStripe } from '@stripe/react-stripe-js';
 import baseURL from '../../utils/baseURL';
+import Loader from '../common/Loading/Loader';
 
 const CheckOutForm = ({ data }) => {
   const stripe = useStripe();
@@ -23,7 +24,7 @@ const CheckOutForm = ({ data }) => {
     fee,
   } = data.appointment;
 
-  console.log('From appointment: ', data.appointment);
+  console.log('payment data: ', data.appointment);
 
   useEffect(() => {
     console.log(fee);
@@ -39,7 +40,7 @@ const CheckOutForm = ({ data }) => {
       .then((res) => {
         console.log(res);
         if (res.data?.clientSecret) {
-          console.log('res: ', res.data.clientSecret);
+          // console.log('res: ', res.data.clientSecret);
           setClientSecret(res.data.clientSecret);
         }
       })
@@ -65,8 +66,8 @@ const CheckOutForm = ({ data }) => {
       card,
     });
 
-    console.log('Payment Method: ', paymentMethod);
-    console.log('client Secret: ', clientSecret);
+    // console.log('Payment Method: ', paymentMethod);
+    // console.log('client Secret: ', clientSecret);
 
     setCardError(error?.message || '');
     setSuccess('');
@@ -84,7 +85,7 @@ const CheckOutForm = ({ data }) => {
         },
       });
 
-    console.log('Payment intent: ', paymentIntent);
+    // console.log('Payment intent: ', paymentIntent);
 
     if (intentError) {
       setCardError(intentError.message);
@@ -100,6 +101,14 @@ const CheckOutForm = ({ data }) => {
       const payment = {
         appointment: _id,
         transactionId: paymentIntent.id,
+        patient_name: patient_name,
+        patient_email: patient_email,
+        doctor_name: doctor_name,
+        speciality: speciality,
+        date: date,
+        slot: slot,
+        branch: branch,
+        fee: fee,
       };
 
       await baseURL
@@ -119,6 +128,12 @@ const CheckOutForm = ({ data }) => {
       setSuccess('Your payment is done!');
     }
   };
+
+  if (processing) {
+    return <Loader />;
+  };
+
+  
   return (
     <div className="bg-[#242852] mt-4 px-4 py-4 mx-2 rounded-md">
       <div>

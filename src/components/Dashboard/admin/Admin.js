@@ -3,21 +3,23 @@ import AllUsers from './AllUsers';
 import AllDoctors from './AllDoctors';
 import AllReviews from './AllReviews';
 import AllAppointments from './AllAppointments';
+import AllPayments from './AllPayments';
 
 const Admin = () => {
   const [active, setActive] = useState('All Appointments');
 
   const dashboardBtn = [
-    'All Appointments',
-    'All Users',
-    'All Doctors',
-    'All Reviews',
+    'Appointments',
+    'Users',
+    'Doctors',
+    'Payments',
+    'Reviews',
   ];
 
   return (
     <div className=" mt-4 bg-[#23075e] py-4">
       {/* dashboard buttons */}
-      <div className="text-white px-4 my-5 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3 md:gap-6 lg:gap-12">
+      <div className="text-white px-4 my-5 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-3 md:gap-6 lg:gap-12">
         {dashboardBtn.map((b, index) => (
           <button
             className={
@@ -35,10 +37,11 @@ const Admin = () => {
 
       {/* button details */}
       <div className="min-h-screen">
-        {active === 'All Appointments' && <AllAppointments />}
-        {active === 'All Users' && <AllUsers />}
-        {active === 'All Doctors' && <AllDoctors />}
-        {active === 'All Reviews' && <AllReviews />}
+        {active === 'Appointments' && <AllAppointments />}
+        {active === 'Users' && <AllUsers />}
+        {active === 'Doctors' && <AllDoctors />}
+        {active === 'Reviews' && <AllReviews />}
+        {active === 'Payments' && <AllPayments />}
       </div>
     </div>
   );
