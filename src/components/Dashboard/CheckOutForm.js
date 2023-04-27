@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { CardElement, useElements, useStripe } from '@stripe/react-stripe-js';
 import baseURL from '../../utils/baseURL';
 import Loader from '../common/Loading/Loader';
+import { format } from 'date-fns';
+import { useNavigate } from 'react-router-dom';
 
 const CheckOutForm = ({ data }) => {
   const stripe = useStripe();
@@ -11,6 +13,7 @@ const CheckOutForm = ({ data }) => {
   const [processing, setProcessing] = useState(false);
   const [transactionId, setTransactionId] = useState('');
   const [clientSecret, setClientSecret] = useState('');
+  const navigate = useNavigate();
 
   const {
     _id,
@@ -54,13 +57,11 @@ const CheckOutForm = ({ data }) => {
       return;
     }
 
-    // Use card Element with other Stripe.js APIs
+    // Use your card Element with other Stripe.js APIs
     const { error, paymentMethod } = await stripe.createPaymentMethod({
       type: 'card',
       card,
     });
-
-   
 
     setCardError(error?.message || '');
     setSuccess('');
@@ -78,15 +79,12 @@ const CheckOutForm = ({ data }) => {
         },
       });
 
-    
-
     if (intentError) {
       setCardError(intentError.message);
       setProcessing(false);
     } else {
       setCardError('');
       setTransactionId(paymentIntent.id);
-     
 
       setTransactionId(paymentIntent.id);
 
@@ -98,7 +96,7 @@ const CheckOutForm = ({ data }) => {
         patient_email: patient_email,
         doctor_name: doctor_name,
         speciality: speciality,
-        date: date,
+        date: format(new Date(date), 'PP'),
         slot: slot,
         branch: branch,
         fee: fee,
@@ -114,7 +112,7 @@ const CheckOutForm = ({ data }) => {
         )
         .then((res) => {
           setProcessing(false);
-          
+          navigate('/dashboard');
         })
         .catch((error) => console.log(error));
 
@@ -125,7 +123,6 @@ const CheckOutForm = ({ data }) => {
   if (processing) {
     return <Loader />;
   }
-
   return (
     <div className="bg-[#242852] mt-4 px-4 py-4 mx-2 rounded-md">
       <div>

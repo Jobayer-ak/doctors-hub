@@ -43,6 +43,8 @@ const Payment = () => {
     );
   }
 
+  console.log("pd: ", data);
+
   return (
     <div className="w-full lg:w-[83%] ml-0 lg:ml-1">
       <div className="bg-[#23075e] min-h-screen lg:flex lg:justify-around lg:py-4">
