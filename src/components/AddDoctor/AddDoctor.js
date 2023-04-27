@@ -32,7 +32,7 @@ const AddDoctor = () => {
     formState: { errors },
     reset,
     handleSubmit,
-    // errors
+    
   } = useForm();
 
   const [addError, setAddError] = useState('');
@@ -545,39 +545,3 @@ const AddDoctor = () => {
 };
 
 export default AddDoctor;
-
-// how onload method make synchronously
-
-// function App() {
-//   const [image, setImage] = useState('');
-
-//   const handleChange = (e) => {
-//     const selectedImage = e.target.files[0];
-//     const reader = new FileReader();
-//     reader.onloadend = () => {
-//       const img = new Image();
-//       img.onload = () => {
-//         const { width, height } = img;
-//         console.log(`Image width: ${width}, Image height: ${height}`);
-//       };
-//       img.src = reader.result;
-//     };
-//     if (selectedImage) {
-//       reader.readAsDataURL(selectedImage);
-//       setImage(selectedImage);
-//     }
-//   };
-
-//   return (
-//     <div>
-//       <h1>Check image width and height after uploading</h1>
-//       <form>
-//         <input type='file' onChange={handleChange} />
-//       </form>
-//     </div>
-//   );
-// }
-
-// export default App;
-
-//

@@ -9,7 +9,6 @@ const ConfirmEmail = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
 
-  // console.log(token);
   const handleConfirm = async () => {
     setLoading(true);
     await baseURL
@@ -73,4 +72,4 @@ const ConfirmEmail = () => {
 
 export default ConfirmEmail;
 
-// using useQuery hoo inside a function in react
+

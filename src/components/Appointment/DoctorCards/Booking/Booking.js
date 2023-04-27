@@ -29,7 +29,7 @@ const Booking = ({ date, docinfo, setDocinfo, refetch, setNewBooking }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    console.log('slot v: ', e.target.slot.value);
+    
 
     setLoading(true);
 
@@ -93,7 +93,7 @@ const Booking = ({ date, docinfo, setDocinfo, refetch, setNewBooking }) => {
           });
           navigate('/login');
         }
-        console.log(error.response);
+        
       });
   };
 

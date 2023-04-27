@@ -42,10 +42,10 @@ const PendingAppointments = () => {
             withCredentials: true,
           })
           .then((res) => {
-            console.log(res.data);
+           
             refetch();
             if (res.status === 200) {
-              console.log(book_id);
+              
               return Swal.fire(
                 `${res.data.message}`,
                 'Booking has been deleted.',

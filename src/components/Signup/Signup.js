@@ -1,18 +1,17 @@
-import React, { useState } from "react";
-// import "./login.css";
-import loginImage from "../../assets/images/loginImage .png";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEnvelope } from "@fortawesome/free-regular-svg-icons";
+import React, { useState } from 'react';
+import loginImage from '../../assets/images/loginImage .png';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEnvelope } from '@fortawesome/free-regular-svg-icons';
 import {
   faCircleUser,
   faLock,
   faPhone,
   faUserPlus,
-} from "@fortawesome/free-solid-svg-icons";
-import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
-import Loader from "../common/Loading/Loader";
-import baseURL from "../../utils/baseURL";
+} from '@fortawesome/free-solid-svg-icons';
+import { useForm } from 'react-hook-form';
+import { Link } from 'react-router-dom';
+import Loader from '../common/Loading/Loader';
+import baseURL from '../../utils/baseURL';
 
 const Signup = () => {
   const {
@@ -22,17 +21,16 @@ const Signup = () => {
     reset,
   } = useForm();
   const [loading, setLoading] = useState(false);
-  const [signupError, setSignUpError] = useState("");
+  const [signupError, setSignUpError] = useState('');
 
   const onSubmit = async (data) => {
     setLoading(true);
-    console.log(data);
+
     await baseURL
-      .post("/signup", data, {
+      .post('/signup', data, {
         withCredentials: true,
       })
       .then((res) => {
-        // console.log(res)
         setLoading(false);
         if (res.data.status === 403) {
           setSignUpError(res.data.message);
@@ -41,8 +39,6 @@ const Signup = () => {
       })
       .catch((err) => {
         setLoading(false);
-        console.log(err);
-        // setLoginError(err.response.data.message);
       });
   };
 
@@ -76,10 +72,10 @@ const Signup = () => {
               className="text-center p-2 w-full max-w-sm focus:bg-[#722ed1] border-none outline-0 rounded-sm"
               type="name"
               placeholder="Your Full Name"
-              {...register("name", {
+              {...register('name', {
                 required: {
                   value: true,
-                  message: "Name is required!",
+                  message: 'Name is required!',
                 },
               })}
             />
@@ -99,15 +95,15 @@ const Signup = () => {
               className="text-center p-2 w-full max-w-sm focus:bg-[#722ed1] border-none outline-0 rounded-sm"
               type="email"
               placeholder="Enter Email"
-              {...register("email", {
+              {...register('email', {
                 required: {
                   value: true,
-                  message: "Email is required!",
+                  message: 'Email is required!',
                 },
 
                 pattern: {
                   value: /[a-z0-9]+@[a-z]+\.[a-z]{2,3}/,
-                  message: "Provide a valid email!",
+                  message: 'Provide a valid email!',
                 },
               })}
             />
@@ -127,14 +123,14 @@ const Signup = () => {
               className="text-center p-2 w-full max-w-sm focus:bg-[#722ed1] border-none outline-0 rounded-sm"
               type="password"
               placeholder="Password"
-              {...register("password", {
-                required: "Password is required",
+              {...register('password', {
+                required: 'Password is required',
 
-                minLength: { value: 6, message: "At least 6 characters!" },
+                minLength: { value: 6, message: 'At least 6 characters!' },
                 pattern: {
                   value: /(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9])/,
                   message:
-                    "Password must have uppercase, number and special characters",
+                    'Password must have uppercase, number and special characters',
                 },
               })}
             />
@@ -154,14 +150,14 @@ const Signup = () => {
               className="text-center p-2 w-full max-w-sm focus:bg-[#722ed1] border-none outline-0 rounded-sm"
               type="password"
               placeholder="Confirm Password"
-              {...register("confirmPassword", {
-                required: "Password is required",
+              {...register('confirmPassword', {
+                required: 'Password is required',
 
-                minLength: { value: 6, message: "At least 6 characters!" },
+                minLength: { value: 6, message: 'At least 6 characters!' },
                 pattern: {
                   value: /(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9])/,
                   message:
-                    "Confirm password must have uppercase, number and special characters",
+                    'Confirm password must have uppercase, number and special characters',
                 },
               })}
             />
@@ -184,10 +180,10 @@ const Signup = () => {
               className="text-center p-2 w-full max-w-sm focus:bg-[#722ed1] border-none outline-0 rounded-sm"
               type="text"
               placeholder="Mobile Number"
-              {...register("mobile", {
+              {...register('mobile', {
                 required: {
                   value: true,
-                  message: "Mobile Number is required!",
+                  message: 'Mobile Number is required!',
                 },
               })}
             />
@@ -209,10 +205,10 @@ const Signup = () => {
                   placeholder="Gender"
                   value="Male"
                   className=""
-                  {...register("gender", {
+                  {...register('gender', {
                     required: {
                       value: true,
-                      message: "Gender is required!",
+                      message: 'Gender is required!',
                     },
                   })}
                 />
@@ -223,10 +219,10 @@ const Signup = () => {
                 <input
                   type="radio"
                   value="Female"
-                  {...register("gender", {
+                  {...register('gender', {
                     required: {
                       value: true,
-                      message: "Gender is required!",
+                      message: 'Gender is required!',
                     },
                   })}
                 />

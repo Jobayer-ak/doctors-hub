@@ -1,23 +1,20 @@
-import { faEnvelope, faHospital } from "@fortawesome/free-regular-svg-icons";
-import { faBook, faPhone } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React, { useState } from "react";
-import { useForm } from "react-hook-form";
-import contactImage from "../../assets/images/contact.jpg";
+import { faEnvelope, faHospital } from '@fortawesome/free-regular-svg-icons';
+import { faBook, faPhone } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import React, { useState } from 'react';
+import { useForm } from 'react-hook-form';
+import contactImage from '../../assets/images/contact.jpg';
 
 const Contact = () => {
   const {
     register,
     formState: { errors },
     handleSubmit,
-    
   } = useForm();
 
-  const [contactError, setContactError] = useState("");
+  const [contactError, setContactError] = useState('');
 
-  const onSubmit = (data) => {
-    console.log(data);
-  };
+  const onSubmit = (data) => {};
 
   return (
     <div className="pb-4 ml-0 lg:ml-1 w-full lg:w-[83%] bg-[#23075e]">
@@ -29,8 +26,8 @@ const Contact = () => {
           className="hero h-[18vh] md:h-[22vh] lg:h-[32vh]"
           style={{
             backgroundImage: `url(${contactImage})`,
-            backgroundPosition: "right",
-            backgroundPositionY: "bottom",
+            backgroundPosition: 'right',
+            backgroundPositionY: 'bottom',
           }}
         >
           <div className="hero-overlay bg-slate-800 bg-opacity-40 text-center"></div>
@@ -98,15 +95,15 @@ const Contact = () => {
                   className="text-center p-2 w-full lg:w-[350px] max-w-md focus:bg-[#722ed1] border-none outline-0 rounded-sm"
                   type="email"
                   placeholder="Enter Email"
-                  {...register("email", {
+                  {...register('email', {
                     required: {
                       value: true,
-                      message: "Email is required!",
+                      message: 'Email is required!',
                     },
 
                     pattern: {
                       value: /[a-z0-9]+@[a-z]+\.[a-z]{2,3}/,
-                      message: "Provide a valid email!",
+                      message: 'Provide a valid email!',
                     },
                   })}
                 />
@@ -126,10 +123,10 @@ const Contact = () => {
                   className="text-center p-2 w-full lg:w-[350px] max-w-md focus:bg-[#722ed1] border-none outline-0 rounded-sm"
                   type="text"
                   placeholder="Subject"
-                  {...register("mobile", {
+                  {...register('mobile', {
                     required: {
                       value: true,
-                      message: "Mobile Number is required!",
+                      message: 'Mobile Number is required!',
                     },
                   })}
                 />
@@ -143,10 +140,10 @@ const Contact = () => {
                   className="text-center p-2 w-full max-w-md focus:bg-[#722ed1] border-none outline-0 rounded-sm"
                   rows={5}
                   placeholder="Write your message"
-                  {...register("textMessage", {
+                  {...register('textMessage', {
                     required: {
                       value: true,
-                      message: "Message is required!",
+                      message: 'Message is required!',
                     },
                   })}
                 />

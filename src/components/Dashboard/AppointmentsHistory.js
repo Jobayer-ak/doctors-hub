@@ -42,10 +42,8 @@ const AppointmenstHistory = () => {
             withCredentials: true,
           })
           .then((res) => {
-            console.log(res.data);
             refetch();
             if (res.status === 200) {
-              console.log(book_id);
               Swal.fire(
                 `${res.data.message}`,
                 'Booking has been deleted.',
@@ -62,7 +60,6 @@ const AppointmenstHistory = () => {
             }
           })
           .catch((err) => {
-            console.log(err);
             if (err.response.status) {
               return Swal.fire({
                 icon: 'error',

@@ -1,12 +1,12 @@
-import axios from "axios";
-import React, { useState } from "react";
-import { useForm } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
-import Swal from "sweetalert2";
-import Loader from "../common/Loading/Loader";
+import axios from 'axios';
+import React, { useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { useNavigate } from 'react-router-dom';
+import Swal from 'sweetalert2';
+import Loader from '../common/Loading/Loader';
 
 const SetPassword = () => {
-  const [loginError, setLoginError] = useState("");
+  const [loginError, setLoginError] = useState('');
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const {
@@ -17,30 +17,12 @@ const SetPassword = () => {
   } = useForm();
 
   const queryParameters = new URLSearchParams(window.location.search);
-  const ptoken = queryParameters.get("token");
-
-  // console.log(ptoken);
+  const ptoken = queryParameters.get('token');
 
   const onSubmit = async (data) => {
     setLoading(true);
-    console.log(data);
-
-    const pass = data.password;
-    const cpass = data.cpassword;
-    const regex =
-      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$/;
-
-    if (pass.match(regex) && cpass.match(regex)) {
-      console.log("String matches the regex!");
-    } else {
-      console.log("String does not match the regex!");
-    }
 
     if (data.password === data.cpassword) {
-      console.log("matched: ", typeof data.password);
-
-      const pass = data.password;
-      console.log(pass);
       await axios
         .post(
           `https://doctors-hub-server.vercel.app/api/v1/user/set-new-password/${ptoken}`,
@@ -50,16 +32,15 @@ const SetPassword = () => {
         )
         .then((res) => {
           setLoading(false);
-          console.log(res);
+
           if (res.status === 200) {
             reset();
-            navigate("/login");
-            return Swal.fire("Success!", res.data.message, "success");
+            navigate('/login');
+            return Swal.fire('Success!', res.data.message, 'success');
           }
         })
         .catch((err) => {
           setLoading(false);
-          console.log(err);
 
           if (err.response.status === 401) {
             setLoginError(err.response.data.error);
@@ -71,7 +52,6 @@ const SetPassword = () => {
         });
     } else {
       setLoading(false);
-      console.log("didn't match password");
     }
   };
 
@@ -94,14 +74,14 @@ const SetPassword = () => {
               className="text-center p-2 w-full max-w-sm focus:bg-[#722ed1] border-none outline-0 rounded-sm"
               type="password"
               placeholder="Password"
-              {...register("password", {
-                required: "Password is required",
+              {...register('password', {
+                required: 'Password is required',
 
-                minLength: { value: 6, message: "At least 6 characters!" },
+                minLength: { value: 6, message: 'At least 6 characters!' },
                 pattern: {
                   value: /(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9])/,
                   message:
-                    "Password must have uppercase, number and special characters",
+                    'Password must have uppercase, number and special characters',
                 },
               })}
             />
@@ -115,14 +95,14 @@ const SetPassword = () => {
               className="text-center p-2 w-full max-w-sm focus:bg-[#722ed1] border-none outline-0 rounded-sm"
               type="password"
               placeholder="Confirm Password"
-              {...register("cpassword", {
-                required: "Confirm Password is required",
+              {...register('cpassword', {
+                required: 'Confirm Password is required',
 
-                minLength: { value: 6, message: "At least 6 characters!" },
+                minLength: { value: 6, message: 'At least 6 characters!' },
                 pattern: {
                   value: /(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9])/,
                   message:
-                    "Password must have uppercase, number and special characters",
+                    'Password must have uppercase, number and special characters',
                 },
               })}
             />

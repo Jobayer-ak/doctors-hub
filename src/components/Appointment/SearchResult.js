@@ -16,7 +16,7 @@ import {
 import useStorage from '../../hook/useStorage';
 import Swal from 'sweetalert2';
 import { useNavigate } from 'react-router-dom';
-import Loader from "../../components/common/Loading/Loader"
+import Loader from '../../components/common/Loading/Loader';
 
 const SearchResult = ({ info }) => {
   const [date, setDate] = useState(new Date());
@@ -51,13 +51,10 @@ const SearchResult = ({ info }) => {
     );
   });
 
-  const { branch, fee, name, slot, speciality, _id } =
-    filterData[0];
+  const { branch, fee, name, slot, speciality, _id } = filterData[0];
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    console.log('slot v: ', e.target.slot.value);
 
     setLoading(true);
 
@@ -75,7 +72,6 @@ const SearchResult = ({ info }) => {
       branch: branch,
     };
 
-    console.log('Booking info: ', booking);
     baseURL
       .post('/booking', booking, {
         withCredentials: true,
@@ -98,9 +94,9 @@ const SearchResult = ({ info }) => {
             text: `${res.data.message} at ${booking.slot} on ${date}`,
           });
         }
-        
+
         refetch();
-        navigate("/dashboard")
+        navigate('/dashboard');
       })
       .catch((error) => {
         setLoading(false);
@@ -122,12 +118,11 @@ const SearchResult = ({ info }) => {
           });
           navigate('/login');
         }
-        console.log(error.response);
       });
   };
 
   if (loading) {
-    return <Loader/>
+    return <Loader />;
   }
 
   return (

@@ -12,7 +12,7 @@ const AllPayments = () => {
     limit
   );
 
-  console.log('Payments: ', data);
+  
 
   return (
     <div className="px-4">

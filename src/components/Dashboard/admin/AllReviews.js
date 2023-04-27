@@ -23,7 +23,6 @@ const AllReviews = () => {
   }
 
   const reviews = data.result;
-  console.log('reviews: ', reviews);
 
   return (
     <div className="w-full min-h-screen px-4">

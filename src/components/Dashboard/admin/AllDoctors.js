@@ -61,7 +61,7 @@ const AllDoctors = () => {
   };
 
 
-  console.log("docs: ", data);
+  
   return (
     <div className="px-4">
       {/* table */}

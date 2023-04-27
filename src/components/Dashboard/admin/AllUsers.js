@@ -1,4 +1,4 @@
-import React, {useState } from 'react';
+import React, { useState } from 'react';
 import Loader from '../../common/Loading/Loader';
 import baseURL from '../../../utils/baseURL';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -33,13 +33,12 @@ const AllUsers = () => {
           .then((res) => {
             refetch();
             if (res.status === 200) {
-              console.log(doc_email);
               Swal.fire(
                 `${res.data.message}`,
                 'Doctor has been deleted.',
                 'success'
               );
-              // refetch();
+              
             }
 
             if (res.status === 403) {
@@ -64,8 +63,6 @@ const AllUsers = () => {
   };
 
   const handleAdmin = async (uId) => {
-    console.log('user id: ', uId);
-
     const uData = { uRole: 'admin' };
 
     await baseURL
@@ -80,7 +77,6 @@ const AllUsers = () => {
         }
       })
       .catch((err) => {
-        console.log(err.response.data.message);
         if (err.response.status === 403) {
           return Swal.fire({
             icon: 'error',
@@ -99,7 +95,6 @@ const AllUsers = () => {
       });
   };
 
-  // console.log(data);
 
   return (
     <div className="px-4">
@@ -132,11 +127,21 @@ const AllUsers = () => {
                         ? index + 1
                         : (currentPage - 1) * limit + index + 1}
                     </td>
-                    <td className="bg-slate-300 p-2 border md:table-cell">{a.name}</td>
-                    <td className="bg-slate-300 p-2 border md:table-cell">{a.email}</td>
-                    <td className="bg-slate-300 p-2 border md:table-cell">{a.mobile}</td>
-                    <td className="bg-slate-300 p-2 border md:table-cell">{a.gender}</td>
-                    <td className="bg-slate-300 p-2 border md:table-cell">{a.status}</td>
+                    <td className="bg-slate-300 p-2 border md:table-cell">
+                      {a.name}
+                    </td>
+                    <td className="bg-slate-300 p-2 border md:table-cell">
+                      {a.email}
+                    </td>
+                    <td className="bg-slate-300 p-2 border md:table-cell">
+                      {a.mobile}
+                    </td>
+                    <td className="bg-slate-300 p-2 border md:table-cell">
+                      {a.gender}
+                    </td>
+                    <td className="bg-slate-300 p-2 border md:table-cell">
+                      {a.status}
+                    </td>
 
                     <td
                       className={

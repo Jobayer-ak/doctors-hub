@@ -1,6 +1,6 @@
-import React from "react";
-import { useForm } from "react-hook-form";
-import Swal from "sweetalert2";
+import React from 'react';
+import { useForm } from 'react-hook-form';
+import Swal from 'sweetalert2';
 
 const SlotModal = ({ setModalData }) => {
   const {
@@ -12,12 +12,10 @@ const SlotModal = ({ setModalData }) => {
 
   const onSubmit = (data) => {
     if (data.slot.length <= 3) {
-      console.log(data.slot.length);
-
       return Swal.fire({
-        icon: "error",
-        title: "Oops...",
-        text: "You have to select at least 4 time slots.",
+        icon: 'error',
+        title: 'Oops...',
+        text: 'You have to select at least 4 time slots.',
       });
     }
 
@@ -54,7 +52,7 @@ const SlotModal = ({ setModalData }) => {
                         type="checkbox"
                         id="s1"
                         value="5.00pm- 5.30pm"
-                        {...register("slot")}
+                        {...register('slot')}
                       />
                       <label htmlFor="cb1" className="ml-2">
                         5.00pm - 5.30pm
@@ -65,7 +63,7 @@ const SlotModal = ({ setModalData }) => {
                         type="checkbox"
                         id="s2"
                         value="5.30pm - 6.00pm"
-                        {...register("slot")}
+                        {...register('slot')}
                       />
                       <label htmlFor="cb2" className="ml-2">
                         5.30pm - 6.00pm
@@ -76,7 +74,7 @@ const SlotModal = ({ setModalData }) => {
                         type="checkbox"
                         id="s3"
                         value="6.00pm - 6.30pm"
-                        {...register("slot")}
+                        {...register('slot')}
                       />
                       <label htmlFor="cb1" className="ml-2">
                         6.00pm - 6.30pm
@@ -87,7 +85,7 @@ const SlotModal = ({ setModalData }) => {
                         type="checkbox"
                         id="s4"
                         value="6.30pm - 7.00pm"
-                        {...register("slot")}
+                        {...register('slot')}
                       />
                       <label htmlFor="cb2" className="ml-2">
                         6.30pm - 7.00pm
@@ -98,7 +96,7 @@ const SlotModal = ({ setModalData }) => {
                         type="checkbox"
                         id="s5"
                         value="7.00pm - 7.30pm"
-                        {...register("slot")}
+                        {...register('slot')}
                       />
                       <label htmlFor="cb2" className="ml-2">
                         7.00pm - 7.30pm
@@ -109,7 +107,7 @@ const SlotModal = ({ setModalData }) => {
                         type="checkbox"
                         id="s6"
                         value="7.30pm - 8.00pm"
-                        {...register("slot")}
+                        {...register('slot')}
                       />
                       <label htmlFor="cb2" className="ml-2">
                         7.30pm - 8.00pm
@@ -120,7 +118,7 @@ const SlotModal = ({ setModalData }) => {
                         type="checkbox"
                         id="s7"
                         value="8.00pm - 8.30pm"
-                        {...register("slot")}
+                        {...register('slot')}
                       />
                       <label htmlFor="cb2" className="ml-2">
                         8.00pm - 8.30pm
@@ -131,7 +129,7 @@ const SlotModal = ({ setModalData }) => {
                         type="checkbox"
                         id="s8"
                         value="8.30pm - 9.00pm"
-                        {...register("slot")}
+                        {...register('slot')}
                       />
                       <label htmlFor="cb2" className="ml-2">
                         8.30pm - 9.00pm
@@ -142,7 +140,7 @@ const SlotModal = ({ setModalData }) => {
                         type="checkbox"
                         id="s9"
                         value="9.00pm - 9.30pm"
-                        {...register("slot")}
+                        {...register('slot')}
                       />
                       <label htmlFor="cb2" className="ml-2">
                         9.00pm - 9.30pm
@@ -154,7 +152,7 @@ const SlotModal = ({ setModalData }) => {
                         id="s10"
                         value="9.30pm - 10.00pm"
                         className=""
-                        {...register("slot")}
+                        {...register('slot')}
                       />
                       <label htmlFor="cb2" className="ml-2">
                         9.30pm - 10.00pm

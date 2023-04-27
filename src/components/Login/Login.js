@@ -1,24 +1,21 @@
-import React, { useContext} from 'react';
+import React, { useContext } from 'react';
 import loginImage from '../../assets/images/loginImage .png';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEnvelope } from '@fortawesome/free-regular-svg-icons';
 import { faCircleUser, faLock } from '@fortawesome/free-solid-svg-icons';
 import { useForm } from 'react-hook-form';
-import { Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { ColorRing, Dna } from 'react-loader-spinner';
 import { AuthContext } from '../../context/AuthContext';
 
 const Login = () => {
-  // const navigate = useNavigate();
-  // const location = useLocation();
-  const { user, login, loading, loginError } = useContext(AuthContext);
+  
+  const { login, loading, loginError } = useContext(AuthContext);
   const {
     register,
     formState: { errors },
     handleSubmit,
   } = useForm();
-
-  console.log('loading: ', loading, user);
 
   const onSubmit = (data) => {
     login(data.email, data.password);

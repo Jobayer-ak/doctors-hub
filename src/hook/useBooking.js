@@ -1,12 +1,12 @@
-import { useQuery } from "react-query";
-import baseURL from "../utils/baseURL";
+import { useQuery } from 'react-query';
+import baseURL from '../utils/baseURL';
 
 const useBooking = (user) => {
   const {
     data: table_data,
     isLoading,
     refetch,
-  } = useQuery(["booking", user], async () => {
+  } = useQuery(['booking', user], async () => {
     const res = await baseURL.get(`/bookings?patient=${user.userEmail}`, {
       withCredentials: true,
     });
@@ -18,7 +18,6 @@ const useBooking = (user) => {
     return <h2 className="text-xl font-bold text-white">Loading......</h2>;
   }
 
-  // console.log(table_data);
   return { table_data, refetch };
 };
 

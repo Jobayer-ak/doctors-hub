@@ -24,7 +24,7 @@ export const AuthContextProvider = ({ children }) => {
       )
       .then((res) => {
         setLoading(false);
-        console.log('res data: ', res.data.others);
+        
 
         const user = {
           name: res.data.others.name,
@@ -38,7 +38,7 @@ export const AuthContextProvider = ({ children }) => {
         navigate(from, { replace: true });
       })
       .catch((error) => {
-        console.log(error.response.data.error);
+        
         setLoading(false);
         setLoginError(error.response.data.error);
       });

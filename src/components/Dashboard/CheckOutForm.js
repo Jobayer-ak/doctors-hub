@@ -24,11 +24,7 @@ const CheckOutForm = ({ data }) => {
     fee,
   } = data.appointment;
 
-  console.log('payment data: ', data.appointment);
-
   useEffect(() => {
-    console.log(fee);
-
     baseURL
       .post(
         `/create-payment-intent`,
@@ -38,9 +34,7 @@ const CheckOutForm = ({ data }) => {
         }
       )
       .then((res) => {
-        console.log(res);
         if (res.data?.clientSecret) {
-          // console.log('res: ', res.data.clientSecret);
           setClientSecret(res.data.clientSecret);
         }
       })
@@ -60,14 +54,13 @@ const CheckOutForm = ({ data }) => {
       return;
     }
 
-    // Use your card Element with other Stripe.js APIs
+    // Use card Element with other Stripe.js APIs
     const { error, paymentMethod } = await stripe.createPaymentMethod({
       type: 'card',
       card,
     });
 
-    // console.log('Payment Method: ', paymentMethod);
-    // console.log('client Secret: ', clientSecret);
+   
 
     setCardError(error?.message || '');
     setSuccess('');
@@ -85,7 +78,7 @@ const CheckOutForm = ({ data }) => {
         },
       });
 
-    // console.log('Payment intent: ', paymentIntent);
+    
 
     if (intentError) {
       setCardError(intentError.message);
@@ -93,7 +86,7 @@ const CheckOutForm = ({ data }) => {
     } else {
       setCardError('');
       setTransactionId(paymentIntent.id);
-      console.log(paymentIntent);
+     
 
       setTransactionId(paymentIntent.id);
 
@@ -121,7 +114,7 @@ const CheckOutForm = ({ data }) => {
         )
         .then((res) => {
           setProcessing(false);
-          console.log(res.data);
+          
         })
         .catch((error) => console.log(error));
 
@@ -131,9 +124,8 @@ const CheckOutForm = ({ data }) => {
 
   if (processing) {
     return <Loader />;
-  };
+  }
 
-  
   return (
     <div className="bg-[#242852] mt-4 px-4 py-4 mx-2 rounded-md">
       <div>
