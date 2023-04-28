@@ -72,6 +72,7 @@ const Booking = ({ date, docinfo, setDocinfo, refetch, setNewBooking }) => {
         setNewBooking(true);
         setDocinfo(null);
         refetch();
+        navigate("/dashboard")
       })
       .catch((error) => {
         setLoading(false);

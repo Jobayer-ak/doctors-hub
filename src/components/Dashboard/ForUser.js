@@ -9,7 +9,7 @@ const ForUser = () => {
   const dashboardBtn = [
     'Pending Appointments',
     'Appointments History',
-    'My Reviews',
+    'Payment History',
   ];
 
   return (
@@ -35,7 +35,7 @@ const ForUser = () => {
       <div className="min-h-screen">
         {active === 'Pending Appointments' && <PendingAppointments />}
         {active === 'Appointments History' && <AppointmentHistory />}
-        {active === 'My Reviews' && <PaymentHistory />}
+        {active === 'Payment History' && <PaymentHistory />}
       </div>
     </div>
   );
